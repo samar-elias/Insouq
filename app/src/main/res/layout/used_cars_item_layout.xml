@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="@dimen/_5sdp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_5sdp">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/white_radius_10">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/motor_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_160sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_baseline_directions_car_24"/>
+                <ImageView
+                    android:id="@+id/favourite_motor"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:src="@drawable/ic_baseline_favorite_border_24" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp">
+
+                <TextView
+                    android:id="@+id/motor_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:visibility="gone"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:lines="1"
+                    android:text="@string/ad_title"
+                    android:fontFamily="@font/objectivity_medium"
+                    android:textColor="@color/purple_text"
+                    android:textSize="@dimen/_10ssp"/>
+
+                <TextView
+                    android:id="@+id/posted_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:gravity="end"
+                    android:text="2 days ago"
+                    android:fontFamily="@font/objectivity_regular"
+                    android:textColor="@color/gray_3"
+                    android:textSize="@dimen/_8ssp"/>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/title_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/purple_text"
+                        android:fontFamily="@font/objectivity_medium"
+                        android:text="@string/title"
+                        android:textSize="@dimen/_12ssp" />
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/purple_text"
+                        android:fontFamily="@font/objectivity_medium"
+                        android:text="@string/title"
+                        android:textSize="@dimen/_12ssp"
+                        android:layout_marginStart="@dimen/_5sdp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <ImageView
+                    android:id="@+id/kilos_icon"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    app:layout_constraintTop_toBottomOf="@id/title_layout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/kilos_amount"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:alpha="0.5"
+                    android:src="@drawable/kilometer_list"/>
+
+                <TextView
+                    android:id="@+id/kilos_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:fontFamily="@font/objectivity_regular"
+                    android:text="xx,xxx KM"
+                    android:textColor="@color/purple_text"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintStart_toEndOf="@id/kilos_icon"
+                    app:layout_constraintTop_toTopOf="@id/kilos_icon" />
+
+                <ImageView
+                    android:id="@+id/motor_year_icon"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    app:layout_constraintTop_toTopOf="@id/kilos_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/kilos_icon"
+                    app:layout_constraintStart_toEndOf="@id/kilos_amount"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:alpha="0.5"
+                    android:src="@drawable/age_list"/>
+
+                <TextView
+                    android:id="@+id/motor_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:fontFamily="@font/objectivity_regular"
+                    android:text="xxxx"
+                    android:textColor="@color/purple_text"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintStart_toEndOf="@id/motor_year_icon"
+                    app:layout_constraintTop_toTopOf="@id/motor_year_icon" />
+
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    app:layout_constraintStart_toEndOf="@id/motor_year"
+                    app:layout_constraintTop_toTopOf="@id/motor_year"
+                    android:src="@drawable/car_year"
+                    android:visibility="gone"
+                    android:layout_marginStart="@dimen/_10sdp"/>
+
+                <TextView
+                    android:id="@+id/value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:visibility="gone"
+                    android:fontFamily="@font/objectivity_medium"
+                    android:text="xxxx"
+                    android:textColor="@color/purple_text"
+                    android:textSize="@dimen/_8ssp"
+                    app:layout_constraintBottom_toBottomOf="@id/icon"
+                    app:layout_constraintStart_toEndOf="@id/icon"
+                    app:layout_constraintTop_toTopOf="@id/icon" />
+
+                <TextView
+                    android:id="@+id/motor_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/posted_date"
+                    app:layout_constraintTop_toBottomOf="@id/motor_year"
+                    android:text="AED xxx,xxx"
+                    android:textColor="@color/orange"
+                    android:fontFamily="@font/objectivity_bold"
+                    android:textSize="@dimen/_12ssp"
+                    android:layout_marginTop="@dimen/_15sdp"/>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/location_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_5sdp">
+                    <ImageView
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:src="@drawable/location"
+                        android:alpha="0.5"
+                        android:layout_marginEnd="@dimen/_5sdp"/>
+                    <TextView
+                        android:id="@id/location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:textColor="@color/purple_text"
+                        android:fontFamily="@font/objectivity_regular"
+                        android:text="@string/location"
+                        android:textSize="@dimen/_10ssp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

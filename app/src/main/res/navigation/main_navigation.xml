@@ -1,0 +1,1125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chatFragment2"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_sellAnItemFragment"
+            app:destination="@id/sellAnItemFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_brandFragment2"
+            app:destination="@id/brandFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_motorDetailsFragment22"
+            app:destination="@id/motorDetailsFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_propertyDetailsFragment2"
+            app:destination="@id/propertyDetailsFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_businessDetailsFragment2"
+            app:destination="@id/businessDetailsFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_jobDetailsFragment2"
+            app:destination="@id/jobDetailsFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_jobWantedDetailsFragment2"
+            app:destination="@id/jobWantedDetailsFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_electronicsDetailsFragment2"
+            app:destination="@id/electronicsDetailsFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_numberDetailsFragment2"
+            app:destination="@id/numberDetailsFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_servicesDetailsFragment2"
+            app:destination="@id/servicesDetailsFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_propertyDetailsFragment22"
+            app:destination="@id/propertyDetailsFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_filter1Fragment"
+            app:destination="@id/filter1Fragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_machinary1Fragment"
+            app:destination="@id/machinary1Fragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_machinary2Fragment"
+            app:destination="@id/machinary2Fragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_bike1Fragment"
+            app:destination="@id/bike1Fragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_part1Fragment"
+            app:destination="@id/part1Fragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_careerLevelFragment"
+            app:destination="@id/careerLevelFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_subCatFragment"
+            app:destination="@id/subCatFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_emirateFragment"
+            app:destination="@id/emirateFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_operatorFragment"
+            app:destination="@id/operatorFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_brandFragment"
+            app:destination="@id/brandFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Chat.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" />
+    <fragment
+        android:id="@+id/sellAnItemFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.SellAnItemFragment"
+        android:label="fragment_sell_an_item"
+        tools:layout="@layout/fragment_sell_an_item" >
+        <action
+            android:id="@+id/action_sellAnItemFragment_to_subCategoriesPostAdFragment"
+            app:destination="@id/subCategoriesPostAdFragment" />
+        <action
+            android:id="@+id/action_sellAnItemFragment_to_postClassifiedsAdFragment"
+            app:destination="@id/postClassifiedsAdFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.Notifications.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_notificationsFragment_to_motorDetailsFragment2"
+            app:destination="@id/motorDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_myProfileFragment"
+            app:destination="@id/myProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myAdsFragment"
+            app:destination="@id/myAdsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_mySavedSearchesFragment"
+            app:destination="@id/mySavedSearchesFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myFavouritesFragment"
+            app:destination="@id/myFavouritesFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myJobsFragment"
+            app:destination="@id/myJobsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_supportFragment"
+            app:destination="@id/supportFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_termsConditionsFragment"
+            app:destination="@id/termsConditionsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_howItWorksFragment"
+            app:destination="@id/howItWorksFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_sellingGuidlinesFragment"
+            app:destination="@id/sellingGuidlinesFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_contactUsFragment"
+            app:destination="@id/contactUsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_privacyPolicyFragment"
+            app:destination="@id/privacyPolicyFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_advertisingFragment"
+            app:destination="@id/advertisingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/brandFragment2"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Motors.Cars.BrandFragment"
+        android:label="fragment_brand"
+        tools:layout="@layout/fragment_brand" >
+        <action
+            android:id="@+id/action_brandFragment2_to_modelFragment2"
+            app:destination="@id/modelFragment2" />
+        <action
+            android:id="@+id/action_brandFragment2_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/modelFragment2"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Motors.Cars.ModelFragment"
+        android:label="fragment_model"
+        tools:layout="@layout/fragment_model" >
+        <action
+            android:id="@+id/action_modelFragment2_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+        <argument
+            android:name="brandId"
+            app:argType="string" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/subCategoryFragment2"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.SubCategoryFragment"
+        android:label="fragment_sub_category"
+        tools:layout="@layout/fragment_sub_category" >
+        <action
+            android:id="@+id/action_subCategoryFragment2_to_motorDetailsFragment2"
+            app:destination="@id/motorDetailsFragment2" />
+        <action
+            android:id="@+id/action_subCategoryFragment2_to_propertyDetailsFragment2"
+            app:destination="@id/propertyDetailsFragment2" />
+        <action
+            android:id="@+id/action_subCategoryFragment2_to_businessDetailsFragment2"
+            app:destination="@id/businessDetailsFragment2" />
+        <action
+            android:id="@+id/action_subCategoryFragment2_to_jobDetailsFragment2"
+            app:destination="@id/jobDetailsFragment2" />
+        <action
+            android:id="@+id/action_subCategoryFragment2_to_jobWantedDetailsFragment2"
+            app:destination="@id/jobWantedDetailsFragment2" />
+        <action
+            android:id="@+id/action_subCategoryFragment2_to_jobWantedDetailsFragment22"
+            app:destination="@id/jobWantedDetailsFragment2" />
+        <action
+            android:id="@+id/action_subCategoryFragment2_to_electronicsDetailsFragment2"
+            app:destination="@id/electronicsDetailsFragment2" />
+        <action
+            android:id="@+id/action_subCategoryFragment2_to_numberDetailsFragment2"
+            app:destination="@id/numberDetailsFragment2" />
+        <action
+            android:id="@+id/action_subCategoryFragment2_to_servicesDetailsFragment2"
+            app:destination="@id/servicesDetailsFragment2" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+        <argument
+            android:name="position"
+            app:argType="integer" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/motorDetailsFragment2"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Motors.MotorDetailsFragment"
+        android:label="fragment_motor_details"
+        tools:layout="@layout/fragment_motor_details" >
+        <action
+            android:id="@+id/action_motorDetailsFragment2_to_makeOfferBottomSheetDialogFragment"
+            app:destination="@id/makeOfferBottomSheetDialogFragment" />
+        <argument
+            android:name="position"
+            app:argType="integer" />
+        <argument
+            android:name="isNew"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/propertyDetailsFragment2"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Property.PropertyDetailsFragment"
+        android:label="fragment_property_details"
+        tools:layout="@layout/fragment_property_details" >
+        <action
+            android:id="@+id/action_propertyDetailsFragment2_to_makeOfferBottomSheetDialogFragment"
+            app:destination="@id/makeOfferBottomSheetDialogFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/businessDetailsFragment2"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Business.BusinessDetailsFragment"
+        android:label="fragment_business_details"
+        tools:layout="@layout/fragment_business_details" >
+        <action
+            android:id="@+id/action_businessDetailsFragment2_to_makeOfferBottomSheetDialogFragment"
+            app:destination="@id/makeOfferBottomSheetDialogFragment" />
+        <argument
+            android:name="position"
+            app:argType="integer" />
+        <argument
+            android:name="isNew"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/jobDetailsFragment2"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Jobs.JobOpening.JobDetailsFragment"
+        android:label="fragment_job_details"
+        tools:layout="@layout/fragment_job_details" >
+        <action
+            android:id="@+id/action_jobDetailsFragment2_to_applyForJobFragment"
+            app:destination="@id/applyForJobFragment" />
+        <argument
+            android:name="position"
+            app:argType="integer" />
+        <argument
+            android:name="isNew"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/jobWantedDetailsFragment2"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Jobs.JobWanted.JobWantedDetailsFragment"
+        android:label="fragment_job_wanted_details"
+        tools:layout="@layout/fragment_job_wanted_details" >
+        <argument
+            android:name="position"
+            app:argType="integer" />
+        <argument
+            android:name="isNew"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/electronicsDetailsFragment2"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Electronics.ElectronicsDetailsFragment"
+        android:label="fragment_electronics_details"
+        tools:layout="@layout/fragment_electronics_details" >
+        <action
+            android:id="@+id/action_electronicsDetailsFragment2_to_makeOfferBottomSheetDialogFragment"
+            app:destination="@id/makeOfferBottomSheetDialogFragment" />
+        <argument
+            android:name="position"
+            app:argType="integer" />
+        <argument
+            android:name="isNew"
+            app:argType="boolean" />
+        <argument
+            android:name="isElectronics"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/numberDetailsFragment2"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Numbers.NumberDetailsFragment"
+        android:label="fragment_number_details"
+        tools:layout="@layout/fragment_number_details" >
+        <action
+            android:id="@+id/action_numberDetailsFragment2_to_makeOfferBottomSheetDialogFragment"
+            app:destination="@id/makeOfferBottomSheetDialogFragment" />
+        <action
+            android:id="@+id/action_numberDetailsFragment2_to_viewOnCarFragment"
+            app:destination="@id/viewOnCarFragment" />
+        <argument
+            android:name="position"
+            app:argType="integer" />
+        <argument
+            android:name="isNew"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/servicesDetailsFragment2"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Services.ServicesDetailsFragment"
+        android:label="fragment_services_details"
+        tools:layout="@layout/fragment_services_details" >
+        <argument
+            android:name="position"
+            app:argType="integer" />
+        <argument
+            android:name="isNew"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/sell2Fragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Motors.UsedCars.Sell2Fragment"
+        android:label="fragment_sell2"
+        tools:layout="@layout/fragment_sell2" >
+        <action
+            android:id="@+id/action_sell2Fragment_to_sell3Fragment"
+            app:destination="@id/sell3Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sell3Fragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Motors.UsedCars.Sell3Fragment"
+        android:label="fragment_sell3"
+        tools:layout="@layout/fragment_sell3" >
+        <action
+            android:id="@+id/action_sell3Fragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myProfileFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.MyProfile.MyProfileFragment"
+        android:label="fragment_my_profile"
+        tools:layout="@layout/fragment_my_profile" />
+    <fragment
+        android:id="@+id/myAdsFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.MyAds.MyAdsFragment"
+        android:label="fragment_my_ads"
+        tools:layout="@layout/fragment_my_ads" >
+        <action
+            android:id="@+id/action_myAdsFragment_to_adStatisticsFragment"
+            app:destination="@id/adStatisticsFragment" />
+        <action
+            android:id="@+id/action_myAdsFragment_to_moreViewsFragment"
+            app:destination="@id/moreViewsFragment" />
+        <action
+            android:id="@+id/action_myAdsFragment_to_editAdFragment"
+            app:destination="@id/editAdFragment" />
+        <action
+            android:id="@+id/action_myAdsFragment_to_editBusinessAdFragment"
+            app:destination="@id/editBusinessAdFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adStatisticsFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.MyAds.AdStatisticsFragment"
+        android:label="fragment_ad_statistics"
+        tools:layout="@layout/fragment_ad_statistics" >
+        <argument
+            android:name="adId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/mySavedSearchesFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.MySavedSearches.MySavedSearchesFragment"
+        android:label="fragment_my_saved_searches"
+        tools:layout="@layout/fragment_my_saved_searches" >
+        <action
+            android:id="@+id/action_mySavedSearchesFragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/myFavouritesFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.MyFavourites.MyFavouritesFragment"
+        android:label="fragment_my_favourites"
+        tools:layout="@layout/fragment_my_favourites" >
+        <action
+            android:id="@+id/action_myFavouritesFragment_to_motorDetailsFragment2"
+            app:destination="@id/motorDetailsFragment2" />
+        <action
+            android:id="@+id/action_myFavouritesFragment_to_businessDetailsFragment2"
+            app:destination="@id/businessDetailsFragment2" />
+        <action
+            android:id="@+id/action_myFavouritesFragment_to_jobDetailsFragment2"
+            app:destination="@id/jobDetailsFragment2" />
+        <action
+            android:id="@+id/action_myFavouritesFragment_to_servicesDetailsFragment2"
+            app:destination="@id/servicesDetailsFragment2" />
+        <action
+            android:id="@+id/action_myFavouritesFragment_to_electronicsDetailsFragment2"
+            app:destination="@id/electronicsDetailsFragment2" />
+        <action
+            android:id="@+id/action_myFavouritesFragment_to_numberDetailsFragment2"
+            app:destination="@id/numberDetailsFragment2" />
+        <action
+            android:id="@+id/action_myFavouritesFragment_to_jobWantedDetailsFragment2"
+            app:destination="@id/jobWantedDetailsFragment2" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/myJobsFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.MyJobs.MyJobsFragment"
+        android:label="fragment_my_jobs"
+        tools:layout="@layout/fragment_my_jobs" >
+        <action
+            android:id="@+id/action_myJobsFragment_to_adStatisticsFragment"
+            app:destination="@id/adStatisticsFragment" />
+        <action
+            android:id="@+id/action_myJobsFragment_to_moreViewsFragment"
+            app:destination="@id/moreViewsFragment" />
+        <action
+            android:id="@+id/action_myJobsFragment_to_companyProfileFragment"
+            app:destination="@id/companyProfileFragment" />
+        <action
+            android:id="@+id/action_myJobsFragment_to_adStatisticsFragment2"
+            app:destination="@id/adStatisticsFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/makeOfferBottomSheetDialogFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.MakeOfferBottomSheetDialogFragment"
+        android:label="fragment_make_offer_bottom_sheet_dialog"
+        tools:layout="@layout/fragment_make_offer_bottom_sheet_dialog" />
+    <fragment
+        android:id="@+id/applyForJobFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Jobs.JobOpening.ApplyForJobFragment"
+        android:label="fragment_apply_for_job"
+        tools:layout="@layout/fragment_apply_for_job" >
+        <argument
+            android:name="adId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/moreViewsFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.MyAds.MoreViewsFragment"
+        android:label="fragment_more_views"
+        tools:layout="@layout/fragment_more_views" >
+        <action
+            android:id="@+id/action_moreViewsFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <argument
+            android:name="adId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/companyProfileFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.MyJobs.CompanyProfileFragment"
+        android:label="fragment_company_profile"
+        tools:layout="@layout/fragment_company_profile" />
+    <fragment
+        android:id="@+id/editAdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.MyAds.EditAdFragment"
+        android:label="fragment_edit_ad"
+        tools:layout="@layout/fragment_edit_ad" />
+    <fragment
+        android:id="@+id/supportFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.Support.SupportFragment"
+        android:label="fragment_support"
+        tools:layout="@layout/fragment_support" />
+    <fragment
+        android:id="@+id/termsConditionsFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.TermsConditions.TermsConditionsFragment"
+        android:label="fragment_terms_conditions"
+        tools:layout="@layout/fragment_terms_conditions" />
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.AboutUs.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" />
+    <fragment
+        android:id="@+id/howItWorksFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.HowItWorks.HowItWorksFragment"
+        android:label="fragment_how_it_works"
+        tools:layout="@layout/fragment_how_it_works" />
+    <fragment
+        android:id="@+id/sellingGuidlinesFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.SellingGuidlines.SellingGuidlinesFragment"
+        android:label="fragment_selling_guidlines"
+        tools:layout="@layout/fragment_selling_guidlines" />
+    <fragment
+        android:id="@+id/contactUsFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.ContactUs.ContactUsFragment"
+        android:label="fragment_contact_us"
+        tools:layout="@layout/fragment_contact_us" />
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.PrivacyPolicy.PrivacyPolicyFragment"
+        android:label="fragment_privacy_policy"
+        tools:layout="@layout/fragment_privacy_policy" />
+    <fragment
+        android:id="@+id/advertisingFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.Advertising.AdvertisingFragment"
+        android:label="fragment_advertising"
+        tools:layout="@layout/fragment_advertising" />
+    <fragment
+        android:id="@+id/viewOnCarFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Numbers.ViewOnCar.ViewOnCarFragment"
+        android:label="fragment_view_on_car"
+        tools:layout="@layout/fragment_view_on_car" >
+        <argument
+            android:name="numberItem"
+            app:argType="com.hudhud.insouqapplication.AppUtils.Responses.NumberAd" />
+    </fragment>
+    <fragment
+        android:id="@+id/subCategoriesPostAdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.SubCategoriesPostAdFragment"
+        android:label="fragment_sub_categories_post_ad"
+        tools:layout="@layout/fragment_sub_categories_post_ad" >
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_sell2Fragment"
+            app:destination="@id/sell2Fragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_postElectronicsAdFragment"
+            app:destination="@id/postElectronicsAdFragment" />
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_postNumbersAdFragment"
+            app:destination="@id/postNumbersAdFragment" />
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_postBusinessAdFragment"
+            app:destination="@id/postBusinessAdFragment" />
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_postJobOpeningAdFragment"
+            app:destination="@id/postJobOpeningAdFragment" />
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_postJobWantedAdFragment"
+            app:destination="@id/postJobWantedAdFragment" />
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_postServiceAdFragment"
+            app:destination="@id/postServiceAdFragment" />
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_postJobWantedAdFragment2"
+            app:destination="@id/postJobWantedAdFragment" />
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_postPropertyAdFragment"
+            app:destination="@id/postPropertyAdFragment" />
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_postMobileNumberAdFragment"
+            app:destination="@id/postMobileNumberAdFragment" />
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_postServiceAdCarFragment"
+            app:destination="@id/postServiceAdCarFragment" />
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_initialBoatsFragment"
+            app:destination="@id/initialBoatsFragment" />
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_initialExportCarFragment"
+            app:destination="@id/initialExportCarFragment" />
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_initialPartFragment"
+            app:destination="@id/initialPartFragment" />
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_initialBikeFragment"
+            app:destination="@id/initialBikeFragment" />
+        <action
+            android:id="@+id/action_subCategoriesPostAdFragment_to_initialMachinaryFragment"
+            app:destination="@id/initialMachinaryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postElectronicsAdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Electronics.PostElectronicsAdFragment"
+        android:label="fragment_post_electronics_ad"
+        tools:layout="@layout/fragment_post_electronics_ad" >
+        <argument
+            android:name="subCatId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_postElectronicsAdFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postNumbersAdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Numbers.PostNumbersAdFragment"
+        android:label="fragment_post_numbers_ad"
+        tools:layout="@layout/fragment_post_numbers_ad" >
+        <argument
+            android:name="subCatId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_postNumbersAdFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postBusinessAdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Business.PostBusinessAdFragment"
+        android:label="fragment_post_business_ad"
+        tools:layout="@layout/fragment_post_business_ad" >
+        <action
+            android:id="@+id/action_postBusinessAdFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postJobOpeningAdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Jobs.JobOpening.PostJobOpeningAdFragment"
+        android:label="fragment_post_job_opening_ad"
+        tools:layout="@layout/fragment_post_job_opening_ad" >
+        <action
+            android:id="@+id/action_postJobOpeningAdFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postJobWantedAdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Jobs.JobWanted.PostJobWantedAdFragment"
+        android:label="fragment_post_job_wanted_ad"
+        tools:layout="@layout/fragment_post_job_wanted_ad" >
+        <action
+            android:id="@+id/action_postJobWantedAdFragment_to_postFullJobWantedAdFragment"
+            app:destination="@id/postFullJobWantedAdFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postServiceAdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Services.PostServiceAdFragment"
+        android:label="fragment_post_service_ad"
+        tools:layout="@layout/fragment_post_service_ad" >
+        <argument
+            android:name="catId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_postServiceAdFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postPropertyAdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Property.PostPropertyAdFragment"
+        android:label="fragment_post_property_ad"
+        tools:layout="@layout/fragment_post_property_ad" />
+    <fragment
+        android:id="@+id/postMobileNumberAdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Numbers.PostMobileNumberAdFragment"
+        android:label="fragment_post_mobile_number_ad"
+        tools:layout="@layout/fragment_post_mobile_number_ad" >
+        <argument
+            android:name="subCatId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_postMobileNumberAdFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postClassifiedsAdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Classifieds.PostClassifiedsAdFragment"
+        android:label="fragment_post_classifieds_ad"
+        tools:layout="@layout/fragment_post_classifieds_ad" >
+        <action
+            android:id="@+id/action_postClassifiedsAdFragment_to_postClassifieds2AdFragment"
+            app:destination="@id/postClassifieds2AdFragment" />
+        <action
+            android:id="@+id/action_postClassifiedsAdFragment_to_postClassifiedsGroup1AdFragment"
+            app:destination="@id/postClassifiedsGroup1AdFragment" />
+        <action
+            android:id="@+id/action_postClassifiedsAdFragment_to_postClassifiedsGroup3AdFragment"
+            app:destination="@id/postClassifiedsGroup3AdFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postClassifieds2AdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Classifieds.PostClassifiedsGroup2AdFragment"
+        android:label="fragment_post_classifieds2_ad"
+        tools:layout="@layout/fragment_post_classifieds2_ad" >
+        <action
+            android:id="@+id/action_postClassifieds2AdFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postClassifiedsGroup1AdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Classifieds.PostClassifiedsGroup1AdFragment"
+        android:label="fragment_post_classifieds_group1_ad"
+        tools:layout="@layout/fragment_post_classifieds_group1_ad" >
+        <action
+            android:id="@+id/action_postClassifiedsGroup1AdFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postClassifiedsGroup3AdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Classifieds.PostClassifiedsGroup3AdFragment"
+        android:label="fragment_post_classifieds_group3_ad"
+        tools:layout="@layout/fragment_post_classifieds_group3_ad" >
+        <action
+            android:id="@+id/action_postClassifiedsGroup3AdFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postServiceAdCarFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Services.PostServiceAdCarFragment"
+        android:label="fragment_post_service_ad_car"
+        tools:layout="@layout/fragment_post_service_ad_car" >
+        <argument
+            android:name="catId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_postServiceAdCarFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFullJobWantedAdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Jobs.JobWanted.PostFullJobWantedAdFragment"
+        android:label="fragment_post_full_job_wanted_ad"
+        tools:layout="@layout/fragment_post_full_job_wanted_ad" >
+        <action
+            android:id="@+id/action_postFullJobWantedAdFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/initialBoatsFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Motors.Boats.InitialBoatsFragment"
+        android:label="fragment_initial_boats"
+        tools:layout="@layout/fragment_initial_boats" >
+        <action
+            android:id="@+id/action_initialBoatsFragment_to_fullBoatsFragment"
+            app:destination="@id/fullBoatsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fullBoatsFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Motors.Boats.FullBoatsFragment"
+        android:label="fragment_full_boats"
+        tools:layout="@layout/fragment_full_boats" >
+        <action
+            android:id="@+id/action_fullBoatsFragment_to_paymentFragment2"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/initialExportCarFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Motors.ExportCar.InitialExportCarFragment"
+        android:label="fragment_initial_export_car"
+        tools:layout="@layout/fragment_initial_export_car" >
+        <action
+            android:id="@+id/action_initialExportCarFragment_to_fullExportCarFragment"
+            app:destination="@id/fullExportCarFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fullExportCarFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Motors.ExportCar.FullExportCarFragment"
+        android:label="fragment_full_export_car"
+        tools:layout="@layout/fragment_full_export_car" >
+        <action
+            android:id="@+id/action_fullExportCarFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fullPartFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Motors.Parts.FullPartFragment"
+        android:label="fragment_full_part"
+        tools:layout="@layout/fragment_full_part" >
+        <action
+            android:id="@+id/action_fullPartFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/initialPartFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Motors.Parts.InitialPartFragment"
+        android:label="fragment_initial_part"
+        tools:layout="@layout/fragment_initial_part" >
+        <action
+            android:id="@+id/action_initialPartFragment_to_fullPartFragment"
+            app:destination="@id/fullPartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fullBikeFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Motors.Bikes.FullBikeFragment"
+        android:label="fragment_full_bike"
+        tools:layout="@layout/fragment_full_bike" >
+        <action
+            android:id="@+id/action_fullBikeFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/initialBikeFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Motors.Bikes.InitialBikeFragment"
+        android:label="fragment_initial_bike"
+        tools:layout="@layout/fragment_initial_bike" >
+        <action
+            android:id="@+id/action_initialBikeFragment_to_fullBikeFragment"
+            app:destination="@id/fullBikeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fullMachineryFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Motors.Machinary.FullMachineryFragment"
+        android:label="fragment_full_machinery"
+        tools:layout="@layout/fragment_full_machinery" >
+        <action
+            android:id="@+id/action_fullMachineryFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/initialMachinaryFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.Motors.Machinary.InitialMachinaryFragment"
+        android:label="fragment_initial_machinary"
+        tools:layout="@layout/fragment_initial_machinary" >
+        <action
+            android:id="@+id/action_initialMachinaryFragment_to_fullMachineryFragment"
+            app:destination="@id/fullMachineryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/filter1Fragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Motors.Boats.Filter1Fragment"
+        android:label="fragment_filter1"
+        tools:layout="@layout/fragment_filter1" >
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_filter1Fragment_to_filter2Fragment"
+            app:destination="@id/filter2Fragment" />
+        <action android:id="@+id/action_filter1Fragment_to_subCategoryFragment2"
+            app:destination="@+id/subCategoryFragment2"/>
+    </fragment>
+    <fragment
+        android:id="@+id/filter2Fragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Motors.Boats.Filter2Fragment"
+        android:label="fragment_filter2"
+        tools:layout="@layout/fragment_filter2" >
+        <argument
+            android:name="brandId"
+            app:argType="string" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_filter2Fragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/machinary1Fragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Motors.Machinary.Machinary1Fragment"
+        android:label="fragment_machinary1"
+        tools:layout="@layout/fragment_machinary1" >
+        <action
+            android:id="@+id/action_machinary1Fragment_to_machinary2Fragment"
+            app:destination="@id/machinary2Fragment" />
+        <action
+            android:id="@+id/action_machinary1Fragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/machinary2Fragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Motors.Machinary.Machinary2Fragment"
+        android:label="fragment_machinary2"
+        tools:layout="@layout/fragment_machinary2" >
+        <action
+            android:id="@+id/action_machinary2Fragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+        <argument
+            android:name="brandId"
+            app:argType="string" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/bike1Fragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Motors.Bike.Bike1Fragment"
+        android:label="fragment_bike1"
+        tools:layout="@layout/fragment_bike1" >
+        <action
+            android:id="@+id/action_bike1Fragment_to_bike2Fragment"
+            app:destination="@id/bike2Fragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_bike1Fragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/bike2Fragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Motors.Bike.Bike2Fragment"
+        android:label="fragment_bike2"
+        tools:layout="@layout/fragment_bike2" >
+        <action
+            android:id="@+id/action_bike2Fragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+        <argument
+            android:name="brandId"
+            app:argType="string" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/part1Fragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Motors.Parts.Part1Fragment"
+        android:label="fragment_part1"
+        tools:layout="@layout/fragment_part1" >
+        <action
+            android:id="@+id/action_part1Fragment_to_part2Fragment"
+            app:destination="@id/part2Fragment" />
+        <action
+            android:id="@+id/action_part1Fragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/part2Fragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Motors.Parts.Part2Fragment"
+        android:label="fragment_part2"
+        tools:layout="@layout/fragment_part2" >
+        <action
+            android:id="@+id/action_part2Fragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+        <argument
+            android:name="brandId"
+            app:argType="string" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/careerLevelFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Jobs.CareerLevelFragment"
+        android:label="fragment_career_level"
+        tools:layout="@layout/fragment_career_level" >
+        <action
+            android:id="@+id/action_careerLevelFragment_to_employmentTypeFragment"
+            app:destination="@id/employmentTypeFragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_careerLevelFragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/employmentTypeFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Jobs.EmploymentTypeFragment"
+        android:label="fragment_employment_type"
+        tools:layout="@layout/fragment_employment_type" >
+        <action
+            android:id="@+id/action_employmentTypeFragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+        <argument
+            android:name="brandId"
+            app:argType="string" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/subCatFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Services.Filter.SubCatFragment"
+        android:label="fragment_sub_cat"
+        tools:layout="@layout/fragment_sub_cat" >
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_subCatFragment_to_itemNameFragment"
+            app:destination="@id/itemNameFragment" />
+        <action
+            android:id="@+id/action_subCatFragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/itemNameFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Services.Filter.ItemNameFragment"
+        android:label="fragment_item_name"
+        tools:layout="@layout/fragment_item_name" >
+        <argument
+            android:name="brandId"
+            app:argType="string" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_itemNameFragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/emirateFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Numbers.FilterPlates.EmirateFragment"
+        android:label="fragment_emirate"
+        tools:layout="@layout/fragment_emirate" >
+        <action
+            android:id="@+id/action_emirateFragment_to_plateTypeFragment"
+            app:destination="@id/plateTypeFragment" />
+        <action
+            android:id="@+id/action_emirateFragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/plateTypeFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Numbers.FilterPlates.PlateTypeFragment"
+        android:label="fragment_plate_type"
+        tools:layout="@layout/fragment_plate_type" >
+        <action
+            android:id="@+id/action_plateTypeFragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+        <argument
+            android:name="brandId"
+            app:argType="string" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/operatorFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Numbers.FilterMobile.OperatorFragment"
+        android:label="fragment_operatot"
+        tools:layout="@layout/fragment_operatot" >
+        <action
+            android:id="@+id/action_operatorFragment_to_numberFragment"
+            app:destination="@id/numberFragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_operatorFragment_to_subCategoryFragment22"
+            app:destination="@id/subCategoryFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/numberFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Numbers.FilterMobile.NumberFragment"
+        android:label="fragment_number"
+        tools:layout="@layout/fragment_number" >
+        <action
+            android:id="@+id/action_numberFragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+        <argument
+            android:name="brandId"
+            app:argType="string" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/brandFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Electronics.Filter.BrandFragment"
+        android:label="fragment_brand2"
+        tools:layout="@layout/fragment_brand2" >
+        <action
+            android:id="@+id/action_brandFragment_to_modelFragment"
+            app:destination="@id/modelFragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_brandFragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+        <action
+            android:id="@+id/action_brandFragment_to_subCategoryFragment22"
+            app:destination="@id/subCategoryFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/modelFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Electronics.Filter.ModelFragment"
+        android:label="fragment_model2"
+        tools:layout="@layout/fragment_model2" >
+        <action
+            android:id="@+id/action_modelFragment_to_subCategoryFragment2"
+            app:destination="@id/subCategoryFragment2" />
+        <argument
+            android:name="brandId"
+            app:argType="string" />
+        <argument android:name="categoryId" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.SellingItems.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" >
+        <argument
+            android:name="packageId"
+            app:argType="string" />
+        <argument
+            android:name="adId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/editBusinessAdFragment"
+        android:name="com.hudhud.insouqapplication.Views.Main.Profile.MyAds.Business.EditBusinessAdFragment"
+        android:label="fragment_edit_business_ad"
+        tools:layout="@layout/fragment_edit_business_ad" >
+        <argument
+            android:name="BusinessAd"
+            app:argType="com.hudhud.insouqapplication.AppUtils.Responses.BusinessAd" />
+    </fragment>
+</navigation>

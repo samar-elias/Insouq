@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rounded_gray"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:paddingStart="@dimen/_10sdp"
+    android:paddingEnd="@dimen/_10sdp"
+    android:layout_marginStart="@dimen/_3sdp"
+    android:layout_marginEnd="@dimen/_3sdp"
+    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/remove"
+        android:text="Duha"
+        android:layout_gravity="center_vertical"
+        android:fontFamily="@font/objectivity_regular"
+        android:textColor="@color/purple_text"
+        android:textSize="@dimen/_8ssp"
+        android:padding="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"/>
+
+    <TextView
+        android:id="@+id/remove"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="X"
+        android:layout_gravity="center_vertical"
+        android:fontFamily="@font/objectivity_regular"
+        android:textColor="@color/purple_text"
+        android:textSize="@dimen/_8ssp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

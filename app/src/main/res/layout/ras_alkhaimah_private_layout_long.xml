@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/ras_alkhaimah_private_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/plate_image"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_60sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="fitXY"
+        android:maxLength="5"
+        android:src="@drawable/ras_alkhaima_private_long"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:layout_marginEnd="@dimen/_40sdp"/>
+
+    <TextView
+        android:id="@+id/rkp_plate_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:fontFamily="@font/bebas"
+        android:text="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_40ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/rkp_plate_number"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toStartOf="@id/plate_image"
+        app:layout_constraintTop_toTopOf="@id/plate_image" />
+
+    <TextView
+        android:id="@+id/rkp_plate_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_marginBottom="@dimen/_3sdp"
+        android:fontFamily="@font/bebas"
+        android:gravity="center"
+        android:text="00000"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_40ssp"
+        app:layout_constraintTop_toTopOf="@id/plate_image"
+        app:layout_constraintBottom_toBottomOf="@id/plate_image"
+        app:layout_constraintEnd_toEndOf="@id/plate_image"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/plate_image" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/_15sdp"
+    android:background="@color/white"
+    android:layout_marginStart="@dimen/_40sdp"
+    android:layout_marginEnd="@dimen/_40sdp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_15sdp"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Delete Ad Confirmation"
+            android:fontFamily="@font/objectivity_medium"
+            android:textColor="@color/purple_text"
+            android:textSize="@dimen/_14ssp"/>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Your ad has been deleted, we would love to know the reason for deleting your ad."
+            android:fontFamily="@font/objectivity_regular"
+            android:textColor="@color/purple_text"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:textSize="@dimen/_12ssp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_20sdp">
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:id="@+id/uae"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/light_purple_text"
+                    android:checked="false"
+                    android:text="I sold it on Insouq"
+                    android:textColor="@color/purple_text"
+                    android:textAllCaps="true"
+                    android:fontFamily="@font/objectivity_medium"
+                    android:textSize="@dimen/_10ssp"/>
+                <RadioButton
+                    android:id="@+id/jordan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/light_purple_text"
+                    android:checked="false"
+                    android:text="I sold it somewhere else"
+                    android:textColor="@color/purple_text"
+                    android:textAllCaps="true"
+                    android:fontFamily="@font/objectivity_medium"
+                    android:textSize="@dimen/_10ssp"/>
+                <RadioButton
+                    android:id="@+id/iraq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/light_purple_text"
+                    android:checked="false"
+                    android:text="I am no longer interested to sell it"
+                    android:textColor="@color/purple_text"
+                    android:textAllCaps="true"
+                    android:fontFamily="@font/objectivity_medium"
+                    android:textSize="@dimen/_10ssp"/>
+                <RadioButton
+                    android:id="@+id/kuwait"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/light_purple_text"
+                    android:checked="false"
+                    android:text="No specific reason"
+                    android:textColor="@color/purple_text"
+                    android:textAllCaps="true"
+                    android:fontFamily="@font/objectivity_medium"
+                    android:textSize="@dimen/_10ssp"/>
+            </RadioGroup>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/continue_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cornerRadius="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:backgroundTint="@color/base_orange"
+                android:text="Continue"
+                android:textColor="@color/white"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_10ssp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

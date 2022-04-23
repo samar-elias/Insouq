@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registration_navigation"
+    app:startDestination="@id/homeRegistrationFragment">
+
+    <fragment
+        android:id="@+id/homeRegistrationFragment"
+        android:name="com.hudhud.insouqapplication.Views.Registration.Home.HomeRegistrationFragment"
+        android:label="fragment_home_registration"
+        tools:layout="@layout/fragment_home_registration" >
+        <action
+            android:id="@+id/action_homeRegistrationFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_homeRegistrationFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.hudhud.insouqapplication.Views.Registration.SignUp.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_mobileEntryFragment"
+            app:destination="@id/mobileEntryFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_mobileVerificationFragment"
+            app:destination="@id/mobileVerificationFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mobileEntryFragment"
+        android:name="com.hudhud.insouqapplication.Views.Registration.SignUp.MobileEntryFragment"
+        android:label="fragment_mobile_entry"
+        tools:layout="@layout/fragment_mobile_entry" >
+        <action
+            android:id="@+id/action_mobileEntryFragment_to_mobileVerificationFragment"
+            app:destination="@id/mobileVerificationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mobileVerificationFragment"
+        android:name="com.hudhud.insouqapplication.Views.Registration.Verification.MobileVerificationFragment"
+        android:label="fragment_mobile_verification"
+        tools:layout="@layout/fragment_mobile_verification" />
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.hudhud.insouqapplication.Views.Registration.SignIn.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.hudhud.insouqapplication.Views.Registration.ForgotPassword.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_passwordVerificationFragment"
+            app:destination="@id/passwordVerificationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newPasswordFragment"
+        android:name="com.hudhud.insouqapplication.Views.Registration.ForgotPassword.NewPasswordFragment"
+        android:label="fragment_new_password"
+        tools:layout="@layout/fragment_new_password" >
+        <argument
+            android:name="resetPasswordToken"
+            app:argType="string" />
+        <argument
+            android:name="phoneNum"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordVerificationFragment"
+        android:name="com.hudhud.insouqapplication.Views.Registration.ForgotPassword.PasswordVerificationFragment"
+        android:label="fragment_password_verification"
+        tools:layout="@layout/fragment_password_verification" >
+        <action
+            android:id="@+id/action_passwordVerificationFragment_to_newPasswordFragment"
+            app:destination="@id/newPasswordFragment" />
+        <argument
+            android:name="phoneNumber"
+            app:argType="string" />
+    </fragment>
+</navigation>

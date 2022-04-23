@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="black_trans50">#80000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="red">#FF633B</color>
+    <color name="green_text">#52CE40</color>
+    <color name="base_violet">#8C63E7</color>
+    <color name="base_indigo">#5746FC</color>
+    <color name="base_orange">#FFB01C</color>
+    <color name="white_trans45">#73FFFFFF</color>
+    <color name="white_trans40">#66FFFFFF</color>
+    <color name="white_trans35">#59FFFFFF</color>
+    <color name="light_purple_text">#7255F1</color>
+    <color name="light_purple_text_trans_50">#807255F1</color>
+    <color name="purple_text">#2E3046</color>
+    <color name="purple_text_trans3">#4D2E3046</color>
+    <color name="dark_purple_trans_65">#A6140F26</color>
+    <color name="dark_purple_trans_67">#AB140F26</color>
+    <color name="dark_purple_trans_20">#330D0925</color>
+    <color name="dark_purple">#140F26</color>
+    <color name="blue_gray">#6C7B8A</color>
+    <color name="purple">#475993</color>
+    <color name="gray">#C9CCD2</color>
+    <color name="gray_3">#A2A3A6</color>
+    <color name="gray_4">#87888A</color>
+    <color name="gray_3_trans">#59A2A3A6</color>
+    <color name="gray_2">#C3C4C8</color>
+    <color name="off_white">#F6F6F9</color>
+    <color name="green">#6DD400</color>
+    <color name="orange">#FF8A04</color>
+    <color name="foshia">#FF0073</color>
+    <color name="peach">#FF665B</color>
+    <color name="fairouz">#00D4F9</color>
+    <color name="blue">#0091FF</color>
+    <color name="yellow">#FFD300</color>
+    <color name="light_gray">#DFE6F3</color>
+    <color name="trans_pop_up">#CCE4E8F0</color>
+</resources>

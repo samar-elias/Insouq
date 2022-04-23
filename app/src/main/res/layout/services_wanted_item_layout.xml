@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_5sdp"
+    android:layout_marginEnd="@dimen/_5sdp"
+    android:layout_marginTop="@dimen/_10sdp">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="@dimen/_5sdp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_radius_10">
+            <ImageView
+                android:id="@+id/product_image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_90sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:scaleType="centerCrop"
+                android:background="@drawable/white_radius_10"
+                android:src="@drawable/job_logo"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/product_image"
+                android:padding="@dimen/_7sdp">
+                <TextView
+                    android:id="@+id/job_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/favourite_motor"
+                    android:text="Warehouse Manager"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:fontFamily="@font/objectivity_medium"
+                    android:textColor="@color/purple_text"
+                    android:textSize="@dimen/_10ssp"/>
+
+                <ImageView
+                    android:id="@+id/favourite_motor"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:src="@drawable/ic_baseline_favorite_border_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/loc_icon"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:alpha="0.5"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:src="@drawable/location"
+                    app:layout_constraintTop_toBottomOf="@id/job_title"
+                    app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/ad_location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/loc_icon"
+                    app:layout_constraintStart_toEndOf="@id/loc_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/loc_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/location"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:fontFamily="@font/objectivity_regular"
+                    android:textColor="@color/purple_text"
+                    android:textSize="@dimen/_8ssp"/>
+
+                <ImageView
+                    android:id="@+id/sub_cat_icon"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/loc_icon"
+                    android:src="@drawable/category_name_list"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:alpha="0.5"/>
+                <TextView
+                    android:id="@+id/sub_cat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/sub_cat_icon"
+                    app:layout_constraintStart_toEndOf="@id/sub_cat_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/sub_cat_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/category"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:fontFamily="@font/objectivity_regular"
+                    android:textColor="@color/purple_text"
+                    android:textSize="@dimen/_8ssp"/>
+
+                <ImageView
+                    android:id="@+id/sub_type_icon"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/sub_cat_icon"
+                    android:src="@drawable/sub_type_list"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:alpha="0.5"/>
+                <TextView
+                    android:id="@+id/sub_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/sub_type_icon"
+                    app:layout_constraintStart_toEndOf="@id/sub_type_icon"
+                    app:layout_constraintBottom_toBottomOf="@id/sub_type_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="@string/service_type"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:fontFamily="@font/objectivity_regular"
+                    android:textColor="@color/purple_text"
+                    android:textSize="@dimen/_8ssp"/>
+
+                <TextView
+                    android:id="@+id/posted_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/sub_type"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:gravity="end"
+                    android:fontFamily="@font/objectivity_regular"
+                    android:text="2 days ago"
+                    android:textSize="@dimen/_7ssp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

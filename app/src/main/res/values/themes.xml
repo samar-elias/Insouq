@@ -1,0 +1,24 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.InsouqApplication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/base_violet</item>
+        <item name="colorPrimaryVariant">@color/base_indigo</item>
+        <item name="colorOnPrimary">@color/base_orange</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/base_violet</item>
+        <item name="colorSecondaryVariant">@color/base_indigo</item>
+        <item name="colorOnSecondary">@color/base_orange</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="SwitchTheme" parent="Theme.AppCompat.Light">
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">#73C120</item>
+    </style>
+
+    <style name="SpinnerTheme" parent="android:Widget.Spinner">
+        <item name="android:background">@drawable/ic_baseline_keyboard_arrow_down_24__gray</item>
+    </style>
+</resources>

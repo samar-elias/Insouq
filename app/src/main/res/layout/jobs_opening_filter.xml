@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:weightSum="3">
+    <ImageView
+        android:id="@+id/close_filter_jobs"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/black"
+        android:alpha="0.3"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="@color/white"
+        android:paddingStart="@dimen/_15sdp"
+        android:paddingEnd="@dimen/_15sdp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingTop="@dimen/_20sdp">
+            <TextView
+                android:id="@+id/filter_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/close_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/reset_btn"
+                app:layout_constraintBottom_toBottomOf="@id/close_btn"
+                android:text="@string/filters"
+                android:textAllCaps="true"
+                android:fontFamily="@font/objectivity_medium"
+                android:textColor="@color/blue_gray"
+                android:textSize="@dimen/_10ssp"/>
+            <TextView
+                android:id="@+id/close_btn"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@drawable/circular_gray_border"
+                android:text="X"
+                android:textColor="@color/blue_gray"
+                android:gravity="center"
+                android:padding="@dimen/_5sdp"
+                android:textSize="@dimen/_10ssp"/>
+            <TextView
+                android:id="@+id/reset_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/close_btn"
+                app:layout_constraintStart_toEndOf="@id/filter_title"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/circular_orange_border"
+                android:text="@string/reset"
+                android:textColor="@color/base_orange"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:padding="@dimen/_5sdp"
+                android:textSize="@dimen/_10ssp"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/industry_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/industry"
+            android:textAllCaps="true"
+            android:textColor="@color/purple_text"
+            android:fontFamily="@font/objectivity_medium"
+            android:textSize="@dimen/_9ssp"/>
+        <LinearLayout
+            android:id="@+id/industry_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/industry_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical">
+            <CheckBox
+                android:id="@+id/painting_CB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BANKING &amp; FINANCE"
+                android:checked="true"
+                android:textColor="@color/purple_text"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_8ssp" />
+            <CheckBox
+                android:id="@+id/cleaning_CB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="INFORMATION TECHNOLOGY"
+                android:textColor="@color/purple_text"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_8ssp" />
+            <CheckBox
+                android:id="@+id/garden_CB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="REAL ESTATE"
+                android:textColor="@color/purple_text"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_8ssp" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="CREATIVE"
+                android:textColor="@color/purple_text"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_8ssp" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="SALES &amp; MARKETING"
+                android:textColor="@color/purple_text"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_8ssp" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="ENGINEERING"
+                android:textColor="@color/purple_text"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_8ssp" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="MEDICAL"
+                android:textColor="@color/purple_text"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_8ssp" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="HEALTH &amp; FITNESS"
+                android:textColor="@color/purple_text"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_8ssp" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="MISCELLANEOUS"
+                android:textColor="@color/purple_text"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_8ssp" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/industry_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="@dimen/_10sdp">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/filter_results"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:cornerRadius="@dimen/_15sdp"
+                android:backgroundTint="@color/base_orange"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="@string/filter_results"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_11ssp"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

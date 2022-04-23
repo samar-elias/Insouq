@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_5sdp"
+    android:background="@drawable/white_radius_10"
+    android:padding="@dimen/_10sdp">
+
+    <ImageView
+        android:id="@+id/favourite"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_baseline_favorite_border_24"/>
+
+    <LinearLayout
+        android:id="@+id/position_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/favourite"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/job_position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Job position"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:fontFamily="@font/objectivity_medium"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/purple_text"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp">
+            <ImageView
+                android:id="@+id/loc_icon"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/location"
+                android:alpha="0.5"/>
+            <TextView
+                android:id="@+id/job_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/loc_icon"
+                app:layout_constraintStart_toEndOf="@id/loc_icon"
+                app:layout_constraintBottom_toBottomOf="@id/loc_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/location"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:fontFamily="@font/objectivity_regular"
+                android:textColor="@color/purple_text"
+                android:textSize="@dimen/_10ssp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/time_icon"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        app:layout_constraintTop_toBottomOf="@id/position_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/education_level_list"
+        android:alpha="0.5"
+        android:layout_marginTop="@dimen/_10sdp"/>
+
+    <TextView
+        android:id="@+id/job_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/time_icon"
+        app:layout_constraintStart_toEndOf="@id/time_icon"
+        app:layout_constraintBottom_toBottomOf="@id/time_icon"
+        android:text="@string/education_level"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/purple_text"
+        android:fontFamily="@font/objectivity_regular"
+        android:textSize="@dimen/_11ssp"/>
+
+    <ImageView
+        android:id="@+id/salary_icon"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        app:layout_constraintTop_toTopOf="@id/time_icon"
+        app:layout_constraintStart_toEndOf="@id/job_time"
+        app:layout_constraintBottom_toBottomOf="@id/time_icon"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:alpha="0.5"
+        android:src="@drawable/work_experience_list"/>
+
+    <TextView
+        android:id="@+id/job_experience"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/salary_icon"
+        app:layout_constraintStart_toEndOf="@id/salary_icon"
+        app:layout_constraintBottom_toBottomOf="@id/salary_icon"
+        android:text="@string/work_experience"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/purple_text"
+        android:fontFamily="@font/objectivity_regular"
+        android:textSize="@dimen/_11ssp"/>
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/salary_icon"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:alpha="0.5"
+        android:src="@drawable/phone_number_list"/>
+
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/icon"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintBottom_toBottomOf="@id/icon"
+        android:text="@string/current_position"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/purple_text"
+        android:fontFamily="@font/objectivity_regular"
+        android:textSize="@dimen/_11ssp"/>
+
+    <TextView
+        android:id="@+id/posted_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/value"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="2 days ago"
+        android:fontFamily="@font/objectivity_regular"
+        android:textSize="@dimen/_8ssp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

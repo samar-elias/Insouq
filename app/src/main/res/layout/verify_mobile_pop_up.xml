@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/_15sdp"
+    android:background="@color/white"
+    android:layout_marginStart="@dimen/_40sdp"
+    android:layout_marginEnd="@dimen/_40sdp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_15sdp"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Verify Mobile Number"
+            android:fontFamily="@font/objectivity_medium"
+            android:textColor="@color/purple_text"
+            android:textSize="@dimen/_14ssp"/>
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
+            android:text="We sent you an SMS with a verification code, please enter below"
+            android:fontFamily="@font/objectivity_medium"
+            android:textColor="@color/purple_text"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_11ssp"/>
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            app:layout_constraintTop_toTopOf="@id/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/title"
+            android:src="@drawable/ic_baseline_close_gray_24"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_20sdp">
+                <in.aabhasjindal.otptextview.OtpTextView
+                    android:id="@+id/otp_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/purple_text"
+                    android:fontFamily="@font/objectivity_bold"
+                    app:otp_box_background="@drawable/otp_edt_off_white"
+                    app:bar_inactive_color="@color/purple_text"
+                    app:bar_margin_bottom="0dp"
+                    app:bar_margin_left="2dp"
+                    app:bar_margin_right="2dp"
+                    android:layout_gravity="center_horizontal"
+                    app:box_margin="0dp"
+                    app:height="@dimen/_25sdp"
+                    app:hide_otp="false"
+                    app:length="6"
+                    app:otp=""
+                    app:otp_text_size="@dimen/_12ssp"
+                    app:width="@dimen/_25sdp" />
+
+            <TextView
+                android:id="@+id/resend_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Resend Code"
+                android:textColor="@color/purple_text"
+                android:textSize="@dimen/_9ssp"
+                android:fontFamily="@font/objectivity_regular"
+                android:layout_marginTop="@dimen/_10sdp"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/change_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cornerRadius="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:backgroundTint="@color/base_orange"
+                android:text="verify"
+                android:textColor="@color/white"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_10ssp" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

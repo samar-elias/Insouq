@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "677303639754",
+    "project_id": "insooq-application",
+    "storage_bucket": "insooq-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677303639754:android:e6f6ff86d4d52f13061e33",
+        "android_client_info": {
+          "package_name": "com.hudhud.insouqapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677303639754-h14u4qqp51ipgj0p598abkamka4mhm44.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hudhud.insouqapplication",
+            "certificate_hash": "7d3ba76db090085c433c5ba1ebd8d6ac1fbeeb89"
+          }
+        },
+        {
+          "client_id": "677303639754-g90m7g8qcmunu8f7m4pa1giood2g0gof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC68Y7KqGCmcwzRTdMdNKjE7V9jMspKoSg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677303639754-g90m7g8qcmunu8f7m4pa1giood2g0gof.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "677303639754-i5cla1t23a90f3bn8nog0p2ipjuqe1nd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.HudHudit.inSooq.App"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677303639754:android:68bb88a47948f9fc061e33",
+        "android_client_info": {
+          "package_name": "com.hudhudit.insooq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677303639754-pauvvq12oi1son6rjhr6f2kq337libpj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hudhudit.insooq",
+            "certificate_hash": "7d3ba76db090085c433c5ba1ebd8d6ac1fbeeb89"
+          }
+        },
+        {
+          "client_id": "677303639754-g90m7g8qcmunu8f7m4pa1giood2g0gof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC68Y7KqGCmcwzRTdMdNKjE7V9jMspKoSg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677303639754-g90m7g8qcmunu8f7m4pa1giood2g0gof.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "677303639754-i5cla1t23a90f3bn8nog0p2ipjuqe1nd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.HudHudit.inSooq.App"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
