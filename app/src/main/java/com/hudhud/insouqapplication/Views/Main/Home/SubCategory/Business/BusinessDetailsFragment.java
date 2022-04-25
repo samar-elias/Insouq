@@ -10,13 +10,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,27 +26,36 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.ClientError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
+import com.hudhud.insouqapplication.AppUtils.Helpers.Constant;
+import com.hudhud.insouqapplication.AppUtils.Helpers.FirebaseManger;
+import com.hudhud.insouqapplication.AppUtils.Responses.Chats;
+import com.hudhud.insouqapplication.AppUtils.Responses.Message;
+import com.hudhud.insouqapplication.AppUtils.Responses.New;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
 import com.hudhud.insouqapplication.R;
-import com.hudhud.insouqapplication.Views.Main.Home.Adapters.ProductsAdapter;
-import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Electronics.ElectronicSpecificationModel;
-import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Electronics.ElectronicSpecificationsAdapter;
 import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.MakeOfferBottomSheetDialogFragment;
-import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Motors.MotorDetailsAdapter;
-import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Motors.MotorDetailsFragmentArgs;
 import com.hudhud.insouqapplication.Views.Main.MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -59,10 +68,16 @@ public class BusinessDetailsFragment extends Fragment {
     int position;
     boolean isApplied = false, isNew = false;
     String profileImg = "", profileName = "", memberSince = "";
-
+    FirebaseManger firebaseManger;
+    String key;
+    String chatId = "";
+    public RequestQueue queue ;
     public BusinessDetailsFragment() {
         // Required empty public constructor
     }
+    String firstName;
+    String lastName;
+    String imageProfile;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,6 +98,9 @@ public class BusinessDetailsFragment extends Fragment {
             position = BusinessDetailsFragmentArgs.fromBundle(getArguments()).getPosition();
             isNew = BusinessDetailsFragmentArgs.fromBundle(getArguments()).getIsNew();
         }
+        firebaseManger = FirebaseManger.getInstance();
+        key = firebaseManger.getKey();
+        queue =  Volley.newRequestQueue(requireContext());
 
         initViews(view);
         setAdapter();
@@ -452,4 +470,151 @@ public class BusinessDetailsFragment extends Fragment {
         startActivity(intent);
         mainActivity.finish();
     }
+
+    public void addchat(Integer adId,Integer userId,String image,String description,String title,String price,String type){
+     /*   mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
+        StringRequest userCarsFilterRequest = new StringRequest(Request.Method.GET, Urls.Ads_URL+"GetAd?adId="+adId+"&typeId=5", response -> {
+            mainActivity.hideProgressDialog();
+            try {
+                JSONObject adsArray = new JSONObject(response);
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> {
+            mainActivity.hideProgressDialog();
+            Log.d("errorFilterMotors", error.getMessage());
+            mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
+        });
+        mainActivity.queue.add(userCarsFilterRequest);*/
+
+        DatabaseReference listKeyDatabaseReference = firebaseManger.getDatabaseReference().child(Constant.Chats).push();
+        String key = listKeyDatabaseReference.getKey();
+
+
+        Date date=new Date();
+        New anew=new New(Integer.valueOf(AppDefs.user.getId()),"Start Converstsation",false,false,String.valueOf(date.getTime()),2,key,"aNew");
+
+        List<String> LocURL = new ArrayList<>();
+        List<String> files = new ArrayList<>();
+       // getUserInfo(String.valueOf(userId));
+
+        StringRequest getUser = new StringRequest(Request.Method.GET, Urls.Users_URL+"GetById?id="+ String.valueOf(userId), response -> {
+            try {
+                JSONObject userObject = new JSONObject(response);
+                firstName = userObject.getString("firstName");
+                lastName = userObject.getString("lastName");
+
+                String newPic = "https://insouq.com"+userObject.getString("profilePicture").replace("\\", "/");
+
+
+                if (userObject.getString("profilePicture").equals("null")) {
+
+                    imageProfile = "";
+                } else {
+                    imageProfile = newPic;
+
+                }
+                     Message message=new Message(anew);
+
+
+        Chats chats1 = new Chats(adId, 0, 0, Integer.valueOf(AppDefs.user.getId()), message,
+                "", true, "", key, userId, true, image, 1,"5",description,title,price,imageProfile,firstName,lastName);
+
+
+        firebaseManger.getDatabaseReference().child(Constant.Chats).child(key).setValue(chats1);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> {
+
+            if (error instanceof ClientError){
+                //   showResponseMessage(getResources().getString(R.string.user), getResources().getString(R.string.wrong_id));
+            }
+        });
+        queue.add(getUser);
+
+
+
+
+
+
+    }
+
+    public void checkAds(Integer adId,Integer userId,String image,String description,String title,String price,String type){
+     /*   firebaseManger.getDatabaseReference().child(Constant.Chats).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // users.clear();
+
+
+
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });*/
+
+
+        firebaseManger.getDatabaseReference().child(Constant.Chats).addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (userId.equals(Integer.valueOf(AppDefs.user.getId())) ) {
+                Toast.makeText(mainActivity, " you are adds", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            else {
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+
+                    Chats chats = snapshot1.getValue(Chats.class);
+
+                        if (chats.getCustumerUserId() == Integer.valueOf(AppDefs.user.getId()) || chats.getOwnerUserId() == Integer.valueOf(AppDefs.user.getId()) && chats.getCustumerUserId() == userId || chats.getOwnerUserId() == userId) {
+                            //Toast.makeText(mainActivity, chats.getChatId(), Toast.LENGTH_SHORT).show();
+                            chatId = chats.getChatId();
+
+                            break;
+                        }
+
+
+
+                }
+
+                    if (chatId.isEmpty() || chatId.equals("")) {
+                        addchat(adId, userId, image, description, title, price, type);
+                          Toast.makeText(mainActivity, "chat create", Toast.LENGTH_SHORT).show();
+                        //  return;
+                        //go to chat
+
+
+                    } else {
+                        //  navController.navigate(R.id.action_businessDetailsFragment2_to_makeOfferBottomSheetDialogFragment);
+                        Toast.makeText(mainActivity, "you have chat", Toast.LENGTH_SHORT).show();
+                        // return;
+                    }
+                    chatId = "";
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });}
+
+
+
 }
