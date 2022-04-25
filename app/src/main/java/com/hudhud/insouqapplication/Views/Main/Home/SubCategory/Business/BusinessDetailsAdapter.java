@@ -164,7 +164,10 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
                 businessDetailsFragment.scrollToPosition(position-1);
             }
         });
+        holder.chats.setOnClickListener(v -> {
+            businessDetailsFragment.checkAds(Integer.valueOf(businessAd.getId()),Integer.valueOf(businessAd.getUserId()),businessAd.getMainImage(),businessAd.getPostedDate(),businessAd.getTitle(),businessAd.getPrice(),"5");
 
+        });
         holder.backToPrevious.setOnClickListener(view -> businessDetailsFragment.navigateBack());    }
 
     @Override
@@ -181,7 +184,7 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
         ImageView showSpecificationArrow, showDescriptionArrow, showLocationArrow, directions;
         TextView contactTitle;
         RecyclerView similarBusinessRV;
-        LinearLayout call, sms;
+        LinearLayout call, sms,chats;
         ImageView next, previous;
         RecyclerView specificationsRV;
         ViewPager viewPager;
@@ -205,7 +208,7 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
 
             title = itemView.findViewById(R.id.title);
             price = itemView.findViewById(R.id.price);
-
+            chats = itemView.findViewById(R.id.chat);
             contactTitle = itemView.findViewById(R.id.contact_title);
             contactLayout = itemView.findViewById(R.id.contact_profile);
 
