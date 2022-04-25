@@ -312,6 +312,17 @@
         <entry key="..\:/Samar's files/Insouq Application/InsouqApplication/app/src/main/res/layout/umm_alqwain_private_layout3.xml" value="0.20416666666666666" />
         <entry key="..\:/Samar's files/Insouq Application/InsouqApplication/app/src/main/res/layout/verification_pop_up.xml" value="0.5" />
         <entry key="..\:/Samar's files/Insouq Application/InsouqApplication/app/src/main/res/layout/verify_mobile_pop_up.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/drawable-nodpi/receive_drawable.xml" value="0.121" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/drawable-nodpi/sent_drawable.xml" value="0.1725" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/activity_chat_detailes.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/business_details_item.xml" value="0.17314814814814813" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/chat_item_layout.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/delete_chat_item_pop_up.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/fragment_chat.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/item_receive.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/item_sent.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/sent_drawable.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/box_gray_back.xml" value="0.26145833333333335" />
         <entry key="app/src/main/res/drawable/dark_gray_border_raduis_5.xml" value="0.30666666666666664" />
         <entry key="app/src/main/res/drawable/gray_border.xml" value="0.26145833333333335" />
