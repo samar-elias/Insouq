@@ -49,7 +49,7 @@ public class BusinessesGridAdapter extends RecyclerView.Adapter<BusinessesGridAd
         Glide.with(context).load(Urls.IMAGE_URL+newPic).into(holder.image);
 
         holder.title.setText(businessAd.getTitle());
-        holder.price.setText(businessAd.getPrice()+" AED");
+        holder.price.setText("AED "+businessAd.getPrice());
 
         holder.date.setText(businessAd.getPostedDate());
 

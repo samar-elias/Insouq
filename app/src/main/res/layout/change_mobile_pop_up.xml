@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="Change Mobile Number"
+            android:text="@string/change_mobile_number"
             android:fontFamily="@font/objectivity_medium"
             android:textColor="@color/purple_text"
             android:textSize="@dimen/_14ssp"/>
@@ -55,7 +55,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/gray_border_raduis_10"
-                    android:hint="Mobile Number"
+                    android:hint="@string/mobile_number"
+                    android:gravity="start"
+                    android:textAlignment="viewStart"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:inputType="phone"
                     android:imeOptions="actionDone"
@@ -71,7 +73,7 @@
                 app:cornerRadius="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:backgroundTint="@color/base_orange"
-                android:text="Change Mobile Number"
+                android:text="@string/change_mobile_number"
                 android:textColor="@color/white"
                 android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_10ssp" />

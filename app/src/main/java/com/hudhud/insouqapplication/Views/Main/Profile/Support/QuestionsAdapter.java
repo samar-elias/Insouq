@@ -46,61 +46,14 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
         if (AppDefs.language.equals("ar")){
             holder.questionTitle.setText(question.getArQuestion());
-            if (!question.getArAnswerImg().equals("null")){
-                holder.answerText.setText(question.getArAnswerImg());
-            }
-            if (!question.getArAnswerImg2().equals("null")){
-                Glide.with(context).load(question.getArAnswerImg2()).into(holder.answerImage);
-            }
-            if (!question.getArAnswerImg3().equals("null")){
-                supportFragment.setVideo(question.getArAnswerImg3(), holder.answerVideo);
-            }
         }else {
             holder.questionTitle.setText(question.getQuestion());
-            if (!question.getAnswerImg().equals("null")){
-                holder.answerText.setText(question.getAnswerImg());
-            }
-            if (!question.getAnswerImg2().equals("null")){
-                Glide.with(context).load(question.getAnswerImg2()).into(holder.answerImage);
-            }
-            if (!question.getAnswerImg3().equals("null")){
-                supportFragment.setVideo(question.getAnswerImg3(), holder.answerVideo);
-            }
         }
 
-        if (question.isVisible()){
-            holder.line.setVisibility(View.VISIBLE);
-            if (AppDefs.language.equals("ar")){
-                if (!question.getArAnswerImg().equals("null")){
-                    holder.answerText.setVisibility(View.VISIBLE);
-                }
-                if (!question.getArAnswerImg2().equals("null")){
-                    holder.answerImage.setVisibility(View.VISIBLE);
-                }
-                if (!question.getArAnswerImg3().equals("null")){
-                    holder.answerVideo.setVisibility(View.VISIBLE);
-                }
-            }else {
-                if (!question.getAnswerImg().equals("null")){
-                    holder.answerText.setVisibility(View.VISIBLE);
-                }
-                if (!question.getAnswerImg2().equals("null")){
-                    holder.answerImage.setVisibility(View.VISIBLE);
-                }
-                if (!question.getAnswerImg3().equals("null")){
-                    holder.answerVideo.setVisibility(View.VISIBLE);
-                }
-            }
-        } else {
-            holder.answerText.setVisibility(View.GONE);
-            holder.answerImage.setVisibility(View.GONE);
-            holder.answerVideo.setVisibility(View.GONE);
-            holder.line.setVisibility(View.GONE);
-        }
-
-        holder.viewAnswer.setOnClickListener(view -> {
-            question.setVisible(!question.isVisible());
-            notifyDataSetChanged();
+        holder.itemView.setOnClickListener(view -> {
+//            question.setVisible(!question.isVisible());
+//            notifyDataSetChanged();
+            supportFragment.navigateToQuestion(question);
         });
 
     }

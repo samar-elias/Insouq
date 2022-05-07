@@ -183,6 +183,7 @@
                     android:hint="@string/year"
                     android:textAllCaps="true"
                     android:inputType="number"
+                    android:textAlignment="viewStart"
                     android:maxLength="4"
                     android:background="@drawable/white_radius_3"
                     android:imeOptions="actionDone"

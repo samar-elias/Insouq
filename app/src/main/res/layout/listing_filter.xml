@@ -104,7 +104,7 @@
                         android:id="@+id/classifieds_sub_cat_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"/>
+                        android:padding="@dimen/_8sdp"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -126,7 +126,7 @@
                         android:id="@+id/classifieds_item_name_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"/>
+                        android:padding="@dimen/_8sdp"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -155,7 +155,7 @@
                             android:id="@+id/classifieds_brand_spinner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/_5sdp"/>
+                            android:padding="@dimen/_8sdp"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <TextView
@@ -176,7 +176,7 @@
                             android:id="@+id/category1_usage_spinner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/_5sdp"/>
+                            android:padding="@dimen/_8sdp"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <TextView
@@ -197,7 +197,7 @@
                             android:id="@+id/category1_age_spinner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/_5sdp"/>
+                            android:padding="@dimen/_8sdp"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </LinearLayout>
@@ -226,7 +226,7 @@
                             android:id="@+id/category2_usage_spinner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/_5sdp"/>
+                            android:padding="@dimen/_8sdp"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -248,7 +248,7 @@
                             android:id="@+id/category2_age_spinner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/_5sdp"/>
+                            android:padding="@dimen/_8sdp"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                 </LinearLayout>

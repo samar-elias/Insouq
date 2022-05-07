@@ -21,7 +21,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:gravity="center"
-            android:text="Already saved this search"
+            android:text="@string/already_saved_this_search"
             android:fontFamily="@font/objectivity_medium"
             android:textColor="@color/purple_text"
             android:textSize="@dimen/_14ssp"/>
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 app:cornerRadius="@dimen/_15sdp"
                 android:backgroundTint="@color/base_orange"
-                android:text="Delete"
+                android:text="@string/delete"
                 android:textColor="@color/white"
                 android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_10ssp" />

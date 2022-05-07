@@ -55,15 +55,15 @@ public class NumberItemAdapter extends RecyclerView.Adapter<NumberItemAdapter.Vi
             holder.location.setText(newAd.getEnLocation());
         }
         if (!newAd.getPrice().isEmpty()){
-            holder.price.setText(newAd.getPrice()+ " AED");
+            holder.price.setText("AED "+newAd.getPrice());
         }
 
         if (newAd.getCategory().equals("Mobile Numbers")){
             holder.mobileNumberLayout.setVisibility(View.VISIBLE);
             holder.emirate.setText(newAd.getEnMobilePlan());
             holder.value.setText(newAd.getOperator());
-            Glide.with(context).load(R.drawable.number_plan_list).into(holder.emirateIcon);
-            Glide.with(context).load(R.drawable.operator_list).into(holder.icon);
+            Glide.with(context).load(R.drawable.number_plan_img).into(holder.emirateIcon);
+            Glide.with(context).load(R.drawable.operator_img).into(holder.icon);
             switch (newAd.getOperator()){
                 case "Etisalat":
                     holder.abuDhabiBikeLayout.setVisibility(View.INVISIBLE);
@@ -108,8 +108,8 @@ public class NumberItemAdapter extends RecyclerView.Adapter<NumberItemAdapter.Vi
             holder.mobileNumberLayout.setVisibility(View.INVISIBLE);
             holder.emirate.setText(newAd.getEmirate());
             holder.value.setText(newAd.getPlateType());
-            Glide.with(context).load(R.drawable.emirate_list).into(holder.emirateIcon);
-            Glide.with(context).load(R.drawable.plate_type_list).into(holder.icon);
+            Glide.with(context).load(R.drawable.emirate_img).into(holder.emirateIcon);
+            Glide.with(context).load(R.drawable.plate_type_img).into(holder.icon);
             if (newAd.getPlateType().equals("Private Car") && newAd.getEmirate().equals("Dubai")){
                 holder.abuDhabiBikeLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiPrivateLayout.setVisibility(View.INVISIBLE);
@@ -174,7 +174,7 @@ public class NumberItemAdapter extends RecyclerView.Adapter<NumberItemAdapter.Vi
                 holder.dubaiPrivateLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiClassicPlateCode.setText(newAd.getPlateCode());
                 holder.abuDhabiClassicPlateNumber.setText(newAd.getNumber());
-            }else if (newAd.getPlateType().equals("Private Car") && newAd.getEmirate().equals("Fujairah")){
+            }else if (newAd.getPlateType().equals("Motor Cycle") || newAd.getPlateType().equals("Private Car") && newAd.getEmirate().equals("Fujairah")){
                 holder.abuDhabiBikeLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiPrivateLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiClassicLayout.setVisibility(View.INVISIBLE);
@@ -294,28 +294,28 @@ public class NumberItemAdapter extends RecyclerView.Adapter<NumberItemAdapter.Vi
 
             abuDhabiBikePlateCode = itemView.findViewById(R.id.adb_plate_code);
             abuDhabiClassicPlateCode = itemView.findViewById(R.id.adc_plate_code);
-            abuDhabiPrivatePlateCode = itemView.findViewById(R.id.adp_plate_code);
-            ajmanPrivatePlateCode = itemView.findViewById(R.id.ap_plate_code);
+            abuDhabiPrivatePlateCode = itemView.findViewById(R.id.adp_plate_code_long);
+            ajmanPrivatePlateCode = itemView.findViewById(R.id.ap_plate_code_long);
             dubaiBikePlateCode = itemView.findViewById(R.id.db_plate_code);
-            dubaiPrivatePlateCode = itemView.findViewById(R.id.dp_plate_code);
-            fujairahPrivatePlateCode = itemView.findViewById(R.id.fp_plate_code);
-            rasAlkhaimahPrivatePlateCode = itemView.findViewById(R.id.rkp_plate_code);
-            sharjahPrivatePlateCode = itemView.findViewById(R.id.sp_plate_code);
-            ummAlQuwainPrivatePlateCode = itemView.findViewById(R.id.uqp_plate_code);
+            dubaiPrivatePlateCode = itemView.findViewById(R.id.dp_plate_code_long);
+            fujairahPrivatePlateCode = itemView.findViewById(R.id.fp_plate_code_long);
+            rasAlkhaimahPrivatePlateCode = itemView.findViewById(R.id.rkp_plate_code_long);
+            sharjahPrivatePlateCode = itemView.findViewById(R.id.sp_plate_code_long);
+            ummAlQuwainPrivatePlateCode = itemView.findViewById(R.id.uqp_plate_code_long);
 
             abuDhabiBikePlateNumber = itemView.findViewById(R.id.adb_plate_number);
             abuDhabiClassicPlateNumber = itemView.findViewById(R.id.adc_plate_number);
-            abuDhabiPrivatePlateNumber = itemView.findViewById(R.id.adp_plate_number);
-            ajmanPrivatePlateNumber = itemView.findViewById(R.id.ap_plate_number);
+            abuDhabiPrivatePlateNumber = itemView.findViewById(R.id.adp_plate_number_long);
+            ajmanPrivatePlateNumber = itemView.findViewById(R.id.ap_plate_number_long);
             dubaiBikePlateNumber = itemView.findViewById(R.id.db_plate_number);
             dubaiClassicPlateNumber = itemView.findViewById(R.id.dc_plate_number);
-            dubaiPrivatePlateNumber = itemView.findViewById(R.id.dp_plate_number);
-            fujairahPrivatePlateNumber = itemView.findViewById(R.id.fp_plate_number);
+            dubaiPrivatePlateNumber = itemView.findViewById(R.id.dp_plate_number_long);
+            fujairahPrivatePlateNumber = itemView.findViewById(R.id.fp_plate_number_long);
             rasAlkhaimahClassicPlateNumber = itemView.findViewById(R.id.rkc_plate_number);
-            rasAlkhaimahPrivatePlateNumber = itemView.findViewById(R.id.rkp_plate_number);
-            sharjahPrivatePlateNumber = itemView.findViewById(R.id.sp_plate_number);
+            rasAlkhaimahPrivatePlateNumber = itemView.findViewById(R.id.rkp_plate_number_long);
+            sharjahPrivatePlateNumber = itemView.findViewById(R.id.sp_plate_number_long);
             sharjahClassicPlateNumber = itemView.findViewById(R.id.sc_plate_number);
-            ummAlQuwainPrivatePlateNumber = itemView.findViewById(R.id.uqp_plate_number);
+            ummAlQuwainPrivatePlateNumber = itemView.findViewById(R.id.uqp_plate_number_long);
 
             mobileNumberCode = itemView.findViewById(R.id.mobile_number_code);
             mobileNumber = itemView.findViewById(R.id.mobile_number);

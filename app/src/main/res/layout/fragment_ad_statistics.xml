@@ -81,14 +81,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SEARCH"
+                        android:text="@string/search"
                         android:fontFamily="@font/objectivity_medium"
                         android:textSize="@dimen/_12ssp"
                         android:textColor="@color/purple_text"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Number of appearance in search"
+                        android:text="@string/number_of_appearance_in_search"
                         android:fontFamily="@font/objectivity_regular"
                         android:layout_marginTop="@dimen/_3sdp"
                         android:alpha="0.5"
@@ -134,14 +134,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="VISITORS"
+                        android:text="@string/visitors"
                         android:fontFamily="@font/objectivity_medium"
                         android:textSize="@dimen/_12ssp"
                         android:textColor="@color/purple_text"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Number of visitors"
+                        android:text="@string/number_of_visitors"
                         android:fontFamily="@font/objectivity_regular"
                         android:layout_marginTop="@dimen/_3sdp"
                         android:alpha="0.5"
@@ -187,14 +187,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CHAT"
+                        android:text="@string/chat_"
                         android:fontFamily="@font/objectivity_medium"
                         android:textSize="@dimen/_12ssp"
                         android:textColor="@color/purple_text"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Number of people started chat with you"
+                        android:text="@string/number_of_people_started_chat_with_you"
                         android:fontFamily="@font/objectivity_regular"
                         android:layout_marginTop="@dimen/_3sdp"
                         android:alpha="0.5"
@@ -240,14 +240,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CONTACT NUMBER"
+                        android:text="@string/contact_number_"
                         android:fontFamily="@font/objectivity_medium"
                         android:textSize="@dimen/_12ssp"
                         android:textColor="@color/purple_text"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Number of people viewed contact number"
+                        android:text="@string/number_of_people_viewed_contact_number"
                         android:fontFamily="@font/objectivity_regular"
                         android:layout_marginTop="@dimen/_3sdp"
                         android:alpha="0.5"

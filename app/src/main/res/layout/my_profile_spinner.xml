@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:text="UAE"
     android:background="@color/off_white"
+    android:textAlignment="viewStart"
     android:gravity="start"
     android:textColor="@color/black"
     android:fontFamily="@font/objectivity_regular"

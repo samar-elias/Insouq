@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="My Ad"
+            android:text="@string/my_ad"
             android:fontFamily="@font/objectivity_medium"
             android:textColor="@color/purple_text"
             android:textSize="@dimen/_17ssp"/>

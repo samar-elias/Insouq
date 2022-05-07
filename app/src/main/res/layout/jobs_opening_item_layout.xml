@@ -40,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Job Title"
+            android:textAlignment="viewStart"
             android:fontFamily="@font/objectivity_medium"
             android:textSize="@dimen/_13ssp"
             android:textColor="@color/purple_text"/>
@@ -48,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Company name"
+            android:textAlignment="viewStart"
             android:fontFamily="@font/objectivity_regular"
             android:textSize="@dimen/_12ssp"
             android:textColor="@color/purple_text"

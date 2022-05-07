@@ -8,14 +8,14 @@
     <ImageView
         android:id="@+id/plate_image"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_130sdp"
+        android:layout_height="@dimen/_70sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:scaleType="fitXY"
         android:src="@drawable/sharjah_private"
-        android:layout_marginStart="@dimen/_40sdp"
-        android:layout_marginEnd="@dimen/_40sdp"/>
+        android:layout_marginStart="@dimen/_90sdp"
+        android:layout_marginEnd="@dimen/_90sdp"/>
 
     <TextView
         android:id="@+id/sp_plate_code"
@@ -25,7 +25,7 @@
         app:layout_constraintEnd_toEndOf="@id/plate_image"
         app:layout_constraintTop_toTopOf="@id/plate_image"
         android:layout_marginBottom="@dimen/_8sdp"
-        android:textSize="@dimen/_40ssp"
+        android:textSize="@dimen/_20ssp"
         android:fontFamily="@font/bebas"
         android:textColor="@color/black"
         android:text="3"/>
@@ -42,7 +42,7 @@
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_8sdp"
-        android:textSize="@dimen/_60ssp"
+        android:textSize="@dimen/_35ssp"
         android:fontFamily="@font/bebas"
         android:textColor="@color/black"/>
 

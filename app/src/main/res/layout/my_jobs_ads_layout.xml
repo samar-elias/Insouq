@@ -54,6 +54,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ad_options"
             android:layout_marginTop="@dimen/_5sdp"
+            android:textAlignment="viewStart"
             android:text="Audi S5 2017, Full Agency Service"
             android:fontFamily="@font/objectivity_medium"
             android:textColor="@color/purple_text"
@@ -67,6 +68,7 @@
             app:layout_constraintEnd_toStartOf="@id/ad_options"
             android:layout_marginTop="@dimen/_5sdp"
             android:text="Location"
+            android:textAlignment="viewStart"
             android:fontFamily="@font/objectivity_medium"
             android:textColor="@color/purple_text"
             android:textSize="@dimen/_10ssp"/>
@@ -79,6 +81,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="AED 2,000,000"
+            android:textAlignment="viewStart"
             android:textColor="@color/base_orange"
             android:fontFamily="@font/objectivity_bold"
             android:textSize="@dimen/_11ssp"/>

@@ -57,7 +57,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="Sell better now"
+                android:text="@string/sell_better_now"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_17ssp"
                 android:fontFamily="@font/objectivity_medium" />
@@ -72,7 +72,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="with "
+                    android:text="@string/with"
                     android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_17ssp"
                     android:textColor="@color/purple_text"
@@ -80,7 +80,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Insouq."
+                    android:text="@string/insouq"
                     android:textColor="@color/purple"
                     android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_17ssp"

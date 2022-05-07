@@ -50,6 +50,8 @@
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:fontFamily="@font/objectivity_medium"
                     android:text="@string/ad_title"
+                    android:gravity="start"
+                    android:textAlignment="viewStart"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:textColor="@color/purple_text"
@@ -76,6 +78,8 @@
                     app:layout_constraintBottom_toBottomOf="@id/loc_icon"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:text="@string/location"
+                    android:gravity="start"
+                    android:textAlignment="viewStart"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/objectivity_regular"
                     android:textColor="@color/purple_text"
@@ -123,29 +127,34 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2">
+
                         <ImageView
                             android:id="@+id/age_icon"
                             android:layout_width="@dimen/_15sdp"
                             android:layout_height="@dimen/_15sdp"
+                            android:alpha="0.5"
+                            android:src="@drawable/age_1"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:src="@drawable/age_list"
-                            android:alpha="0.5"/>
+                            app:layout_constraintTop_toTopOf="parent" />
+
                         <TextView
                             android:id="@+id/ad_age"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toTopOf="@id/age_icon"
-                            app:layout_constraintStart_toEndOf="@id/age_icon"
-                            app:layout_constraintBottom_toBottomOf="@id/age_icon"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            android:text="@string/age"
-                            android:ellipsize="end"
-                            android:maxLines="1"
                             android:layout_marginStart="@dimen/_5sdp"
+                            android:ellipsize="end"
                             android:fontFamily="@font/objectivity_regular"
+                            android:gravity="start"
+                            android:maxLines="1"
+                            android:text="@string/age"
+                            android:textAlignment="viewStart"
                             android:textColor="@color/purple_text"
-                            android:textSize="@dimen/_10ssp"/>
+                            android:textSize="@dimen/_10ssp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/age_icon"
+                            app:layout_constraintTop_toTopOf="@id/age_icon" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -155,7 +164,7 @@
                     android:layout_height="@dimen/_15sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/usage_age_layout"
-                    android:src="@drawable/condition_list"
+                    android:src="@drawable/condition_2"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:alpha="0.5"/>
                 <TextView
@@ -166,6 +175,8 @@
                     app:layout_constraintStart_toEndOf="@id/condition_icon"
                     app:layout_constraintBottom_toBottomOf="@id/condition_icon"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:gravity="start"
+                    android:textAlignment="viewStart"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:text="@string/condition"
                     android:ellipsize="end"
@@ -182,6 +193,8 @@
                     app:layout_constraintTop_toBottomOf="@id/condition_icon"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:text="AED xxx.xxx"
+                    android:gravity="start"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/orange"
                     android:fontFamily="@font/objectivity_bold"
                     android:textSize="@dimen/_12ssp"

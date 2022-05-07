@@ -47,7 +47,7 @@ public class NumberGridItemAdapter extends RecyclerView.Adapter<NumberGridItemAd
         holder.postedDate.setText(newAd.getPostDate());
         holder.title.setText(newAd.getTitle());
         if (!newAd.getPrice().isEmpty()){
-            holder.price.setText(newAd.getPrice()+ " AED");
+            holder.price.setText("AED "+newAd.getPrice());
         }
         if (AppDefs.language.equals("ar")){
             holder.location.setText(newAd.getArLocation());
@@ -58,8 +58,8 @@ public class NumberGridItemAdapter extends RecyclerView.Adapter<NumberGridItemAd
             holder.mobileNumberLayout.setVisibility(View.VISIBLE);
             holder.emirate.setText(newAd.getEnMobilePlan());
             holder.value.setText(newAd.getOperator());
-            Glide.with(context).load(R.drawable.number_plan_list).into(holder.emirateIcon);
-            Glide.with(context).load(R.drawable.operator_list).into(holder.icon);
+            Glide.with(context).load(R.drawable.number_plan_img).into(holder.emirateIcon);
+            Glide.with(context).load(R.drawable.operator_img).into(holder.icon);
             switch (newAd.getOperator()){
                 case "Etisalat":
                     holder.abuDhabiBikeLayout.setVisibility(View.INVISIBLE);
@@ -104,8 +104,8 @@ public class NumberGridItemAdapter extends RecyclerView.Adapter<NumberGridItemAd
             holder.mobileNumberLayout.setVisibility(View.INVISIBLE);
             holder.emirate.setText(newAd.getEmirate());
             holder.value.setText(newAd.getPlateType());
-            Glide.with(context).load(R.drawable.emirate_list).into(holder.emirateIcon);
-            Glide.with(context).load(R.drawable.plate_type_list).into(holder.icon);
+            Glide.with(context).load(R.drawable.emirate_img).into(holder.emirateIcon);
+            Glide.with(context).load(R.drawable.plate_type_img).into(holder.icon);
             if (newAd.getPlateType().equals("Private Car") && newAd.getEmirate().equals("Dubai")){
                 holder.abuDhabiBikeLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiPrivateLayout.setVisibility(View.INVISIBLE);
@@ -170,7 +170,7 @@ public class NumberGridItemAdapter extends RecyclerView.Adapter<NumberGridItemAd
                 holder.dubaiPrivateLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiClassicPlateCode.setText(newAd.getPlateCode());
                 holder.abuDhabiClassicPlateNumber.setText(newAd.getNumber());
-            }else if (newAd.getPlateType().equals("Private Car") && newAd.getEmirate().equals("Fujairah")){
+            }else if (newAd.getPlateType().equals("Motor Cycle") || newAd.getPlateType().equals("Private Car") && newAd.getEmirate().equals("Fujairah")){
                 holder.abuDhabiBikeLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiPrivateLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiClassicLayout.setVisibility(View.INVISIBLE);

@@ -35,7 +35,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="Sell an Item"
+            android:text="@string/sell_an_item"
             android:textColor="@color/purple_text"
             android:fontFamily="@font/objectivity_medium"
             android:textSize="@dimen/_13ssp"/>
@@ -70,7 +70,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:text="Sell an item"
+                android:text="@string/sell_an_item"
                 android:textSize="@dimen/_30ssp"
                 android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/purple_text"/>
@@ -81,8 +81,9 @@
                 app:layout_constraintTop_toBottomOf="@id/sell_item_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="Let’s start by selecting the right category for your listing."
+                android:text="@string/let_s_start_by_selecting_the_right_category_for_your_listing"
                 android:textSize="@dimen/_12ssp"
+                android:textAlignment="viewStart"
                 android:layout_marginEnd="@dimen/_30sdp"
                 android:layout_marginRight="@dimen/_30sdp"
                 android:textColor="@color/purple_text"

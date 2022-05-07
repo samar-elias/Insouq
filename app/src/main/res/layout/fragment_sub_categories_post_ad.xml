@@ -48,7 +48,7 @@
                 android:id="@+id/category_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Motors"
+                android:text="@string/motors"
                 android:textColor="@color/gray"
                 android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_11ssp"/>
@@ -86,7 +86,7 @@
                 app:layout_constraintTop_toBottomOf="@id/sell_icon"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:text="Motors"
+                android:text="@string/motors"
                 android:textSize="@dimen/_30ssp"
                 android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/purple_text"/>
@@ -121,7 +121,7 @@
                 app:layout_constraintTop_toTopOf="@id/sell_item_description"
                 app:layout_constraintStart_toEndOf="@id/sell_item_description"
                 app:layout_constraintBottom_toBottomOf="@id/sell_item_description"
-                android:text="motors?"
+                android:text="@string/motors__"
                 android:textSize="@dimen/_12ssp"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:textColor="@color/purple_text"

@@ -56,7 +56,7 @@ public class ElectronicsAdapter extends RecyclerView.Adapter<ElectronicsAdapter.
         }else {
             holder.title.setText(electronicAd.getSubCatEnName()+", "+ electronicAd.getSubTypeEnName());
         }
-        holder.price.setText(electronicAd.getPrice()+" AED");
+        holder.price.setText("AED "+electronicAd.getPrice());
 
         if (AppDefs.language.equals("ar")){
             holder.location.setText(electronicAd.getArLocation());
@@ -73,10 +73,10 @@ public class ElectronicsAdapter extends RecyclerView.Adapter<ElectronicsAdapter.
         }
 
         if (categoryId.equals("19") || categoryId.equals("33")){
-            Glide.with(context).load(R.drawable.color_list).into(holder.icon1);
-            Glide.with(context).load(R.drawable.usage_list).into(holder.icon2);
-            Glide.with(context).load(R.drawable.age_list).into(holder.icon3);
-            Glide.with(context).load(R.drawable.storage_list).into(holder.icon4);
+            Glide.with(context).load(R.drawable.color).into(holder.icon1);
+            Glide.with(context).load(R.drawable.usage_1).into(holder.icon2);
+            Glide.with(context).load(R.drawable.age_1).into(holder.icon3);
+            Glide.with(context).load(R.drawable.storage).into(holder.icon4);
 
             holder.value1.setText(electronicAd.getEnColor());
             holder.value2.setText(electronicAd.getEnUsage());
@@ -97,8 +97,8 @@ public class ElectronicsAdapter extends RecyclerView.Adapter<ElectronicsAdapter.
             holder.value4.setVisibility(View.GONE);
         }else {
             Glide.with(context).load(R.drawable.sub_category_list).into(holder.icon1);
-            Glide.with(context).load(R.drawable.usage_list).into(holder.icon2);
-            Glide.with(context).load(R.drawable.age_list).into(holder.icon3);
+            Glide.with(context).load(R.drawable.usage_1).into(holder.icon2);
+            Glide.with(context).load(R.drawable.age_1).into(holder.icon3);
             holder.icon4.setVisibility(View.GONE);
 
             holder.value1.setText(electronicAd.getSubCatEnName());

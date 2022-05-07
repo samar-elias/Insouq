@@ -51,7 +51,7 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.ViewHold
 
         holder.loc.setText(newAd.getEnLocation());
         if (!newAd.getPrice().isEmpty()){
-            holder.price.setText(newAd.getPrice()+ " AED");
+            holder.price.setText("AED "+newAd.getPrice());
         }
 
         if (newAd.getCategory().equals("Mobile Numbers")){

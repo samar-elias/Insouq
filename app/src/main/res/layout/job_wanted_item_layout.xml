@@ -29,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Job position"
+            android:textAlignment="viewStart"
             android:ellipsize="end"
             android:maxLines="1"
             android:fontFamily="@font/objectivity_medium"
@@ -56,6 +57,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="@string/location"
                 android:ellipsize="end"
+                android:textAlignment="viewStart"
                 android:maxLines="1"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:fontFamily="@font/objectivity_regular"
@@ -71,7 +73,7 @@
         android:layout_height="@dimen/_15sdp"
         app:layout_constraintTop_toBottomOf="@id/position_layout"
         app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/education_level_list"
+        android:src="@drawable/education_level_img"
         android:alpha="0.5"
         android:layout_marginTop="@dimen/_10sdp"/>
 
@@ -100,7 +102,7 @@
         app:layout_constraintBottom_toBottomOf="@id/time_icon"
         android:layout_marginStart="@dimen/_20sdp"
         android:alpha="0.5"
-        android:src="@drawable/work_experience_list"/>
+        android:src="@drawable/work_experience_img"/>
 
     <TextView
         android:id="@+id/job_experience"
@@ -126,7 +128,7 @@
         app:layout_constraintTop_toBottomOf="@id/salary_icon"
         android:layout_marginTop="@dimen/_10sdp"
         android:alpha="0.5"
-        android:src="@drawable/phone_number_list"/>
+        android:src="@drawable/employment_type_img"/>
 
     <TextView
         android:id="@+id/value"

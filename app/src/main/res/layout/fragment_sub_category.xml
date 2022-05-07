@@ -44,7 +44,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/back_arrow"
                 app:layout_constraintEnd_toStartOf="@id/change_layout"
-                android:text="Sub category"
+                android:text="@string/sub_category"
                 android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15ssp"/>

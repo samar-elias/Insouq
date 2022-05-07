@@ -36,7 +36,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="You searched for:"
+            android:text="@string/you_searched_for"
+            android:textAlignment="viewStart"
             android:fontFamily="@font/objectivity_medium"
             android:textSize="@dimen/_10ssp"
             android:textColor="@color/purple_text"/>
@@ -44,6 +45,7 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
             android:text="Motors, Used Cars for Sale, Dubai"
             android:fontFamily="@font/objectivity_medium"
             android:textSize="@dimen/_10ssp"
@@ -54,6 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="52 min ago"
+            android:textAlignment="viewStart"
             android:fontFamily="@font/objectivity_regular"
             android:textSize="@dimen/_8ssp"
             android:textColor="@color/purple_text"

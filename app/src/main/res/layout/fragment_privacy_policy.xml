@@ -57,7 +57,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="Your Privacy is"
+                android:text="@string/your_privacy_is"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_17ssp"
                 android:fontFamily="@font/objectivity_medium" />
@@ -72,7 +72,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="our"
+                    android:text="@string/our"
                     android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_17ssp"
                     android:textColor="@color/purple_text"
@@ -80,7 +80,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Priority."
+                    android:text="@string/priority"
                     android:textColor="@color/purple"
                     android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_17ssp"

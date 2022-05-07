@@ -106,6 +106,7 @@
                android:paddingTop="@dimen/_12sdp"
                android:paddingBottom="@dimen/_12sdp"
                android:textSize="@dimen/_14ssp"
+               android:text="@string/continue_with_facebook"
                android:backgroundTint="@color/white"
                android:fontFamily="@font/objectivity_medium"
                android:background="@drawable/rounded_20_white"

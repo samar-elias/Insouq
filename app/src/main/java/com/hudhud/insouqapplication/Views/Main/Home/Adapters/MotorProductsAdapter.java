@@ -58,7 +58,7 @@ public class MotorProductsAdapter extends RecyclerView.Adapter<MotorProductsAdap
         }
 //        holder.title.setText(newAd.getTitle());
         if (!newAd.getPrice().isEmpty()){
-            holder.price.setText(newAd.getPrice()+ " AED");
+            holder.price.setText("AED "+newAd.getPrice());
         }
         String pic = newAd.getMainImage().replace("\\", "/");
         Glide.with(context).load(Urls.IMAGE_URL+pic).into(holder.image);

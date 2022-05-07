@@ -58,18 +58,6 @@
                     android:layout_marginEnd="@dimen/_15sdp"
                     android:src="@drawable/ic_baseline_arrow_back_ios_24_white"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:text="@string/details"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/objectivity_medium"
-                    android:textSize="@dimen/_13ssp"/>
-
                 <ImageView
                     android:id="@+id/next"
                     android:layout_width="@dimen/_20sdp"

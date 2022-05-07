@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/sharjah_private_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/plate_image"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_20sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/sharja_private_long"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:layout_marginEnd="@dimen/_40sdp"/>
+
+    <TextView
+        android:id="@+id/sp_plate_code_long"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/plate_image"
+        app:layout_constraintTop_toTopOf="@id/plate_image"
+        app:layout_constraintBottom_toBottomOf="@id/plate_image"
+        android:textSize="@dimen/_9ssp"
+        android:layout_marginStart="@dimen/_3sdp"
+        android:fontFamily="@font/bebas"
+        android:textColor="@color/black"
+        android:text="3"/>
+
+    <TextView
+        android:id="@+id/sp_plate_number_long"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bebas"
+        android:gravity="center"
+        android:maxLength="5"
+        android:text="00000"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintBottom_toBottomOf="@id/plate_image"
+        app:layout_constraintHorizontal_bias="0.806"
+        app:layout_constraintLeft_toLeftOf="@id/plate_image"
+        app:layout_constraintRight_toRightOf="@id/plate_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.416" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

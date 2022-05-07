@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <ImageView
         android:id="@+id/plate_image"
-        android:layout_width="@dimen/_200sdp"
+        android:layout_width="@dimen/_230sdp"
         android:layout_height="@dimen/_60sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -15,24 +15,24 @@
         android:scaleType="fitXY"
         android:maxLength="5"
         android:src="@drawable/dubai_private_long"
-        android:layout_marginStart="@dimen/_40sdp"
-        android:layout_marginEnd="@dimen/_40sdp"/>
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"/>
 
     <TextView
-        android:id="@+id/dp_plate_code"
+        android:id="@+id/dp_plate_code_long"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/plate_image"
-        app:layout_constraintStart_toStartOf="@id/plate_image"
+        app:layout_constraintLeft_toLeftOf="@id/plate_image"
         android:text="A"
-        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_5sdp"
         android:textSize="@dimen/_30ssp"
         android:fontFamily="@font/bebas"
         android:textColor="@color/black"/>
 
     <TextView
-        android:id="@+id/dp_plate_number"
+        android:id="@+id/dp_plate_number_long"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/plate_image"
@@ -42,7 +42,7 @@
         android:text="00000"
         android:maxLength="5"
         android:gravity="center"
-        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_50sdp"
         android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_3sdp"
         android:textSize="@dimen/_40ssp"

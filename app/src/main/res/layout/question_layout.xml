@@ -15,6 +15,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/add_icon"
             android:text="How can I pay for my order?"
+            android:textAlignment="viewStart"
             android:fontFamily="@font/objectivity_regular"
             android:textSize="@dimen/_11ssp"
             android:textColor="@color/purple_text" />
@@ -24,7 +25,7 @@
             android:layout_height="@dimen/_15sdp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/ic_baseline_add_purple_24" />
+            android:src="@drawable/ic_baseline_arrow_forward_ios_24" />
         <TextView
             android:id="@+id/line"
             android:layout_width="match_parent"

@@ -76,7 +76,7 @@ public class MotorItemAdapter extends RecyclerView.Adapter<MotorItemAdapter.View
                 }else {
                     holder.value.setText(usedCarAd.getEnColor());
                 }
-                Glide.with(context).load(R.drawable.color_list).into(holder.icon);
+                Glide.with(context).load(R.drawable.color).into(holder.icon);
                 Glide.with(context).load(R.drawable.kilometer_list).into(holder.kiloIcon);
                 break;
             case "5":
@@ -87,8 +87,8 @@ public class MotorItemAdapter extends RecyclerView.Adapter<MotorItemAdapter.View
                     holder.kilos.setText(usedCarAd.getEnLength());
                     holder.value.setText(usedCarAd.getEnAge());
                 }
-                Glide.with(context).load(R.drawable.age_list).into(holder.icon);
-                Glide.with(context).load(R.drawable.lenght_list).into(holder.kiloIcon);
+                Glide.with(context).load(R.drawable.age_1).into(holder.icon);
+                Glide.with(context).load(R.drawable.lenght_img).into(holder.kiloIcon);
                 break;
             case "7":
                 if (AppDefs.language.equals("ar")){
@@ -100,8 +100,8 @@ public class MotorItemAdapter extends RecyclerView.Adapter<MotorItemAdapter.View
                 }
                 holder.icon.setVisibility(View.GONE);
                 holder.value.setVisibility(View.GONE);
-                Glide.with(context).load(R.drawable.category_name_list).into(holder.kiloIcon);
-                Glide.with(context).load(R.drawable.sub_category_list).into(holder.yearIcon);
+                Glide.with(context).load(R.drawable.age_1).into(holder.kiloIcon);
+                Glide.with(context).load(R.drawable.condition_2).into(holder.yearIcon);
                 break;
         }
 
@@ -134,7 +134,7 @@ public class MotorItemAdapter extends RecyclerView.Adapter<MotorItemAdapter.View
                 break;
         }
 
-        holder.price.setText(usedCarAd.getPrice()+" AED");
+        holder.price.setText("AED "+usedCarAd.getPrice());
         if (usedCarAd.getYear().equals("0")){
             holder.year.setText(context.getResources().getText(R.string.unknown));
         }else {

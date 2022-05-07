@@ -872,7 +872,7 @@ public class SubCategoryFragment extends Fragment {
 
         jobFilterResults.setOnClickListener(view -> {
             filterJobs();
-            closeFilter(jobsFilter);
+            closeFilter(jobsWantedFilter);
         });
 
         serviceFilterResults.setOnClickListener(view -> {
@@ -916,7 +916,7 @@ public class SubCategoryFragment extends Fragment {
             closeFilter(motorsFilter);
         });
 
-        resetJobFilter.setOnClickListener(view -> {
+        resetJobFilter.setOnClickListener(view ->  {
 //            filterJobs1();
 //            getJobAds(categoryId);
             setData();
@@ -1681,7 +1681,7 @@ public class SubCategoryFragment extends Fragment {
                 }
                 AppDefs.motorAds = usedCars;
                 setUsedCarsAdapter();
-                closeFilter(motorsFilter);
+//                closeFilter(motorsFilter);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -1693,6 +1693,38 @@ public class SubCategoryFragment extends Fragment {
         mainActivity.queue.add(userCarsFilterRequest);
     }
 
+//    private void filterUsedCars(){
+//        usedCars.clear();
+//        setUsedCarsAdapter();
+//        fromPrice = String.valueOf((int)  usedCarsPriceBar.getCurrentValues().getLeftValue());
+//        toPrice = String.valueOf((int)  usedCarsPriceBar.getCurrentValues().getRightValue());
+//        fromYear = String.valueOf((int)  usedCarsYearBar.getCurrentValues().getLeftValue());
+//        toYear = String.valueOf((int)  usedCarsYearBar.getCurrentValues().getRightValue());
+//        fromKilo = String.valueOf((int)  usedCarsMileageBar.getCurrentValues().getLeftValue());
+//        toKilo = String.valueOf((int)  usedCarsMileageBar.getCurrentValues().getRightValue());
+//        mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
+//        StringRequest usedCarsFilterRequest = new StringRequest(Request.Method.POST, Urls.MotorAds_URL+"FilterMotors?fromPrice=0&toPrice=10000000&fromYear=0&toYear=3000&fromKilometers=0&toKilometers=9999&maker=Dodge-&categoryId=2", response -> {
+//            mainActivity.hideProgressDialog();
+//            try {
+//                JSONArray usedArray = new JSONArray(response);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }, error -> {
+//            mainActivity.hideProgressDialog();
+//
+//        }){
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("Content-Type", "application/json; charset=UTF-8");
+//                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
+//                return params;
+//            }
+//        };
+//        mainActivity.queue.add(usedCarsFilterRequest);
+//    }
+
     private void filterUsedCars(){
         usedCars.clear();
         setUsedCarsAdapter();
@@ -1702,108 +1734,127 @@ public class SubCategoryFragment extends Fragment {
         toYear = String.valueOf((int) usedCarsYearBar.getCurrentValues().getRightValue());
         fromKilo = String.valueOf((int) usedCarsMileageBar.getCurrentValues().getLeftValue());
         toKilo = String.valueOf((int) usedCarsMileageBar.getCurrentValues().getRightValue());
+        JSONObject params = new JSONObject();
+        try {
+            params.put("Trim", currentTrim);
+            params.put("Model", currentModel);
+            params.put("FromPrice", String.valueOf((int) usedCarsPriceBar.getCurrentValues().getLeftValue()));
+            params.put("ToPrice", String.valueOf((int) usedCarsPriceBar.getCurrentValues().getRightValue()));
+            params.put("FromYear", String.valueOf((int) usedCarsYearBar.getCurrentValues().getLeftValue()));
+            params.put("ToYear", String.valueOf((int) usedCarsYearBar.getCurrentValues().getRightValue()));
+            params.put("FromKilometers", String.valueOf((int) usedCarsMileageBar.getCurrentValues().getLeftValue()));
+            params.put("ToKilometers", String.valueOf((int) usedCarsMileageBar.getCurrentValues().getRightValue()));
+            params.put("Maker", currentBrand);
+            params.put("Location", currentLocation);
+            params.put("CategoryId", categoryId);
+//            params.put("Warranty", "3");
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest userCarsFilterRequest = new StringRequest(Request.Method.POST, Urls.MotorAds_URL+"FilterMotors", response -> {
+        JsonObjectRequest userCarsFilterRequest = new JsonObjectRequest(Request.Method.POST, Urls.MotorAds_URL+"FilterMotors2", params, response -> {
+            mainActivity.hideProgressDialog();
             try {
-                JSONArray adsArray = new JSONArray(response);
+                JSONArray adsArray = response.getJSONArray("results");
                 for (int i=0; i< adsArray.length(); i++){
                     UsedCarAd usedCarAd = new UsedCarAd();
                     JSONObject adObj = adsArray.getJSONObject(i);
-                    usedCarAd.setId(adObj.getString("id"));
-                    usedCarAd.setChats(adObj.getString("chates"));
-                    usedCarAd.setViews(adObj.getString("views"));
-                    usedCarAd.setTitle(adObj.getString("title"));
-                    usedCarAd.setDescription(adObj.getString("description"));
-                    usedCarAd.setEnLocation(adObj.getString("en_Location"));
-                    usedCarAd.setArLocation(adObj.getString("ar_Location"));
-                    usedCarAd.setLatitude(adObj.getString("lat"));
-                    usedCarAd.setLongitude(adObj.getString("lng"));
-                    usedCarAd.setStatus(adObj.getString("status"));
-                    String postedDate = mainActivity.convertDate(adObj.getString("postDate").substring(0, adObj.getString("postDate").lastIndexOf(".")));
+                    usedCarAd.setId(adObj.getString("Id"));
+                    usedCarAd.setChats(adObj.getString("Chates"));
+                    usedCarAd.setViews(adObj.getString("Views"));
+                    usedCarAd.setTitle(adObj.getString("Title"));
+                    usedCarAd.setDescription(adObj.getString("Description"));
+                    usedCarAd.setEnLocation(adObj.getString("En_Location"));
+                    usedCarAd.setArLocation(adObj.getString("Ar_Location"));
+                    usedCarAd.setLatitude(adObj.getString("Lat"));
+                    usedCarAd.setLongitude(adObj.getString("Lng"));
+                    usedCarAd.setStatus(adObj.getString("Status"));
+                    String postedDate = mainActivity.convertDate(adObj.getString("PostDate").substring(0, adObj.getString("PostDate").lastIndexOf(".")));
                     usedCarAd.setPostDate(postedDate);
-                    usedCarAd.setCategoryId(adObj.getString("categoryId"));
-                    usedCarAd.setCategoryEnName(adObj.getString("categoryEnName"));
-                    usedCarAd.setCategoryArName(adObj.getString("categoryArName"));
-                    usedCarAd.setSubCategoryId(adObj.getString("subCategoryId"));
-                    usedCarAd.setSubCategoryEnName(adObj.getString("subCategoryEn_Name"));
-                    usedCarAd.setSubCategoryArName(adObj.getString("subCategoryAr_Name"));
-                    usedCarAd.setOtherSubCategory(adObj.getString("otherSubCategory"));
-                    usedCarAd.setSubTypeId(adObj.getString("subTypeId"));
-                    usedCarAd.setSubTypeEnName(adObj.getString("subTypeEn_Name"));
-                    usedCarAd.setSubTypeArName(adObj.getString("subTypeId"));
-                    usedCarAd.setSubTypeId(adObj.getString("subTypeAr_Name"));
-                    usedCarAd.setOtherSubType(adObj.getString("otherSubType"));
-                    usedCarAd.setTypeId(adObj.getString("typeId"));
-                    usedCarAd.setUserId(adObj.getString("userId"));
-                    usedCarAd.setAgentId(adObj.getString("agentId"));
-                    usedCarAd.setEnMaker(adObj.getString("en_Maker"));
-                    usedCarAd.setArMaker(adObj.getString("ar_Maker"));
-                    usedCarAd.setEnModel(adObj.getString("en_Model"));
-                    usedCarAd.setArModel(adObj.getString("ar_Model"));
-                    usedCarAd.setEnTrim(adObj.getString("en_Trim"));
-                    usedCarAd.setArTrim(adObj.getString("ar_Trim"));
-                    usedCarAd.setEnColor(adObj.getString("en_Color"));
-                    usedCarAd.setArColor(adObj.getString("ar_Color"));
-                    usedCarAd.setKiloMeters(adObj.getString("kilometers"));
-                    usedCarAd.setYear(adObj.getString("year"));
-                    usedCarAd.setEnDoors(adObj.getString("en_Doors"));
-                    usedCarAd.setArDoors(adObj.getString("ar_Doors"));
-                    usedCarAd.setWarranty(adObj.getString("warranty"));
-                    usedCarAd.setEnTransmission(adObj.getString("en_Transmission"));
-                    usedCarAd.setArTransmission(adObj.getString("ar_Transmission"));
-                    usedCarAd.setEnRegionalSpecs(adObj.getString("en_RegionalSpecs"));
-                    usedCarAd.setArRegionalSpecs(adObj.getString("ar_RegionalSpecs"));
-                    usedCarAd.setEnBodyType(adObj.getString("en_BodyType"));
-                    usedCarAd.setArBodyType(adObj.getString("ar_BodyType"));
-                    usedCarAd.setEnFuelType(adObj.getString("en_FuelType"));
-                    usedCarAd.setArFuelType(adObj.getString("ar_FuelType"));
-                    usedCarAd.setEnNoOfCylinders(adObj.getString("en_NoOfCylinders"));
-                    usedCarAd.setArNoOfCylinders(adObj.getString("ar_NoOfCylinders"));
-                    usedCarAd.setEnHorsepower(adObj.getString("en_Horsepower"));
-                    usedCarAd.setArHorsepower(adObj.getString("ar_Horsepower"));
-                    usedCarAd.setEnSteeringSide(adObj.getString("en_SteeringSide"));
-                    usedCarAd.setArSteeringSide(adObj.getString("ar_SteeringSide"));
-                    usedCarAd.setPrice(adObj.getString("price"));
-                    usedCarAd.setUserImage(adObj.getString("userImage"));
-                    usedCarAd.setPhoneNumber(adObj.getString("phoneNumber"));
-                    usedCarAd.setEnCondition(adObj.getString("en_Condition"));
-                    usedCarAd.setArCondition(adObj.getString("ar_Condition"));
-                    usedCarAd.setEnMechanicalCondition(adObj.getString("en_MechanicalCondition"));
-                    usedCarAd.setArMechanicalCondition(adObj.getString("ar_MechanicalCondition"));
-                    usedCarAd.setEnCapacity(adObj.getString("en_Capacity"));
-                    usedCarAd.setArCapacity(adObj.getString("ar_Capacity"));
-                    usedCarAd.setEnEngineSize(adObj.getString("en_EngineSize"));
-                    usedCarAd.setArEngineSize(adObj.getString("ar_EngineSize"));
-                    usedCarAd.setEnAge(adObj.getString("en_Age"));
-                    usedCarAd.setArAge(adObj.getString("ar_Age"));
-                    usedCarAd.setEnUsage(adObj.getString("en_Usage"));
-                    usedCarAd.setArUsage(adObj.getString("ar_Usage"));
-                    usedCarAd.setEnLength(adObj.getString("en_Length"));
-                    usedCarAd.setArLength(adObj.getString("ar_Length"));
-                    usedCarAd.setEnWheels(adObj.getString("en_Wheels"));
-                    usedCarAd.setArWheels(adObj.getString("ar_Wheels"));
-                    usedCarAd.setEnSellerType(adObj.getString("en_SellerType"));
-                    usedCarAd.setArSellerType(adObj.getString("ar_SellerType"));
-                    usedCarAd.setEnDriveSystem(adObj.getString("en_FinalDriveSystem"));
-                    usedCarAd.setArDriveSystem(adObj.getString("ar_FinalDriveSystem"));
-                    usedCarAd.setEnPartName(adObj.getString("en_PartName"));
-                    usedCarAd.setArPartName(adObj.getString("ar_PartName"));
-                    usedCarAd.setNameOfPart(adObj.getString("nameOfPart"));
-                    JSONArray pics = adObj.getJSONArray("pictures");
+                    usedCarAd.setCategoryId(adObj.getString("CategoryId"));
+                    usedCarAd.setCategoryEnName(adObj.getString("CategoryEnName"));
+                    usedCarAd.setCategoryArName(adObj.getString("CategoryArName"));
+                    usedCarAd.setSubCategoryId(adObj.getString("SubCategoryId"));
+                    usedCarAd.setSubCategoryEnName(adObj.getString("SubCategoryEn_Name"));
+                    usedCarAd.setSubCategoryArName(adObj.getString("SubCategoryAr_Name"));
+                    usedCarAd.setOtherSubCategory(adObj.getString("OtherSubCategory"));
+                    usedCarAd.setSubTypeId(adObj.getString("SubTypeId"));
+                    usedCarAd.setSubTypeEnName(adObj.getString("SubTypeEn_Name"));
+                    usedCarAd.setSubTypeArName(adObj.getString("SubTypeId"));
+                    usedCarAd.setSubTypeId(adObj.getString("SubTypeAr_Name"));
+                    usedCarAd.setOtherSubType(adObj.getString("OtherSubType"));
+                    usedCarAd.setTypeId(adObj.getString("TypeId"));
+                    usedCarAd.setUserId(adObj.getString("UserId"));
+                    usedCarAd.setAgentId(adObj.getString("AgentId"));
+                    usedCarAd.setEnMaker(adObj.getString("En_Maker"));
+                    usedCarAd.setArMaker(adObj.getString("Ar_Maker"));
+                    usedCarAd.setEnModel(adObj.getString("En_Model"));
+                    usedCarAd.setArModel(adObj.getString("Ar_Model"));
+                    usedCarAd.setEnTrim(adObj.getString("En_Trim"));
+                    usedCarAd.setArTrim(adObj.getString("Ar_Trim"));
+                    usedCarAd.setEnColor(adObj.getString("En_Color"));
+                    usedCarAd.setArColor(adObj.getString("Ar_Color"));
+                    usedCarAd.setKiloMeters(adObj.getString("Kilometers"));
+                    usedCarAd.setYear(adObj.getString("Year"));
+                    usedCarAd.setEnDoors(adObj.getString("En_Doors"));
+                    usedCarAd.setArDoors(adObj.getString("Ar_Doors"));
+                    usedCarAd.setWarranty(adObj.getString("Warranty"));
+                    usedCarAd.setEnTransmission(adObj.getString("En_Transmission"));
+                    usedCarAd.setArTransmission(adObj.getString("Ar_Transmission"));
+                    usedCarAd.setEnRegionalSpecs(adObj.getString("En_RegionalSpecs"));
+                    usedCarAd.setArRegionalSpecs(adObj.getString("Ar_RegionalSpecs"));
+                    usedCarAd.setEnBodyType(adObj.getString("En_BodyType"));
+                    usedCarAd.setArBodyType(adObj.getString("Ar_BodyType"));
+                    usedCarAd.setEnFuelType(adObj.getString("En_FuelType"));
+                    usedCarAd.setArFuelType(adObj.getString("Ar_FuelType"));
+                    usedCarAd.setEnNoOfCylinders(adObj.getString("En_NoOfCylinders"));
+                    usedCarAd.setArNoOfCylinders(adObj.getString("Ar_NoOfCylinders"));
+                    usedCarAd.setEnHorsepower(adObj.getString("En_Horsepower"));
+                    usedCarAd.setArHorsepower(adObj.getString("Ar_Horsepower"));
+                    usedCarAd.setEnSteeringSide(adObj.getString("En_SteeringSide"));
+                    usedCarAd.setArSteeringSide(adObj.getString("Ar_SteeringSide"));
+                    usedCarAd.setPrice(adObj.getString("Price"));
+                    usedCarAd.setUserImage(adObj.getString("UserImage"));
+                    usedCarAd.setPhoneNumber(adObj.getString("PhoneNumber"));
+                    usedCarAd.setEnCondition(adObj.getString("En_Condition"));
+                    usedCarAd.setArCondition(adObj.getString("Ar_Condition"));
+                    usedCarAd.setEnMechanicalCondition(adObj.getString("En_MechanicalCondition"));
+                    usedCarAd.setArMechanicalCondition(adObj.getString("Ar_MechanicalCondition"));
+                    usedCarAd.setEnCapacity(adObj.getString("En_Capacity"));
+                    usedCarAd.setArCapacity(adObj.getString("Ar_Capacity"));
+                    usedCarAd.setEnEngineSize(adObj.getString("En_EngineSize"));
+                    usedCarAd.setArEngineSize(adObj.getString("Ar_EngineSize"));
+                    usedCarAd.setEnAge(adObj.getString("En_Age"));
+                    usedCarAd.setArAge(adObj.getString("Ar_Age"));
+                    usedCarAd.setEnUsage(adObj.getString("En_Usage"));
+                    usedCarAd.setArUsage(adObj.getString("Ar_Usage"));
+                    usedCarAd.setEnLength(adObj.getString("En_Length"));
+                    usedCarAd.setArLength(adObj.getString("Ar_Length"));
+                    usedCarAd.setEnWheels(adObj.getString("En_Wheels"));
+                    usedCarAd.setArWheels(adObj.getString("Ar_Wheels"));
+                    usedCarAd.setEnSellerType(adObj.getString("En_SellerType"));
+                    usedCarAd.setArSellerType(adObj.getString("Ar_SellerType"));
+                    usedCarAd.setEnDriveSystem(adObj.getString("En_FinalDriveSystem"));
+                    usedCarAd.setArDriveSystem(adObj.getString("Ar_FinalDriveSystem"));
+                    usedCarAd.setEnPartName(adObj.getString("En_PartName"));
+                    usedCarAd.setArPartName(adObj.getString("Ar_PartName"));
+                    usedCarAd.setNameOfPart(adObj.getString("NameOfPart"));
+                    JSONArray pics = adObj.getJSONArray("Pictures");
                     ArrayList<Picture> pictures = new ArrayList<>();
                     for (int j=0; j<pics.length(); j++){
                         JSONObject picObj = pics.getJSONObject(j);
                         Picture picture = new Picture();
-                        picture.setId(picObj.getString("id"));
-                        picture.setImageURL(picObj.getString("imageURL"));
-                        picture.setMain(picObj.getBoolean("mainPicture"));
+                        picture.setId(picObj.getString("Id"));
+                        picture.setImageURL(picObj.getString("ImageURL"));
+                        picture.setMain(picObj.getBoolean("MainPicture"));
                         if (picture.isMain()){
                             usedCarAd.setMainImage(picture.getImageURL());
                         }
                         pictures.add(picture);
                     }
                     usedCarAd.setPictures(pictures);
-                    usedCarAd.setIsFav(adObj.getString("isFavorite"));
+                    usedCarAd.setIsFav(adObj.getString("IsFavorite"));
                     usedCars.add(usedCarAd);
                 }
                 AppDefs.motorAds = usedCars;
@@ -1823,27 +1874,58 @@ public class SubCategoryFragment extends Fragment {
                 return params;
             }
 
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("Trim", currentTrim);
-                params.put("Model", currentModel);
-                params.put("FromPrice", String.valueOf((int) usedCarsPriceBar.getCurrentValues().getLeftValue()));
-                params.put("ToPrice", String.valueOf((int) usedCarsPriceBar.getCurrentValues().getRightValue()));
-                params.put("FromYear", String.valueOf((int) usedCarsYearBar.getCurrentValues().getLeftValue()));
-                params.put("ToYear", String.valueOf((int) usedCarsYearBar.getCurrentValues().getRightValue()));
-                params.put("FromKilometers", String.valueOf((int) usedCarsMileageBar.getCurrentValues().getLeftValue()));
-                params.put("ToKilometers", String.valueOf((int) usedCarsMileageBar.getCurrentValues().getRightValue()));
-                params.put("Maker", currentBrand);
-                params.put("Location", currentLocation);
-                params.put("CategoryId", categoryId);
-                params.put("SortBy", sortBy);
-                return params;
-            }
+
         };
         mainActivity.queue.add(userCarsFilterRequest);
     }
+
+//    private void filterUsedCars(){
+//        JSONObject params = new JSONObject();
+//        try {
+//            params.put("fromPrice", 0);
+//            params.put("toPrice", 1000000000);
+//            params.put("fromYear", 0);
+//            params.put("toYear", 3000);
+//            params.put("fromKilometers", 0);
+//            params.put("toKilometers", 1000000000);
+//            params.put("maker", "dodge-");
+//            params.put("model", "");
+////            params.put("trim", "");
+////            params.put("horsepower", "");
+////            params.put("age", "");
+////            params.put("usage", "");
+////            params.put("warranty", "0");
+////            params.put("location", "");
+////            params.put("partName", "");
+//            params.put("categoryId", 2);
+////            params.put("subCategoryId", "0");
+////            params.put("subTypeId", "0");
+////            params.put("sortBy", "1");
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        JsonObjectRequest usedCarsFilterRequest = new JsonObjectRequest(Request.Method.GET, "https://apinew.insouq.com/api/MotorAds/FilterMotors2",params, response -> {
+//
+//            try {
+//                JSONArray result = response.getJSONArray("results");
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }, error -> {
+//            Log.d("error", "error");
+//
+//        }){
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<String, String>();
+//                params.put("Content-Type", "application/json; charset=UTF-8");
+//                params.put("Authorization", "Bearer "+ "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6Ijc4IiwiZW1haWwiOiJ5YXppZGhhbGFoMkBnbWFpbC5jb20iLCJzdWIiOiJ5YXppZGhhbGFoMkBnbWFpbC5jb20iLCJqdGkiOiI3YzE3NTYzZC0wYzg1LTQ0NDgtOTQ2NC04Mjk0YzhkOWYxZDEiLCJuYmYiOjE2NTA3MTU4NzUsImV4cCI6MTY1MTMyMDY3NSwiaWF0IjoxNjUwNzE1ODc1fQ.B5MJITxKe7o3bX3sT6rA4bzk7gqE3QQKBbF2d6knZnw");
+//                return params;
+//            }
+//
+//        };
+//        mainActivity.queue.add(usedCarsFilterRequest);
+//    }
 
     //Boats
     private void filterBoats1(){
@@ -2211,109 +2293,124 @@ public class SubCategoryFragment extends Fragment {
         setUsedCarsAdapter();
         fromPrice = String.valueOf((int) boatsPriceBar.getCurrentValues().getLeftValue());
         toPrice = String.valueOf((int) boatsPriceBar.getCurrentValues().getRightValue());
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", String.valueOf((int) boatsPriceBar.getCurrentValues().getLeftValue()));
+            params.put("ToPrice", String.valueOf((int) boatsPriceBar.getCurrentValues().getRightValue()));
+            params.put("Age", currentBoatAge);
+            params.put("Usage", currentBoatUsage);
+            params.put("Warranty", currentBoatWarranty);
+            params.put("Horsepower", currentBoatHorsePower);
+            params.put("Location", currentLocation);
+            params.put("CategoryId", categoryId);
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest userCarsFilterRequest = new StringRequest(Request.Method.POST, Urls.MotorAds_URL+"FilterMotors", response -> {
+        JsonObjectRequest userCarsFilterRequest = new JsonObjectRequest(Request.Method.POST, Urls.MotorAds_URL+"FilterMotors2", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray adsArray = new JSONArray(response);
+                JSONArray adsArray = response.getJSONArray("results");
                 for (int i=0; i< adsArray.length(); i++){
                     UsedCarAd usedCarAd = new UsedCarAd();
                     JSONObject adObj = adsArray.getJSONObject(i);
-                    usedCarAd.setId(adObj.getString("id"));
-                    usedCarAd.setChats(adObj.getString("chates"));
-                    usedCarAd.setViews(adObj.getString("views"));
-                    usedCarAd.setTitle(adObj.getString("title"));
-                    usedCarAd.setDescription(adObj.getString("description"));
-                    usedCarAd.setEnLocation(adObj.getString("en_Location"));
-                    usedCarAd.setArLocation(adObj.getString("ar_Location"));
-                    usedCarAd.setLatitude(adObj.getString("lat"));
-                    usedCarAd.setLongitude(adObj.getString("lng"));
-                    usedCarAd.setStatus(adObj.getString("status"));
-                    String postedDate = mainActivity.convertDate(adObj.getString("postDate").substring(0, adObj.getString("postDate").lastIndexOf(".")));
+                    usedCarAd.setId(adObj.getString("Id"));
+                    usedCarAd.setChats(adObj.getString("Chates"));
+                    usedCarAd.setViews(adObj.getString("Views"));
+                    usedCarAd.setTitle(adObj.getString("Title"));
+                    usedCarAd.setDescription(adObj.getString("Description"));
+                    usedCarAd.setEnLocation(adObj.getString("En_Location"));
+                    usedCarAd.setArLocation(adObj.getString("Ar_Location"));
+                    usedCarAd.setLatitude(adObj.getString("Lat"));
+                    usedCarAd.setLongitude(adObj.getString("Lng"));
+                    usedCarAd.setStatus(adObj.getString("Status"));
+                    String postedDate = mainActivity.convertDate(adObj.getString("PostDate").substring(0, adObj.getString("PostDate").lastIndexOf(".")));
                     usedCarAd.setPostDate(postedDate);
-                    usedCarAd.setCategoryId(adObj.getString("categoryId"));
-                    usedCarAd.setCategoryEnName(adObj.getString("categoryEnName"));
-                    usedCarAd.setCategoryArName(adObj.getString("categoryArName"));
-                    usedCarAd.setSubCategoryId(adObj.getString("subCategoryId"));
-                    usedCarAd.setSubCategoryEnName(adObj.getString("subCategoryEn_Name"));
-                    usedCarAd.setSubCategoryArName(adObj.getString("subCategoryAr_Name"));
-                    usedCarAd.setOtherSubCategory(adObj.getString("otherSubCategory"));
-                    usedCarAd.setSubTypeId(adObj.getString("subTypeId"));
-                    usedCarAd.setSubTypeEnName(adObj.getString("subTypeEn_Name"));
-                    usedCarAd.setSubTypeArName(adObj.getString("subTypeId"));
-                    usedCarAd.setSubTypeId(adObj.getString("subTypeAr_Name"));
-                    usedCarAd.setOtherSubType(adObj.getString("otherSubType"));
-                    usedCarAd.setTypeId(adObj.getString("typeId"));
-                    usedCarAd.setUserId(adObj.getString("userId"));
-                    usedCarAd.setAgentId(adObj.getString("agentId"));
-                    usedCarAd.setEnMaker(adObj.getString("en_Maker"));
-                    usedCarAd.setArMaker(adObj.getString("ar_Maker"));
-                    usedCarAd.setEnModel(adObj.getString("en_Model"));
-                    usedCarAd.setArModel(adObj.getString("ar_Model"));
-                    usedCarAd.setEnTrim(adObj.getString("en_Trim"));
-                    usedCarAd.setArTrim(adObj.getString("ar_Trim"));
-                    usedCarAd.setEnColor(adObj.getString("en_Color"));
-                    usedCarAd.setArColor(adObj.getString("ar_Color"));
-                    usedCarAd.setKiloMeters(adObj.getString("kilometers"));
-                    usedCarAd.setYear(adObj.getString("year"));
-                    usedCarAd.setEnDoors(adObj.getString("en_Doors"));
-                    usedCarAd.setArDoors(adObj.getString("ar_Doors"));
-                    usedCarAd.setWarranty(adObj.getString("warranty"));
-                    usedCarAd.setEnTransmission(adObj.getString("en_Transmission"));
-                    usedCarAd.setArTransmission(adObj.getString("ar_Transmission"));
-                    usedCarAd.setEnRegionalSpecs(adObj.getString("en_RegionalSpecs"));
-                    usedCarAd.setArRegionalSpecs(adObj.getString("ar_RegionalSpecs"));
-                    usedCarAd.setEnBodyType(adObj.getString("en_BodyType"));
-                    usedCarAd.setArBodyType(adObj.getString("ar_BodyType"));
-                    usedCarAd.setEnFuelType(adObj.getString("en_FuelType"));
-                    usedCarAd.setArFuelType(adObj.getString("ar_FuelType"));
-                    usedCarAd.setEnNoOfCylinders(adObj.getString("en_NoOfCylinders"));
-                    usedCarAd.setArNoOfCylinders(adObj.getString("ar_NoOfCylinders"));
-                    usedCarAd.setEnHorsepower(adObj.getString("en_Horsepower"));
-                    usedCarAd.setArHorsepower(adObj.getString("ar_Horsepower"));
-                    usedCarAd.setEnSteeringSide(adObj.getString("en_SteeringSide"));
-                    usedCarAd.setArSteeringSide(adObj.getString("ar_SteeringSide"));
-                    usedCarAd.setPrice(adObj.getString("price"));
-                    usedCarAd.setUserImage(adObj.getString("userImage"));
-                    usedCarAd.setPhoneNumber(adObj.getString("phoneNumber"));
-                    usedCarAd.setEnCondition(adObj.getString("en_Condition"));
-                    usedCarAd.setArCondition(adObj.getString("ar_Condition"));
-                    usedCarAd.setEnMechanicalCondition(adObj.getString("en_MechanicalCondition"));
-                    usedCarAd.setArMechanicalCondition(adObj.getString("ar_MechanicalCondition"));
-                    usedCarAd.setEnCapacity(adObj.getString("en_Capacity"));
-                    usedCarAd.setArCapacity(adObj.getString("ar_Capacity"));
-                    usedCarAd.setEnEngineSize(adObj.getString("en_EngineSize"));
-                    usedCarAd.setArEngineSize(adObj.getString("ar_EngineSize"));
-                    usedCarAd.setEnAge(adObj.getString("en_Age"));
-                    usedCarAd.setArAge(adObj.getString("ar_Age"));
-                    usedCarAd.setEnUsage(adObj.getString("en_Usage"));
-                    usedCarAd.setArUsage(adObj.getString("ar_Usage"));
-                    usedCarAd.setEnLength(adObj.getString("en_Length"));
-                    usedCarAd.setArLength(adObj.getString("ar_Length"));
-                    usedCarAd.setEnWheels(adObj.getString("en_Wheels"));
-                    usedCarAd.setArWheels(adObj.getString("ar_Wheels"));
-                    usedCarAd.setEnSellerType(adObj.getString("en_SellerType"));
-                    usedCarAd.setArSellerType(adObj.getString("ar_SellerType"));
-                    usedCarAd.setEnDriveSystem(adObj.getString("en_FinalDriveSystem"));
-                    usedCarAd.setArDriveSystem(adObj.getString("ar_FinalDriveSystem"));
-                    usedCarAd.setEnPartName(adObj.getString("en_PartName"));
-                    usedCarAd.setArPartName(adObj.getString("ar_PartName"));
-                    usedCarAd.setNameOfPart(adObj.getString("nameOfPart"));
-                    JSONArray pics = adObj.getJSONArray("pictures");
+                    usedCarAd.setCategoryId(adObj.getString("CategoryId"));
+                    usedCarAd.setCategoryEnName(adObj.getString("CategoryEnName"));
+                    usedCarAd.setCategoryArName(adObj.getString("CategoryArName"));
+                    usedCarAd.setSubCategoryId(adObj.getString("SubCategoryId"));
+                    usedCarAd.setSubCategoryEnName(adObj.getString("SubCategoryEn_Name"));
+                    usedCarAd.setSubCategoryArName(adObj.getString("SubCategoryAr_Name"));
+                    usedCarAd.setOtherSubCategory(adObj.getString("OtherSubCategory"));
+                    usedCarAd.setSubTypeId(adObj.getString("SubTypeId"));
+                    usedCarAd.setSubTypeEnName(adObj.getString("SubTypeEn_Name"));
+                    usedCarAd.setSubTypeArName(adObj.getString("SubTypeId"));
+                    usedCarAd.setSubTypeId(adObj.getString("SubTypeAr_Name"));
+                    usedCarAd.setOtherSubType(adObj.getString("OtherSubType"));
+                    usedCarAd.setTypeId(adObj.getString("TypeId"));
+                    usedCarAd.setUserId(adObj.getString("UserId"));
+                    usedCarAd.setAgentId(adObj.getString("AgentId"));
+                    usedCarAd.setEnMaker(adObj.getString("En_Maker"));
+                    usedCarAd.setArMaker(adObj.getString("Ar_Maker"));
+                    usedCarAd.setEnModel(adObj.getString("En_Model"));
+                    usedCarAd.setArModel(adObj.getString("Ar_Model"));
+                    usedCarAd.setEnTrim(adObj.getString("En_Trim"));
+                    usedCarAd.setArTrim(adObj.getString("Ar_Trim"));
+                    usedCarAd.setEnColor(adObj.getString("En_Color"));
+                    usedCarAd.setArColor(adObj.getString("Ar_Color"));
+                    usedCarAd.setKiloMeters(adObj.getString("Kilometers"));
+                    usedCarAd.setYear(adObj.getString("Year"));
+                    usedCarAd.setEnDoors(adObj.getString("En_Doors"));
+                    usedCarAd.setArDoors(adObj.getString("Ar_Doors"));
+                    usedCarAd.setWarranty(adObj.getString("Warranty"));
+                    usedCarAd.setEnTransmission(adObj.getString("En_Transmission"));
+                    usedCarAd.setArTransmission(adObj.getString("Ar_Transmission"));
+                    usedCarAd.setEnRegionalSpecs(adObj.getString("En_RegionalSpecs"));
+                    usedCarAd.setArRegionalSpecs(adObj.getString("Ar_RegionalSpecs"));
+                    usedCarAd.setEnBodyType(adObj.getString("En_BodyType"));
+                    usedCarAd.setArBodyType(adObj.getString("Ar_BodyType"));
+                    usedCarAd.setEnFuelType(adObj.getString("En_FuelType"));
+                    usedCarAd.setArFuelType(adObj.getString("Ar_FuelType"));
+                    usedCarAd.setEnNoOfCylinders(adObj.getString("En_NoOfCylinders"));
+                    usedCarAd.setArNoOfCylinders(adObj.getString("Ar_NoOfCylinders"));
+                    usedCarAd.setEnHorsepower(adObj.getString("En_Horsepower"));
+                    usedCarAd.setArHorsepower(adObj.getString("Ar_Horsepower"));
+                    usedCarAd.setEnSteeringSide(adObj.getString("En_SteeringSide"));
+                    usedCarAd.setArSteeringSide(adObj.getString("Ar_SteeringSide"));
+                    usedCarAd.setPrice(adObj.getString("Price"));
+                    usedCarAd.setUserImage(adObj.getString("UserImage"));
+                    usedCarAd.setPhoneNumber(adObj.getString("PhoneNumber"));
+                    usedCarAd.setEnCondition(adObj.getString("En_Condition"));
+                    usedCarAd.setArCondition(adObj.getString("Ar_Condition"));
+                    usedCarAd.setEnMechanicalCondition(adObj.getString("En_MechanicalCondition"));
+                    usedCarAd.setArMechanicalCondition(adObj.getString("Ar_MechanicalCondition"));
+                    usedCarAd.setEnCapacity(adObj.getString("En_Capacity"));
+                    usedCarAd.setArCapacity(adObj.getString("Ar_Capacity"));
+                    usedCarAd.setEnEngineSize(adObj.getString("En_EngineSize"));
+                    usedCarAd.setArEngineSize(adObj.getString("Ar_EngineSize"));
+                    usedCarAd.setEnAge(adObj.getString("En_Age"));
+                    usedCarAd.setArAge(adObj.getString("Ar_Age"));
+                    usedCarAd.setEnUsage(adObj.getString("En_Usage"));
+                    usedCarAd.setArUsage(adObj.getString("Ar_Usage"));
+                    usedCarAd.setEnLength(adObj.getString("En_Length"));
+                    usedCarAd.setArLength(adObj.getString("Ar_Length"));
+                    usedCarAd.setEnWheels(adObj.getString("En_Wheels"));
+                    usedCarAd.setArWheels(adObj.getString("Ar_Wheels"));
+                    usedCarAd.setEnSellerType(adObj.getString("En_SellerType"));
+                    usedCarAd.setArSellerType(adObj.getString("Ar_SellerType"));
+                    usedCarAd.setEnDriveSystem(adObj.getString("En_FinalDriveSystem"));
+                    usedCarAd.setArDriveSystem(adObj.getString("Ar_FinalDriveSystem"));
+                    usedCarAd.setEnPartName(adObj.getString("En_PartName"));
+                    usedCarAd.setArPartName(adObj.getString("Ar_PartName"));
+                    usedCarAd.setNameOfPart(adObj.getString("NameOfPart"));
+                    JSONArray pics = adObj.getJSONArray("Pictures");
                     ArrayList<Picture> pictures = new ArrayList<>();
                     for (int j=0; j<pics.length(); j++){
                         JSONObject picObj = pics.getJSONObject(j);
                         Picture picture = new Picture();
-                        picture.setId(picObj.getString("id"));
-                        picture.setImageURL(picObj.getString("imageURL"));
-                        picture.setMain(picObj.getBoolean("mainPicture"));
+                        picture.setId(picObj.getString("Id"));
+                        picture.setImageURL(picObj.getString("ImageURL"));
+                        picture.setMain(picObj.getBoolean("MainPicture"));
                         if (picture.isMain()){
                             usedCarAd.setMainImage(picture.getImageURL());
                         }
                         pictures.add(picture);
                     }
                     usedCarAd.setPictures(pictures);
-                    usedCarAd.setIsFav(adObj.getString("isFavorite"));
+                    usedCarAd.setIsFav(adObj.getString("IsFavorite"));
                     usedCars.add(usedCarAd);
                 }
                 AppDefs.motorAds = usedCars;
@@ -2330,22 +2427,6 @@ public class SubCategoryFragment extends Fragment {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Content-Type", "application/json; charset=UTF-8");
                 params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
-                return params;
-            }
-
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("FromPrice", String.valueOf((int) boatsPriceBar.getCurrentValues().getLeftValue()));
-                params.put("ToPrice", String.valueOf((int) boatsPriceBar.getCurrentValues().getRightValue()));
-                params.put("Age", currentBoatAge);
-                params.put("Usage", currentBoatUsage);
-                params.put("Warranty", currentBoatWarranty);
-                params.put("Horsepower", currentBoatHorsePower);
-                params.put("Location", currentLocation);
-                params.put("CategoryId", categoryId);
-                params.put("SortBy", "1");
                 return params;
             }
         };
@@ -2716,109 +2797,125 @@ public class SubCategoryFragment extends Fragment {
     private void filterMachines(){
         usedCars.clear();
         setUsedCarsAdapter();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", String.valueOf((int) machinesPriceBar.getCurrentValues().getLeftValue()));
+            params.put("ToPrice", String.valueOf((int) machinesPriceBar.getCurrentValues().getRightValue()));
+            params.put("FromYear", String.valueOf((int) machinesYearBar.getCurrentValues().getLeftValue()));
+            params.put("ToYear", String.valueOf((int) machinesYearBar.getCurrentValues().getRightValue()));
+            params.put("SubCategoryId", machineryCategory);
+            params.put("SubTypeId", machinerySubCat);
+            params.put("Horsepower", machineryHorsepower);
+            params.put("Location", currentLocation);
+            params.put("CategoryId", categoryId);
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest userCarsFilterRequest = new StringRequest(Request.Method.POST, Urls.MotorAds_URL+"FilterMotors", response -> {
+        JsonObjectRequest userCarsFilterRequest = new JsonObjectRequest(Request.Method.POST, Urls.MotorAds_URL+"FilterMotors2", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray adsArray = new JSONArray(response);
+                JSONArray adsArray = response.getJSONArray("results");
                 for (int i=0; i< adsArray.length(); i++){
                     UsedCarAd usedCarAd = new UsedCarAd();
                     JSONObject adObj = adsArray.getJSONObject(i);
-                    usedCarAd.setId(adObj.getString("id"));
-                    usedCarAd.setChats(adObj.getString("chates"));
-                    usedCarAd.setViews(adObj.getString("views"));
-                    usedCarAd.setTitle(adObj.getString("title"));
-                    usedCarAd.setDescription(adObj.getString("description"));
-                    usedCarAd.setEnLocation(adObj.getString("en_Location"));
-                    usedCarAd.setArLocation(adObj.getString("ar_Location"));
-                    usedCarAd.setLatitude(adObj.getString("lat"));
-                    usedCarAd.setLongitude(adObj.getString("lng"));
-                    usedCarAd.setStatus(adObj.getString("status"));
-                    String postedDate = mainActivity.convertDate(adObj.getString("postDate").substring(0, adObj.getString("postDate").lastIndexOf(".")));
+                    usedCarAd.setId(adObj.getString("Id"));
+                    usedCarAd.setChats(adObj.getString("Chates"));
+                    usedCarAd.setViews(adObj.getString("Views"));
+                    usedCarAd.setTitle(adObj.getString("Title"));
+                    usedCarAd.setDescription(adObj.getString("Description"));
+                    usedCarAd.setEnLocation(adObj.getString("En_Location"));
+                    usedCarAd.setArLocation(adObj.getString("Ar_Location"));
+                    usedCarAd.setLatitude(adObj.getString("Lat"));
+                    usedCarAd.setLongitude(adObj.getString("Lng"));
+                    usedCarAd.setStatus(adObj.getString("Status"));
+                    String postedDate = mainActivity.convertDate(adObj.getString("PostDate").substring(0, adObj.getString("PostDate").lastIndexOf(".")));
                     usedCarAd.setPostDate(postedDate);
-                    usedCarAd.setCategoryId(adObj.getString("categoryId"));
-                    usedCarAd.setCategoryEnName(adObj.getString("categoryEnName"));
-                    usedCarAd.setCategoryArName(adObj.getString("categoryArName"));
-                    usedCarAd.setSubCategoryId(adObj.getString("subCategoryId"));
-                    usedCarAd.setSubCategoryEnName(adObj.getString("subCategoryEn_Name"));
-                    usedCarAd.setSubCategoryArName(adObj.getString("subCategoryAr_Name"));
-                    usedCarAd.setOtherSubCategory(adObj.getString("otherSubCategory"));
-                    usedCarAd.setSubTypeId(adObj.getString("subTypeId"));
-                    usedCarAd.setSubTypeEnName(adObj.getString("subTypeEn_Name"));
-                    usedCarAd.setSubTypeArName(adObj.getString("subTypeId"));
-                    usedCarAd.setSubTypeId(adObj.getString("subTypeAr_Name"));
-                    usedCarAd.setOtherSubType(adObj.getString("otherSubType"));
-                    usedCarAd.setTypeId(adObj.getString("typeId"));
-                    usedCarAd.setUserId(adObj.getString("userId"));
-                    usedCarAd.setAgentId(adObj.getString("agentId"));
-                    usedCarAd.setEnMaker(adObj.getString("en_Maker"));
-                    usedCarAd.setArMaker(adObj.getString("ar_Maker"));
-                    usedCarAd.setEnModel(adObj.getString("en_Model"));
-                    usedCarAd.setArModel(adObj.getString("ar_Model"));
-                    usedCarAd.setEnTrim(adObj.getString("en_Trim"));
-                    usedCarAd.setArTrim(adObj.getString("ar_Trim"));
-                    usedCarAd.setEnColor(adObj.getString("en_Color"));
-                    usedCarAd.setArColor(adObj.getString("ar_Color"));
-                    usedCarAd.setKiloMeters(adObj.getString("kilometers"));
-                    usedCarAd.setYear(adObj.getString("year"));
-                    usedCarAd.setEnDoors(adObj.getString("en_Doors"));
-                    usedCarAd.setArDoors(adObj.getString("ar_Doors"));
-                    usedCarAd.setWarranty(adObj.getString("warranty"));
-                    usedCarAd.setEnTransmission(adObj.getString("en_Transmission"));
-                    usedCarAd.setArTransmission(adObj.getString("ar_Transmission"));
-                    usedCarAd.setEnRegionalSpecs(adObj.getString("en_RegionalSpecs"));
-                    usedCarAd.setArRegionalSpecs(adObj.getString("ar_RegionalSpecs"));
-                    usedCarAd.setEnBodyType(adObj.getString("en_BodyType"));
-                    usedCarAd.setArBodyType(adObj.getString("ar_BodyType"));
-                    usedCarAd.setEnFuelType(adObj.getString("en_FuelType"));
-                    usedCarAd.setArFuelType(adObj.getString("ar_FuelType"));
-                    usedCarAd.setEnNoOfCylinders(adObj.getString("en_NoOfCylinders"));
-                    usedCarAd.setArNoOfCylinders(adObj.getString("ar_NoOfCylinders"));
-                    usedCarAd.setEnHorsepower(adObj.getString("en_Horsepower"));
-                    usedCarAd.setArHorsepower(adObj.getString("ar_Horsepower"));
-                    usedCarAd.setEnSteeringSide(adObj.getString("en_SteeringSide"));
-                    usedCarAd.setArSteeringSide(adObj.getString("ar_SteeringSide"));
-                    usedCarAd.setPrice(adObj.getString("price"));
-                    usedCarAd.setUserImage(adObj.getString("userImage"));
-                    usedCarAd.setPhoneNumber(adObj.getString("phoneNumber"));
-                    usedCarAd.setEnCondition(adObj.getString("en_Condition"));
-                    usedCarAd.setArCondition(adObj.getString("ar_Condition"));
-                    usedCarAd.setEnMechanicalCondition(adObj.getString("en_MechanicalCondition"));
-                    usedCarAd.setArMechanicalCondition(adObj.getString("ar_MechanicalCondition"));
-                    usedCarAd.setEnCapacity(adObj.getString("en_Capacity"));
-                    usedCarAd.setArCapacity(adObj.getString("ar_Capacity"));
-                    usedCarAd.setEnEngineSize(adObj.getString("en_EngineSize"));
-                    usedCarAd.setArEngineSize(adObj.getString("ar_EngineSize"));
-                    usedCarAd.setEnAge(adObj.getString("en_Age"));
-                    usedCarAd.setArAge(adObj.getString("ar_Age"));
-                    usedCarAd.setEnUsage(adObj.getString("en_Usage"));
-                    usedCarAd.setArUsage(adObj.getString("ar_Usage"));
-                    usedCarAd.setEnLength(adObj.getString("en_Length"));
-                    usedCarAd.setArLength(adObj.getString("ar_Length"));
-                    usedCarAd.setEnWheels(adObj.getString("en_Wheels"));
-                    usedCarAd.setArWheels(adObj.getString("ar_Wheels"));
-                    usedCarAd.setEnSellerType(adObj.getString("en_SellerType"));
-                    usedCarAd.setArSellerType(adObj.getString("ar_SellerType"));
-                    usedCarAd.setEnDriveSystem(adObj.getString("en_FinalDriveSystem"));
-                    usedCarAd.setArDriveSystem(adObj.getString("ar_FinalDriveSystem"));
-                    usedCarAd.setEnPartName(adObj.getString("en_PartName"));
-                    usedCarAd.setArPartName(adObj.getString("ar_PartName"));
-                    usedCarAd.setNameOfPart(adObj.getString("nameOfPart"));
-                    JSONArray pics = adObj.getJSONArray("pictures");
+                    usedCarAd.setCategoryId(adObj.getString("CategoryId"));
+                    usedCarAd.setCategoryEnName(adObj.getString("CategoryEnName"));
+                    usedCarAd.setCategoryArName(adObj.getString("CategoryArName"));
+                    usedCarAd.setSubCategoryId(adObj.getString("SubCategoryId"));
+                    usedCarAd.setSubCategoryEnName(adObj.getString("SubCategoryEn_Name"));
+                    usedCarAd.setSubCategoryArName(adObj.getString("SubCategoryAr_Name"));
+                    usedCarAd.setOtherSubCategory(adObj.getString("OtherSubCategory"));
+                    usedCarAd.setSubTypeId(adObj.getString("SubTypeId"));
+                    usedCarAd.setSubTypeEnName(adObj.getString("SubTypeEn_Name"));
+                    usedCarAd.setSubTypeArName(adObj.getString("SubTypeId"));
+                    usedCarAd.setSubTypeId(adObj.getString("SubTypeAr_Name"));
+                    usedCarAd.setOtherSubType(adObj.getString("OtherSubType"));
+                    usedCarAd.setTypeId(adObj.getString("TypeId"));
+                    usedCarAd.setUserId(adObj.getString("UserId"));
+                    usedCarAd.setAgentId(adObj.getString("AgentId"));
+                    usedCarAd.setEnMaker(adObj.getString("En_Maker"));
+                    usedCarAd.setArMaker(adObj.getString("Ar_Maker"));
+                    usedCarAd.setEnModel(adObj.getString("En_Model"));
+                    usedCarAd.setArModel(adObj.getString("Ar_Model"));
+                    usedCarAd.setEnTrim(adObj.getString("En_Trim"));
+                    usedCarAd.setArTrim(adObj.getString("Ar_Trim"));
+                    usedCarAd.setEnColor(adObj.getString("En_Color"));
+                    usedCarAd.setArColor(adObj.getString("Ar_Color"));
+                    usedCarAd.setKiloMeters(adObj.getString("Kilometers"));
+                    usedCarAd.setYear(adObj.getString("Year"));
+                    usedCarAd.setEnDoors(adObj.getString("En_Doors"));
+                    usedCarAd.setArDoors(adObj.getString("Ar_Doors"));
+                    usedCarAd.setWarranty(adObj.getString("Warranty"));
+                    usedCarAd.setEnTransmission(adObj.getString("En_Transmission"));
+                    usedCarAd.setArTransmission(adObj.getString("Ar_Transmission"));
+                    usedCarAd.setEnRegionalSpecs(adObj.getString("En_RegionalSpecs"));
+                    usedCarAd.setArRegionalSpecs(adObj.getString("Ar_RegionalSpecs"));
+                    usedCarAd.setEnBodyType(adObj.getString("En_BodyType"));
+                    usedCarAd.setArBodyType(adObj.getString("Ar_BodyType"));
+                    usedCarAd.setEnFuelType(adObj.getString("En_FuelType"));
+                    usedCarAd.setArFuelType(adObj.getString("Ar_FuelType"));
+                    usedCarAd.setEnNoOfCylinders(adObj.getString("En_NoOfCylinders"));
+                    usedCarAd.setArNoOfCylinders(adObj.getString("Ar_NoOfCylinders"));
+                    usedCarAd.setEnHorsepower(adObj.getString("En_Horsepower"));
+                    usedCarAd.setArHorsepower(adObj.getString("Ar_Horsepower"));
+                    usedCarAd.setEnSteeringSide(adObj.getString("En_SteeringSide"));
+                    usedCarAd.setArSteeringSide(adObj.getString("Ar_SteeringSide"));
+                    usedCarAd.setPrice(adObj.getString("Price"));
+                    usedCarAd.setUserImage(adObj.getString("UserImage"));
+                    usedCarAd.setPhoneNumber(adObj.getString("PhoneNumber"));
+                    usedCarAd.setEnCondition(adObj.getString("En_Condition"));
+                    usedCarAd.setArCondition(adObj.getString("Ar_Condition"));
+                    usedCarAd.setEnMechanicalCondition(adObj.getString("En_MechanicalCondition"));
+                    usedCarAd.setArMechanicalCondition(adObj.getString("Ar_MechanicalCondition"));
+                    usedCarAd.setEnCapacity(adObj.getString("En_Capacity"));
+                    usedCarAd.setArCapacity(adObj.getString("Ar_Capacity"));
+                    usedCarAd.setEnEngineSize(adObj.getString("En_EngineSize"));
+                    usedCarAd.setArEngineSize(adObj.getString("Ar_EngineSize"));
+                    usedCarAd.setEnAge(adObj.getString("En_Age"));
+                    usedCarAd.setArAge(adObj.getString("Ar_Age"));
+                    usedCarAd.setEnUsage(adObj.getString("En_Usage"));
+                    usedCarAd.setArUsage(adObj.getString("Ar_Usage"));
+                    usedCarAd.setEnLength(adObj.getString("En_Length"));
+                    usedCarAd.setArLength(adObj.getString("Ar_Length"));
+                    usedCarAd.setEnWheels(adObj.getString("En_Wheels"));
+                    usedCarAd.setArWheels(adObj.getString("Ar_Wheels"));
+                    usedCarAd.setEnSellerType(adObj.getString("En_SellerType"));
+                    usedCarAd.setArSellerType(adObj.getString("Ar_SellerType"));
+                    usedCarAd.setEnDriveSystem(adObj.getString("En_FinalDriveSystem"));
+                    usedCarAd.setArDriveSystem(adObj.getString("Ar_FinalDriveSystem"));
+                    usedCarAd.setEnPartName(adObj.getString("En_PartName"));
+                    usedCarAd.setArPartName(adObj.getString("Ar_PartName"));
+                    usedCarAd.setNameOfPart(adObj.getString("NameOfPart"));
+                    JSONArray pics = adObj.getJSONArray("Pictures");
                     ArrayList<Picture> pictures = new ArrayList<>();
                     for (int j=0; j<pics.length(); j++){
                         JSONObject picObj = pics.getJSONObject(j);
                         Picture picture = new Picture();
-                        picture.setId(picObj.getString("id"));
-                        picture.setImageURL(picObj.getString("imageURL"));
-                        picture.setMain(picObj.getBoolean("mainPicture"));
+                        picture.setId(picObj.getString("Id"));
+                        picture.setImageURL(picObj.getString("ImageURL"));
+                        picture.setMain(picObj.getBoolean("MainPicture"));
                         if (picture.isMain()){
                             usedCarAd.setMainImage(picture.getImageURL());
                         }
                         pictures.add(picture);
                     }
                     usedCarAd.setPictures(pictures);
-                    usedCarAd.setIsFav(adObj.getString("isFavorite"));
+                    usedCarAd.setIsFav(adObj.getString("IsFavorite"));
                     usedCars.add(usedCarAd);
                 }
                 AppDefs.motorAds = usedCars;
@@ -2830,21 +2927,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.hideProgressDialog();
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
-
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("FromPrice", String.valueOf((int) machinesPriceBar.getCurrentValues().getLeftValue()));
-                params.put("ToPrice", String.valueOf((int) machinesPriceBar.getCurrentValues().getRightValue()));
-                params.put("FromYear", String.valueOf((int) machinesYearBar.getCurrentValues().getLeftValue()));
-                params.put("ToYear", String.valueOf((int) machinesYearBar.getCurrentValues().getRightValue()));
-                params.put("SubCategoryId", machineryCategory);
-                params.put("SubTypeId", machinerySubCat);
-                params.put("Horsepower", machineryHorsepower);
-                params.put("Location", currentLocation);
-                params.put("CategoryId", categoryId);
-                params.put("SortBy", "1");
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -3275,109 +3362,127 @@ public class SubCategoryFragment extends Fragment {
     private void filterBikes(){
         usedCars.clear();
         setUsedCarsAdapter();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", String.valueOf((int) bikesPriceBar.getCurrentValues().getLeftValue()));
+            params.put("ToPrice", String.valueOf((int) bikesPriceBar.getCurrentValues().getRightValue()));
+            params.put("FromYear", String.valueOf((int) bikesYearBar.getCurrentValues().getLeftValue()));
+            params.put("ToYear", String.valueOf((int) bikesYearBar.getCurrentValues().getRightValue()));
+            params.put("FromKilometers", String.valueOf((int) bikesMileageBar.getCurrentValues().getLeftValue()));
+            params.put("ToKilometers", String.valueOf((int) bikesMileageBar.getCurrentValues().getRightValue()));
+            params.put("SubCategoryId", bikeCat);
+            params.put("SubTypeId", bikeSubCat);
+            params.put("PostedInDL", bikeAdPosted);
+            params.put("Location", currentLocation);
+            params.put("CategoryId", categoryId);
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest userCarsFilterRequest = new StringRequest(Request.Method.POST, Urls.MotorAds_URL+"FilterMotors", response -> {
+        JsonObjectRequest userCarsFilterRequest = new JsonObjectRequest(Request.Method.POST, Urls.MotorAds_URL+"FilterMotors2", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray adsArray = new JSONArray(response);
+                JSONArray adsArray = response.getJSONArray("results");
                 for (int i=0; i< adsArray.length(); i++){
                     UsedCarAd usedCarAd = new UsedCarAd();
                     JSONObject adObj = adsArray.getJSONObject(i);
-                    usedCarAd.setId(adObj.getString("id"));
-                    usedCarAd.setChats(adObj.getString("chates"));
-                    usedCarAd.setViews(adObj.getString("views"));
-                    usedCarAd.setTitle(adObj.getString("title"));
-                    usedCarAd.setDescription(adObj.getString("description"));
-                    usedCarAd.setEnLocation(adObj.getString("en_Location"));
-                    usedCarAd.setArLocation(adObj.getString("ar_Location"));
-                    usedCarAd.setLatitude(adObj.getString("lat"));
-                    usedCarAd.setLongitude(adObj.getString("lng"));
-                    usedCarAd.setStatus(adObj.getString("status"));
-                    String postedDate = mainActivity.convertDate(adObj.getString("postDate").substring(0, adObj.getString("postDate").lastIndexOf(".")));
+                    usedCarAd.setId(adObj.getString("Id"));
+                    usedCarAd.setChats(adObj.getString("Chates"));
+                    usedCarAd.setViews(adObj.getString("Views"));
+                    usedCarAd.setTitle(adObj.getString("Title"));
+                    usedCarAd.setDescription(adObj.getString("Description"));
+                    usedCarAd.setEnLocation(adObj.getString("En_Location"));
+                    usedCarAd.setArLocation(adObj.getString("Ar_Location"));
+                    usedCarAd.setLatitude(adObj.getString("Lat"));
+                    usedCarAd.setLongitude(adObj.getString("Lng"));
+                    usedCarAd.setStatus(adObj.getString("Status"));
+                    String postedDate = mainActivity.convertDate(adObj.getString("PostDate").substring(0, adObj.getString("PostDate").lastIndexOf(".")));
                     usedCarAd.setPostDate(postedDate);
-                    usedCarAd.setCategoryId(adObj.getString("categoryId"));
-                    usedCarAd.setCategoryEnName(adObj.getString("categoryEnName"));
-                    usedCarAd.setCategoryArName(adObj.getString("categoryArName"));
-                    usedCarAd.setSubCategoryId(adObj.getString("subCategoryId"));
-                    usedCarAd.setSubCategoryEnName(adObj.getString("subCategoryEn_Name"));
-                    usedCarAd.setSubCategoryArName(adObj.getString("subCategoryAr_Name"));
-                    usedCarAd.setOtherSubCategory(adObj.getString("otherSubCategory"));
-                    usedCarAd.setSubTypeId(adObj.getString("subTypeId"));
-                    usedCarAd.setSubTypeEnName(adObj.getString("subTypeEn_Name"));
-                    usedCarAd.setSubTypeArName(adObj.getString("subTypeId"));
-                    usedCarAd.setSubTypeId(adObj.getString("subTypeAr_Name"));
-                    usedCarAd.setOtherSubType(adObj.getString("otherSubType"));
-                    usedCarAd.setTypeId(adObj.getString("typeId"));
-                    usedCarAd.setUserId(adObj.getString("userId"));
-                    usedCarAd.setAgentId(adObj.getString("agentId"));
-                    usedCarAd.setEnMaker(adObj.getString("en_Maker"));
-                    usedCarAd.setArMaker(adObj.getString("ar_Maker"));
-                    usedCarAd.setEnModel(adObj.getString("en_Model"));
-                    usedCarAd.setArModel(adObj.getString("ar_Model"));
-                    usedCarAd.setEnTrim(adObj.getString("en_Trim"));
-                    usedCarAd.setArTrim(adObj.getString("ar_Trim"));
-                    usedCarAd.setEnColor(adObj.getString("en_Color"));
-                    usedCarAd.setArColor(adObj.getString("ar_Color"));
-                    usedCarAd.setKiloMeters(adObj.getString("kilometers"));
-                    usedCarAd.setYear(adObj.getString("year"));
-                    usedCarAd.setEnDoors(adObj.getString("en_Doors"));
-                    usedCarAd.setArDoors(adObj.getString("ar_Doors"));
-                    usedCarAd.setWarranty(adObj.getString("warranty"));
-                    usedCarAd.setEnTransmission(adObj.getString("en_Transmission"));
-                    usedCarAd.setArTransmission(adObj.getString("ar_Transmission"));
-                    usedCarAd.setEnRegionalSpecs(adObj.getString("en_RegionalSpecs"));
-                    usedCarAd.setArRegionalSpecs(adObj.getString("ar_RegionalSpecs"));
-                    usedCarAd.setEnBodyType(adObj.getString("en_BodyType"));
-                    usedCarAd.setArBodyType(adObj.getString("ar_BodyType"));
-                    usedCarAd.setEnFuelType(adObj.getString("en_FuelType"));
-                    usedCarAd.setArFuelType(adObj.getString("ar_FuelType"));
-                    usedCarAd.setEnNoOfCylinders(adObj.getString("en_NoOfCylinders"));
-                    usedCarAd.setArNoOfCylinders(adObj.getString("ar_NoOfCylinders"));
-                    usedCarAd.setEnHorsepower(adObj.getString("en_Horsepower"));
-                    usedCarAd.setArHorsepower(adObj.getString("ar_Horsepower"));
-                    usedCarAd.setEnSteeringSide(adObj.getString("en_SteeringSide"));
-                    usedCarAd.setArSteeringSide(adObj.getString("ar_SteeringSide"));
-                    usedCarAd.setPrice(adObj.getString("price"));
-                    usedCarAd.setUserImage(adObj.getString("userImage"));
-                    usedCarAd.setPhoneNumber(adObj.getString("phoneNumber"));
-                    usedCarAd.setEnCondition(adObj.getString("en_Condition"));
-                    usedCarAd.setArCondition(adObj.getString("ar_Condition"));
-                    usedCarAd.setEnMechanicalCondition(adObj.getString("en_MechanicalCondition"));
-                    usedCarAd.setArMechanicalCondition(adObj.getString("ar_MechanicalCondition"));
-                    usedCarAd.setEnCapacity(adObj.getString("en_Capacity"));
-                    usedCarAd.setArCapacity(adObj.getString("ar_Capacity"));
-                    usedCarAd.setEnEngineSize(adObj.getString("en_EngineSize"));
-                    usedCarAd.setArEngineSize(adObj.getString("ar_EngineSize"));
-                    usedCarAd.setEnAge(adObj.getString("en_Age"));
-                    usedCarAd.setArAge(adObj.getString("ar_Age"));
-                    usedCarAd.setEnUsage(adObj.getString("en_Usage"));
-                    usedCarAd.setArUsage(adObj.getString("ar_Usage"));
-                    usedCarAd.setEnLength(adObj.getString("en_Length"));
-                    usedCarAd.setArLength(adObj.getString("ar_Length"));
-                    usedCarAd.setEnWheels(adObj.getString("en_Wheels"));
-                    usedCarAd.setArWheels(adObj.getString("ar_Wheels"));
-                    usedCarAd.setEnSellerType(adObj.getString("en_SellerType"));
-                    usedCarAd.setArSellerType(adObj.getString("ar_SellerType"));
-                    usedCarAd.setEnDriveSystem(adObj.getString("en_FinalDriveSystem"));
-                    usedCarAd.setArDriveSystem(adObj.getString("ar_FinalDriveSystem"));
-                    usedCarAd.setEnPartName(adObj.getString("en_PartName"));
-                    usedCarAd.setArPartName(adObj.getString("ar_PartName"));
-                    usedCarAd.setNameOfPart(adObj.getString("nameOfPart"));
-                    JSONArray pics = adObj.getJSONArray("pictures");
+                    usedCarAd.setCategoryId(adObj.getString("CategoryId"));
+                    usedCarAd.setCategoryEnName(adObj.getString("CategoryEnName"));
+                    usedCarAd.setCategoryArName(adObj.getString("CategoryArName"));
+                    usedCarAd.setSubCategoryId(adObj.getString("SubCategoryId"));
+                    usedCarAd.setSubCategoryEnName(adObj.getString("SubCategoryEn_Name"));
+                    usedCarAd.setSubCategoryArName(adObj.getString("SubCategoryAr_Name"));
+                    usedCarAd.setOtherSubCategory(adObj.getString("OtherSubCategory"));
+                    usedCarAd.setSubTypeId(adObj.getString("SubTypeId"));
+                    usedCarAd.setSubTypeEnName(adObj.getString("SubTypeEn_Name"));
+                    usedCarAd.setSubTypeArName(adObj.getString("SubTypeId"));
+                    usedCarAd.setSubTypeId(adObj.getString("SubTypeAr_Name"));
+                    usedCarAd.setOtherSubType(adObj.getString("OtherSubType"));
+                    usedCarAd.setTypeId(adObj.getString("TypeId"));
+                    usedCarAd.setUserId(adObj.getString("UserId"));
+                    usedCarAd.setAgentId(adObj.getString("AgentId"));
+                    usedCarAd.setEnMaker(adObj.getString("En_Maker"));
+                    usedCarAd.setArMaker(adObj.getString("Ar_Maker"));
+                    usedCarAd.setEnModel(adObj.getString("En_Model"));
+                    usedCarAd.setArModel(adObj.getString("Ar_Model"));
+                    usedCarAd.setEnTrim(adObj.getString("En_Trim"));
+                    usedCarAd.setArTrim(adObj.getString("Ar_Trim"));
+                    usedCarAd.setEnColor(adObj.getString("En_Color"));
+                    usedCarAd.setArColor(adObj.getString("Ar_Color"));
+                    usedCarAd.setKiloMeters(adObj.getString("Kilometers"));
+                    usedCarAd.setYear(adObj.getString("Year"));
+                    usedCarAd.setEnDoors(adObj.getString("En_Doors"));
+                    usedCarAd.setArDoors(adObj.getString("Ar_Doors"));
+                    usedCarAd.setWarranty(adObj.getString("Warranty"));
+                    usedCarAd.setEnTransmission(adObj.getString("En_Transmission"));
+                    usedCarAd.setArTransmission(adObj.getString("Ar_Transmission"));
+                    usedCarAd.setEnRegionalSpecs(adObj.getString("En_RegionalSpecs"));
+                    usedCarAd.setArRegionalSpecs(adObj.getString("Ar_RegionalSpecs"));
+                    usedCarAd.setEnBodyType(adObj.getString("En_BodyType"));
+                    usedCarAd.setArBodyType(adObj.getString("Ar_BodyType"));
+                    usedCarAd.setEnFuelType(adObj.getString("En_FuelType"));
+                    usedCarAd.setArFuelType(adObj.getString("Ar_FuelType"));
+                    usedCarAd.setEnNoOfCylinders(adObj.getString("En_NoOfCylinders"));
+                    usedCarAd.setArNoOfCylinders(adObj.getString("Ar_NoOfCylinders"));
+                    usedCarAd.setEnHorsepower(adObj.getString("En_Horsepower"));
+                    usedCarAd.setArHorsepower(adObj.getString("Ar_Horsepower"));
+                    usedCarAd.setEnSteeringSide(adObj.getString("En_SteeringSide"));
+                    usedCarAd.setArSteeringSide(adObj.getString("Ar_SteeringSide"));
+                    usedCarAd.setPrice(adObj.getString("Price"));
+                    usedCarAd.setUserImage(adObj.getString("UserImage"));
+                    usedCarAd.setPhoneNumber(adObj.getString("PhoneNumber"));
+                    usedCarAd.setEnCondition(adObj.getString("En_Condition"));
+                    usedCarAd.setArCondition(adObj.getString("Ar_Condition"));
+                    usedCarAd.setEnMechanicalCondition(adObj.getString("En_MechanicalCondition"));
+                    usedCarAd.setArMechanicalCondition(adObj.getString("Ar_MechanicalCondition"));
+                    usedCarAd.setEnCapacity(adObj.getString("En_Capacity"));
+                    usedCarAd.setArCapacity(adObj.getString("Ar_Capacity"));
+                    usedCarAd.setEnEngineSize(adObj.getString("En_EngineSize"));
+                    usedCarAd.setArEngineSize(adObj.getString("Ar_EngineSize"));
+                    usedCarAd.setEnAge(adObj.getString("En_Age"));
+                    usedCarAd.setArAge(adObj.getString("Ar_Age"));
+                    usedCarAd.setEnUsage(adObj.getString("En_Usage"));
+                    usedCarAd.setArUsage(adObj.getString("Ar_Usage"));
+                    usedCarAd.setEnLength(adObj.getString("En_Length"));
+                    usedCarAd.setArLength(adObj.getString("Ar_Length"));
+                    usedCarAd.setEnWheels(adObj.getString("En_Wheels"));
+                    usedCarAd.setArWheels(adObj.getString("Ar_Wheels"));
+                    usedCarAd.setEnSellerType(adObj.getString("En_SellerType"));
+                    usedCarAd.setArSellerType(adObj.getString("Ar_SellerType"));
+                    usedCarAd.setEnDriveSystem(adObj.getString("En_FinalDriveSystem"));
+                    usedCarAd.setArDriveSystem(adObj.getString("Ar_FinalDriveSystem"));
+                    usedCarAd.setEnPartName(adObj.getString("En_PartName"));
+                    usedCarAd.setArPartName(adObj.getString("Ar_PartName"));
+                    usedCarAd.setNameOfPart(adObj.getString("NameOfPart"));
+                    JSONArray pics = adObj.getJSONArray("Pictures");
                     ArrayList<Picture> pictures = new ArrayList<>();
                     for (int j=0; j<pics.length(); j++){
                         JSONObject picObj = pics.getJSONObject(j);
                         Picture picture = new Picture();
-                        picture.setId(picObj.getString("id"));
-                        picture.setImageURL(picObj.getString("imageURL"));
-                        picture.setMain(picObj.getBoolean("mainPicture"));
+                        picture.setId(picObj.getString("Id"));
+                        picture.setImageURL(picObj.getString("ImageURL"));
+                        picture.setMain(picObj.getBoolean("MainPicture"));
                         if (picture.isMain()){
                             usedCarAd.setMainImage(picture.getImageURL());
                         }
                         pictures.add(picture);
                     }
                     usedCarAd.setPictures(pictures);
-                    usedCarAd.setIsFav(adObj.getString("isFavorite"));
+                    usedCarAd.setIsFav(adObj.getString("IsFavorite"));
                     usedCars.add(usedCarAd);
                 }
                 AppDefs.motorAds = usedCars;
@@ -3389,22 +3494,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.hideProgressDialog();
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("FromPrice", String.valueOf((int) bikesPriceBar.getCurrentValues().getLeftValue()));
-                params.put("ToPrice", String.valueOf((int) bikesPriceBar.getCurrentValues().getRightValue()));
-                params.put("FromYear", String.valueOf((int) bikesYearBar.getCurrentValues().getLeftValue()));
-                params.put("ToYear", String.valueOf((int) bikesYearBar.getCurrentValues().getRightValue()));
-                params.put("FromKilometers", String.valueOf((int) bikesMileageBar.getCurrentValues().getLeftValue()));
-                params.put("ToKilometers", String.valueOf((int) bikesMileageBar.getCurrentValues().getRightValue()));
-                params.put("SubCategoryId", bikeCat);
-                params.put("SubTypeId", bikeSubCat);
-                params.put("PostedInDL", bikeAdPosted);
-                params.put("Location", currentLocation);
-                params.put("CategoryId", categoryId);
-                params.put("SortBy", "1");
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -3772,109 +3866,125 @@ public class SubCategoryFragment extends Fragment {
     private void filterParts(){
         usedCars.clear();
         setUsedCarsAdapter();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", String.valueOf((int) partPriceBar.getCurrentValues().getLeftValue()));
+            params.put("ToPrice", String.valueOf((int) partPriceBar.getCurrentValues().getRightValue()));
+            params.put("FromYear", String.valueOf((int) partYearBar.getCurrentValues().getLeftValue()));
+            params.put("ToYear", String.valueOf((int) partYearBar.getCurrentValues().getRightValue()));
+            params.put("SubCategoryId", partCat);
+            params.put("SubTypeId", partMake);
+            params.put("PartName", partName);
+            params.put("Location", currentLocation);
+            params.put("CategoryId", categoryId);
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest userCarsFilterRequest = new StringRequest(Request.Method.POST, Urls.MotorAds_URL+"FilterMotors", response -> {
+        JsonObjectRequest userCarsFilterRequest = new JsonObjectRequest(Request.Method.POST, Urls.MotorAds_URL+"FilterMotors2", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray adsArray = new JSONArray(response);
+                JSONArray adsArray = response.getJSONArray("results");
                 for (int i=0; i< adsArray.length(); i++){
                     UsedCarAd usedCarAd = new UsedCarAd();
                     JSONObject adObj = adsArray.getJSONObject(i);
-                    usedCarAd.setId(adObj.getString("id"));
-                    usedCarAd.setChats(adObj.getString("chates"));
-                    usedCarAd.setViews(adObj.getString("views"));
-                    usedCarAd.setTitle(adObj.getString("title"));
-                    usedCarAd.setDescription(adObj.getString("description"));
-                    usedCarAd.setEnLocation(adObj.getString("en_Location"));
-                    usedCarAd.setArLocation(adObj.getString("ar_Location"));
-                    usedCarAd.setLatitude(adObj.getString("lat"));
-                    usedCarAd.setLongitude(adObj.getString("lng"));
-                    usedCarAd.setStatus(adObj.getString("status"));
-                    String postedDate = mainActivity.convertDate(adObj.getString("postDate").substring(0, adObj.getString("postDate").lastIndexOf(".")));
+                    usedCarAd.setId(adObj.getString("Id"));
+                    usedCarAd.setChats(adObj.getString("Chates"));
+                    usedCarAd.setViews(adObj.getString("Views"));
+                    usedCarAd.setTitle(adObj.getString("Title"));
+                    usedCarAd.setDescription(adObj.getString("Description"));
+                    usedCarAd.setEnLocation(adObj.getString("En_Location"));
+                    usedCarAd.setArLocation(adObj.getString("Ar_Location"));
+                    usedCarAd.setLatitude(adObj.getString("Lat"));
+                    usedCarAd.setLongitude(adObj.getString("Lng"));
+                    usedCarAd.setStatus(adObj.getString("Status"));
+                    String postedDate = mainActivity.convertDate(adObj.getString("PostDate").substring(0, adObj.getString("PostDate").lastIndexOf(".")));
                     usedCarAd.setPostDate(postedDate);
-                    usedCarAd.setCategoryId(adObj.getString("categoryId"));
-                    usedCarAd.setCategoryEnName(adObj.getString("categoryEnName"));
-                    usedCarAd.setCategoryArName(adObj.getString("categoryArName"));
-                    usedCarAd.setSubCategoryId(adObj.getString("subCategoryId"));
-                    usedCarAd.setSubCategoryEnName(adObj.getString("subCategoryEn_Name"));
-                    usedCarAd.setSubCategoryArName(adObj.getString("subCategoryAr_Name"));
-                    usedCarAd.setOtherSubCategory(adObj.getString("otherSubCategory"));
-                    usedCarAd.setSubTypeId(adObj.getString("subTypeId"));
-                    usedCarAd.setSubTypeEnName(adObj.getString("subTypeEn_Name"));
-                    usedCarAd.setSubTypeArName(adObj.getString("subTypeId"));
-                    usedCarAd.setSubTypeId(adObj.getString("subTypeAr_Name"));
-                    usedCarAd.setOtherSubType(adObj.getString("otherSubType"));
-                    usedCarAd.setTypeId(adObj.getString("typeId"));
-                    usedCarAd.setUserId(adObj.getString("userId"));
-                    usedCarAd.setAgentId(adObj.getString("agentId"));
-                    usedCarAd.setEnMaker(adObj.getString("en_Maker"));
-                    usedCarAd.setArMaker(adObj.getString("ar_Maker"));
-                    usedCarAd.setEnModel(adObj.getString("en_Model"));
-                    usedCarAd.setArModel(adObj.getString("ar_Model"));
-                    usedCarAd.setEnTrim(adObj.getString("en_Trim"));
-                    usedCarAd.setArTrim(adObj.getString("ar_Trim"));
-                    usedCarAd.setEnColor(adObj.getString("en_Color"));
-                    usedCarAd.setArColor(adObj.getString("ar_Color"));
-                    usedCarAd.setKiloMeters(adObj.getString("kilometers"));
-                    usedCarAd.setYear(adObj.getString("year"));
-                    usedCarAd.setEnDoors(adObj.getString("en_Doors"));
-                    usedCarAd.setArDoors(adObj.getString("ar_Doors"));
-                    usedCarAd.setWarranty(adObj.getString("warranty"));
-                    usedCarAd.setEnTransmission(adObj.getString("en_Transmission"));
-                    usedCarAd.setArTransmission(adObj.getString("ar_Transmission"));
-                    usedCarAd.setEnRegionalSpecs(adObj.getString("en_RegionalSpecs"));
-                    usedCarAd.setArRegionalSpecs(adObj.getString("ar_RegionalSpecs"));
-                    usedCarAd.setEnBodyType(adObj.getString("en_BodyType"));
-                    usedCarAd.setArBodyType(adObj.getString("ar_BodyType"));
-                    usedCarAd.setEnFuelType(adObj.getString("en_FuelType"));
-                    usedCarAd.setArFuelType(adObj.getString("ar_FuelType"));
-                    usedCarAd.setEnNoOfCylinders(adObj.getString("en_NoOfCylinders"));
-                    usedCarAd.setArNoOfCylinders(adObj.getString("ar_NoOfCylinders"));
-                    usedCarAd.setEnHorsepower(adObj.getString("en_Horsepower"));
-                    usedCarAd.setArHorsepower(adObj.getString("ar_Horsepower"));
-                    usedCarAd.setEnSteeringSide(adObj.getString("en_SteeringSide"));
-                    usedCarAd.setArSteeringSide(adObj.getString("ar_SteeringSide"));
-                    usedCarAd.setPrice(adObj.getString("price"));
-                    usedCarAd.setUserImage(adObj.getString("userImage"));
-                    usedCarAd.setPhoneNumber(adObj.getString("phoneNumber"));
-                    usedCarAd.setEnCondition(adObj.getString("en_Condition"));
-                    usedCarAd.setArCondition(adObj.getString("ar_Condition"));
-                    usedCarAd.setEnMechanicalCondition(adObj.getString("en_MechanicalCondition"));
-                    usedCarAd.setArMechanicalCondition(adObj.getString("ar_MechanicalCondition"));
-                    usedCarAd.setEnCapacity(adObj.getString("en_Capacity"));
-                    usedCarAd.setArCapacity(adObj.getString("ar_Capacity"));
-                    usedCarAd.setEnEngineSize(adObj.getString("en_EngineSize"));
-                    usedCarAd.setArEngineSize(adObj.getString("ar_EngineSize"));
-                    usedCarAd.setEnAge(adObj.getString("en_Age"));
-                    usedCarAd.setArAge(adObj.getString("ar_Age"));
-                    usedCarAd.setEnUsage(adObj.getString("en_Usage"));
-                    usedCarAd.setArUsage(adObj.getString("ar_Usage"));
-                    usedCarAd.setEnLength(adObj.getString("en_Length"));
-                    usedCarAd.setArLength(adObj.getString("ar_Length"));
-                    usedCarAd.setEnWheels(adObj.getString("en_Wheels"));
-                    usedCarAd.setArWheels(adObj.getString("ar_Wheels"));
-                    usedCarAd.setEnSellerType(adObj.getString("en_SellerType"));
-                    usedCarAd.setArSellerType(adObj.getString("ar_SellerType"));
-                    usedCarAd.setEnDriveSystem(adObj.getString("en_FinalDriveSystem"));
-                    usedCarAd.setArDriveSystem(adObj.getString("ar_FinalDriveSystem"));
-                    usedCarAd.setEnPartName(adObj.getString("en_PartName"));
-                    usedCarAd.setArPartName(adObj.getString("ar_PartName"));
-                    usedCarAd.setNameOfPart(adObj.getString("nameOfPart"));
-                    JSONArray pics = adObj.getJSONArray("pictures");
+                    usedCarAd.setCategoryId(adObj.getString("CategoryId"));
+                    usedCarAd.setCategoryEnName(adObj.getString("CategoryEnName"));
+                    usedCarAd.setCategoryArName(adObj.getString("CategoryArName"));
+                    usedCarAd.setSubCategoryId(adObj.getString("SubCategoryId"));
+                    usedCarAd.setSubCategoryEnName(adObj.getString("SubCategoryEn_Name"));
+                    usedCarAd.setSubCategoryArName(adObj.getString("SubCategoryAr_Name"));
+                    usedCarAd.setOtherSubCategory(adObj.getString("OtherSubCategory"));
+                    usedCarAd.setSubTypeId(adObj.getString("SubTypeId"));
+                    usedCarAd.setSubTypeEnName(adObj.getString("SubTypeEn_Name"));
+                    usedCarAd.setSubTypeArName(adObj.getString("SubTypeId"));
+                    usedCarAd.setSubTypeId(adObj.getString("SubTypeAr_Name"));
+                    usedCarAd.setOtherSubType(adObj.getString("OtherSubType"));
+                    usedCarAd.setTypeId(adObj.getString("TypeId"));
+                    usedCarAd.setUserId(adObj.getString("UserId"));
+                    usedCarAd.setAgentId(adObj.getString("AgentId"));
+                    usedCarAd.setEnMaker(adObj.getString("En_Maker"));
+                    usedCarAd.setArMaker(adObj.getString("Ar_Maker"));
+                    usedCarAd.setEnModel(adObj.getString("En_Model"));
+                    usedCarAd.setArModel(adObj.getString("Ar_Model"));
+                    usedCarAd.setEnTrim(adObj.getString("En_Trim"));
+                    usedCarAd.setArTrim(adObj.getString("Ar_Trim"));
+                    usedCarAd.setEnColor(adObj.getString("En_Color"));
+                    usedCarAd.setArColor(adObj.getString("Ar_Color"));
+                    usedCarAd.setKiloMeters(adObj.getString("Kilometers"));
+                    usedCarAd.setYear(adObj.getString("Year"));
+                    usedCarAd.setEnDoors(adObj.getString("En_Doors"));
+                    usedCarAd.setArDoors(adObj.getString("Ar_Doors"));
+                    usedCarAd.setWarranty(adObj.getString("Warranty"));
+                    usedCarAd.setEnTransmission(adObj.getString("En_Transmission"));
+                    usedCarAd.setArTransmission(adObj.getString("Ar_Transmission"));
+                    usedCarAd.setEnRegionalSpecs(adObj.getString("En_RegionalSpecs"));
+                    usedCarAd.setArRegionalSpecs(adObj.getString("Ar_RegionalSpecs"));
+                    usedCarAd.setEnBodyType(adObj.getString("En_BodyType"));
+                    usedCarAd.setArBodyType(adObj.getString("Ar_BodyType"));
+                    usedCarAd.setEnFuelType(adObj.getString("En_FuelType"));
+                    usedCarAd.setArFuelType(adObj.getString("Ar_FuelType"));
+                    usedCarAd.setEnNoOfCylinders(adObj.getString("En_NoOfCylinders"));
+                    usedCarAd.setArNoOfCylinders(adObj.getString("Ar_NoOfCylinders"));
+                    usedCarAd.setEnHorsepower(adObj.getString("En_Horsepower"));
+                    usedCarAd.setArHorsepower(adObj.getString("Ar_Horsepower"));
+                    usedCarAd.setEnSteeringSide(adObj.getString("En_SteeringSide"));
+                    usedCarAd.setArSteeringSide(adObj.getString("Ar_SteeringSide"));
+                    usedCarAd.setPrice(adObj.getString("Price"));
+                    usedCarAd.setUserImage(adObj.getString("UserImage"));
+                    usedCarAd.setPhoneNumber(adObj.getString("PhoneNumber"));
+                    usedCarAd.setEnCondition(adObj.getString("En_Condition"));
+                    usedCarAd.setArCondition(adObj.getString("Ar_Condition"));
+                    usedCarAd.setEnMechanicalCondition(adObj.getString("En_MechanicalCondition"));
+                    usedCarAd.setArMechanicalCondition(adObj.getString("Ar_MechanicalCondition"));
+                    usedCarAd.setEnCapacity(adObj.getString("En_Capacity"));
+                    usedCarAd.setArCapacity(adObj.getString("Ar_Capacity"));
+                    usedCarAd.setEnEngineSize(adObj.getString("En_EngineSize"));
+                    usedCarAd.setArEngineSize(adObj.getString("Ar_EngineSize"));
+                    usedCarAd.setEnAge(adObj.getString("En_Age"));
+                    usedCarAd.setArAge(adObj.getString("Ar_Age"));
+                    usedCarAd.setEnUsage(adObj.getString("En_Usage"));
+                    usedCarAd.setArUsage(adObj.getString("Ar_Usage"));
+                    usedCarAd.setEnLength(adObj.getString("En_Length"));
+                    usedCarAd.setArLength(adObj.getString("Ar_Length"));
+                    usedCarAd.setEnWheels(adObj.getString("En_Wheels"));
+                    usedCarAd.setArWheels(adObj.getString("Ar_Wheels"));
+                    usedCarAd.setEnSellerType(adObj.getString("En_SellerType"));
+                    usedCarAd.setArSellerType(adObj.getString("Ar_SellerType"));
+                    usedCarAd.setEnDriveSystem(adObj.getString("En_FinalDriveSystem"));
+                    usedCarAd.setArDriveSystem(adObj.getString("Ar_FinalDriveSystem"));
+                    usedCarAd.setEnPartName(adObj.getString("En_PartName"));
+                    usedCarAd.setArPartName(adObj.getString("Ar_PartName"));
+                    usedCarAd.setNameOfPart(adObj.getString("NameOfPart"));
+                    JSONArray pics = adObj.getJSONArray("Pictures");
                     ArrayList<Picture> pictures = new ArrayList<>();
                     for (int j=0; j<pics.length(); j++){
                         JSONObject picObj = pics.getJSONObject(j);
                         Picture picture = new Picture();
-                        picture.setId(picObj.getString("id"));
-                        picture.setImageURL(picObj.getString("imageURL"));
-                        picture.setMain(picObj.getBoolean("mainPicture"));
+                        picture.setId(picObj.getString("Id"));
+                        picture.setImageURL(picObj.getString("ImageURL"));
+                        picture.setMain(picObj.getBoolean("MainPicture"));
                         if (picture.isMain()){
                             usedCarAd.setMainImage(picture.getImageURL());
                         }
                         pictures.add(picture);
                     }
                     usedCarAd.setPictures(pictures);
-                    usedCarAd.setIsFav(adObj.getString("isFavorite"));
+                    usedCarAd.setIsFav(adObj.getString("IsFavorite"));
                     usedCars.add(usedCarAd);
                 }
                 AppDefs.motorAds = usedCars;
@@ -3886,21 +3996,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.hideProgressDialog();
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
-
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("FromPrice", String.valueOf((int) partPriceBar.getCurrentValues().getLeftValue()));
-                params.put("ToPrice", String.valueOf((int) partPriceBar.getCurrentValues().getRightValue()));
-                params.put("FromYear", String.valueOf((int) partYearBar.getCurrentValues().getLeftValue()));
-                params.put("ToYear", String.valueOf((int) partYearBar.getCurrentValues().getRightValue()));
-                params.put("SubCategoryId", partCat);
-                params.put("SubTypeId", partMake);
-                params.put("PartName", partName);
-                params.put("Location", currentLocation);
-                params.put("CategoryId", categoryId);
-                params.put("SortBy", "1");
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -3910,61 +4010,68 @@ public class SubCategoryFragment extends Fragment {
     /* Jobs */
     private void getAllJobs(){
         jobAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("CategoryId", categoryId);
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest filterJobRequest = new StringRequest(Request.Method.POST, Urls.JobAds_URL+"FilterJobs", response -> {
+        JsonObjectRequest filterJobRequest = new JsonObjectRequest(Request.Method.POST, Urls.JobAds_URL+"FilterJobs", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray jobsArray = new JSONArray(response);
+                JSONArray jobsArray = response.getJSONArray("results");
                 for (int i=0; i<jobsArray.length(); i++){
                     JSONObject jobObj = jobsArray.getJSONObject(i);
                     JobAd jobAd = new JobAd();
-                    jobAd.setId(jobObj.getString("id"));
-                    jobAd.setTitle(jobObj.getString("title"));
-                    jobAd.setDescription(jobObj.getString("description"));
-                    jobAd.setEnLocation(jobObj.getString("en_Location"));
-                    jobAd.setArLocation(jobObj.getString("ar_Location"));
-                    jobAd.setLat(jobObj.getString("lat"));
-                    jobAd.setLng(jobObj.getString("lng"));
-                    String postedDate = mainActivity.convertDate(jobObj.getString("postDate").substring(0, jobObj.getString("postDate").lastIndexOf(".")));
+                    jobAd.setId(jobObj.getString("Id"));
+                    jobAd.setTitle(jobObj.getString("Title"));
+                    jobAd.setDescription(jobObj.getString("Description"));
+                    jobAd.setEnLocation(jobObj.getString("En_Location"));
+                    jobAd.setArLocation(jobObj.getString("Ar_Location"));
+                    jobAd.setLat(jobObj.getString("Lat"));
+                    jobAd.setLng(jobObj.getString("Lng"));
+                    String postedDate = mainActivity.convertDate(jobObj.getString("PostDate").substring(0, jobObj.getString("PostDate").lastIndexOf(".")));
                     jobAd.setPostedDate(postedDate);
-                    jobAd.setCategoryId(jobObj.getString("categoryId"));
-                    jobAd.setCategoryArName(jobObj.getString("categoryArName"));
-                    jobAd.setCategoryEnName(jobObj.getString("categoryEnName"));
-                    jobAd.setUserId(jobObj.getString("userId"));
-                    jobAd.setArJobType(jobObj.getString("ar_JobType"));
-                    jobAd.setEnJobType(jobObj.getString("en_JobType"));
-                    jobAd.setOtherJobType(jobObj.getString("otherJobType"));
-                    jobAd.setPhoneNumber(jobObj.getString("phoneNumber"));
-                    jobAd.setCv(jobObj.getString("cv"));
-                    jobAd.setArGender(jobObj.getString("ar_Gender"));
-                    jobAd.setEnGender(jobObj.getString("en_Gender"));
-                    jobAd.setEnNationality(jobObj.getString("en_Nationality"));
-                    jobAd.setArNationality(jobObj.getString("ar_Nationality"));
-                    jobAd.setArCurrentLocation(jobObj.getString("ar_CurrentLocation"));
-                    jobAd.setEnCurrentLocation(jobObj.getString("en_CurrentLocation"));
-                    jobAd.setEnEducationalLevel(jobObj.getString("en_EducationLevel"));
-                    jobAd.setArEducationalLevel(jobObj.getString("ar_EducationLevel"));
-                    jobAd.setCurrentPosition(jobObj.getString("currentPosition"));
-                    jobAd.setArWorkExperience(jobObj.getString("ar_WorkExperience"));
-                    jobAd.setEnWorkExperience(jobObj.getString("en_Commitment"));
-                    jobAd.setArCommitment(jobObj.getString("ar_Commitment"));
-                    jobAd.setEnCommitment(jobObj.getString("en_Commitment"));
-                    jobAd.setArNoticePeriod(jobObj.getString("ar_NoticePeriod"));
-                    jobAd.setEnNoticePeriod(jobObj.getString("en_NoticePeriod"));
-                    jobAd.setArVisaStatus(jobObj.getString("ar_VisaStatus"));
-                    jobAd.setEnVisaStatus(jobObj.getString("en_VisaStatus"));
-                    jobAd.setEnCareerLevel(jobObj.getString("en_CareerLevel"));
-                    jobAd.setArCareerLevel(jobObj.getString("ar_CareerLevel"));
-                    jobAd.setExpectedSalary(jobObj.getString("expectedMonthlySalary"));
-                    jobAd.setArEmploymentType(jobObj.getString("ar_EmploymentType"));
-                    jobAd.setEnEmploymentType(jobObj.getString("en_EmploymentType"));
-                    jobAd.setArMinWorkExperience(jobObj.getString("ar_MinWorkExperience"));
-                    jobAd.setEnMinWorkExperience(jobObj.getString("en_MinWorkExperience"));
-                    jobAd.setEnMinEducationalLevel(jobObj.getString("en_MinEducationLevel"));
-                    jobAd.setArMinEducationalLevel(jobObj.getString("ar_MinEducationLevel"));
-                    jobAd.setCompanyName(jobObj.getString("companyName"));
-                    jobAd.setJobTitle(jobObj.getString("jobTitle"));
-                    jobAd.setIsFav(jobObj.getString("isFavorite"));
+                    jobAd.setCategoryId(jobObj.getString("CategoryId"));
+                    jobAd.setCategoryArName(jobObj.getString("CategoryArName"));
+                    jobAd.setCategoryEnName(jobObj.getString("CategoryEnName"));
+                    jobAd.setUserId(jobObj.getString("UserId"));
+                    jobAd.setArJobType(jobObj.getString("Ar_JobType"));
+                    jobAd.setEnJobType(jobObj.getString("En_JobType"));
+                    jobAd.setOtherJobType(jobObj.getString("OtherJobType"));
+                    jobAd.setPhoneNumber(jobObj.getString("PhoneNumber"));
+                    jobAd.setCv(jobObj.getString("CV"));
+                    jobAd.setArGender(jobObj.getString("Ar_Gender"));
+                    jobAd.setEnGender(jobObj.getString("En_Gender"));
+                    jobAd.setEnNationality(jobObj.getString("En_Nationality"));
+                    jobAd.setArNationality(jobObj.getString("Ar_Nationality"));
+                    jobAd.setArCurrentLocation(jobObj.getString("Ar_CurrentLocation"));
+                    jobAd.setEnCurrentLocation(jobObj.getString("En_CurrentLocation"));
+                    jobAd.setEnEducationalLevel(jobObj.getString("En_EducationLevel"));
+                    jobAd.setArEducationalLevel(jobObj.getString("Ar_EducationLevel"));
+                    jobAd.setCurrentPosition(jobObj.getString("CurrentPosition"));
+                    jobAd.setArWorkExperience(jobObj.getString("Ar_WorkExperience"));
+                    jobAd.setEnWorkExperience(jobObj.getString("En_Commitment"));
+                    jobAd.setArCommitment(jobObj.getString("Ar_Commitment"));
+                    jobAd.setEnCommitment(jobObj.getString("En_Commitment"));
+                    jobAd.setArNoticePeriod(jobObj.getString("Ar_NoticePeriod"));
+                    jobAd.setEnNoticePeriod(jobObj.getString("En_NoticePeriod"));
+                    jobAd.setArVisaStatus(jobObj.getString("Ar_VisaStatus"));
+                    jobAd.setEnVisaStatus(jobObj.getString("En_VisaStatus"));
+                    jobAd.setEnCareerLevel(jobObj.getString("En_CareerLevel"));
+                    jobAd.setArCareerLevel(jobObj.getString("Ar_CareerLevel"));
+                    jobAd.setExpectedSalary(jobObj.getString("ExpectedMonthlySalary"));
+                    jobAd.setArEmploymentType(jobObj.getString("Ar_EmploymentType"));
+                    jobAd.setEnEmploymentType(jobObj.getString("En_EmploymentType"));
+                    jobAd.setArMinWorkExperience(jobObj.getString("Ar_MinWorkExperience"));
+                    jobAd.setEnMinWorkExperience(jobObj.getString("En_MinWorkExperience"));
+                    jobAd.setEnMinEducationalLevel(jobObj.getString("En_MinEducationLevel"));
+                    jobAd.setArMinEducationalLevel(jobObj.getString("Ar_MinEducationLevel"));
+                    jobAd.setCompanyName(jobObj.getString("CompanyName"));
+                    jobAd.setJobTitle(jobObj.getString("JobTitle"));
+                    jobAd.setIsFav(jobObj.getString("IsFavorite"));
                     jobAds.add(jobAd);
                 }
                 AppDefs.jobAds = jobAds;
@@ -3982,14 +4089,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
 
         }){
-
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("CategoryId", categoryId);
-                params.put("UserId", AppDefs.user.getId());
-                params.put("SortBy", "1");
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -3998,61 +4102,75 @@ public class SubCategoryFragment extends Fragment {
 
     private void filterJobs1(){
         jobAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("JobType", jobType);
+            params.put("CareerLevel", AppDefs.brand);
+            params.put("WorkExperience", workExperience);
+            params.put("EducationLevel", educationLevel);
+            params.put("Commitment", AppDefs.model);
+            params.put("PostedIn", postedIn);
+            params.put("Location", currentLocation);
+            params.put("CategoryId", categoryId);
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest filterJobRequest = new StringRequest(Request.Method.POST, Urls.JobAds_URL+"FilterJobs", response -> {
+        JsonObjectRequest filterJobRequest = new JsonObjectRequest(Request.Method.POST, Urls.JobAds_URL+"FilterJobs", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray jobsArray = new JSONArray(response);
+                JSONArray jobsArray = response.getJSONArray("results");
                 for (int i=0; i<jobsArray.length(); i++){
                     JSONObject jobObj = jobsArray.getJSONObject(i);
                     JobAd jobAd = new JobAd();
-                    jobAd.setId(jobObj.getString("id"));
-                    jobAd.setTitle(jobObj.getString("title"));
-                    jobAd.setDescription(jobObj.getString("description"));
-                    jobAd.setEnLocation(jobObj.getString("en_Location"));
-                    jobAd.setArLocation(jobObj.getString("ar_Location"));
-                    jobAd.setLat(jobObj.getString("lat"));
-                    jobAd.setLng(jobObj.getString("lng"));
-                    String postedDate = mainActivity.convertDate(jobObj.getString("postDate").substring(0, jobObj.getString("postDate").lastIndexOf(".")));
+                    jobAd.setId(jobObj.getString("Id"));
+                    jobAd.setTitle(jobObj.getString("Title"));
+                    jobAd.setDescription(jobObj.getString("Description"));
+                    jobAd.setEnLocation(jobObj.getString("En_Location"));
+                    jobAd.setArLocation(jobObj.getString("Ar_Location"));
+                    jobAd.setLat(jobObj.getString("Lat"));
+                    jobAd.setLng(jobObj.getString("Lng"));
+                    String postedDate = mainActivity.convertDate(jobObj.getString("PostDate").substring(0, jobObj.getString("PostDate").lastIndexOf(".")));
                     jobAd.setPostedDate(postedDate);
-                    jobAd.setCategoryId(jobObj.getString("categoryId"));
-                    jobAd.setCategoryArName(jobObj.getString("categoryArName"));
-                    jobAd.setCategoryEnName(jobObj.getString("categoryEnName"));
-                    jobAd.setUserId(jobObj.getString("userId"));
-                    jobAd.setArJobType(jobObj.getString("ar_JobType"));
-                    jobAd.setEnJobType(jobObj.getString("en_JobType"));
-                    jobAd.setOtherJobType(jobObj.getString("otherJobType"));
-                    jobAd.setPhoneNumber(jobObj.getString("phoneNumber"));
-                    jobAd.setCv(jobObj.getString("cv"));
-                    jobAd.setArGender(jobObj.getString("ar_Gender"));
-                    jobAd.setEnGender(jobObj.getString("en_Gender"));
-                    jobAd.setEnNationality(jobObj.getString("en_Nationality"));
-                    jobAd.setArNationality(jobObj.getString("ar_Nationality"));
-                    jobAd.setArCurrentLocation(jobObj.getString("ar_CurrentLocation"));
-                    jobAd.setEnCurrentLocation(jobObj.getString("en_CurrentLocation"));
-                    jobAd.setEnEducationalLevel(jobObj.getString("en_EducationLevel"));
-                    jobAd.setArEducationalLevel(jobObj.getString("ar_EducationLevel"));
-                    jobAd.setCurrentPosition(jobObj.getString("currentPosition"));
-                    jobAd.setArWorkExperience(jobObj.getString("ar_WorkExperience"));
-                    jobAd.setEnWorkExperience(jobObj.getString("en_Commitment"));
-                    jobAd.setArCommitment(jobObj.getString("ar_Commitment"));
-                    jobAd.setEnCommitment(jobObj.getString("en_Commitment"));
-                    jobAd.setArNoticePeriod(jobObj.getString("ar_NoticePeriod"));
-                    jobAd.setEnNoticePeriod(jobObj.getString("en_NoticePeriod"));
-                    jobAd.setArVisaStatus(jobObj.getString("ar_VisaStatus"));
-                    jobAd.setEnVisaStatus(jobObj.getString("en_VisaStatus"));
-                    jobAd.setEnCareerLevel(jobObj.getString("en_CareerLevel"));
-                    jobAd.setArCareerLevel(jobObj.getString("ar_CareerLevel"));
-                    jobAd.setExpectedSalary(jobObj.getString("expectedMonthlySalary"));
-                    jobAd.setArEmploymentType(jobObj.getString("ar_EmploymentType"));
-                    jobAd.setEnEmploymentType(jobObj.getString("en_EmploymentType"));
-                    jobAd.setArMinWorkExperience(jobObj.getString("ar_MinWorkExperience"));
-                    jobAd.setEnMinWorkExperience(jobObj.getString("en_MinWorkExperience"));
-                    jobAd.setEnMinEducationalLevel(jobObj.getString("en_MinEducationLevel"));
-                    jobAd.setArMinEducationalLevel(jobObj.getString("ar_MinEducationLevel"));
-                    jobAd.setCompanyName(jobObj.getString("companyName"));
-                    jobAd.setJobTitle(jobObj.getString("jobTitle"));
-                    jobAd.setIsFav(jobObj.getString("isFavorite"));
+                    jobAd.setCategoryId(jobObj.getString("CategoryId"));
+                    jobAd.setCategoryArName(jobObj.getString("CategoryArName"));
+                    jobAd.setCategoryEnName(jobObj.getString("CategoryEnName"));
+                    jobAd.setUserId(jobObj.getString("UserId"));
+                    jobAd.setArJobType(jobObj.getString("Ar_JobType"));
+                    jobAd.setEnJobType(jobObj.getString("En_JobType"));
+                    jobAd.setOtherJobType(jobObj.getString("OtherJobType"));
+                    jobAd.setPhoneNumber(jobObj.getString("PhoneNumber"));
+                    jobAd.setCv(jobObj.getString("CV"));
+                    jobAd.setArGender(jobObj.getString("Ar_Gender"));
+                    jobAd.setEnGender(jobObj.getString("En_Gender"));
+                    jobAd.setEnNationality(jobObj.getString("En_Nationality"));
+                    jobAd.setArNationality(jobObj.getString("Ar_Nationality"));
+                    jobAd.setArCurrentLocation(jobObj.getString("Ar_CurrentLocation"));
+                    jobAd.setEnCurrentLocation(jobObj.getString("En_CurrentLocation"));
+                    jobAd.setEnEducationalLevel(jobObj.getString("En_EducationLevel"));
+                    jobAd.setArEducationalLevel(jobObj.getString("Ar_EducationLevel"));
+                    jobAd.setCurrentPosition(jobObj.getString("CurrentPosition"));
+                    jobAd.setArWorkExperience(jobObj.getString("Ar_WorkExperience"));
+                    jobAd.setEnWorkExperience(jobObj.getString("En_Commitment"));
+                    jobAd.setArCommitment(jobObj.getString("Ar_Commitment"));
+                    jobAd.setEnCommitment(jobObj.getString("En_Commitment"));
+                    jobAd.setArNoticePeriod(jobObj.getString("Ar_NoticePeriod"));
+                    jobAd.setEnNoticePeriod(jobObj.getString("En_NoticePeriod"));
+                    jobAd.setArVisaStatus(jobObj.getString("Ar_VisaStatus"));
+                    jobAd.setEnVisaStatus(jobObj.getString("En_VisaStatus"));
+                    jobAd.setEnCareerLevel(jobObj.getString("En_CareerLevel"));
+                    jobAd.setArCareerLevel(jobObj.getString("Ar_CareerLevel"));
+                    jobAd.setExpectedSalary(jobObj.getString("ExpectedMonthlySalary"));
+                    jobAd.setArEmploymentType(jobObj.getString("Ar_EmploymentType"));
+                    jobAd.setEnEmploymentType(jobObj.getString("En_EmploymentType"));
+                    jobAd.setArMinWorkExperience(jobObj.getString("Ar_MinWorkExperience"));
+                    jobAd.setEnMinWorkExperience(jobObj.getString("En_MinWorkExperience"));
+                    jobAd.setEnMinEducationalLevel(jobObj.getString("En_MinEducationLevel"));
+                    jobAd.setArMinEducationalLevel(jobObj.getString("Ar_MinEducationLevel"));
+                    jobAd.setCompanyName(jobObj.getString("CompanyName"));
+                    jobAd.setJobTitle(jobObj.getString("JobTitle"));
+                    jobAd.setIsFav(jobObj.getString("IsFavorite"));
                     jobAds.add(jobAd);
                 }
                 AppDefs.jobAds = jobAds;
@@ -4070,21 +4188,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
 
         }){
-
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("JobType", jobType);
-                params.put("CareerLevel", AppDefs.brand);
-                params.put("WorkExperience", workExperience);
-                params.put("EducationLevel", educationLevel);
-                params.put("Commitment", AppDefs.model);
-                params.put("PostedIn", postedIn);
-                params.put("Location", currentLocation);
-                params.put("CategoryId", categoryId);
-                params.put("SortBy", "1");
-                params.put("UserId", AppDefs.user.getId());
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -4093,61 +4201,75 @@ public class SubCategoryFragment extends Fragment {
 
     private void filterJobs2(){
         jobAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("JobType", jobType);
+            params.put("CareerLevel", AppDefs.brand);
+            params.put("WorkExperience", workExperience);
+            params.put("EducationLevel", educationLevel);
+            params.put("Commitment", employmentType);
+            params.put("PostedIn", postedIn);
+            params.put("Location", currentLocation);
+            params.put("CategoryId", categoryId);
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest filterJobRequest = new StringRequest(Request.Method.POST, Urls.JobAds_URL+"FilterJobs", response -> {
+        JsonObjectRequest filterJobRequest = new JsonObjectRequest(Request.Method.POST, Urls.JobAds_URL+"FilterJobs", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray jobsArray = new JSONArray(response);
+                JSONArray jobsArray = response.getJSONArray("results");
                 for (int i=0; i<jobsArray.length(); i++){
                     JSONObject jobObj = jobsArray.getJSONObject(i);
                     JobAd jobAd = new JobAd();
-                    jobAd.setId(jobObj.getString("id"));
-                    jobAd.setTitle(jobObj.getString("title"));
-                    jobAd.setDescription(jobObj.getString("description"));
-                    jobAd.setEnLocation(jobObj.getString("en_Location"));
-                    jobAd.setArLocation(jobObj.getString("ar_Location"));
-                    jobAd.setLat(jobObj.getString("lat"));
-                    jobAd.setLng(jobObj.getString("lng"));
-                    String postedDate = mainActivity.convertDate(jobObj.getString("postDate").substring(0, jobObj.getString("postDate").lastIndexOf(".")));
+                    jobAd.setId(jobObj.getString("Id"));
+                    jobAd.setTitle(jobObj.getString("Title"));
+                    jobAd.setDescription(jobObj.getString("Description"));
+                    jobAd.setEnLocation(jobObj.getString("En_Location"));
+                    jobAd.setArLocation(jobObj.getString("Ar_Location"));
+                    jobAd.setLat(jobObj.getString("Lat"));
+                    jobAd.setLng(jobObj.getString("Lng"));
+                    String postedDate = mainActivity.convertDate(jobObj.getString("PostDate").substring(0, jobObj.getString("PostDate").lastIndexOf(".")));
                     jobAd.setPostedDate(postedDate);
-                    jobAd.setCategoryId(jobObj.getString("categoryId"));
-                    jobAd.setCategoryArName(jobObj.getString("categoryArName"));
-                    jobAd.setCategoryEnName(jobObj.getString("categoryEnName"));
-                    jobAd.setUserId(jobObj.getString("userId"));
-                    jobAd.setArJobType(jobObj.getString("ar_JobType"));
-                    jobAd.setEnJobType(jobObj.getString("en_JobType"));
-                    jobAd.setOtherJobType(jobObj.getString("otherJobType"));
-                    jobAd.setPhoneNumber(jobObj.getString("phoneNumber"));
-                    jobAd.setCv(jobObj.getString("cv"));
-                    jobAd.setArGender(jobObj.getString("ar_Gender"));
-                    jobAd.setEnGender(jobObj.getString("en_Gender"));
-                    jobAd.setEnNationality(jobObj.getString("en_Nationality"));
-                    jobAd.setArNationality(jobObj.getString("ar_Nationality"));
-                    jobAd.setArCurrentLocation(jobObj.getString("ar_CurrentLocation"));
-                    jobAd.setEnCurrentLocation(jobObj.getString("en_CurrentLocation"));
-                    jobAd.setEnEducationalLevel(jobObj.getString("en_EducationLevel"));
-                    jobAd.setArEducationalLevel(jobObj.getString("ar_EducationLevel"));
-                    jobAd.setCurrentPosition(jobObj.getString("currentPosition"));
-                    jobAd.setArWorkExperience(jobObj.getString("ar_WorkExperience"));
-                    jobAd.setEnWorkExperience(jobObj.getString("en_Commitment"));
-                    jobAd.setArCommitment(jobObj.getString("ar_Commitment"));
-                    jobAd.setEnCommitment(jobObj.getString("en_Commitment"));
-                    jobAd.setArNoticePeriod(jobObj.getString("ar_NoticePeriod"));
-                    jobAd.setEnNoticePeriod(jobObj.getString("en_NoticePeriod"));
-                    jobAd.setArVisaStatus(jobObj.getString("ar_VisaStatus"));
-                    jobAd.setEnVisaStatus(jobObj.getString("en_VisaStatus"));
-                    jobAd.setEnCareerLevel(jobObj.getString("en_CareerLevel"));
-                    jobAd.setArCareerLevel(jobObj.getString("ar_CareerLevel"));
-                    jobAd.setExpectedSalary(jobObj.getString("expectedMonthlySalary"));
-                    jobAd.setArEmploymentType(jobObj.getString("ar_EmploymentType"));
-                    jobAd.setEnEmploymentType(jobObj.getString("en_EmploymentType"));
-                    jobAd.setArMinWorkExperience(jobObj.getString("ar_MinWorkExperience"));
-                    jobAd.setEnMinWorkExperience(jobObj.getString("en_MinWorkExperience"));
-                    jobAd.setEnMinEducationalLevel(jobObj.getString("en_MinEducationLevel"));
-                    jobAd.setArMinEducationalLevel(jobObj.getString("ar_MinEducationLevel"));
-                    jobAd.setCompanyName(jobObj.getString("companyName"));
-                    jobAd.setJobTitle(jobObj.getString("jobTitle"));
-                    jobAd.setIsFav(jobObj.getString("isFavorite"));
+                    jobAd.setCategoryId(jobObj.getString("CategoryId"));
+                    jobAd.setCategoryArName(jobObj.getString("CategoryArName"));
+                    jobAd.setCategoryEnName(jobObj.getString("CategoryEnName"));
+                    jobAd.setUserId(jobObj.getString("UserId"));
+                    jobAd.setArJobType(jobObj.getString("Ar_JobType"));
+                    jobAd.setEnJobType(jobObj.getString("En_JobType"));
+                    jobAd.setOtherJobType(jobObj.getString("OtherJobType"));
+                    jobAd.setPhoneNumber(jobObj.getString("PhoneNumber"));
+                    jobAd.setCv(jobObj.getString("CV"));
+                    jobAd.setArGender(jobObj.getString("Ar_Gender"));
+                    jobAd.setEnGender(jobObj.getString("En_Gender"));
+                    jobAd.setEnNationality(jobObj.getString("En_Nationality"));
+                    jobAd.setArNationality(jobObj.getString("Ar_Nationality"));
+                    jobAd.setArCurrentLocation(jobObj.getString("Ar_CurrentLocation"));
+                    jobAd.setEnCurrentLocation(jobObj.getString("En_CurrentLocation"));
+                    jobAd.setEnEducationalLevel(jobObj.getString("En_EducationLevel"));
+                    jobAd.setArEducationalLevel(jobObj.getString("Ar_EducationLevel"));
+                    jobAd.setCurrentPosition(jobObj.getString("CurrentPosition"));
+                    jobAd.setArWorkExperience(jobObj.getString("Ar_WorkExperience"));
+                    jobAd.setEnWorkExperience(jobObj.getString("En_Commitment"));
+                    jobAd.setArCommitment(jobObj.getString("Ar_Commitment"));
+                    jobAd.setEnCommitment(jobObj.getString("En_Commitment"));
+                    jobAd.setArNoticePeriod(jobObj.getString("Ar_NoticePeriod"));
+                    jobAd.setEnNoticePeriod(jobObj.getString("En_NoticePeriod"));
+                    jobAd.setArVisaStatus(jobObj.getString("Ar_VisaStatus"));
+                    jobAd.setEnVisaStatus(jobObj.getString("En_VisaStatus"));
+                    jobAd.setEnCareerLevel(jobObj.getString("En_CareerLevel"));
+                    jobAd.setArCareerLevel(jobObj.getString("Ar_CareerLevel"));
+                    jobAd.setExpectedSalary(jobObj.getString("ExpectedMonthlySalary"));
+                    jobAd.setArEmploymentType(jobObj.getString("Ar_EmploymentType"));
+                    jobAd.setEnEmploymentType(jobObj.getString("En_EmploymentType"));
+                    jobAd.setArMinWorkExperience(jobObj.getString("Ar_MinWorkExperience"));
+                    jobAd.setEnMinWorkExperience(jobObj.getString("En_MinWorkExperience"));
+                    jobAd.setEnMinEducationalLevel(jobObj.getString("En_MinEducationLevel"));
+                    jobAd.setArMinEducationalLevel(jobObj.getString("Ar_MinEducationLevel"));
+                    jobAd.setCompanyName(jobObj.getString("CompanyName"));
+                    jobAd.setJobTitle(jobObj.getString("JobTitle"));
+                    jobAd.setIsFav(jobObj.getString("IsFavorite"));
                     jobAds.add(jobAd);
                 }
                 AppDefs.jobAds = jobAds;
@@ -4165,21 +4287,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
 
         }){
-
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("JobType", jobType);
-                params.put("CareerLevel", AppDefs.brand);
-                params.put("WorkExperience", workExperience);
-                params.put("EducationLevel", educationLevel);
-                params.put("Commitment", employmentType);
-                params.put("PostedIn", postedIn);
-                params.put("Location", currentLocation);
-                params.put("CategoryId", categoryId);
-                params.put("UserId", AppDefs.user.getId());
-                params.put("SortBy", "1");
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -4190,61 +4302,76 @@ public class SubCategoryFragment extends Fragment {
         jobAds.clear();
         setOpeningJobsAdapter();
         setWantedJobsAdapter();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("JobType", jobType);
+            params.put("CareerLevel", professionalLevel);
+            params.put("WorkExperience", workExperience);
+            params.put("EducationLevel", educationLevel);
+            params.put("Commitment", employmentType);
+            params.put("PostedIn", postedIn);
+            params.put("Location", currentLocation);
+            params.put("CategoryId", categoryId);
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest filterJobRequest = new StringRequest(Request.Method.POST, Urls.JobAds_URL+"FilterJobs", response -> {
+        JsonObjectRequest filterJobRequest = new JsonObjectRequest(Request.Method.POST, Urls.JobAds_URL+"FilterJobs", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray jobsArray = new JSONArray(response);
+                JSONArray jobsArray = response.getJSONArray("results");
                 for (int i=0; i<jobsArray.length(); i++){
                     JSONObject jobObj = jobsArray.getJSONObject(i);
                     JobAd jobAd = new JobAd();
-                    jobAd.setId(jobObj.getString("id"));
-                    jobAd.setTitle(jobObj.getString("title"));
-                    jobAd.setDescription(jobObj.getString("description"));
-                    jobAd.setEnLocation(jobObj.getString("en_Location"));
-                    jobAd.setArLocation(jobObj.getString("ar_Location"));
-                    jobAd.setLat(jobObj.getString("lat"));
-                    jobAd.setLng(jobObj.getString("lng"));
-                    String postedDate = mainActivity.convertDate(jobObj.getString("postDate").substring(0, jobObj.getString("postDate").lastIndexOf(".")));
+                    jobAd.setId(jobObj.getString("Id"));
+                    jobAd.setTitle(jobObj.getString("Title"));
+                    jobAd.setDescription(jobObj.getString("Description"));
+                    jobAd.setEnLocation(jobObj.getString("En_Location"));
+                    jobAd.setArLocation(jobObj.getString("Ar_Location"));
+                    jobAd.setLat(jobObj.getString("Lat"));
+                    jobAd.setLng(jobObj.getString("Lng"));
+                    String postedDate = mainActivity.convertDate(jobObj.getString("PostDate").substring(0, jobObj.getString("PostDate").lastIndexOf(".")));
                     jobAd.setPostedDate(postedDate);
-                    jobAd.setCategoryId(jobObj.getString("categoryId"));
-                    jobAd.setCategoryArName(jobObj.getString("categoryArName"));
-                    jobAd.setCategoryEnName(jobObj.getString("categoryEnName"));
-                    jobAd.setUserId(jobObj.getString("userId"));
-                    jobAd.setArJobType(jobObj.getString("ar_JobType"));
-                    jobAd.setEnJobType(jobObj.getString("en_JobType"));
-                    jobAd.setOtherJobType(jobObj.getString("otherJobType"));
-                    jobAd.setPhoneNumber(jobObj.getString("phoneNumber"));
-                    jobAd.setCv(jobObj.getString("cv"));
-                    jobAd.setArGender(jobObj.getString("ar_Gender"));
-                    jobAd.setEnGender(jobObj.getString("en_Gender"));
-                    jobAd.setEnNationality(jobObj.getString("en_Nationality"));
-                    jobAd.setArNationality(jobObj.getString("ar_Nationality"));
-                    jobAd.setArCurrentLocation(jobObj.getString("ar_CurrentLocation"));
-                    jobAd.setEnCurrentLocation(jobObj.getString("en_CurrentLocation"));
-                    jobAd.setEnEducationalLevel(jobObj.getString("en_EducationLevel"));
-                    jobAd.setArEducationalLevel(jobObj.getString("ar_EducationLevel"));
-                    jobAd.setCurrentPosition(jobObj.getString("currentPosition"));
-                    jobAd.setArWorkExperience(jobObj.getString("ar_WorkExperience"));
-                    jobAd.setEnWorkExperience(jobObj.getString("en_Commitment"));
-                    jobAd.setArCommitment(jobObj.getString("ar_Commitment"));
-                    jobAd.setEnCommitment(jobObj.getString("en_Commitment"));
-                    jobAd.setArNoticePeriod(jobObj.getString("ar_NoticePeriod"));
-                    jobAd.setEnNoticePeriod(jobObj.getString("en_NoticePeriod"));
-                    jobAd.setArVisaStatus(jobObj.getString("ar_VisaStatus"));
-                    jobAd.setEnVisaStatus(jobObj.getString("en_VisaStatus"));
-                    jobAd.setEnCareerLevel(jobObj.getString("en_CareerLevel"));
-                    jobAd.setArCareerLevel(jobObj.getString("ar_CareerLevel"));
-                    jobAd.setExpectedSalary(jobObj.getString("expectedMonthlySalary"));
-                    jobAd.setArEmploymentType(jobObj.getString("ar_EmploymentType"));
-                    jobAd.setEnEmploymentType(jobObj.getString("en_EmploymentType"));
-                    jobAd.setArMinWorkExperience(jobObj.getString("ar_MinWorkExperience"));
-                    jobAd.setEnMinWorkExperience(jobObj.getString("en_MinWorkExperience"));
-                    jobAd.setEnMinEducationalLevel(jobObj.getString("en_MinEducationLevel"));
-                    jobAd.setArMinEducationalLevel(jobObj.getString("ar_MinEducationLevel"));
-                    jobAd.setCompanyName(jobObj.getString("companyName"));
-                    jobAd.setJobTitle(jobObj.getString("jobTitle"));
-                    jobAd.setIsFav(jobObj.getString("isFavorite"));
+                    jobAd.setCategoryId(jobObj.getString("CategoryId"));
+                    jobAd.setCategoryArName(jobObj.getString("CategoryArName"));
+                    jobAd.setCategoryEnName(jobObj.getString("CategoryEnName"));
+                    jobAd.setUserId(jobObj.getString("UserId"));
+                    jobAd.setArJobType(jobObj.getString("Ar_JobType"));
+                    jobAd.setEnJobType(jobObj.getString("En_JobType"));
+                    jobAd.setOtherJobType(jobObj.getString("OtherJobType"));
+                    jobAd.setPhoneNumber(jobObj.getString("PhoneNumber"));
+                    jobAd.setCv(jobObj.getString("CV"));
+                    jobAd.setArGender(jobObj.getString("Ar_Gender"));
+                    jobAd.setEnGender(jobObj.getString("En_Gender"));
+                    jobAd.setEnNationality(jobObj.getString("En_Nationality"));
+                    jobAd.setArNationality(jobObj.getString("Ar_Nationality"));
+                    jobAd.setArCurrentLocation(jobObj.getString("Ar_CurrentLocation"));
+                    jobAd.setEnCurrentLocation(jobObj.getString("En_CurrentLocation"));
+                    jobAd.setEnEducationalLevel(jobObj.getString("En_EducationLevel"));
+                    jobAd.setArEducationalLevel(jobObj.getString("Ar_EducationLevel"));
+                    jobAd.setCurrentPosition(jobObj.getString("CurrentPosition"));
+                    jobAd.setArWorkExperience(jobObj.getString("Ar_WorkExperience"));
+                    jobAd.setEnWorkExperience(jobObj.getString("En_Commitment"));
+                    jobAd.setArCommitment(jobObj.getString("Ar_Commitment"));
+                    jobAd.setEnCommitment(jobObj.getString("En_Commitment"));
+                    jobAd.setArNoticePeriod(jobObj.getString("Ar_NoticePeriod"));
+                    jobAd.setEnNoticePeriod(jobObj.getString("En_NoticePeriod"));
+                    jobAd.setArVisaStatus(jobObj.getString("Ar_VisaStatus"));
+                    jobAd.setEnVisaStatus(jobObj.getString("En_VisaStatus"));
+                    jobAd.setEnCareerLevel(jobObj.getString("En_CareerLevel"));
+                    jobAd.setArCareerLevel(jobObj.getString("Ar_CareerLevel"));
+                    jobAd.setExpectedSalary(jobObj.getString("ExpectedMonthlySalary"));
+                    jobAd.setArEmploymentType(jobObj.getString("Ar_EmploymentType"));
+                    jobAd.setEnEmploymentType(jobObj.getString("En_EmploymentType"));
+                    jobAd.setArMinWorkExperience(jobObj.getString("Ar_MinWorkExperience"));
+                    jobAd.setEnMinWorkExperience(jobObj.getString("En_MinWorkExperience"));
+                    jobAd.setEnMinEducationalLevel(jobObj.getString("En_MinEducationLevel"));
+                    jobAd.setArMinEducationalLevel(jobObj.getString("Ar_MinEducationLevel"));
+                    jobAd.setCompanyName(jobObj.getString("CompanyName"));
+                    jobAd.setJobTitle(jobObj.getString("JobTitle"));
+                    jobAd.setIsFav(jobObj.getString("IsFavorite"));
                     jobAds.add(jobAd);
                 }
                 AppDefs.jobAds = jobAds;
@@ -4253,7 +4380,6 @@ public class SubCategoryFragment extends Fragment {
                 }else {
                     setWantedJobsAdapter();
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
                 mainActivity.showResponseMessage(categoryName, mainActivity.getResources().getString(R.string.error_occured));
@@ -4263,21 +4389,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
 
         }){
-
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("JobType", jobType);
-                params.put("CareerLevel", professionalLevel);
-                params.put("WorkExperience", workExperience);
-                params.put("EducationLevel", educationLevel);
-                params.put("Commitment", employmentType);
-                params.put("PostedIn", postedIn);
-                params.put("Location", currentLocation);
-                params.put("CategoryId", categoryId);
-                params.put("UserId", AppDefs.user.getId());
-                params.put("SortBy", "1");
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -4288,34 +4404,44 @@ public class SubCategoryFragment extends Fragment {
     private void filterServices(){
         serviceAds.clear();
         setServicesAdsAdapter();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("SubCategoryId", serviceSubCat);
+            params.put("PostedIn", servicePostIn);
+            params.put("Location", currentLocation);
+            params.put("CategoryId", categoryId);
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest filterServicesRequest = new StringRequest(Request.Method.POST, Urls.ServicesAds_URL+"FilterServices", response -> {
+        JsonObjectRequest filterServicesRequest = new JsonObjectRequest(Request.Method.POST, Urls.ServicesAds_URL+"FilterServices", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray serviceAdsArray = new JSONArray(response);
+                JSONArray serviceAdsArray = response.getJSONArray("results");
                 for (int i=0; i<serviceAdsArray.length(); i++){
                     JSONObject serviceObj = serviceAdsArray.getJSONObject(i);
                     ServiceAd serviceAd = new ServiceAd();
-                    serviceAd.setId(serviceObj.getString("id"));
-                    serviceAd.setTitle(serviceObj.getString("title"));
-                    serviceAd.setEnLocation(serviceObj.getString("en_Location"));
-                    serviceAd.setArLocation(serviceObj.getString("ar_Location"));
-                    String postedDate = mainActivity.convertDate(serviceObj.getString("postDate").substring(0, serviceObj.getString("postDate").lastIndexOf(".")));
+                    serviceAd.setId(serviceObj.getString("Id"));
+                    serviceAd.setTitle(serviceObj.getString("Title"));
+                    serviceAd.setEnLocation(serviceObj.getString("En_Location"));
+                    serviceAd.setArLocation(serviceObj.getString("Ar_Location"));
+                    String postedDate = mainActivity.convertDate(serviceObj.getString("PostDate").substring(0, serviceObj.getString("PostDate").lastIndexOf(".")));
                     serviceAd.setPostedDate(postedDate);
-                    serviceAd.setCategoryArName(serviceObj.getString("categoryArName"));
-                    serviceAd.setCategoryEnName(serviceObj.getString("categoryEnName"));
-                    serviceAd.setDescription(serviceObj.getString("description"));
-                    serviceAd.setLat(serviceObj.getString("lat"));
-                    serviceAd.setLng(serviceObj.getString("lng"));
-                    serviceAd.setCategoryId(serviceObj.getString("categoryId"));
-                    serviceAd.setUserId(serviceObj.getString("userId"));
-                    serviceAd.setServiceTypeEnName(serviceObj.getString("serviceTypeEn_Name"));
-                    serviceAd.setServiceTypeArName(serviceObj.getString("serviceTypeAr_Name"));
-                    serviceAd.setOtherServiceType(serviceObj.getString("otherServiceType"));
-                    serviceAd.setPhoneNumber(serviceObj.getString("phoneNumber"));
-                    serviceAd.setCarLiftFrom(serviceObj.getString("carLiftFrom"));
-                    serviceAd.setCarLiftTo(serviceObj.getString("carLiftTo"));
-                    serviceAd.setIsFav(serviceObj.getString("isFavorite"));
+                    serviceAd.setCategoryArName(serviceObj.getString("CategoryArName"));
+                    serviceAd.setCategoryEnName(serviceObj.getString("CategoryEnName"));
+                    serviceAd.setDescription(serviceObj.getString("Description"));
+                    serviceAd.setLat(serviceObj.getString("Lat"));
+                    serviceAd.setLng(serviceObj.getString("Lng"));
+                    serviceAd.setCategoryId(serviceObj.getString("CategoryId"));
+                    serviceAd.setUserId(serviceObj.getString("UserId"));
+                    serviceAd.setServiceTypeEnName(serviceObj.getString("ServiceTypeEn_Name"));
+                    serviceAd.setServiceTypeArName(serviceObj.getString("ServiceTypeAr_Name"));
+                    serviceAd.setOtherServiceType(serviceObj.getString("OtherServiceType"));
+                    serviceAd.setPhoneNumber(serviceObj.getString("PhoneNumber"));
+                    serviceAd.setCarLiftFrom(serviceObj.getString("CarLiftFrom"));
+                    serviceAd.setCarLiftTo(serviceObj.getString("CarLiftTo"));
+                    serviceAd.setIsFav(serviceObj.getString("IsFavorite"));
                     serviceAds.add(serviceAd);
                 }
                 AppDefs.serviceAds = serviceAds;
@@ -4328,17 +4454,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.hideProgressDialog();
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
-
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("SubCategoryId", serviceSubCat);
-                params.put("PostedIn", servicePostIn);
-                params.put("Location", currentLocation);
-                params.put("CategoryId", categoryId);
-                params.put("SortBy", "1");
-                params.put("UserId", AppDefs.user.getId());
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -4349,38 +4469,50 @@ public class SubCategoryFragment extends Fragment {
     private void filterBusiness(){
         businessAds.clear();
         setBusinessAdsAdapter();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", String.valueOf((int) businessPriceBar.getCurrentValues().getLeftValue()));
+            params.put("ToPrice", String.valueOf((int) businessPriceBar.getCurrentValues().getRightValue()));
+            params.put("SubCategoryId", bikeSubCat);
+            params.put("PostedIn", businessPostedIn);
+            params.put("Location", businessCity);
+            params.put("CategoryId", categoryId);
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest filterBusinessRequest = new StringRequest(Request.Method.POST, Urls.BusinessAds_URL+"FilterBusiness", response -> {
+        JsonObjectRequest filterBusinessRequest = new JsonObjectRequest(Request.Method.POST, Urls.BusinessAds_URL+"FilterBusiness", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray businessArray = new JSONArray(response);
+                JSONArray businessArray = response.getJSONArray("results");
                 for (int i=0; i<businessArray.length(); i++){
                     JSONObject businessObj = businessArray.getJSONObject(i);
                     BusinessAd businessAd = new BusinessAd();
-                    businessAd.setId(businessObj.getString("id"));
-                    businessAd.setTitle(businessObj.getString("title"));
-                    businessAd.setArLocation(businessObj.getString("ar_Location"));
-                    businessAd.setEnLocation(businessObj.getString("en_Location"));
-                    businessAd.setPrice(businessObj.getString("price"));
-                    String postedDate = mainActivity.convertDate(businessObj.getString("postDate").substring(0, businessObj.getString("postDate").lastIndexOf(".")));
+                    businessAd.setId(businessObj.getString("Id"));
+                    businessAd.setTitle(businessObj.getString("Title"));
+                    businessAd.setArLocation(businessObj.getString("Ar_Location"));
+                    businessAd.setEnLocation(businessObj.getString("En_Location"));
+                    businessAd.setPrice(businessObj.getString("Price"));
+                    String postedDate = mainActivity.convertDate(businessObj.getString("PostDate").substring(0, businessObj.getString("PostDate").lastIndexOf(".")));
                     businessAd.setPostedDate(postedDate);
-                    businessAd.setDescription(businessObj.getString("description"));
-                    businessAd.setLat(businessObj.getString("lat"));
-                    businessAd.setLng(businessObj.getString("lng"));
-                    businessAd.setCategoryArName(businessObj.getString("categoryArName"));
-                    businessAd.setCategoryEnName(businessObj.getString("categoryEnName"));
-                    businessAd.setOtherCategoryNAme(businessObj.getString("otherCategoryName"));
-                    businessAd.setUserId(businessObj.getString("userId"));
-                    businessAd.setPhoneNumber(businessObj.getString("phoneNumber"));
-                    businessAd.setIsFav(businessObj.getString("isFavorite"));
-                    JSONArray pics = businessObj.getJSONArray("pictures");
+                    businessAd.setDescription(businessObj.getString("Description"));
+                    businessAd.setLat(businessObj.getString("Lat"));
+                    businessAd.setLng(businessObj.getString("Lng"));
+                    businessAd.setCategoryArName(businessObj.getString("CategoryArName"));
+                    businessAd.setCategoryEnName(businessObj.getString("CategoryEnName"));
+                    businessAd.setOtherCategoryNAme(businessObj.getString("OtherCategoryName"));
+                    businessAd.setUserId(businessObj.getString("UserId"));
+                    businessAd.setPhoneNumber(businessObj.getString("PhoneNumber"));
+                    businessAd.setIsFav(businessObj.getString("IsFavorite"));
+                    JSONArray pics = businessObj.getJSONArray("Pictures");
                     ArrayList<Picture> pictures = new ArrayList<>();
                     for (int j=0; j<pics.length(); j++){
                         JSONObject picObj = pics.getJSONObject(j);
                         Picture picture = new Picture();
-                        picture.setId(picObj.getString("id"));
-                        picture.setImageURL(picObj.getString("imageURL"));
-                        picture.setMain(picObj.getBoolean("mainPicture"));
+                        picture.setId(picObj.getString("Id"));
+                        picture.setImageURL(picObj.getString("ImageURL"));
+                        picture.setMain(picObj.getBoolean("MainPicture"));
                         if (picture.isMain()){
                             businessAd.setMainImage(picture.getImageURL());
                         }
@@ -4399,19 +4531,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.hideProgressDialog();
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
-
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("FromPrice", String.valueOf((int) businessPriceBar.getCurrentValues().getLeftValue()));
-                params.put("ToPrice", String.valueOf((int) businessPriceBar.getCurrentValues().getRightValue()));
-                params.put("SubCategoryId", bikeSubCat);
-                params.put("PostedIn", businessPostedIn);
-                params.put("Location", businessCity);
-                params.put("CategoryId", categoryId);
-                params.put("SortBy", "1");
-                params.put("UserId", AppDefs.user.getId());
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -4578,41 +4702,53 @@ public class SubCategoryFragment extends Fragment {
 
     private void numbersList(){
         numberAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", "0");
+            params.put("ToPrice", "10000000");
+            params.put("Emirate", AppDefs.brand);
+            params.put("PlateType", AppDefs.model);
+            params.put("CategoryId", "17");
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest numberFilterRequest = new StringRequest(Request.Method.POST, Urls.NumberAds_URL+"FilterNumbers", response -> {
+        JsonObjectRequest numberFilterRequest = new JsonObjectRequest(Request.Method.POST, Urls.NumberAds_URL+"FilterNumbers", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray numbersArray = new JSONArray(response);
+                JSONArray numbersArray = response.getJSONArray("results");
                 for (int i=0; i<numbersArray.length(); i++){
                     JSONObject numberObj = numbersArray.getJSONObject(i);
                     NumberAd numberAd = new NumberAd();
-                    numberAd.setId(numberObj.getString("id"));
-                    numberAd.setTitle(numberObj.getString("title"));
-                    if (numberObj.has("price")){
-                        numberAd.setPrice(numberObj.getString("price"));
+                    numberAd.setId(numberObj.getString("Id"));
+                    numberAd.setTitle(numberObj.getString("Title"));
+                    if (numberObj.has("Price")){
+                        numberAd.setPrice(numberObj.getString("Price"));
                     }
-                    numberAd.setArLocation(numberObj.getString("ar_Location"));
-                    numberAd.setEnLocation(numberObj.getString("en_Location"));
-                    numberAd.setDescription(numberObj.getString("description"));
-                    numberAd.setUserId(numberObj.getString("userId"));
-                    numberAd.setLat(numberObj.getString("lat"));
-                    numberAd.setLng(numberObj.getString("lng"));
-                    String postedDate = mainActivity.convertDate(numberObj.getString("postDate").substring(0, numberObj.getString("postDate").lastIndexOf(".")));
+                    numberAd.setArLocation(numberObj.getString("Ar_Location"));
+                    numberAd.setEnLocation(numberObj.getString("En_Location"));
+                    numberAd.setDescription(numberObj.getString("Description"));
+                    numberAd.setUserId(numberObj.getString("UserId"));
+                    numberAd.setLat(numberObj.getString("Lat"));
+                    numberAd.setLng(numberObj.getString("Lng"));
+                    String postedDate = mainActivity.convertDate(numberObj.getString("PostDate").substring(0, numberObj.getString("PostDate").lastIndexOf(".")));
                     numberAd.setPostDate(postedDate);
-                    numberAd.setEmirate(numberObj.getString("en_Emirate"));
-                    numberAd.setArEmirate(numberObj.getString("ar_Emirate"));
-                    numberAd.setPlateCode(numberObj.getString("plateCode"));
-                    numberAd.setArPlateType(numberObj.getString("ar_PlateType"));
-                    numberAd.setPlateType(numberObj.getString("en_PlateType"));
-                    numberAd.setNumber(numberObj.getString("number"));
-                    numberAd.setCategory(numberObj.getString("categoryEnName"));
-                    numberAd.setOperator(numberObj.getString("en_Operator"));
-                    numberAd.setArOperator(numberObj.getString("ar_Operator"));
-                    numberAd.setEnMobilePlan(numberObj.getString("en_MobileNumberPlan"));
-                    numberAd.setArMobilePlan(numberObj.getString("ar_MobileNumberPlan"));
-                    numberAd.setCode(numberObj.getString("code"));
-                    numberAd.setPhoneNumber(numberObj.getString("phoneNumber"));
-                    numberAd.setIsFav(numberObj.getString("isFavorite"));
+                    numberAd.setEmirate(numberObj.getString("En_Emirate"));
+                    numberAd.setArEmirate(numberObj.getString("Ar_Emirate"));
+                    numberAd.setPlateCode(numberObj.getString("PlateCode"));
+                    numberAd.setArPlateType(numberObj.getString("Ar_PlateType"));
+                    numberAd.setPlateType(numberObj.getString("En_PlateType"));
+                    numberAd.setNumber(numberObj.getString("Number"));
+                    numberAd.setCategory(numberObj.getString("CategoryEnName"));
+                    numberAd.setOperator(numberObj.getString("En_Operator"));
+                    numberAd.setArOperator(numberObj.getString("Ar_Operator"));
+                    numberAd.setEnMobilePlan(numberObj.getString("En_MobileNumberPlan"));
+                    numberAd.setArMobilePlan(numberObj.getString("Ar_MobileNumberPlan"));
+                    numberAd.setCode(numberObj.getString("Code"));
+                    numberAd.setPhoneNumber(numberObj.getString("PhoneNumber"));
+                    numberAd.setIsFav(numberObj.getString("IsFavorite"));
                     numberAds.add(numberAd);
                 }
                 AppDefs.numberAds = numberAds;
@@ -4626,18 +4762,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.hideProgressDialog();
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
-
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("UserId", AppDefs.user.getId());
-                params.put("FromPrice", "0");
-                params.put("ToPrice", "10000000");
-                params.put("Emirate", AppDefs.brand);
-                params.put("PlateType", AppDefs.model);
-                params.put("CategoryId", "17");
-                params.put("SortBy", "1");
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -4646,45 +4775,55 @@ public class SubCategoryFragment extends Fragment {
 
     private void getAllNumbers(){
         numberAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", "0");
+            params.put("ToPrice", "10000000");
+            params.put("CategoryId", categoryId);
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest numberFilterRequest = new StringRequest(Request.Method.POST, Urls.NumberAds_URL+"FilterNumbers", response -> {
+        JsonObjectRequest numberFilterRequest = new JsonObjectRequest(Request.Method.POST, Urls.NumberAds_URL+"FilterNumbers", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray numbersArray = new JSONArray(response);
+                JSONArray numbersArray = response.getJSONArray("results");
                 for (int i=0; i<numbersArray.length(); i++){
                     JSONObject numberObj = numbersArray.getJSONObject(i);
                     NumberAd numberAd = new NumberAd();
-                    numberAd.setId(numberObj.getString("id"));
-                    numberAd.setTitle(numberObj.getString("title"));
-                    if (numberObj.has("price")){
-                        numberAd.setPrice(numberObj.getString("price"));
+                    numberAd.setId(numberObj.getString("Id"));
+                    numberAd.setTitle(numberObj.getString("Title"));
+                    if (numberObj.has("Price")){
+                        numberAd.setPrice(numberObj.getString("Price"));
                     }
-                    numberAd.setArLocation(numberObj.getString("ar_Location"));
-                    numberAd.setEnLocation(numberObj.getString("en_Location"));
-                    numberAd.setDescription(numberObj.getString("description"));
-                    numberAd.setUserId(numberObj.getString("userId"));
-                    numberAd.setLat(numberObj.getString("lat"));
-                    numberAd.setLng(numberObj.getString("lng"));
-                    String postedDate = mainActivity.convertDate(numberObj.getString("postDate").substring(0, numberObj.getString("postDate").lastIndexOf(".")));
+                    numberAd.setArLocation(numberObj.getString("Ar_Location"));
+                    numberAd.setEnLocation(numberObj.getString("En_Location"));
+                    numberAd.setDescription(numberObj.getString("Description"));
+                    numberAd.setUserId(numberObj.getString("UserId"));
+                    numberAd.setLat(numberObj.getString("Lat"));
+                    numberAd.setLng(numberObj.getString("Lng"));
+                    String postedDate = mainActivity.convertDate(numberObj.getString("PostDate").substring(0, numberObj.getString("PostDate").lastIndexOf(".")));
                     numberAd.setPostDate(postedDate);
-                    numberAd.setEmirate(numberObj.getString("en_Emirate"));
-                    numberAd.setArEmirate(numberObj.getString("ar_Emirate"));
-                    numberAd.setPlateCode(numberObj.getString("plateCode"));
-                    numberAd.setArPlateType(numberObj.getString("ar_PlateType"));
-                    numberAd.setPlateType(numberObj.getString("en_PlateType"));
-                    numberAd.setNumber(numberObj.getString("number"));
-                    numberAd.setCategory(numberObj.getString("categoryEnName"));
-                    numberAd.setOperator(numberObj.getString("en_Operator"));
-                    numberAd.setArOperator(numberObj.getString("ar_Operator"));
-                    numberAd.setEnMobilePlan(numberObj.getString("en_MobileNumberPlan"));
-                    numberAd.setArMobilePlan(numberObj.getString("ar_MobileNumberPlan"));
-                    numberAd.setCode(numberObj.getString("code"));
-                    numberAd.setPhoneNumber(numberObj.getString("phoneNumber"));
-                    numberAd.setIsFav(numberObj.getString("isFavorite"));
+                    numberAd.setEmirate(numberObj.getString("En_Emirate"));
+                    numberAd.setArEmirate(numberObj.getString("Ar_Emirate"));
+                    numberAd.setPlateCode(numberObj.getString("PlateCode"));
+                    numberAd.setArPlateType(numberObj.getString("Ar_PlateType"));
+                    numberAd.setPlateType(numberObj.getString("En_PlateType"));
+                    numberAd.setNumber(numberObj.getString("Number"));
+                    numberAd.setCategory(numberObj.getString("CategoryEnName"));
+                    numberAd.setOperator(numberObj.getString("En_Operator"));
+                    numberAd.setArOperator(numberObj.getString("Ar_Operator"));
+                    numberAd.setEnMobilePlan(numberObj.getString("En_MobileNumberPlan"));
+                    numberAd.setArMobilePlan(numberObj.getString("Ar_MobileNumberPlan"));
+                    numberAd.setCode(numberObj.getString("Code"));
+                    numberAd.setPhoneNumber(numberObj.getString("PhoneNumber"));
+                    numberAd.setIsFav(numberObj.getString("IsFavorite"));
                     numberAds.add(numberAd);
                 }
                 AppDefs.numberAds = numberAds;
                 setNumberAdsAdapter();
+
             } catch (JSONException e) {
                 e.printStackTrace();
                 mainActivity.showResponseMessage(categoryName, mainActivity.getResources().getString(R.string.error_occured));
@@ -4693,16 +4832,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.hideProgressDialog();
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
-
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("UserId", AppDefs.user.getId());
-                params.put("FromPrice", "0");
-                params.put("ToPrice", "10000000");
-                params.put("CategoryId", categoryId);
-                params.put("SortBy", "1");
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -4711,45 +4845,56 @@ public class SubCategoryFragment extends Fragment {
 
     private void mobileNumbersList(){
         numberAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", "0");
+            params.put("ToPrice", "10000000");
+            params.put("Operator", AppDefs.brand);
+            params.put("CategoryId", "18");
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest numberFilterRequest = new StringRequest(Request.Method.POST, Urls.NumberAds_URL+"FilterNumbers", response -> {
+        JsonObjectRequest numberFilterRequest = new JsonObjectRequest(Request.Method.POST, Urls.NumberAds_URL+"FilterNumbers", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray numbersArray = new JSONArray(response);
+                JSONArray numbersArray = response.getJSONArray("results");
                 for (int i=0; i<numbersArray.length(); i++){
                     JSONObject numberObj = numbersArray.getJSONObject(i);
                     NumberAd numberAd = new NumberAd();
-                    numberAd.setId(numberObj.getString("id"));
-                    numberAd.setTitle(numberObj.getString("title"));
-                    if (numberObj.has("price")){
-                        numberAd.setPrice(numberObj.getString("price"));
+                    numberAd.setId(numberObj.getString("Id"));
+                    numberAd.setTitle(numberObj.getString("Title"));
+                    if (numberObj.has("Price")){
+                        numberAd.setPrice(numberObj.getString("Price"));
                     }
-                    numberAd.setArLocation(numberObj.getString("ar_Location"));
-                    numberAd.setEnLocation(numberObj.getString("en_Location"));
-                    numberAd.setDescription(numberObj.getString("description"));
-                    numberAd.setUserId(numberObj.getString("userId"));
-                    numberAd.setLat(numberObj.getString("lat"));
-                    numberAd.setLng(numberObj.getString("lng"));
-                    String postedDate = mainActivity.convertDate(numberObj.getString("postDate").substring(0, numberObj.getString("postDate").lastIndexOf(".")));
+                    numberAd.setArLocation(numberObj.getString("Ar_Location"));
+                    numberAd.setEnLocation(numberObj.getString("En_Location"));
+                    numberAd.setDescription(numberObj.getString("Description"));
+                    numberAd.setUserId(numberObj.getString("UserId"));
+                    numberAd.setLat(numberObj.getString("Lat"));
+                    numberAd.setLng(numberObj.getString("Lng"));
+                    String postedDate = mainActivity.convertDate(numberObj.getString("PostDate").substring(0, numberObj.getString("PostDate").lastIndexOf(".")));
                     numberAd.setPostDate(postedDate);
-                    numberAd.setEmirate(numberObj.getString("en_Emirate"));
-                    numberAd.setArEmirate(numberObj.getString("ar_Emirate"));
-                    numberAd.setPlateCode(numberObj.getString("plateCode"));
-                    numberAd.setArPlateType(numberObj.getString("ar_PlateType"));
-                    numberAd.setPlateType(numberObj.getString("en_PlateType"));
-                    numberAd.setNumber(numberObj.getString("number"));
-                    numberAd.setCategory(numberObj.getString("categoryEnName"));
-                    numberAd.setOperator(numberObj.getString("en_Operator"));
-                    numberAd.setArOperator(numberObj.getString("ar_Operator"));
-                    numberAd.setEnMobilePlan(numberObj.getString("en_MobileNumberPlan"));
-                    numberAd.setArMobilePlan(numberObj.getString("ar_MobileNumberPlan"));
-                    numberAd.setCode(numberObj.getString("code"));
-                    numberAd.setPhoneNumber(numberObj.getString("phoneNumber"));
-                    numberAd.setIsFav(numberObj.getString("isFavorite"));
+                    numberAd.setEmirate(numberObj.getString("En_Emirate"));
+                    numberAd.setArEmirate(numberObj.getString("Ar_Emirate"));
+                    numberAd.setPlateCode(numberObj.getString("PlateCode"));
+                    numberAd.setArPlateType(numberObj.getString("Ar_PlateType"));
+                    numberAd.setPlateType(numberObj.getString("En_PlateType"));
+                    numberAd.setNumber(numberObj.getString("Number"));
+                    numberAd.setCategory(numberObj.getString("CategoryEnName"));
+                    numberAd.setOperator(numberObj.getString("En_Operator"));
+                    numberAd.setArOperator(numberObj.getString("Ar_Operator"));
+                    numberAd.setEnMobilePlan(numberObj.getString("En_MobileNumberPlan"));
+                    numberAd.setArMobilePlan(numberObj.getString("Ar_MobileNumberPlan"));
+                    numberAd.setCode(numberObj.getString("Code"));
+                    numberAd.setPhoneNumber(numberObj.getString("PhoneNumber"));
+                    numberAd.setIsFav(numberObj.getString("IsFavorite"));
                     numberAds.add(numberAd);
                 }
                 AppDefs.numberAds = numberAds;
                 setNumberAdsAdapter();
+
             } catch (JSONException e) {
                 e.printStackTrace();
                 mainActivity.showResponseMessage(categoryName, mainActivity.getResources().getString(R.string.error_occured));
@@ -4758,17 +4903,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.hideProgressDialog();
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
-
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("UserId", AppDefs.user.getId());
-                params.put("FromPrice", "0");
-                params.put("ToPrice", "10000000");
-                params.put("Operator", AppDefs.brand);
-                params.put("CategoryId", "18");
-                params.put("SortBy", "1");
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -4777,45 +4916,147 @@ public class SubCategoryFragment extends Fragment {
 
     private void filterNumbers2(){
         numberAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            if (categoryId.equals("17")){
+                params.put("FromPrice",String.valueOf((int) platePriceBar.getCurrentValues().getLeftValue()));
+                params.put("ToPrice", "10000000");
+                params.put("Emirate", AppDefs.brand);
+                params.put("PlateType", AppDefs.model);
+                params.put("PlateCode", plateCode);
+                params.put("Operator", "");
+                params.put("MobileCode", "");
+                params.put("NumberPlan", "");
+                params.put("MobileDigits3", "");
+                params.put("MobileDigits4", "");
+                params.put("MobileDigits5", "");
+                params.put("MobileDigits6", "");
+                params.put("MobileDigits7", "");
+                if (digit1.isChecked()){
+                    params.put("PlateDigits1", "1");
+                    params.put("PlateDigits2", "");
+                    params.put("PlateDigits3", "");
+                    params.put("PlateDigits4", "");
+                    params.put("PlateDigits5", "");
+                }else if (digit2.isChecked()){
+                    params.put("PlateDigits1", "");
+                    params.put("PlateDigits2", "2");
+                    params.put("PlateDigits3", "");
+                    params.put("PlateDigits4", "");
+                    params.put("PlateDigits5", "");
+                }else if (digit3.isChecked()){
+                    params.put("PlateDigits1", "");
+                    params.put("PlateDigits2", "");
+                    params.put("PlateDigits3", "3");
+                    params.put("PlateDigits4", "");
+                    params.put("PlateDigits5", "");
+                }else if (digit4.isChecked()){
+                    params.put("PlateDigits1", "");
+                    params.put("PlateDigits2", "");
+                    params.put("PlateDigits3", "");
+                    params.put("PlateDigits4", "4");
+                    params.put("PlateDigits5", "");
+                }else {
+                    params.put("PlateDigits1", "");
+                    params.put("PlateDigits2", "");
+                    params.put("PlateDigits3", "");
+                    params.put("PlateDigits4", "");
+                    params.put("PlateDigits5", "5");
+                }
+                params.put("Location", currentLocation);
+            }else{
+                params.put("FromPrice",String.valueOf((int) mobilePriceBar.getCurrentValues().getLeftValue()));
+                params.put("ToPrice", String.valueOf((int) mobilePriceBar.getCurrentValues().getRightValue()));
+                params.put("Operator", AppDefs.brand);
+                params.put("MobileCode", AppDefs.model);
+                params.put("NumberPlan", mobilePlan);
+                params.put("Emirate", "");
+                params.put("PlateType", "");
+                params.put("PlateCode", "");
+                params.put("PlateDigits1", "");
+                params.put("PlateDigits2", "");
+                params.put("PlateDigits3", "");
+                params.put("PlateDigits4", "");
+                params.put("PlateDigits5", "");
+                if (digit3Similar.isChecked()){
+                    params.put("MobileDigits3", "3");
+                    params.put("MobileDigits4", "");
+                    params.put("MobileDigits5", "");
+                    params.put("MobileDigits6", "");
+                    params.put("MobileDigits7", "");
+                }else if (digit4Similar.isChecked()){
+                    params.put("MobileDigits3", "");
+                    params.put("MobileDigits4", "4");
+                    params.put("MobileDigits5", "");
+                    params.put("MobileDigits6", "");
+                    params.put("MobileDigits7", "");
+                }else if (digit5Similar.isChecked()){
+                    params.put("MobileDigits3", "");
+                    params.put("MobileDigits4", "");
+                    params.put("MobileDigits5", "5");
+                    params.put("MobileDigits6", "");
+                    params.put("MobileDigits7", "");
+                }else if (digit6Similar.isChecked()){
+                    params.put("MobileDigits3", "");
+                    params.put("MobileDigits4", "");
+                    params.put("MobileDigits5", "");
+                    params.put("MobileDigits6", "6");
+                    params.put("MobileDigits7", "");
+                }else {
+                    params.put("MobileDigits3", "");
+                    params.put("MobileDigits4", "");
+                    params.put("MobileDigits5", "");
+                    params.put("MobileDigits6", "");
+                    params.put("MobileDigits7", "7");
+                }
+                params.put("Location", mobileLocation);
+            }
+            params.put("CategoryId", categoryId);
+            params.put("Keyword", "");
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest numberFilterRequest = new StringRequest(Request.Method.POST, Urls.NumberAds_URL+"FilterNumbers", response -> {
+        JsonObjectRequest numberFilterRequest = new JsonObjectRequest(Request.Method.POST, Urls.NumberAds_URL+"FilterNumbers", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray numbersArray = new JSONArray(response);
+                JSONArray numbersArray = response.getJSONArray("results");
                 for (int i=0; i<numbersArray.length(); i++){
                     JSONObject numberObj = numbersArray.getJSONObject(i);
                     NumberAd numberAd = new NumberAd();
-                    numberAd.setId(numberObj.getString("id"));
-                    numberAd.setTitle(numberObj.getString("title"));
-                    if (numberObj.has("price")){
-                        numberAd.setPrice(numberObj.getString("price"));
+                    numberAd.setId(numberObj.getString("Id"));
+                    numberAd.setTitle(numberObj.getString("Title"));
+                    if (numberObj.has("Price")){
+                        numberAd.setPrice(numberObj.getString("Price"));
                     }
-                    numberAd.setArLocation(numberObj.getString("ar_Location"));
-                    numberAd.setEnLocation(numberObj.getString("en_Location"));
-                    numberAd.setDescription(numberObj.getString("description"));
-                    numberAd.setUserId(numberObj.getString("userId"));
-                    numberAd.setLat(numberObj.getString("lat"));
-                    numberAd.setLng(numberObj.getString("lng"));
-                    String postedDate = mainActivity.convertDate(numberObj.getString("postDate").substring(0, numberObj.getString("postDate").lastIndexOf(".")));
+                    numberAd.setArLocation(numberObj.getString("Ar_Location"));
+                    numberAd.setEnLocation(numberObj.getString("En_Location"));
+                    numberAd.setDescription(numberObj.getString("Description"));
+                    numberAd.setUserId(numberObj.getString("UserId"));
+                    numberAd.setLat(numberObj.getString("Lat"));
+                    numberAd.setLng(numberObj.getString("Lng"));
+                    String postedDate = mainActivity.convertDate(numberObj.getString("PostDate").substring(0, numberObj.getString("PostDate").lastIndexOf(".")));
                     numberAd.setPostDate(postedDate);
-                    numberAd.setEmirate(numberObj.getString("en_Emirate"));
-                    numberAd.setArEmirate(numberObj.getString("ar_Emirate"));
-                    numberAd.setPlateCode(numberObj.getString("plateCode"));
-                    numberAd.setArPlateType(numberObj.getString("ar_PlateType"));
-                    numberAd.setPlateType(numberObj.getString("en_PlateType"));
-                    numberAd.setNumber(numberObj.getString("number"));
-                    numberAd.setCategory(numberObj.getString("categoryEnName"));
-                    numberAd.setOperator(numberObj.getString("en_Operator"));
-                    numberAd.setArOperator(numberObj.getString("ar_Operator"));
-                    numberAd.setEnMobilePlan(numberObj.getString("en_MobileNumberPlan"));
-                    numberAd.setArMobilePlan(numberObj.getString("ar_MobileNumberPlan"));
-                    numberAd.setCode(numberObj.getString("code"));
-                    numberAd.setPhoneNumber(numberObj.getString("phoneNumber"));
-                    numberAd.setIsFav(numberObj.getString("isFavorite"));
+                    numberAd.setEmirate(numberObj.getString("En_Emirate"));
+                    numberAd.setArEmirate(numberObj.getString("Ar_Emirate"));
+                    numberAd.setPlateCode(numberObj.getString("PlateCode"));
+                    numberAd.setArPlateType(numberObj.getString("Ar_PlateType"));
+                    numberAd.setPlateType(numberObj.getString("En_PlateType"));
+                    numberAd.setNumber(numberObj.getString("Number"));
+                    numberAd.setCategory(numberObj.getString("CategoryEnName"));
+                    numberAd.setOperator(numberObj.getString("En_Operator"));
+                    numberAd.setArOperator(numberObj.getString("Ar_Operator"));
+                    numberAd.setEnMobilePlan(numberObj.getString("En_MobileNumberPlan"));
+                    numberAd.setArMobilePlan(numberObj.getString("Ar_MobileNumberPlan"));
+                    numberAd.setCode(numberObj.getString("Code"));
+                    numberAd.setPhoneNumber(numberObj.getString("PhoneNumber"));
+                    numberAd.setIsFav(numberObj.getString("IsFavorite"));
                     numberAds.add(numberAd);
                 }
                 AppDefs.numberAds = numberAds;
                 setNumberAdsAdapter();
+
             } catch (JSONException e) {
                 e.printStackTrace();
                 mainActivity.showResponseMessage(categoryName, mainActivity.getResources().getString(R.string.error_occured));
@@ -4824,108 +5065,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.hideProgressDialog();
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
-
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                if (categoryId.equals("17")){
-                    params.put("FromPrice",String.valueOf((int) platePriceBar.getCurrentValues().getLeftValue()));
-                    params.put("ToPrice", "10000000");
-                    params.put("Emirate", AppDefs.brand);
-                    params.put("PlateType", AppDefs.model);
-                    params.put("PlateCode", plateCode);
-                    params.put("Operator", "");
-                    params.put("MobileCode", "");
-                    params.put("NumberPlan", "");
-                    params.put("MobileDigits3", "");
-                    params.put("MobileDigits4", "");
-                    params.put("MobileDigits5", "");
-                    params.put("MobileDigits6", "");
-                    params.put("MobileDigits7", "");
-                    if (digit1.isChecked()){
-                        params.put("PlateDigits1", "1");
-                        params.put("PlateDigits2", "");
-                        params.put("PlateDigits3", "");
-                        params.put("PlateDigits4", "");
-                        params.put("PlateDigits5", "");
-                    }else if (digit2.isChecked()){
-                        params.put("PlateDigits1", "");
-                        params.put("PlateDigits2", "2");
-                        params.put("PlateDigits3", "");
-                        params.put("PlateDigits4", "");
-                        params.put("PlateDigits5", "");
-                    }else if (digit3.isChecked()){
-                        params.put("PlateDigits1", "");
-                        params.put("PlateDigits2", "");
-                        params.put("PlateDigits3", "3");
-                        params.put("PlateDigits4", "");
-                        params.put("PlateDigits5", "");
-                    }else if (digit4.isChecked()){
-                        params.put("PlateDigits1", "");
-                        params.put("PlateDigits2", "");
-                        params.put("PlateDigits3", "");
-                        params.put("PlateDigits4", "4");
-                        params.put("PlateDigits5", "");
-                    }else {
-                        params.put("PlateDigits1", "");
-                        params.put("PlateDigits2", "");
-                        params.put("PlateDigits3", "");
-                        params.put("PlateDigits4", "");
-                        params.put("PlateDigits5", "5");
-                    }
-                    params.put("Location", currentLocation);
-                }else{
-                    params.put("FromPrice",String.valueOf((int) mobilePriceBar.getCurrentValues().getLeftValue()));
-                    params.put("ToPrice", String.valueOf((int) mobilePriceBar.getCurrentValues().getRightValue()));
-                    params.put("Operator", AppDefs.brand);
-                    params.put("MobileCode", AppDefs.model);
-                    params.put("NumberPlan", mobilePlan);
-                    params.put("Emirate", "");
-                    params.put("PlateType", "");
-                    params.put("PlateCode", "");
-                    params.put("PlateDigits1", "");
-                    params.put("PlateDigits2", "");
-                    params.put("PlateDigits3", "");
-                    params.put("PlateDigits4", "");
-                    params.put("PlateDigits5", "");
-                    if (digit3Similar.isChecked()){
-                        params.put("MobileDigits3", "3");
-                        params.put("MobileDigits4", "");
-                        params.put("MobileDigits5", "");
-                        params.put("MobileDigits6", "");
-                        params.put("MobileDigits7", "");
-                    }else if (digit4Similar.isChecked()){
-                        params.put("MobileDigits3", "");
-                        params.put("MobileDigits4", "4");
-                        params.put("MobileDigits5", "");
-                        params.put("MobileDigits6", "");
-                        params.put("MobileDigits7", "");
-                    }else if (digit5Similar.isChecked()){
-                        params.put("MobileDigits3", "");
-                        params.put("MobileDigits4", "");
-                        params.put("MobileDigits5", "5");
-                        params.put("MobileDigits6", "");
-                        params.put("MobileDigits7", "");
-                    }else if (digit6Similar.isChecked()){
-                        params.put("MobileDigits3", "");
-                        params.put("MobileDigits4", "");
-                        params.put("MobileDigits5", "");
-                        params.put("MobileDigits6", "6");
-                        params.put("MobileDigits7", "");
-                    }else {
-                        params.put("MobileDigits3", "");
-                        params.put("MobileDigits4", "");
-                        params.put("MobileDigits5", "");
-                        params.put("MobileDigits6", "");
-                        params.put("MobileDigits7", "7");
-                    }
-                    params.put("Location", mobileLocation);
-                }
-                params.put("CategoryId", categoryId);
-                params.put("SortBy", "1");
-                params.put("Keyword", "");
-                params.put("UserId", AppDefs.user.getId());
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -4934,42 +5078,193 @@ public class SubCategoryFragment extends Fragment {
 
     private void filterNumbers(){
         numberAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            if (categoryId.equals("17")){
+                params.put("FromPrice",String.valueOf((int) platePriceBar.getCurrentValues().getLeftValue()));
+                params.put("ToPrice", "10000000");
+                params.put("Emirate", AppDefs.brand);
+                params.put("PlateType", AppDefs.model);
+                params.put("PlateCode", plateCode);
+                params.put("Operator", "");
+                params.put("MobileCode", "");
+                params.put("NumberPlan", "");
+                params.put("MobileDigits3", "");
+                params.put("MobileDigits4", "");
+                params.put("MobileDigits5", "");
+                params.put("MobileDigits6", "");
+                params.put("MobileDigits7", "");
+                if (digit1.isChecked()){
+                    plateDigits1 = "true";
+                    plateDigits2 = "false";
+                    plateDigits3 = "false";
+                    plateDigits4 = "false";
+                    plateDigits5 = "false";
+                    params.put("PlateDigits1", "1");
+                    params.put("PlateDigits2", "");
+                    params.put("PlateDigits3", "");
+                    params.put("PlateDigits4", "");
+                    params.put("PlateDigits5", "");
+                }else if (digit2.isChecked()){
+                    plateDigits1 = "false";
+                    plateDigits2 = "true";
+                    plateDigits3 = "false";
+                    plateDigits4 = "false";
+                    plateDigits5 = "false";
+                    params.put("PlateDigits1", "");
+                    params.put("PlateDigits2", "2");
+                    params.put("PlateDigits3", "");
+                    params.put("PlateDigits4", "");
+                    params.put("PlateDigits5", "");
+                }else if (digit3.isChecked()){
+                    plateDigits1 = "false";
+                    plateDigits2 = "false";
+                    plateDigits3 = "true";
+                    plateDigits4 = "false";
+                    plateDigits5 = "false";
+                    params.put("PlateDigits1", "");
+                    params.put("PlateDigits2", "");
+                    params.put("PlateDigits3", "3");
+                    params.put("PlateDigits4", "");
+                    params.put("PlateDigits5", "");
+                }else if (digit4.isChecked()){
+                    plateDigits1 = "false";
+                    plateDigits2 = "false";
+                    plateDigits3 = "false";
+                    plateDigits4 = "true";
+                    plateDigits5 = "false";
+                    params.put("PlateDigits1", "");
+                    params.put("PlateDigits2", "");
+                    params.put("PlateDigits3", "");
+                    params.put("PlateDigits4", "4");
+                    params.put("PlateDigits5", "");
+                }else {
+                    plateDigits1 = "false";
+                    plateDigits2 = "false";
+                    plateDigits3 = "fasle";
+                    plateDigits4 = "false";
+                    plateDigits5 = "true";
+                    params.put("PlateDigits1", "");
+                    params.put("PlateDigits2", "");
+                    params.put("PlateDigits3", "");
+                    params.put("PlateDigits4", "");
+                    params.put("PlateDigits5", "5");
+                }
+                params.put("Location", currentLocation);
+            }else{
+                params.put("FromPrice",String.valueOf((int) mobilePriceBar.getCurrentValues().getLeftValue()));
+                params.put("ToPrice", String.valueOf((int) mobilePriceBar.getCurrentValues().getRightValue()));
+                params.put("Operator", AppDefs.brand);
+                params.put("MobileCode", AppDefs.model);
+                params.put("NumberPlan", mobilePlan);
+                params.put("Emirate", "");
+                params.put("PlateType", "");
+                params.put("PlateCode", "");
+                params.put("PlateDigits1", "");
+                params.put("PlateDigits2", "");
+                params.put("PlateDigits3", "");
+                params.put("PlateDigits4", "");
+                params.put("PlateDigits5", "");
+                if (digit3Similar.isChecked()){
+                    mobileDigits3 = "true";
+                    mobileDigits4 = "false";
+                    mobileDigits5 = "false";
+                    mobileDigits6 = "false";
+                    mobileDigits7 = "false";
+                    params.put("MobileDigits3", "3");
+                    params.put("MobileDigits4", "");
+                    params.put("MobileDigits5", "");
+                    params.put("MobileDigits6", "");
+                    params.put("MobileDigits7", "");
+                }else if (digit4Similar.isChecked()){
+                    mobileDigits3 = "false";
+                    mobileDigits4 = "true";
+                    mobileDigits5 = "false";
+                    mobileDigits6 = "false";
+                    mobileDigits7 = "false";
+                    params.put("MobileDigits3", "");
+                    params.put("MobileDigits4", "4");
+                    params.put("MobileDigits5", "");
+                    params.put("MobileDigits6", "");
+                    params.put("MobileDigits7", "");
+                }else if (digit5Similar.isChecked()){
+                    mobileDigits3 = "false";
+                    mobileDigits4 = "false";
+                    mobileDigits5 = "true";
+                    mobileDigits6 = "false";
+                    mobileDigits7 = "false";
+                    params.put("MobileDigits3", "");
+                    params.put("MobileDigits4", "");
+                    params.put("MobileDigits5", "5");
+                    params.put("MobileDigits6", "");
+                    params.put("MobileDigits7", "");
+                }else if (digit6Similar.isChecked()){
+                    mobileDigits3 = "false";
+                    mobileDigits4 = "false";
+                    mobileDigits5 = "false";
+                    mobileDigits6 = "true";
+                    mobileDigits7 = "false";
+                    params.put("MobileDigits3", "");
+                    params.put("MobileDigits4", "");
+                    params.put("MobileDigits5", "");
+                    params.put("MobileDigits6", "6");
+                    params.put("MobileDigits7", "");
+                }else {
+                    mobileDigits3 = "false";
+                    mobileDigits4 = "false";
+                    mobileDigits5 = "false";
+                    mobileDigits6 = "false";
+                    mobileDigits7 = "true";
+                    params.put("MobileDigits3", "");
+                    params.put("MobileDigits4", "");
+                    params.put("MobileDigits5", "");
+                    params.put("MobileDigits6", "");
+                    params.put("MobileDigits7", "7");
+                }
+                params.put("Location", mobileLocation);
+            }
+            params.put("CategoryId", categoryId);
+            params.put("SortBy", sortBy);
+            params.put("Keyword", "");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         setNumberAdsAdapter();
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest numberFilterRequest = new StringRequest(Request.Method.POST, Urls.NumberAds_URL+"FilterNumbers", response -> {
+        JsonObjectRequest numberFilterRequest = new JsonObjectRequest(Request.Method.POST, Urls.NumberAds_URL+"FilterNumbers", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray numbersArray = new JSONArray(response);
+                JSONArray numbersArray = response.getJSONArray("results");
                 for (int i=0; i<numbersArray.length(); i++){
                     JSONObject numberObj = numbersArray.getJSONObject(i);
                     NumberAd numberAd = new NumberAd();
-                    numberAd.setId(numberObj.getString("id"));
-                    numberAd.setTitle(numberObj.getString("title"));
-                    if (numberObj.has("price")){
-                        numberAd.setPrice(numberObj.getString("price"));
+                    numberAd.setId(numberObj.getString("Id"));
+                    numberAd.setTitle(numberObj.getString("Title"));
+                    if (numberObj.has("Price")){
+                        numberAd.setPrice(numberObj.getString("Price"));
                     }
-                    numberAd.setArLocation(numberObj.getString("ar_Location"));
-                    numberAd.setEnLocation(numberObj.getString("en_Location"));
-                    numberAd.setDescription(numberObj.getString("description"));
-                    numberAd.setUserId(numberObj.getString("userId"));
-                    numberAd.setLat(numberObj.getString("lat"));
-                    numberAd.setLng(numberObj.getString("lng"));
-                    String postedDate = mainActivity.convertDate(numberObj.getString("postDate").substring(0, numberObj.getString("postDate").lastIndexOf(".")));
+                    numberAd.setArLocation(numberObj.getString("Ar_Location"));
+                    numberAd.setEnLocation(numberObj.getString("En_Location"));
+                    numberAd.setDescription(numberObj.getString("Description"));
+                    numberAd.setUserId(numberObj.getString("UserId"));
+                    numberAd.setLat(numberObj.getString("Lat"));
+                    numberAd.setLng(numberObj.getString("Lng"));
+                    String postedDate = mainActivity.convertDate(numberObj.getString("PostDate").substring(0, numberObj.getString("PostDate").lastIndexOf(".")));
                     numberAd.setPostDate(postedDate);
-                    numberAd.setEmirate(numberObj.getString("en_Emirate"));
-                    numberAd.setArEmirate(numberObj.getString("ar_Emirate"));
-                    numberAd.setPlateCode(numberObj.getString("plateCode"));
-                    numberAd.setArPlateType(numberObj.getString("ar_PlateType"));
-                    numberAd.setPlateType(numberObj.getString("en_PlateType"));
-                    numberAd.setNumber(numberObj.getString("number"));
-                    numberAd.setCategory(numberObj.getString("categoryEnName"));
-                    numberAd.setOperator(numberObj.getString("en_Operator"));
-                    numberAd.setArOperator(numberObj.getString("ar_Operator"));
-                    numberAd.setEnMobilePlan(numberObj.getString("en_MobileNumberPlan"));
-                    numberAd.setArMobilePlan(numberObj.getString("ar_MobileNumberPlan"));
-                    numberAd.setCode(numberObj.getString("code"));
-                    numberAd.setPhoneNumber(numberObj.getString("phoneNumber"));
-                    numberAd.setIsFav(numberObj.getString("isFavorite"));
+                    numberAd.setEmirate(numberObj.getString("En_Emirate"));
+                    numberAd.setArEmirate(numberObj.getString("Ar_Emirate"));
+                    numberAd.setPlateCode(numberObj.getString("PlateCode"));
+                    numberAd.setArPlateType(numberObj.getString("Ar_PlateType"));
+                    numberAd.setPlateType(numberObj.getString("En_PlateType"));
+                    numberAd.setNumber(numberObj.getString("Number"));
+                    numberAd.setCategory(numberObj.getString("CategoryEnName"));
+                    numberAd.setOperator(numberObj.getString("En_Operator"));
+                    numberAd.setArOperator(numberObj.getString("Ar_Operator"));
+                    numberAd.setEnMobilePlan(numberObj.getString("En_MobileNumberPlan"));
+                    numberAd.setArMobilePlan(numberObj.getString("Ar_MobileNumberPlan"));
+                    numberAd.setCode(numberObj.getString("Code"));
+                    numberAd.setPhoneNumber(numberObj.getString("PhoneNumber"));
+                    numberAd.setIsFav(numberObj.getString("IsFavorite"));
                     numberAds.add(numberAd);
                 }
                 AppDefs.numberAds = numberAds;
@@ -4983,158 +5278,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.hideProgressDialog();
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
-
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                if (categoryId.equals("17")){
-                    params.put("FromPrice",String.valueOf((int) platePriceBar.getCurrentValues().getLeftValue()));
-                    params.put("ToPrice", "10000000");
-                    params.put("Emirate", AppDefs.brand);
-                    params.put("PlateType", AppDefs.model);
-                    params.put("PlateCode", plateCode);
-                    params.put("Operator", "");
-                    params.put("MobileCode", "");
-                    params.put("NumberPlan", "");
-                    params.put("MobileDigits3", "");
-                    params.put("MobileDigits4", "");
-                    params.put("MobileDigits5", "");
-                    params.put("MobileDigits6", "");
-                    params.put("MobileDigits7", "");
-                    if (digit1.isChecked()){
-                        plateDigits1 = "true";
-                        plateDigits2 = "false";
-                        plateDigits3 = "false";
-                        plateDigits4 = "false";
-                        plateDigits5 = "false";
-                        params.put("PlateDigits1", "1");
-                        params.put("PlateDigits2", "");
-                        params.put("PlateDigits3", "");
-                        params.put("PlateDigits4", "");
-                        params.put("PlateDigits5", "");
-                    }else if (digit2.isChecked()){
-                        plateDigits1 = "false";
-                        plateDigits2 = "true";
-                        plateDigits3 = "false";
-                        plateDigits4 = "false";
-                        plateDigits5 = "false";
-                        params.put("PlateDigits1", "");
-                        params.put("PlateDigits2", "2");
-                        params.put("PlateDigits3", "");
-                        params.put("PlateDigits4", "");
-                        params.put("PlateDigits5", "");
-                    }else if (digit3.isChecked()){
-                        plateDigits1 = "false";
-                        plateDigits2 = "false";
-                        plateDigits3 = "true";
-                        plateDigits4 = "false";
-                        plateDigits5 = "false";
-                        params.put("PlateDigits1", "");
-                        params.put("PlateDigits2", "");
-                        params.put("PlateDigits3", "3");
-                        params.put("PlateDigits4", "");
-                        params.put("PlateDigits5", "");
-                    }else if (digit4.isChecked()){
-                        plateDigits1 = "false";
-                        plateDigits2 = "false";
-                        plateDigits3 = "false";
-                        plateDigits4 = "true";
-                        plateDigits5 = "false";
-                        params.put("PlateDigits1", "");
-                        params.put("PlateDigits2", "");
-                        params.put("PlateDigits3", "");
-                        params.put("PlateDigits4", "4");
-                        params.put("PlateDigits5", "");
-                    }else {
-                        plateDigits1 = "false";
-                        plateDigits2 = "false";
-                        plateDigits3 = "fasle";
-                        plateDigits4 = "false";
-                        plateDigits5 = "true";
-                        params.put("PlateDigits1", "");
-                        params.put("PlateDigits2", "");
-                        params.put("PlateDigits3", "");
-                        params.put("PlateDigits4", "");
-                        params.put("PlateDigits5", "5");
-                    }
-                    params.put("Location", currentLocation);
-                }else{
-                    params.put("FromPrice",String.valueOf((int) mobilePriceBar.getCurrentValues().getLeftValue()));
-                    params.put("ToPrice", String.valueOf((int) mobilePriceBar.getCurrentValues().getRightValue()));
-                    params.put("Operator", AppDefs.brand);
-                    params.put("MobileCode", AppDefs.model);
-                    params.put("NumberPlan", mobilePlan);
-                    params.put("Emirate", "");
-                    params.put("PlateType", "");
-                    params.put("PlateCode", "");
-                    params.put("PlateDigits1", "");
-                    params.put("PlateDigits2", "");
-                    params.put("PlateDigits3", "");
-                    params.put("PlateDigits4", "");
-                    params.put("PlateDigits5", "");
-                    if (digit3Similar.isChecked()){
-                        mobileDigits3 = "true";
-                        mobileDigits4 = "false";
-                        mobileDigits5 = "false";
-                        mobileDigits6 = "false";
-                        mobileDigits7 = "false";
-                        params.put("MobileDigits3", "3");
-                        params.put("MobileDigits4", "");
-                        params.put("MobileDigits5", "");
-                        params.put("MobileDigits6", "");
-                        params.put("MobileDigits7", "");
-                    }else if (digit4Similar.isChecked()){
-                        mobileDigits3 = "false";
-                        mobileDigits4 = "true";
-                        mobileDigits5 = "false";
-                        mobileDigits6 = "false";
-                        mobileDigits7 = "false";
-                        params.put("MobileDigits3", "");
-                        params.put("MobileDigits4", "4");
-                        params.put("MobileDigits5", "");
-                        params.put("MobileDigits6", "");
-                        params.put("MobileDigits7", "");
-                    }else if (digit5Similar.isChecked()){
-                        mobileDigits3 = "false";
-                        mobileDigits4 = "false";
-                        mobileDigits5 = "true";
-                        mobileDigits6 = "false";
-                        mobileDigits7 = "false";
-                        params.put("MobileDigits3", "");
-                        params.put("MobileDigits4", "");
-                        params.put("MobileDigits5", "5");
-                        params.put("MobileDigits6", "");
-                        params.put("MobileDigits7", "");
-                    }else if (digit6Similar.isChecked()){
-                        mobileDigits3 = "false";
-                        mobileDigits4 = "false";
-                        mobileDigits5 = "false";
-                        mobileDigits6 = "true";
-                        mobileDigits7 = "false";
-                        params.put("MobileDigits3", "");
-                        params.put("MobileDigits4", "");
-                        params.put("MobileDigits5", "");
-                        params.put("MobileDigits6", "6");
-                        params.put("MobileDigits7", "");
-                    }else {
-                        mobileDigits3 = "false";
-                        mobileDigits4 = "false";
-                        mobileDigits5 = "false";
-                        mobileDigits6 = "false";
-                        mobileDigits7 = "true";
-                        params.put("MobileDigits3", "");
-                        params.put("MobileDigits4", "");
-                        params.put("MobileDigits5", "");
-                        params.put("MobileDigits6", "");
-                        params.put("MobileDigits7", "7");
-                    }
-                    params.put("Location", mobileLocation);
-                }
-                params.put("CategoryId", categoryId);
-                params.put("SortBy", "1");
-                params.put("Keyword", "");
-                params.put("UserId", AppDefs.user.getId());
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -5144,49 +5292,58 @@ public class SubCategoryFragment extends Fragment {
     /* Classifieds */
     private void getAllClassifieds(){
         classifiedsAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getLeftValue()));
+            params.put("ToPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getRightValue()));
+            params.put("CategoryId", categoryId);
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest filterClassifiedsRequest = new StringRequest(Request.Method.POST, Urls.ClassifiedAds_URL+"FilterClassifieds", response -> {
+        JsonObjectRequest filterClassifiedsRequest = new JsonObjectRequest(Request.Method.POST, Urls.ClassifiedAds_URL+"FilterClassifieds", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray electronicsArray = new JSONArray(response);
+                JSONArray electronicsArray = response.getJSONArray("results");
                 for (int i=0; i<electronicsArray.length(); i++){
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
-                    electronicAd.setId(electronicObj.getString("id"));
-                    electronicAd.setTitle(electronicObj.getString("title"));
-                    electronicAd.setArLocation(electronicObj.getString("ar_Location"));
-                    electronicAd.setEnLocation(electronicObj.getString("en_Location"));
-                    electronicAd.setPrice(electronicObj.getString("price"));
-                    electronicAd.setEnAge(electronicObj.getString("en_Age"));
-                    electronicAd.setArAge(electronicObj.getString("ar_Age"));
-                    electronicAd.setEnUsage(electronicObj.getString("en_Usage"));
-                    electronicAd.setArUsage(electronicObj.getString("ar_Usage"));
-                    electronicAd.setEnBrand(electronicObj.getString("en_Brand"));
-                    electronicAd.setArBrand(electronicObj.getString("ar_Brand"));
-                    electronicAd.setEnCondition(electronicObj.getString("en_Condition"));
-                    electronicAd.setArCondition(electronicObj.getString("ar_Condition"));
-                    electronicAd.setDescription(electronicObj.getString("description"));
-                    electronicAd.setLat(electronicObj.getString("lat"));
-                    electronicAd.setLng(electronicObj.getString("lng"));
-                    electronicAd.setUserId(electronicObj.getString("userId"));
-                    electronicAd.setSubCatArName(electronicObj.getString("subCategoryAr_Name"));
-                    electronicAd.setSubCatEnName(electronicObj.getString("subCategoryEn_Name"));
-                    electronicAd.setOtherSubCat(electronicObj.getString("otherSubCategory"));
-                    electronicAd.setSubTypeArName(electronicObj.getString("subTypeAr_Name"));
-                    electronicAd.setSubTypeEnName(electronicObj.getString("subTypeEn_Name"));
-                    electronicAd.setOtherSubType(electronicObj.getString("otherSubType"));
-                    electronicAd.setPhoneNumber(electronicObj.getString("phoneNumber"));
-                    electronicAd.setIsFav(electronicObj.getString("isFavorite"));
-                    String postedDate = mainActivity.convertDate(electronicObj.getString("postDate").substring(0, electronicObj.getString("postDate").lastIndexOf(".")));
+                    electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setTitle(electronicObj.getString("Title"));
+                    electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
+                    electronicAd.setEnLocation(electronicObj.getString("En_Location"));
+                    electronicAd.setPrice(electronicObj.getString("Price"));
+                    electronicAd.setEnAge(electronicObj.getString("En_Age"));
+                    electronicAd.setArAge(electronicObj.getString("Ar_Age"));
+                    electronicAd.setEnUsage(electronicObj.getString("En_Usage"));
+                    electronicAd.setArUsage(electronicObj.getString("Ar_Usage"));
+                    electronicAd.setEnBrand(electronicObj.getString("En_Brand"));
+                    electronicAd.setArBrand(electronicObj.getString("Ar_Brand"));
+                    electronicAd.setEnCondition(electronicObj.getString("En_Condition"));
+                    electronicAd.setArCondition(electronicObj.getString("Ar_Condition"));
+                    electronicAd.setDescription(electronicObj.getString("Description"));
+                    electronicAd.setLat(electronicObj.getString("Lat"));
+                    electronicAd.setLng(electronicObj.getString("Lng"));
+                    electronicAd.setUserId(electronicObj.getString("UserId"));
+                    electronicAd.setSubCatArName(electronicObj.getString("SubCategoryAr_Name"));
+                    electronicAd.setSubCatEnName(electronicObj.getString("SubCategoryEn_Name"));
+                    electronicAd.setOtherSubCat(electronicObj.getString("OtherSubCategory"));
+                    electronicAd.setSubTypeArName(electronicObj.getString("SubTypeAr_Name"));
+                    electronicAd.setSubTypeEnName(electronicObj.getString("SubTypeEn_Name"));
+                    electronicAd.setOtherSubType(electronicObj.getString("OtherSubType"));
+                    electronicAd.setPhoneNumber(electronicObj.getString("PhoneNumber"));
+                    electronicAd.setIsFav(electronicObj.getString("IsFavorite"));
+                    String postedDate = mainActivity.convertDate(electronicObj.getString("PostDate").substring(0, electronicObj.getString("PostDate").lastIndexOf(".")));
                     electronicAd.setPostedDate(postedDate);
-                    JSONArray pics = electronicObj.getJSONArray("pictures");
+                    JSONArray pics = electronicObj.getJSONArray("Pictures");
                     ArrayList<Picture> pictures = new ArrayList<>();
                     for (int j=0; j<pics.length(); j++){
                         JSONObject picObj = pics.getJSONObject(j);
                         Picture picture = new Picture();
-                        picture.setId(picObj.getString("id"));
-                        picture.setImageURL(picObj.getString("imageURL"));
-                        picture.setMain(picObj.getBoolean("mainPicture"));
+                        picture.setId(picObj.getString("Id"));
+                        picture.setImageURL(picObj.getString("ImageURL"));
+                        picture.setMain(picObj.getBoolean("MainPicture"));
                         if (picture.isMain()){
                             electronicAd.setMainImage(picture.getImageURL());
                         }
@@ -5206,15 +5363,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
 
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("FromPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getLeftValue()));
-                params.put("ToPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getRightValue()));
-                params.put("CategoryId", categoryId);
-                params.put("SortBy", "1");
-                params.put("UserId", AppDefs.user.getId());
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -5223,49 +5376,74 @@ public class SubCategoryFragment extends Fragment {
 
     private void filterClassifieds1(){
         classifiedsAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getLeftValue()));
+            params.put("ToPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getRightValue()));
+            if (category1.getVisibility() == View.VISIBLE){
+                params.put("Age", category1Age);
+                params.put("Usage", category1Usage);
+                params.put("Brand", classifiedsBrand);
+            }else if (category2.getVisibility() == View.VISIBLE){
+                params.put("Age", category2Age);
+                params.put("Usage", category2Usage);
+                params.put("Brand", "");
+            }else {
+                params.put("Age", "");
+                params.put("Usage", "");
+                params.put("Brand", "");
+            }
+            params.put("Location", currentLocation);
+            params.put("CategoryId", categoryId);
+            params.put("SubCategoryId", AppDefs.brand);
+            params.put("SubTypeId", AppDefs.model);
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest filterClassifiedsRequest = new StringRequest(Request.Method.POST, Urls.ClassifiedAds_URL+"FilterClassifieds", response -> {
+        JsonObjectRequest filterClassifiedsRequest = new JsonObjectRequest(Request.Method.POST, Urls.ClassifiedAds_URL+"FilterClassifieds", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray electronicsArray = new JSONArray(response);
+                JSONArray electronicsArray = response.getJSONArray("results");
                 for (int i=0; i<electronicsArray.length(); i++){
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
-                    electronicAd.setId(electronicObj.getString("id"));
-                    electronicAd.setTitle(electronicObj.getString("title"));
-                    electronicAd.setArLocation(electronicObj.getString("ar_Location"));
-                    electronicAd.setEnLocation(electronicObj.getString("en_Location"));
-                    electronicAd.setPrice(electronicObj.getString("price"));
-                    electronicAd.setEnAge(electronicObj.getString("en_Age"));
-                    electronicAd.setArAge(electronicObj.getString("ar_Age"));
-                    electronicAd.setEnUsage(electronicObj.getString("en_Usage"));
-                    electronicAd.setArUsage(electronicObj.getString("ar_Usage"));
-                    electronicAd.setEnBrand(electronicObj.getString("en_Brand"));
-                    electronicAd.setArBrand(electronicObj.getString("ar_Brand"));
-                    electronicAd.setEnCondition(electronicObj.getString("en_Condition"));
-                    electronicAd.setArCondition(electronicObj.getString("ar_Condition"));
-                    electronicAd.setDescription(electronicObj.getString("description"));
-                    electronicAd.setLat(electronicObj.getString("lat"));
-                    electronicAd.setLng(electronicObj.getString("lng"));
-                    electronicAd.setUserId(electronicObj.getString("userId"));
-                    electronicAd.setSubCatArName(electronicObj.getString("subCategoryAr_Name"));
-                    electronicAd.setSubCatEnName(electronicObj.getString("subCategoryEn_Name"));
-                    electronicAd.setOtherSubCat(electronicObj.getString("otherSubCategory"));
-                    electronicAd.setSubTypeArName(electronicObj.getString("subTypeAr_Name"));
-                    electronicAd.setSubTypeEnName(electronicObj.getString("subTypeEn_Name"));
-                    electronicAd.setOtherSubType(electronicObj.getString("otherSubType"));
-                    electronicAd.setPhoneNumber(electronicObj.getString("phoneNumber"));
-                    electronicAd.setIsFav(electronicObj.getString("isFavorite"));
-                    String postedDate = mainActivity.convertDate(electronicObj.getString("postDate").substring(0, electronicObj.getString("postDate").lastIndexOf(".")));
+                    electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setTitle(electronicObj.getString("Title"));
+                    electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
+                    electronicAd.setEnLocation(electronicObj.getString("En_Location"));
+                    electronicAd.setPrice(electronicObj.getString("Price"));
+                    electronicAd.setEnAge(electronicObj.getString("En_Age"));
+                    electronicAd.setArAge(electronicObj.getString("Ar_Age"));
+                    electronicAd.setEnUsage(electronicObj.getString("En_Usage"));
+                    electronicAd.setArUsage(electronicObj.getString("Ar_Usage"));
+                    electronicAd.setEnBrand(electronicObj.getString("En_Brand"));
+                    electronicAd.setArBrand(electronicObj.getString("Ar_Brand"));
+                    electronicAd.setEnCondition(electronicObj.getString("En_Condition"));
+                    electronicAd.setArCondition(electronicObj.getString("Ar_Condition"));
+                    electronicAd.setDescription(electronicObj.getString("Description"));
+                    electronicAd.setLat(electronicObj.getString("Lat"));
+                    electronicAd.setLng(electronicObj.getString("Lng"));
+                    electronicAd.setUserId(electronicObj.getString("UserId"));
+                    electronicAd.setSubCatArName(electronicObj.getString("SubCategoryAr_Name"));
+                    electronicAd.setSubCatEnName(electronicObj.getString("SubCategoryEn_Name"));
+                    electronicAd.setOtherSubCat(electronicObj.getString("OtherSubCategory"));
+                    electronicAd.setSubTypeArName(electronicObj.getString("SubTypeAr_Name"));
+                    electronicAd.setSubTypeEnName(electronicObj.getString("SubTypeEn_Name"));
+                    electronicAd.setOtherSubType(electronicObj.getString("OtherSubType"));
+                    electronicAd.setPhoneNumber(electronicObj.getString("PhoneNumber"));
+                    electronicAd.setIsFav(electronicObj.getString("IsFavorite"));
+                    String postedDate = mainActivity.convertDate(electronicObj.getString("PostDate").substring(0, electronicObj.getString("PostDate").lastIndexOf(".")));
                     electronicAd.setPostedDate(postedDate);
-                    JSONArray pics = electronicObj.getJSONArray("pictures");
+                    JSONArray pics = electronicObj.getJSONArray("Pictures");
                     ArrayList<Picture> pictures = new ArrayList<>();
                     for (int j=0; j<pics.length(); j++){
                         JSONObject picObj = pics.getJSONObject(j);
                         Picture picture = new Picture();
-                        picture.setId(picObj.getString("id"));
-                        picture.setImageURL(picObj.getString("imageURL"));
-                        picture.setMain(picObj.getBoolean("mainPicture"));
+                        picture.setId(picObj.getString("Id"));
+                        picture.setImageURL(picObj.getString("ImageURL"));
+                        picture.setMain(picObj.getBoolean("MainPicture"));
                         if (picture.isMain()){
                             electronicAd.setMainImage(picture.getImageURL());
                         }
@@ -5285,31 +5463,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
 
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("FromPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getLeftValue()));
-                params.put("ToPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getRightValue()));
-                if (category1.getVisibility() == View.VISIBLE){
-                    params.put("Age", category1Age);
-                    params.put("Usage", category1Usage);
-                    params.put("Brand", classifiedsBrand);
-                }else if (category2.getVisibility() == View.VISIBLE){
-                    params.put("Age", category2Age);
-                    params.put("Usage", category2Usage);
-                    params.put("Brand", "");
-                }else {
-                    params.put("Age", "");
-                    params.put("Usage", "");
-                    params.put("Brand", "");
-                }
-                params.put("Location", currentLocation);
-                params.put("CategoryId", categoryId);
-                params.put("SubCategoryId", AppDefs.brand);
-                params.put("SubTypeId", AppDefs.model);
-                params.put("SortBy", "1");
-                params.put("UserId", AppDefs.user.getId());
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -5318,49 +5476,74 @@ public class SubCategoryFragment extends Fragment {
 
     private void filterClassifieds2(){
         classifiedsAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getLeftValue()));
+            params.put("ToPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getRightValue()));
+            if (category1.getVisibility() == View.VISIBLE){
+                params.put("Age", category1Age);
+                params.put("Usage", category1Usage);
+                params.put("Brand", classifiedsBrand);
+            }else if (category2.getVisibility() == View.VISIBLE){
+                params.put("Age", category2Age);
+                params.put("Usage", category2Usage);
+                params.put("Brand", "");
+            }else {
+                params.put("Age", "");
+                params.put("Usage", "");
+                params.put("Brand", "");
+            }
+            params.put("Location", currentLocation);
+            params.put("CategoryId", categoryId);
+            params.put("SubCategoryId", AppDefs.brand);
+            params.put("SubTypeId", classifiedsItemNameId);
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest filterClassifiedsRequest = new StringRequest(Request.Method.POST, Urls.ClassifiedAds_URL+"FilterClassifieds", response -> {
+        JsonObjectRequest filterClassifiedsRequest = new JsonObjectRequest(Request.Method.POST, Urls.ClassifiedAds_URL+"FilterClassifieds", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray electronicsArray = new JSONArray(response);
+                JSONArray electronicsArray = response.getJSONArray("results");
                 for (int i=0; i<electronicsArray.length(); i++){
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
-                    electronicAd.setId(electronicObj.getString("id"));
-                    electronicAd.setTitle(electronicObj.getString("title"));
-                    electronicAd.setArLocation(electronicObj.getString("ar_Location"));
-                    electronicAd.setEnLocation(electronicObj.getString("en_Location"));
-                    electronicAd.setPrice(electronicObj.getString("price"));
-                    electronicAd.setEnAge(electronicObj.getString("en_Age"));
-                    electronicAd.setArAge(electronicObj.getString("ar_Age"));
-                    electronicAd.setEnUsage(electronicObj.getString("en_Usage"));
-                    electronicAd.setArUsage(electronicObj.getString("ar_Usage"));
-                    electronicAd.setEnBrand(electronicObj.getString("en_Brand"));
-                    electronicAd.setArBrand(electronicObj.getString("ar_Brand"));
-                    electronicAd.setEnCondition(electronicObj.getString("en_Condition"));
-                    electronicAd.setArCondition(electronicObj.getString("ar_Condition"));
-                    electronicAd.setDescription(electronicObj.getString("description"));
-                    electronicAd.setLat(electronicObj.getString("lat"));
-                    electronicAd.setLng(electronicObj.getString("lng"));
-                    electronicAd.setUserId(electronicObj.getString("userId"));
-                    electronicAd.setSubCatArName(electronicObj.getString("subCategoryAr_Name"));
-                    electronicAd.setSubCatEnName(electronicObj.getString("subCategoryEn_Name"));
-                    electronicAd.setOtherSubCat(electronicObj.getString("otherSubCategory"));
-                    electronicAd.setSubTypeArName(electronicObj.getString("subTypeAr_Name"));
-                    electronicAd.setSubTypeEnName(electronicObj.getString("subTypeEn_Name"));
-                    electronicAd.setOtherSubType(electronicObj.getString("otherSubType"));
-                    electronicAd.setPhoneNumber(electronicObj.getString("phoneNumber"));
-                    electronicAd.setIsFav(electronicObj.getString("isFavorite"));
-                    String postedDate = mainActivity.convertDate(electronicObj.getString("postDate").substring(0, electronicObj.getString("postDate").lastIndexOf(".")));
+                    electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setTitle(electronicObj.getString("Title"));
+                    electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
+                    electronicAd.setEnLocation(electronicObj.getString("En_Location"));
+                    electronicAd.setPrice(electronicObj.getString("Price"));
+                    electronicAd.setEnAge(electronicObj.getString("En_Age"));
+                    electronicAd.setArAge(electronicObj.getString("Ar_Age"));
+                    electronicAd.setEnUsage(electronicObj.getString("En_Usage"));
+                    electronicAd.setArUsage(electronicObj.getString("Ar_Usage"));
+                    electronicAd.setEnBrand(electronicObj.getString("En_Brand"));
+                    electronicAd.setArBrand(electronicObj.getString("Ar_Brand"));
+                    electronicAd.setEnCondition(electronicObj.getString("En_Condition"));
+                    electronicAd.setArCondition(electronicObj.getString("Ar_Condition"));
+                    electronicAd.setDescription(electronicObj.getString("Description"));
+                    electronicAd.setLat(electronicObj.getString("Lat"));
+                    electronicAd.setLng(electronicObj.getString("Lng"));
+                    electronicAd.setUserId(electronicObj.getString("UserId"));
+                    electronicAd.setSubCatArName(electronicObj.getString("SubCategoryAr_Name"));
+                    electronicAd.setSubCatEnName(electronicObj.getString("SubCategoryEn_Name"));
+                    electronicAd.setOtherSubCat(electronicObj.getString("OtherSubCategory"));
+                    electronicAd.setSubTypeArName(electronicObj.getString("SubTypeAr_Name"));
+                    electronicAd.setSubTypeEnName(electronicObj.getString("SubTypeEn_Name"));
+                    electronicAd.setOtherSubType(electronicObj.getString("OtherSubType"));
+                    electronicAd.setPhoneNumber(electronicObj.getString("PhoneNumber"));
+                    electronicAd.setIsFav(electronicObj.getString("IsFavorite"));
+                    String postedDate = mainActivity.convertDate(electronicObj.getString("PostDate").substring(0, electronicObj.getString("PostDate").lastIndexOf(".")));
                     electronicAd.setPostedDate(postedDate);
-                    JSONArray pics = electronicObj.getJSONArray("pictures");
+                    JSONArray pics = electronicObj.getJSONArray("Pictures");
                     ArrayList<Picture> pictures = new ArrayList<>();
                     for (int j=0; j<pics.length(); j++){
                         JSONObject picObj = pics.getJSONObject(j);
                         Picture picture = new Picture();
-                        picture.setId(picObj.getString("id"));
-                        picture.setImageURL(picObj.getString("imageURL"));
-                        picture.setMain(picObj.getBoolean("mainPicture"));
+                        picture.setId(picObj.getString("Id"));
+                        picture.setImageURL(picObj.getString("ImageURL"));
+                        picture.setMain(picObj.getBoolean("MainPicture"));
                         if (picture.isMain()){
                             electronicAd.setMainImage(picture.getImageURL());
                         }
@@ -5380,31 +5563,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
 
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("FromPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getLeftValue()));
-                params.put("ToPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getRightValue()));
-                if (category1.getVisibility() == View.VISIBLE){
-                    params.put("Age", category1Age);
-                    params.put("Usage", category1Usage);
-                    params.put("Brand", classifiedsBrand);
-                }else if (category2.getVisibility() == View.VISIBLE){
-                    params.put("Age", category2Age);
-                    params.put("Usage", category2Usage);
-                    params.put("Brand", "");
-                }else {
-                    params.put("Age", "");
-                    params.put("Usage", "");
-                    params.put("Brand", "");
-                }
-                params.put("Location", currentLocation);
-                params.put("CategoryId", categoryId);
-                params.put("SubCategoryId", AppDefs.brand);
-                params.put("SubTypeId", classifiedsItemNameId);
-                params.put("SortBy", "1");
-                params.put("UserId", AppDefs.user.getId());
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -5413,50 +5576,75 @@ public class SubCategoryFragment extends Fragment {
 
     private void filterClassifieds(){
         classifiedsAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getLeftValue()));
+            params.put("ToPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getRightValue()));
+            if (category1.getVisibility() == View.VISIBLE){
+                params.put("Age", category1Age);
+                params.put("Usage", category1Usage);
+                params.put("Brand", classifiedsBrand);
+            }else if (category2.getVisibility() == View.VISIBLE){
+                params.put("Age", category2Age);
+                params.put("Usage", category2Usage);
+                params.put("Brand", "");
+            }else {
+                params.put("Age", "");
+                params.put("Usage", "");
+                params.put("Brand", "");
+            }
+            params.put("Location", currentLocation);
+            params.put("CategoryId", categoryId);
+            params.put("SubCategoryId", classifiedsSubCatId);
+            params.put("SubTypeId", classifiedsItemNameId);
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         setClassifiedsAdsAdapter(classifiedsAds);
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest filterClassifiedsRequest = new StringRequest(Request.Method.POST, Urls.ClassifiedAds_URL+"FilterClassifieds", response -> {
+        JsonObjectRequest filterClassifiedsRequest = new JsonObjectRequest(Request.Method.POST, Urls.ClassifiedAds_URL+"FilterClassifieds", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray electronicsArray = new JSONArray(response);
+                JSONArray electronicsArray = response.getJSONArray("results");
                 for (int i=0; i<electronicsArray.length(); i++){
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
-                    electronicAd.setId(electronicObj.getString("id"));
-                    electronicAd.setTitle(electronicObj.getString("title"));
-                    electronicAd.setArLocation(electronicObj.getString("ar_Location"));
-                    electronicAd.setEnLocation(electronicObj.getString("en_Location"));
-                    electronicAd.setPrice(electronicObj.getString("price"));
-                    electronicAd.setEnAge(electronicObj.getString("en_Age"));
-                    electronicAd.setArAge(electronicObj.getString("ar_Age"));
-                    electronicAd.setEnUsage(electronicObj.getString("en_Usage"));
-                    electronicAd.setArUsage(electronicObj.getString("ar_Usage"));
-                    electronicAd.setEnBrand(electronicObj.getString("en_Brand"));
-                    electronicAd.setArBrand(electronicObj.getString("ar_Brand"));
-                    electronicAd.setEnCondition(electronicObj.getString("en_Condition"));
-                    electronicAd.setArCondition(electronicObj.getString("ar_Condition"));
-                    electronicAd.setDescription(electronicObj.getString("description"));
-                    electronicAd.setLat(electronicObj.getString("lat"));
-                    electronicAd.setLng(electronicObj.getString("lng"));
-                    electronicAd.setUserId(electronicObj.getString("userId"));
-                    electronicAd.setSubCatArName(electronicObj.getString("subCategoryAr_Name"));
-                    electronicAd.setSubCatEnName(electronicObj.getString("subCategoryEn_Name"));
-                    electronicAd.setOtherSubCat(electronicObj.getString("otherSubCategory"));
-                    electronicAd.setSubTypeArName(electronicObj.getString("subTypeAr_Name"));
-                    electronicAd.setSubTypeEnName(electronicObj.getString("subTypeEn_Name"));
-                    electronicAd.setOtherSubType(electronicObj.getString("otherSubType"));
-                    electronicAd.setPhoneNumber(electronicObj.getString("phoneNumber"));
-                    electronicAd.setIsFav(electronicObj.getString("isFavorite"));
-                    String postedDate = mainActivity.convertDate(electronicObj.getString("postDate").substring(0, electronicObj.getString("postDate").lastIndexOf(".")));
+                    electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setTitle(electronicObj.getString("Title"));
+                    electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
+                    electronicAd.setEnLocation(electronicObj.getString("En_Location"));
+                    electronicAd.setPrice(electronicObj.getString("Price"));
+                    electronicAd.setEnAge(electronicObj.getString("En_Age"));
+                    electronicAd.setArAge(electronicObj.getString("Ar_Age"));
+                    electronicAd.setEnUsage(electronicObj.getString("En_Usage"));
+                    electronicAd.setArUsage(electronicObj.getString("Ar_Usage"));
+                    electronicAd.setEnBrand(electronicObj.getString("En_Brand"));
+                    electronicAd.setArBrand(electronicObj.getString("Ar_Brand"));
+                    electronicAd.setEnCondition(electronicObj.getString("En_Condition"));
+                    electronicAd.setArCondition(electronicObj.getString("Ar_Condition"));
+                    electronicAd.setDescription(electronicObj.getString("Description"));
+                    electronicAd.setLat(electronicObj.getString("Lat"));
+                    electronicAd.setLng(electronicObj.getString("Lng"));
+                    electronicAd.setUserId(electronicObj.getString("UserId"));
+                    electronicAd.setSubCatArName(electronicObj.getString("SubCategoryAr_Name"));
+                    electronicAd.setSubCatEnName(electronicObj.getString("SubCategoryEn_Name"));
+                    electronicAd.setOtherSubCat(electronicObj.getString("OtherSubCategory"));
+                    electronicAd.setSubTypeArName(electronicObj.getString("SubTypeAr_Name"));
+                    electronicAd.setSubTypeEnName(electronicObj.getString("SubTypeEn_Name"));
+                    electronicAd.setOtherSubType(electronicObj.getString("OtherSubType"));
+                    electronicAd.setPhoneNumber(electronicObj.getString("PhoneNumber"));
+                    electronicAd.setIsFav(electronicObj.getString("IsFavorite"));
+                    String postedDate = mainActivity.convertDate(electronicObj.getString("PostDate").substring(0, electronicObj.getString("PostDate").lastIndexOf(".")));
                     electronicAd.setPostedDate(postedDate);
-                    JSONArray pics = electronicObj.getJSONArray("pictures");
+                    JSONArray pics = electronicObj.getJSONArray("Pictures");
                     ArrayList<Picture> pictures = new ArrayList<>();
                     for (int j=0; j<pics.length(); j++){
                         JSONObject picObj = pics.getJSONObject(j);
                         Picture picture = new Picture();
-                        picture.setId(picObj.getString("id"));
-                        picture.setImageURL(picObj.getString("imageURL"));
-                        picture.setMain(picObj.getBoolean("mainPicture"));
+                        picture.setId(picObj.getString("Id"));
+                        picture.setImageURL(picObj.getString("ImageURL"));
+                        picture.setMain(picObj.getBoolean("MainPicture"));
                         if (picture.isMain()){
                             electronicAd.setMainImage(picture.getImageURL());
                         }
@@ -5476,31 +5664,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
 
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("FromPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getLeftValue()));
-                params.put("ToPrice", String.valueOf((int) classifiedsPriceBar.getCurrentValues().getRightValue()));
-                if (category1.getVisibility() == View.VISIBLE){
-                    params.put("Age", category1Age);
-                    params.put("Usage", category1Usage);
-                    params.put("Brand", classifiedsBrand);
-                }else if (category2.getVisibility() == View.VISIBLE){
-                    params.put("Age", category2Age);
-                    params.put("Usage", category2Usage);
-                    params.put("Brand", "");
-                }else {
-                    params.put("Age", "");
-                    params.put("Usage", "");
-                    params.put("Brand", "");
-                }
-                params.put("Location", currentLocation);
-                params.put("CategoryId", categoryId);
-                params.put("SubCategoryId", classifiedsSubCatId);
-                params.put("SubTypeId", classifiedsItemNameId);
-                params.put("SortBy", "1");
-                params.put("UserId", AppDefs.user.getId());
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -5510,64 +5678,76 @@ public class SubCategoryFragment extends Fragment {
     /* Electronics */
     private void getAllElectronics(){
         electronicAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", "0");
+            params.put("ToPrice", "10000000");
+            params.put("CategoryId", categoryId);
+            params.put("SubCategoryId", "0");
+            params.put("SubTypeId", "0");
+            params.put("SortBy", sortBy);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest electronicsFilterRequest = new StringRequest(Request.Method.POST, Urls.ElectronicAds_URL+"FilterElectronics", response -> {
+        JsonObjectRequest electronicsFilterRequest = new JsonObjectRequest(Request.Method.POST, Urls.ElectronicAds_URL+"FilterElectronics", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray electronicsArray = new JSONArray(response);
+                JSONArray electronicsArray = response.getJSONArray("results");
                 for (int i=0; i<electronicsArray.length(); i++){
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
-                    electronicAd.setId(electronicObj.getString("id"));
-                    electronicAd.setTitle(electronicObj.getString("title"));
-                    electronicAd.setArLocation(electronicObj.getString("ar_Location"));
-                    electronicAd.setEnLocation(electronicObj.getString("en_Location"));
-                    electronicAd.setPrice(electronicObj.getString("price"));
-                    electronicAd.setEnAge(electronicObj.getString("en_Age"));
-                    electronicAd.setArAge(electronicObj.getString("ar_Age"));
-                    electronicAd.setEnUsage(electronicObj.getString("en_Usage"));
-                    electronicAd.setArUsage(electronicObj.getString("ar_Usage"));
-                    electronicAd.setEnColor(electronicObj.getString("en_Color"));
-                    electronicAd.setArColor(electronicObj.getString("ar_Color"));
-                    electronicAd.setEnVersion(electronicObj.getString("version_En"));
-                    electronicAd.setArVersion(electronicObj.getString("version_Ar"));
-                    electronicAd.setEnRam(electronicObj.getString("ram_En"));
-                    electronicAd.setArRam(electronicObj.getString("ram_Ar"));
-                    electronicAd.setEnStorage(electronicObj.getString("storage_En"));
-                    electronicAd.setArStorage(electronicObj.getString("storage_Ar"));
-                    electronicAd.setWarranty(electronicObj.getString("warranty"));
-                    electronicAd.setDescription(electronicObj.getString("description"));
-                    electronicAd.setLat(electronicObj.getString("lat"));
-                    electronicAd.setLng(electronicObj.getString("lng"));
-                    electronicAd.setUserId(electronicObj.getString("userId"));
-                    electronicAd.setSubCatArName(electronicObj.getString("subCategoryAr_Name"));
-                    electronicAd.setSubCatEnName(electronicObj.getString("subCategoryEn_Name"));
-                    electronicAd.setOtherSubCat(electronicObj.getString("otherSubCategory"));
-                    electronicAd.setSubTypeArName(electronicObj.getString("subTypeAr_Name"));
-                    electronicAd.setSubTypeEnName(electronicObj.getString("subTypeEn_Name"));
-                    electronicAd.setOtherSubType(electronicObj.getString("otherSubType"));
-                    electronicAd.setPhoneNumber(electronicObj.getString("phoneNumber"));
-                    electronicAd.setIsFav(electronicObj.getString("isFavorite"));
-                    String postedDate = mainActivity.convertDate(electronicObj.getString("postDate").substring(0, electronicObj.getString("postDate").lastIndexOf(".")));
+                    electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setTitle(electronicObj.getString("Title"));
+                    electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
+                    electronicAd.setEnLocation(electronicObj.getString("En_Location"));
+                    electronicAd.setPrice(electronicObj.getString("Price"));
+                    electronicAd.setEnAge(electronicObj.getString("En_Age"));
+                    electronicAd.setArAge(electronicObj.getString("Ar_Age"));
+                    electronicAd.setEnUsage(electronicObj.getString("En_Usage"));
+                    electronicAd.setArUsage(electronicObj.getString("Ar_Usage"));
+                    electronicAd.setEnBrand(electronicObj.getString("CategoryEnName"));
+                    electronicAd.setArBrand(electronicObj.getString("CategoryArName"));
+//                    electronicAd.setEnCondition(electronicObj.getString("En_Condition"));
+//                    electronicAd.setArCondition(electronicObj.getString("Ar_Condition"));
+                    electronicAd.setDescription(electronicObj.getString("Description"));
+                    electronicAd.setLat(electronicObj.getString("Lat"));
+                    electronicAd.setLng(electronicObj.getString("Lng"));
+                    electronicAd.setUserId(electronicObj.getString("UserId"));
+                    electronicAd.setSubCatArName(electronicObj.getString("SubCategoryAr_Name"));
+                    electronicAd.setSubCatEnName(electronicObj.getString("SubCategoryEn_Name"));
+                    electronicAd.setOtherSubCat(electronicObj.getString("OtherSubCategory"));
+                    electronicAd.setSubTypeArName(electronicObj.getString("SubTypeAr_Name"));
+                    electronicAd.setSubTypeEnName(electronicObj.getString("SubTypeEn_Name"));
+                    electronicAd.setOtherSubType(electronicObj.getString("OtherSubType"));
+                    electronicAd.setPhoneNumber(electronicObj.getString("PhoneNumber"));
+                    electronicAd.setIsFav(electronicObj.getString("IsFavorite"));
+                    electronicAd.setArRam(electronicObj.getString("Ram_Ar"));
+                    electronicAd.setEnRam(electronicObj.getString("Ram_En"));
+                    electronicAd.setArVersion(electronicObj.getString("Version_Ar"));
+                    electronicAd.setEnVersion(electronicObj.getString("Version_En"));
+                    electronicAd.setArRam(electronicObj.getString("Storage_En"));
+                    electronicAd.setArRam(electronicObj.getString("Storage_Ar"));
+                    String postedDate = mainActivity.convertDate(electronicObj.getString("PostDate").substring(0, electronicObj.getString("PostDate").lastIndexOf(".")));
                     electronicAd.setPostedDate(postedDate);
-                    JSONArray pics = electronicObj.getJSONArray("pictures");
+                    JSONArray pics = electronicObj.getJSONArray("Pictures");
                     ArrayList<Picture> pictures = new ArrayList<>();
                     for (int j=0; j<pics.length(); j++){
                         JSONObject picObj = pics.getJSONObject(j);
                         Picture picture = new Picture();
-                        picture.setId(picObj.getString("id"));
-                        picture.setImageURL(picObj.getString("imageURL"));
-                        picture.setMain(picObj.getBoolean("mainPicture"));
+                        picture.setId(picObj.getString("Id"));
+                        picture.setImageURL(picObj.getString("ImageURL"));
+                        picture.setMain(picObj.getBoolean("MainPicture"));
                         if (picture.isMain()){
                             electronicAd.setMainImage(picture.getImageURL());
                         }
                         pictures.add(picture);
                     }
                     electronicAd.setPictures(pictures);
-                    electronicAds.add(electronicAd);
+                    classifiedsAds.add(electronicAd);
                 }
-                AppDefs.electronicAds = electronicAds;
-                setElectronicAdsAdapter(electronicAds);
+                AppDefs.electronicAds = classifiedsAds;
+                setClassifiedsAdsAdapter(classifiedsAds);
             } catch (JSONException e) {
                 e.printStackTrace();
                 mainActivity.showResponseMessage(categoryName, mainActivity.getResources().getString(R.string.error_occured));
@@ -5577,17 +5757,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
 
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("FromPrice", "0");
-                params.put("ToPrice", "10000000");
-                params.put("CategoryId", categoryId);
-                params.put("SubCategoryId", "0");
-                params.put("SubTypeId", "0");
-                params.put("SortBy", "1");
-                params.put("UserId", AppDefs.user.getId());
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -5596,65 +5770,80 @@ public class SubCategoryFragment extends Fragment {
 
     private void filterElectronics1(){
         electronicAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", String.valueOf((int) electronicsPriceBar.getCurrentValues().getLeftValue()));
+            params.put("ToPrice", String.valueOf((int) electronicsPriceBar.getCurrentValues().getRightValue()));
+            params.put("Location", currentLocation);
+            params.put("Age", electronicsAge);
+            params.put("Warranty", electronicsWarranty);
+            params.put("CategoryId", categoryId);
+            params.put("SubCategoryId", AppDefs.brand);
+            params.put("SubTypeId", AppDefs.model);
+            params.put("SortBy", sortBy);
+            params.put("PostedIn", electronicsPosted);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest electronicsFilterRequest = new StringRequest(Request.Method.POST, Urls.ElectronicAds_URL+"FilterElectronics", response -> {
+        JsonObjectRequest electronicsFilterRequest = new JsonObjectRequest(Request.Method.POST, Urls.ElectronicAds_URL+"FilterElectronics", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray electronicsArray = new JSONArray(response);
+                JSONArray electronicsArray = response.getJSONArray("results");
                 for (int i=0; i<electronicsArray.length(); i++){
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
-                    electronicAd.setId(electronicObj.getString("id"));
-                    electronicAd.setTitle(electronicObj.getString("title"));
-                    electronicAd.setArLocation(electronicObj.getString("ar_Location"));
-                    electronicAd.setEnLocation(electronicObj.getString("en_Location"));
-                    electronicAd.setPrice(electronicObj.getString("price"));
-                    electronicAd.setEnAge(electronicObj.getString("en_Age"));
-                    electronicAd.setArAge(electronicObj.getString("ar_Age"));
-                    electronicAd.setEnUsage(electronicObj.getString("en_Usage"));
-                    electronicAd.setArUsage(electronicObj.getString("ar_Usage"));
-                    electronicAd.setEnColor(electronicObj.getString("en_Color"));
-                    electronicAd.setArColor(electronicObj.getString("ar_Color"));
-                    electronicAd.setEnVersion(electronicObj.getString("version_En"));
-                    electronicAd.setArVersion(electronicObj.getString("version_Ar"));
-                    electronicAd.setEnRam(electronicObj.getString("ram_En"));
-                    electronicAd.setArRam(electronicObj.getString("ram_Ar"));
-                    electronicAd.setEnStorage(electronicObj.getString("storage_En"));
-                    electronicAd.setArStorage(electronicObj.getString("storage_Ar"));
-                    electronicAd.setWarranty(electronicObj.getString("warranty"));
-                    electronicAd.setDescription(electronicObj.getString("description"));
-                    electronicAd.setLat(electronicObj.getString("lat"));
-                    electronicAd.setLng(electronicObj.getString("lng"));
-                    electronicAd.setUserId(electronicObj.getString("userId"));
-                    electronicAd.setSubCatArName(electronicObj.getString("subCategoryAr_Name"));
-                    electronicAd.setSubCatEnName(electronicObj.getString("subCategoryEn_Name"));
-                    electronicAd.setOtherSubCat(electronicObj.getString("otherSubCategory"));
-                    electronicAd.setSubTypeArName(electronicObj.getString("subTypeAr_Name"));
-                    electronicAd.setSubTypeEnName(electronicObj.getString("subTypeEn_Name"));
-                    electronicAd.setOtherSubType(electronicObj.getString("otherSubType"));
-                    electronicAd.setPhoneNumber(electronicObj.getString("phoneNumber"));
-                    electronicAd.setIsFav(electronicObj.getString("isFavorite"));
-                    String postedDate = mainActivity.convertDate(electronicObj.getString("postDate").substring(0, electronicObj.getString("postDate").lastIndexOf(".")));
+                    electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setTitle(electronicObj.getString("Title"));
+                    electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
+                    electronicAd.setEnLocation(electronicObj.getString("En_Location"));
+                    electronicAd.setPrice(electronicObj.getString("Price"));
+                    electronicAd.setEnAge(electronicObj.getString("En_Age"));
+                    electronicAd.setArAge(electronicObj.getString("Ar_Age"));
+                    electronicAd.setEnUsage(electronicObj.getString("En_Usage"));
+                    electronicAd.setArUsage(electronicObj.getString("Ar_Usage"));
+                    electronicAd.setEnBrand(electronicObj.getString("CategoryEnName"));
+                    electronicAd.setArBrand(electronicObj.getString("CategoryArName"));
+//                    electronicAd.setEnCondition(electronicObj.getString("En_Condition"));
+//                    electronicAd.setArCondition(electronicObj.getString("Ar_Condition"));
+                    electronicAd.setDescription(electronicObj.getString("Description"));
+                    electronicAd.setLat(electronicObj.getString("Lat"));
+                    electronicAd.setLng(electronicObj.getString("Lng"));
+                    electronicAd.setUserId(electronicObj.getString("UserId"));
+                    electronicAd.setSubCatArName(electronicObj.getString("SubCategoryAr_Name"));
+                    electronicAd.setSubCatEnName(electronicObj.getString("SubCategoryEn_Name"));
+                    electronicAd.setOtherSubCat(electronicObj.getString("OtherSubCategory"));
+                    electronicAd.setSubTypeArName(electronicObj.getString("SubTypeAr_Name"));
+                    electronicAd.setSubTypeEnName(electronicObj.getString("SubTypeEn_Name"));
+                    electronicAd.setOtherSubType(electronicObj.getString("OtherSubType"));
+                    electronicAd.setPhoneNumber(electronicObj.getString("PhoneNumber"));
+                    electronicAd.setIsFav(electronicObj.getString("IsFavorite"));
+                    electronicAd.setArRam(electronicObj.getString("Ram_Ar"));
+                    electronicAd.setEnRam(electronicObj.getString("Ram_En"));
+                    electronicAd.setArVersion(electronicObj.getString("Version_Ar"));
+                    electronicAd.setEnVersion(electronicObj.getString("Version_En"));
+                    electronicAd.setArRam(electronicObj.getString("Storage_En"));
+                    electronicAd.setArRam(electronicObj.getString("Storage_Ar"));
+                    String postedDate = mainActivity.convertDate(electronicObj.getString("PostDate").substring(0, electronicObj.getString("PostDate").lastIndexOf(".")));
                     electronicAd.setPostedDate(postedDate);
-                    JSONArray pics = electronicObj.getJSONArray("pictures");
+                    JSONArray pics = electronicObj.getJSONArray("Pictures");
                     ArrayList<Picture> pictures = new ArrayList<>();
                     for (int j=0; j<pics.length(); j++){
                         JSONObject picObj = pics.getJSONObject(j);
                         Picture picture = new Picture();
-                        picture.setId(picObj.getString("id"));
-                        picture.setImageURL(picObj.getString("imageURL"));
-                        picture.setMain(picObj.getBoolean("mainPicture"));
+                        picture.setId(picObj.getString("Id"));
+                        picture.setImageURL(picObj.getString("ImageURL"));
+                        picture.setMain(picObj.getBoolean("MainPicture"));
                         if (picture.isMain()){
                             electronicAd.setMainImage(picture.getImageURL());
                         }
                         pictures.add(picture);
                     }
                     electronicAd.setPictures(pictures);
-                    electronicAds.add(electronicAd);
+                    classifiedsAds.add(electronicAd);
                 }
-                AppDefs.electronicAds = electronicAds;
-                setElectronicAdsAdapter(electronicAds);
-
+                AppDefs.electronicAds = classifiedsAds;
+                setClassifiedsAdsAdapter(classifiedsAds);
             } catch (JSONException e) {
                 e.printStackTrace();
                 mainActivity.showResponseMessage(categoryName, mainActivity.getResources().getString(R.string.error_occured));
@@ -5664,21 +5853,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
 
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("FromPrice", String.valueOf((int) electronicsPriceBar.getCurrentValues().getLeftValue()));
-                params.put("ToPrice", String.valueOf((int) electronicsPriceBar.getCurrentValues().getRightValue()));
-                params.put("Location", currentLocation);
-                params.put("Age", electronicsAge);
-                params.put("Warranty", electronicsWarranty);
-                params.put("CategoryId", categoryId);
-                params.put("SubCategoryId", AppDefs.brand);
-                params.put("SubTypeId", AppDefs.model);
-                params.put("SortBy", "1");
-                params.put("PostedIn", electronicsPosted);
-                params.put("UserId", AppDefs.user.getId());
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -5687,65 +5866,80 @@ public class SubCategoryFragment extends Fragment {
 
     private void filterElectronics2(){
         electronicAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", String.valueOf((int) electronicsPriceBar.getCurrentValues().getLeftValue()));
+            params.put("ToPrice", String.valueOf((int) electronicsPriceBar.getCurrentValues().getRightValue()));
+            params.put("Location", currentLocation);
+            params.put("Age", electronicsAge);
+            params.put("Warranty", electronicsWarranty);
+            params.put("CategoryId", categoryId);
+            params.put("SubCategoryId", AppDefs.brand);
+            params.put("SubTypeId", electronicsTrim);
+            params.put("SortBy", sortBy);
+            params.put("PostedIn", electronicsPosted);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest electronicsFilterRequest = new StringRequest(Request.Method.POST, Urls.ElectronicAds_URL+"FilterElectronics", response -> {
+        JsonObjectRequest electronicsFilterRequest = new JsonObjectRequest(Request.Method.POST, Urls.ElectronicAds_URL+"FilterElectronics", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray electronicsArray = new JSONArray(response);
+                JSONArray electronicsArray = response.getJSONArray("results");
                 for (int i=0; i<electronicsArray.length(); i++){
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
-                    electronicAd.setId(electronicObj.getString("id"));
-                    electronicAd.setTitle(electronicObj.getString("title"));
-                    electronicAd.setArLocation(electronicObj.getString("ar_Location"));
-                    electronicAd.setEnLocation(electronicObj.getString("en_Location"));
-                    electronicAd.setPrice(electronicObj.getString("price"));
-                    electronicAd.setEnAge(electronicObj.getString("en_Age"));
-                    electronicAd.setArAge(electronicObj.getString("ar_Age"));
-                    electronicAd.setEnUsage(electronicObj.getString("en_Usage"));
-                    electronicAd.setArUsage(electronicObj.getString("ar_Usage"));
-                    electronicAd.setEnColor(electronicObj.getString("en_Color"));
-                    electronicAd.setArColor(electronicObj.getString("ar_Color"));
-                    electronicAd.setEnVersion(electronicObj.getString("version_En"));
-                    electronicAd.setArVersion(electronicObj.getString("version_Ar"));
-                    electronicAd.setEnRam(electronicObj.getString("ram_En"));
-                    electronicAd.setArRam(electronicObj.getString("ram_Ar"));
-                    electronicAd.setEnStorage(electronicObj.getString("storage_En"));
-                    electronicAd.setArStorage(electronicObj.getString("storage_Ar"));
-                    electronicAd.setWarranty(electronicObj.getString("warranty"));
-                    electronicAd.setDescription(electronicObj.getString("description"));
-                    electronicAd.setLat(electronicObj.getString("lat"));
-                    electronicAd.setLng(electronicObj.getString("lng"));
-                    electronicAd.setUserId(electronicObj.getString("userId"));
-                    electronicAd.setSubCatArName(electronicObj.getString("subCategoryAr_Name"));
-                    electronicAd.setSubCatEnName(electronicObj.getString("subCategoryEn_Name"));
-                    electronicAd.setOtherSubCat(electronicObj.getString("otherSubCategory"));
-                    electronicAd.setSubTypeArName(electronicObj.getString("subTypeAr_Name"));
-                    electronicAd.setSubTypeEnName(electronicObj.getString("subTypeEn_Name"));
-                    electronicAd.setOtherSubType(electronicObj.getString("otherSubType"));
-                    electronicAd.setPhoneNumber(electronicObj.getString("phoneNumber"));
-                    electronicAd.setIsFav(electronicObj.getString("isFavorite"));
-                    String postedDate = mainActivity.convertDate(electronicObj.getString("postDate").substring(0, electronicObj.getString("postDate").lastIndexOf(".")));
+                    electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setTitle(electronicObj.getString("Title"));
+                    electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
+                    electronicAd.setEnLocation(electronicObj.getString("En_Location"));
+                    electronicAd.setPrice(electronicObj.getString("Price"));
+                    electronicAd.setEnAge(electronicObj.getString("En_Age"));
+                    electronicAd.setArAge(electronicObj.getString("Ar_Age"));
+                    electronicAd.setEnUsage(electronicObj.getString("En_Usage"));
+                    electronicAd.setArUsage(electronicObj.getString("Ar_Usage"));
+                    electronicAd.setEnBrand(electronicObj.getString("CategoryEnName"));
+                    electronicAd.setArBrand(electronicObj.getString("CategoryArName"));
+//                    electronicAd.setEnCondition(electronicObj.getString("En_Condition"));
+//                    electronicAd.setArCondition(electronicObj.getString("Ar_Condition"));
+                    electronicAd.setDescription(electronicObj.getString("Description"));
+                    electronicAd.setLat(electronicObj.getString("Lat"));
+                    electronicAd.setLng(electronicObj.getString("Lng"));
+                    electronicAd.setUserId(electronicObj.getString("UserId"));
+                    electronicAd.setSubCatArName(electronicObj.getString("SubCategoryAr_Name"));
+                    electronicAd.setSubCatEnName(electronicObj.getString("SubCategoryEn_Name"));
+                    electronicAd.setOtherSubCat(electronicObj.getString("OtherSubCategory"));
+                    electronicAd.setSubTypeArName(electronicObj.getString("SubTypeAr_Name"));
+                    electronicAd.setSubTypeEnName(electronicObj.getString("SubTypeEn_Name"));
+                    electronicAd.setOtherSubType(electronicObj.getString("OtherSubType"));
+                    electronicAd.setPhoneNumber(electronicObj.getString("PhoneNumber"));
+                    electronicAd.setIsFav(electronicObj.getString("IsFavorite"));
+                    electronicAd.setArRam(electronicObj.getString("Ram_Ar"));
+                    electronicAd.setEnRam(electronicObj.getString("Ram_En"));
+                    electronicAd.setArVersion(electronicObj.getString("Version_Ar"));
+                    electronicAd.setEnVersion(electronicObj.getString("Version_En"));
+                    electronicAd.setArRam(electronicObj.getString("Storage_En"));
+                    electronicAd.setArRam(electronicObj.getString("Storage_Ar"));
+                    String postedDate = mainActivity.convertDate(electronicObj.getString("PostDate").substring(0, electronicObj.getString("PostDate").lastIndexOf(".")));
                     electronicAd.setPostedDate(postedDate);
-                    JSONArray pics = electronicObj.getJSONArray("pictures");
+                    JSONArray pics = electronicObj.getJSONArray("Pictures");
                     ArrayList<Picture> pictures = new ArrayList<>();
                     for (int j=0; j<pics.length(); j++){
                         JSONObject picObj = pics.getJSONObject(j);
                         Picture picture = new Picture();
-                        picture.setId(picObj.getString("id"));
-                        picture.setImageURL(picObj.getString("imageURL"));
-                        picture.setMain(picObj.getBoolean("mainPicture"));
+                        picture.setId(picObj.getString("Id"));
+                        picture.setImageURL(picObj.getString("ImageURL"));
+                        picture.setMain(picObj.getBoolean("MainPicture"));
                         if (picture.isMain()){
                             electronicAd.setMainImage(picture.getImageURL());
                         }
                         pictures.add(picture);
                     }
                     electronicAd.setPictures(pictures);
-                    electronicAds.add(electronicAd);
+                    classifiedsAds.add(electronicAd);
                 }
-                AppDefs.electronicAds = electronicAds;
-                setElectronicAdsAdapter(electronicAds);
-
+                AppDefs.electronicAds = classifiedsAds;
+                setClassifiedsAdsAdapter(classifiedsAds);
             } catch (JSONException e) {
                 e.printStackTrace();
                 mainActivity.showResponseMessage(categoryName, mainActivity.getResources().getString(R.string.error_occured));
@@ -5755,21 +5949,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
 
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("FromPrice", String.valueOf((int) electronicsPriceBar.getCurrentValues().getLeftValue()));
-                params.put("ToPrice", String.valueOf((int) electronicsPriceBar.getCurrentValues().getRightValue()));
-                params.put("Location", currentLocation);
-                params.put("Age", electronicsAge);
-                params.put("Warranty", electronicsWarranty);
-                params.put("CategoryId", categoryId);
-                params.put("SubCategoryId", AppDefs.brand);
-                params.put("SubTypeId", electronicsTrim);
-                params.put("SortBy", "1");
-                params.put("PostedIn", electronicsPosted);
-                params.put("UserId", AppDefs.user.getId());
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -5778,65 +5962,81 @@ public class SubCategoryFragment extends Fragment {
 
     private void filterElectronics(){
         electronicAds.clear();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("FromPrice", String.valueOf((int) electronicsPriceBar.getCurrentValues().getLeftValue()));
+            params.put("ToPrice", String.valueOf((int) electronicsPriceBar.getCurrentValues().getRightValue()));
+            params.put("Location", currentLocation);
+            params.put("Age", electronicsAge);
+            params.put("Warranty", electronicsWarranty);
+            params.put("CategoryId", categoryId);
+            params.put("SubCategoryId", electronicsSubCat);
+            params.put("SubTypeId", electronicsTrim);
+            params.put("SortBy", sortBy);
+            params.put("PostedIn", electronicsPosted);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         setElectronicAdsAdapter(electronicAds);
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
-        StringRequest electronicsFilterRequest = new StringRequest(Request.Method.POST, Urls.ElectronicAds_URL+"FilterElectronics", response -> {
+        JsonObjectRequest electronicsFilterRequest = new JsonObjectRequest(Request.Method.POST, Urls.ElectronicAds_URL+"FilterElectronics", params, response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray electronicsArray = new JSONArray(response);
+                JSONArray electronicsArray = response.getJSONArray("results");
                 for (int i=0; i<electronicsArray.length(); i++){
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
-                    electronicAd.setId(electronicObj.getString("id"));
-                    electronicAd.setTitle(electronicObj.getString("title"));
-                    electronicAd.setArLocation(electronicObj.getString("ar_Location"));
-                    electronicAd.setEnLocation(electronicObj.getString("en_Location"));
-                    electronicAd.setPrice(electronicObj.getString("price"));
-                    electronicAd.setEnAge(electronicObj.getString("en_Age"));
-                    electronicAd.setArAge(electronicObj.getString("ar_Age"));
-                    electronicAd.setEnUsage(electronicObj.getString("en_Usage"));
-                    electronicAd.setArUsage(electronicObj.getString("ar_Usage"));
-                    electronicAd.setEnColor(electronicObj.getString("en_Color"));
-                    electronicAd.setArColor(electronicObj.getString("ar_Color"));
-                    electronicAd.setEnVersion(electronicObj.getString("version_En"));
-                    electronicAd.setArVersion(electronicObj.getString("version_Ar"));
-                    electronicAd.setEnRam(electronicObj.getString("ram_En"));
-                    electronicAd.setArRam(electronicObj.getString("ram_Ar"));
-                    electronicAd.setEnStorage(electronicObj.getString("storage_En"));
-                    electronicAd.setArStorage(electronicObj.getString("storage_Ar"));
-                    electronicAd.setWarranty(electronicObj.getString("warranty"));
-                    electronicAd.setDescription(electronicObj.getString("description"));
-                    electronicAd.setLat(electronicObj.getString("lat"));
-                    electronicAd.setLng(electronicObj.getString("lng"));
-                    electronicAd.setUserId(electronicObj.getString("userId"));
-                    electronicAd.setSubCatArName(electronicObj.getString("subCategoryAr_Name"));
-                    electronicAd.setSubCatEnName(electronicObj.getString("subCategoryEn_Name"));
-                    electronicAd.setOtherSubCat(electronicObj.getString("otherSubCategory"));
-                    electronicAd.setSubTypeArName(electronicObj.getString("subTypeAr_Name"));
-                    electronicAd.setSubTypeEnName(electronicObj.getString("subTypeEn_Name"));
-                    electronicAd.setOtherSubType(electronicObj.getString("otherSubType"));
-                    electronicAd.setPhoneNumber(electronicObj.getString("phoneNumber"));
-                    electronicAd.setIsFav(electronicObj.getString("isFavorite"));
-                    String postedDate = mainActivity.convertDate(electronicObj.getString("postDate").substring(0, electronicObj.getString("postDate").lastIndexOf(".")));
+                    electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setTitle(electronicObj.getString("Title"));
+                    electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
+                    electronicAd.setEnLocation(electronicObj.getString("En_Location"));
+                    electronicAd.setPrice(electronicObj.getString("Price"));
+                    electronicAd.setEnAge(electronicObj.getString("En_Age"));
+                    electronicAd.setArAge(electronicObj.getString("Ar_Age"));
+                    electronicAd.setEnUsage(electronicObj.getString("En_Usage"));
+                    electronicAd.setArUsage(electronicObj.getString("Ar_Usage"));
+                    electronicAd.setEnBrand(electronicObj.getString("CategoryEnName"));
+                    electronicAd.setArBrand(electronicObj.getString("CategoryArName"));
+//                    electronicAd.setEnCondition(electronicObj.getString("En_Condition"));
+//                    electronicAd.setArCondition(electronicObj.getString("Ar_Condition"));
+                    electronicAd.setDescription(electronicObj.getString("Description"));
+                    electronicAd.setLat(electronicObj.getString("Lat"));
+                    electronicAd.setLng(electronicObj.getString("Lng"));
+                    electronicAd.setUserId(electronicObj.getString("UserId"));
+                    electronicAd.setSubCatArName(electronicObj.getString("SubCategoryAr_Name"));
+                    electronicAd.setSubCatEnName(electronicObj.getString("SubCategoryEn_Name"));
+                    electronicAd.setOtherSubCat(electronicObj.getString("OtherSubCategory"));
+                    electronicAd.setSubTypeArName(electronicObj.getString("SubTypeAr_Name"));
+                    electronicAd.setSubTypeEnName(electronicObj.getString("SubTypeEn_Name"));
+                    electronicAd.setOtherSubType(electronicObj.getString("OtherSubType"));
+                    electronicAd.setPhoneNumber(electronicObj.getString("PhoneNumber"));
+                    electronicAd.setIsFav(electronicObj.getString("IsFavorite"));
+                    electronicAd.setArRam(electronicObj.getString("Ram_Ar"));
+                    electronicAd.setEnRam(electronicObj.getString("Ram_En"));
+                    electronicAd.setArVersion(electronicObj.getString("Version_Ar"));
+                    electronicAd.setEnVersion(electronicObj.getString("Version_En"));
+                    electronicAd.setArRam(electronicObj.getString("Storage_En"));
+                    electronicAd.setArRam(electronicObj.getString("Storage_Ar"));
+                    String postedDate = mainActivity.convertDate(electronicObj.getString("PostDate").substring(0, electronicObj.getString("PostDate").lastIndexOf(".")));
                     electronicAd.setPostedDate(postedDate);
-                    JSONArray pics = electronicObj.getJSONArray("pictures");
+                    JSONArray pics = electronicObj.getJSONArray("Pictures");
                     ArrayList<Picture> pictures = new ArrayList<>();
                     for (int j=0; j<pics.length(); j++){
                         JSONObject picObj = pics.getJSONObject(j);
                         Picture picture = new Picture();
-                        picture.setId(picObj.getString("id"));
-                        picture.setImageURL(picObj.getString("imageURL"));
-                        picture.setMain(picObj.getBoolean("mainPicture"));
+                        picture.setId(picObj.getString("Id"));
+                        picture.setImageURL(picObj.getString("ImageURL"));
+                        picture.setMain(picObj.getBoolean("MainPicture"));
                         if (picture.isMain()){
                             electronicAd.setMainImage(picture.getImageURL());
                         }
                         pictures.add(picture);
                     }
                     electronicAd.setPictures(pictures);
-                    electronicAds.add(electronicAd);
+                    classifiedsAds.add(electronicAd);
                 }
-                AppDefs.electronicAds = electronicAds;
-                setElectronicAdsAdapter(electronicAds);
+                AppDefs.electronicAds = classifiedsAds;
+                setClassifiedsAdsAdapter(classifiedsAds);
             } catch (JSONException e) {
                 e.printStackTrace();
                 mainActivity.showResponseMessage(categoryName, mainActivity.getResources().getString(R.string.error_occured));
@@ -5846,21 +6046,11 @@ public class SubCategoryFragment extends Fragment {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.filters), mainActivity.getResources().getString(R.string.internet_connection_error));
         }){
 
-            @Nullable
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("FromPrice", String.valueOf((int) electronicsPriceBar.getCurrentValues().getLeftValue()));
-                params.put("ToPrice", String.valueOf((int) electronicsPriceBar.getCurrentValues().getRightValue()));
-                params.put("Location", currentLocation);
-                params.put("Age", electronicsAge);
-                params.put("Warranty", electronicsWarranty);
-                params.put("CategoryId", categoryId);
-                params.put("SubCategoryId", electronicsSubCat);
-                params.put("SubTypeId", electronicsTrim);
-                params.put("SortBy", "1");
-                params.put("PostedIn", electronicsPosted);
-                params.put("UserId", AppDefs.user.getId());
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ AppDefs.user.getToken());
                 return params;
             }
         };
@@ -6032,6 +6222,9 @@ public class SubCategoryFragment extends Fragment {
                 brandId = brandIds.get(i);
                 enMaker = brandEnTitles.get(i);
                 arMaker = brandArTitles.get(i);
+                if (brandId.equals("-1")){
+                    classifiedsBrand = "";
+                }
                 getModels();
             }
 
@@ -6046,8 +6239,12 @@ public class SubCategoryFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (modelEnTitles.size()>0 && modelArTitles.size()>0) {
                     currentModel = modelEnTitles.get(i) + "-" + modelArTitles.get(i);
+//                    currentModel = modelEnTitles.get(i) + "-";
                     enModel = modelEnTitles.get(i);
                     arModel = modelArTitles.get(i);
+                    if(modelEnTitles.get(i).equals(mainActivity.getResources().getString(R.string.other))){
+                        currentModel = "";
+                    }
                     getTrims();
                 }
             }
@@ -6065,6 +6262,9 @@ public class SubCategoryFragment extends Fragment {
                     currentTrim = trimEnTitles.get(i)+"-"+trimArTitles.get(i);
                     arTrim = trimArTitles.get(i);
                     enTrim = trimEnTitles.get(i);
+                    if(trimEnTitles.get(i).equals(mainActivity.getResources().getString(R.string.other))){
+                        currentTrim = "";
+                    }
                 }
             }
 
@@ -6099,6 +6299,9 @@ public class SubCategoryFragment extends Fragment {
                 currentBoatHorsePower = boatHorsepowerEnTitles.get(i)+"^"+boatHorsepowerArTitles.get(i);
                 enHorse = boatHorsepowerEnTitles.get(i);
                 arHorse = boatHorsepowerArTitles.get(i);
+                if(enHorse.equals(mainActivity.getResources().getString(R.string.other))){
+                    currentBoatHorsePower = "";
+                }
             }
 
             @Override
@@ -6113,6 +6316,9 @@ public class SubCategoryFragment extends Fragment {
                 currentBoatAge = boatAgeEnTitles.get(i)+"-"+boatAgeArTitles.get(i);
                 enAge = boatAgeEnTitles.get(i);
                 arAge = boatAgeArTitles.get(i);
+                if(enAge.equals(mainActivity.getResources().getString(R.string.other))){
+                    currentBoatAge = "";
+                }
             }
 
             @Override
@@ -6127,6 +6333,9 @@ public class SubCategoryFragment extends Fragment {
                 currentBoatUsage = boatUsageEnTitles.get(i)+"-"+boatUsageArTitles.get(i);
                 enUsage = boatUsageEnTitles.get(i);
                 arUsage = boatUsageArTitles.get(i);
+                if(enUsage.equals(mainActivity.getResources().getString(R.string.other))){
+                    currentBoatUsage = "";
+                }
             }
 
             @Override
@@ -6147,6 +6356,10 @@ public class SubCategoryFragment extends Fragment {
                     getMachinerySubCategories();
                 }
                 subCatId = machineryCategory;
+                if (subCatId.equals("-1")){
+                    machineryCategory = "";
+                    subCatId = "";
+                }
             }
 
             @Override
@@ -6166,6 +6379,10 @@ public class SubCategoryFragment extends Fragment {
                     machinerySubCat = machinerySubCatIds.get(i);
                 }
                 subTypeId = machinerySubCat;
+                if (subCatId.equals("-1")){
+                    machinerySubCat = "";
+                    subTypeId = "";
+                }
             }
 
             @Override
@@ -6180,6 +6397,9 @@ public class SubCategoryFragment extends Fragment {
                 machineryHorsepower = machineryEnHorsepowerTitles.get(i)+"^"+machineryArHorsepowerTitles.get(i);
                 enHorse = machineryEnHorsepowerTitles.get(i);
                 arHorse = machineryArHorsepowerTitles.get(i);
+                if (enHorse.equals("-1")){
+                    machineryHorsepower = "";
+                }
             }
 
             @Override
@@ -6200,6 +6420,10 @@ public class SubCategoryFragment extends Fragment {
                     getbikeMakers();
                 }
                 subCatId = bikeCat;
+                if (subCatId.equals("-1")){
+                    bikeCat = "";
+                    subCatId = "";
+                }
             }
 
             @Override
@@ -6219,6 +6443,10 @@ public class SubCategoryFragment extends Fragment {
                     bikeSubCat = bikesSubCatIds.get(i);
                 }
                 subTypeId = bikeSubCat;
+                if (subTypeId.equals("-1")){
+                    bikeSubCat = "";
+                    subTypeId = "";
+                }
             }
 
             @Override
@@ -6251,6 +6479,10 @@ public class SubCategoryFragment extends Fragment {
                     getPartMake();
                 }
                 subCatId = partCat;
+                if (subCatId.equals("-1")){
+                    partCat = "";
+                    subCatId = "";
+                }
             }
 
             @Override
@@ -6268,6 +6500,9 @@ public class SubCategoryFragment extends Fragment {
                     partMake = "0";
                 }else {
                     partMake = partMakeIds.get(i);
+                    if (partMake.equals("-1")){
+                        partMake = "";
+                    }
                     getParts();
                 }
 
@@ -6291,6 +6526,9 @@ public class SubCategoryFragment extends Fragment {
                 }
                 enPart = partNameEnTitles.get(i);
                 arPart = partNameArTitles.get(i);
+                if (enPart.equals(mainActivity.getResources().getString(R.string.other))){
+                    partName = "";
+                }
             }
 
             @Override
@@ -6317,6 +6555,9 @@ public class SubCategoryFragment extends Fragment {
                 employmentType = employmentTypeEnTitles.get(i)+"-"+employmentTypeArTitles.get(i);
                 enCommitment = employmentTypeEnTitles.get(i);
                 arCommitment = employmentTypeArTitles.get(i);
+                if (employmentTypeEnTitles.equals(mainActivity.getResources().getString(R.string.other))){
+                    employmentType = "";
+                }
             }
 
             @Override
@@ -6861,8 +7102,6 @@ public class SubCategoryFragment extends Fragment {
 //                }else {
 //                    setSpinner(usedCarsLocationSpinner, locationEnTitles);
 //                }
-                
-                currentLocation = locationEnTitles.get(0)+"-"+locationArTitles.get(0);
             } catch (JSONException e) {
                 e.printStackTrace();
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.location), mainActivity.getResources().getString(R.string.error_occured));

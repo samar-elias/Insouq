@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_gravity="center"
-                android:text="Advertise with us"
+                android:text="@string/advertise_with_us"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_17ssp"
                 android:fontFamily="@font/objectivity_medium" />
@@ -69,14 +69,15 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="and get "
+                    android:text="@string/and_get"
                     android:textColor="@color/purple_text"
                     android:textSize="@dimen/_17ssp"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     android:fontFamily="@font/objectivity_medium" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Noticed"
+                    android:text="@string/noticed"
                     android:textColor="@color/light_purple_text"
                     android:textSize="@dimen/_17ssp"
                     android:fontFamily="@font/objectivity_medium" />
@@ -99,6 +100,7 @@
                 android:textColor="@color/base_orange"
                 android:fontFamily="@font/objectivity_regular"
                 android:inputType="text"
+                android:textAlignment="viewStart"
                 android:imeOptions="actionNext"
                 android:textSize="@dimen/_13ssp"
                 android:hint="@string/first_name"/>
@@ -120,6 +122,7 @@
                 android:textColor="@color/base_orange"
                 android:fontFamily="@font/objectivity_regular"
                 android:textSize="@dimen/_13ssp"
+                android:textAlignment="viewStart"
                 android:inputType="text"
                 android:imeOptions="actionNext"
                 android:hint="@string/last_name"/>
@@ -141,6 +144,7 @@
                 android:textColor="@color/base_orange"
                 android:fontFamily="@font/objectivity_regular"
                 android:inputType="textEmailAddress"
+                android:textAlignment="viewStart"
                 android:imeOptions="actionNext"
                 android:textSize="@dimen/_13ssp"
                 android:hint="@string/email_address"/>
@@ -162,6 +166,7 @@
                 android:textColor="@color/base_orange"
                 android:fontFamily="@font/objectivity_regular"
                 android:inputType="phone"
+                android:textAlignment="viewStart"
                 android:imeOptions="actionNext"
                 android:textSize="@dimen/_13ssp"
                 android:hint="@string/phone_number"/>
@@ -183,6 +188,7 @@
                 android:textColor="@color/base_orange"
                 android:fontFamily="@font/objectivity_regular"
                 android:inputType="text"
+                android:textAlignment="viewStart"
                 android:imeOptions="actionNext"
                 android:textSize="@dimen/_13ssp"
                 android:hint="@string/company"/>
@@ -198,14 +204,17 @@
             <EditText
                 android:id="@+id/description_edt"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/gray"
+                android:layout_height="@dimen/_100sdp"
                 android:textColorHint="@color/base_orange"
                 android:textColor="@color/base_orange"
                 android:fontFamily="@font/objectivity_regular"
                 android:inputType="text"
+                android:background="@drawable/white_radius_3"
                 android:imeOptions="actionDone"
                 android:textSize="@dimen/_13ssp"
+                android:padding="@dimen/_5sdp"
+                android:gravity="top"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:hint="@string/description"/>
             <TextView
                 android:layout_width="match_parent"

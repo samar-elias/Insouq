@@ -21,9 +21,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Responses.BusinessAd;
 import com.hudhud.insouqapplication.AppUtils.Responses.ElectronicAd;
@@ -70,6 +72,8 @@ public class HomeFragment extends Fragment {
     ArrayList<SubCategory> subCategories;
     ArrayList<NewAd> newMotorAds, newJobAds, newServiceAds, newBusinessAds, newClassifiedAds, newElectronicAds;
     ArrayList<NewNumberAd> newNumberAds;
+
+    // home
 
     public HomeFragment() {
         // Required empty public constructor
@@ -185,7 +189,8 @@ public class HomeFragment extends Fragment {
 
     private void onClick(){
         motors.setOnClickListener(view -> showSubCategoriesPopUp(getResources().getColor(R.color.foshia), getResources().getString(R.string.motors), getResources().getDrawable(R.drawable.motors_icon), 1));
-        property.setOnClickListener(view -> showSubCategoriesPopUp(getResources().getColor(R.color.orange), getResources().getString(R.string.property), getResources().getDrawable(R.drawable.property_icon), 2));
+        property.setOnClickListener(view -> mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.property), mainActivity.getResources().getString(R.string.coming_soon)));
+//        property.setOnClickListener(view -> showSubCategoriesPopUp(getResources().getColor(R.color.orange), getResources().getString(R.string.property), getResources().getDrawable(R.drawable.property_icon), 2));
         jobs.setOnClickListener(view -> showSubCategoriesPopUp(getResources().getColor(R.color.peach), getResources().getString(R.string.jobs), getResources().getDrawable(R.drawable.jobs_icon), 3));
         services.setOnClickListener(view -> showSubCategoriesPopUp(getResources().getColor(R.color.fairouz), getResources().getString(R.string.services), getResources().getDrawable(R.drawable.services_icon), 4));
         business.setOnClickListener(view -> showSubCategoriesPopUp(getResources().getColor(R.color.green), getResources().getString(R.string.business), getResources().getDrawable(R.drawable.business_icon),5));
@@ -219,12 +224,13 @@ public class HomeFragment extends Fragment {
         ConstraintLayout header = subCategoriesAlertView.findViewById(R.id.header);
         ImageView closeImage = subCategoriesAlertView.findViewById(R.id.close_icon);
         TextView headerTitle = subCategoriesAlertBuilder.findViewById(R.id.pop_up_title);
+        ImageView image = subCategoriesAlertBuilder.findViewById( R.id.icon);
         RecyclerView subCategoriesRV = subCategoriesAlertBuilder.findViewById(R.id.sub_categories_RV);
         getSubCategories(id, subCategoriesRV, title);
 
         header.setBackgroundColor(color);
         headerTitle.setText(title);
-        headerTitle.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+        Glide.with(mainActivity).load(icon).into(image);
         closeImage.setOnClickListener(view -> subCategoriesAlertBuilder.dismiss());
 
     }
@@ -838,6 +844,7 @@ public class HomeFragment extends Fragment {
                     electronicAd.setOtherSubType(electronicObj.getString("otherSubType"));
                     electronicAd.setPhoneNumber(electronicObj.getString("phoneNumber"));
                     electronicAd.setIsFav(electronicObj.getString("isFavorite"));
+
                     String postedDate = mainActivity.convertDate(electronicObj.getString("postDate").substring(0, electronicObj.getString("postDate").lastIndexOf(".")));
                     electronicAd.setPostedDate(postedDate);
                     JSONArray pics = electronicObj.getJSONArray("pictures");

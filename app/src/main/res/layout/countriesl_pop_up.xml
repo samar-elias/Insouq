@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/objectivity_medium"
-            android:text="Choose Country"
+            android:text="@string/choose_country"
             android:textColor="@color/purple_text"
             android:textSize="@dimen/_14ssp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +55,7 @@
                 android:checked="false"
                 android:fontFamily="@font/objectivity_medium"
                 android:text="Insouq UAE"
+                android:textAlignment="viewStart"
                 android:textAllCaps="true"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_8ssp" />
@@ -76,6 +77,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:backgroundTint="@color/light_purple_text"
                 android:checked="false"
+                android:textAlignment="viewStart"
                 android:fontFamily="@font/objectivity_medium"
                 android:text="Insouq Jordan Soon"
                 android:textAllCaps="true"
@@ -101,6 +103,7 @@
                 android:fontFamily="@font/objectivity_medium"
                 android:text="Insouq Suadi Arabia Soon"
                 android:textAllCaps="true"
+                android:textAlignment="viewStart"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_8ssp" />
 

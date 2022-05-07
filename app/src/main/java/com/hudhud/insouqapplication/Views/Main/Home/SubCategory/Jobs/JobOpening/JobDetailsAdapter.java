@@ -129,7 +129,7 @@ public class JobDetailsAdapter extends RecyclerView.Adapter<JobDetailsAdapter.Vi
             }
         }
         if (!jobAd.getExpectedSalary().equals("null")){
-            jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.expected_monthly_salary), jobAd.getExpectedSalary()));
+            jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.expected_monthly_salary), jobAd.getExpectedSalary(), R.drawable.salary_img));
         }
         if (!jobAd.getEnEmploymentType().equals("null")){
             if (AppDefs.language.equals("ar")){

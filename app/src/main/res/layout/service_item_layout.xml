@@ -12,6 +12,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="@dimen/_20sdp"
+        android:textAlignment="viewStart"
         android:textColor="@color/purple_text"
         android:fontFamily="@font/objectivity_medium"
         android:textSize="@dimen/_12ssp"/>

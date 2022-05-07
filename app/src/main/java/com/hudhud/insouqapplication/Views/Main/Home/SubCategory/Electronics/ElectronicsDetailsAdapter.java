@@ -78,6 +78,25 @@ public class ElectronicsDetailsAdapter extends RecyclerView.Adapter<ElectronicsD
 
         ArrayList<specificationModel> electronicsSpecifications = new ArrayList<>();
 
+        if (!electronicAd.getEnBrand().equals("null")){
+            if (AppDefs.language.equals("ar")){
+                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.brand), electronicAd.getArBrand(), R.drawable.maker_img));
+            }else {
+                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.brand), electronicAd.getEnBrand(), R.drawable.maker_img));
+            }
+        }
+
+        if (!electronicAd.getSubCatEnName().equals("null")){
+            if (AppDefs.language.equals("ar")){
+                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.model), electronicAd.getSubCatArName(), R.drawable.sub_category_1));
+            }else {
+                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.model), electronicAd.getSubCatEnName(), R.drawable.sub_category_1));
+            }
+        }
+        if (!electronicAd.getOtherSubCat().equals("null")){
+            electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.model), electronicAd.getOtherSubCat(), R.drawable.sub_category_1));
+        }
+
         if (!electronicAd.getEnAge().equals("null")){
             if (AppDefs.language.equals("ar")){
                 electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.age), electronicAd.getArAge(), R.drawable.age_1));
@@ -92,40 +111,7 @@ public class ElectronicsDetailsAdapter extends RecyclerView.Adapter<ElectronicsD
                 electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.usage), electronicAd.getEnUsage(), R.drawable.usage_1));
             }
         }
-        if (!electronicAd.getEnBrand().equals("null")){
-            if (AppDefs.language.equals("ar")){
-                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.brand), electronicAd.getArBrand(), R.drawable.maker_img));
-            }else {
-                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.brand), electronicAd.getEnBrand(), R.drawable.maker_img));
-            }
-        }
-        if (!electronicAd.getEnCondition().equals("null")){
-            if (AppDefs.language.equals("ar")){
-                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.condition), electronicAd.getArCondition(), R.drawable.condition_2));
-            }else {
-                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.condition), electronicAd.getEnCondition(), R.drawable.condition_2));
-            }
-        }
-        if (!electronicAd.getSubCatEnName().equals("null")){
-            if (AppDefs.language.equals("ar")){
-                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.sub_category), electronicAd.getSubCatArName(), R.drawable.sub_category_1));
-            }else {
-                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.sub_category), electronicAd.getSubCatEnName(), R.drawable.sub_category_1));
-            }
-        }
-        if (!electronicAd.getOtherSubCat().equals("null")){
-            electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.sub_category), electronicAd.getOtherSubCat(), R.drawable.sub_category_1));
-        }
-        if (!electronicAd.getSubTypeEnName().equals("null")){
-            if (AppDefs.language.equals("ar")){
-                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.sub_type), electronicAd.getSubTypeArName(), R.drawable.sub_type_1));
-            }else {
-                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.sub_type), electronicAd.getSubTypeEnName(), R.drawable.sub_type_1));
-            }
-        }
-        if (!electronicAd.getOtherSubType().equals("null")){
-            electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.sub_type), electronicAd.getOtherSubType(), R.drawable.sub_type_1));
-        }
+
         if (!electronicAd.getEnColor().equals("null")){
             if (AppDefs.language.equals("ar")){
                 electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.color), electronicAd.getArColor(), R.drawable.color));
@@ -133,6 +119,15 @@ public class ElectronicsDetailsAdapter extends RecyclerView.Adapter<ElectronicsD
                 electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.color), electronicAd.getEnColor(), R.drawable.color));
             }
         }
+
+        if (!electronicAd.getEnCondition().equals("null")){
+            if (AppDefs.language.equals("ar")){
+                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.condition), electronicAd.getArCondition(), R.drawable.condition_2));
+            }else {
+                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.condition), electronicAd.getEnCondition(), R.drawable.condition_2));
+            }
+        }
+
         if (!electronicAd.getWarranty().equals("null")){
             switch (electronicAd.getWarranty()) {
                 case "0":
@@ -146,6 +141,16 @@ public class ElectronicsDetailsAdapter extends RecyclerView.Adapter<ElectronicsD
                     break;
             }
         }
+
+
+        if (!electronicAd.getEnStorage().equals("null")){
+            if (AppDefs.language.equals("ar")){
+                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.storage), electronicAd.getArStorage(), R.drawable.storage));
+            }else {
+                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.storage), electronicAd.getEnStorage(), R.drawable.storage));
+            }
+        }
+
 
         SpecificationAdapter specificationAdapter = new SpecificationAdapter(electronicsSpecifications);
         holder.specificationsRV.setAdapter(specificationAdapter);

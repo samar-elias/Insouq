@@ -132,7 +132,7 @@
                 android:imeOptions="actionDone"
                 android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:textSize="@dimen/_17ssp"
+                android:textSize="@dimen/_20ssp"
                 android:fontFamily="@font/objectivity_bold"
                 android:textColor="@color/orange"
                 android:gravity="center"

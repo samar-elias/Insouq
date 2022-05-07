@@ -58,7 +58,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="Our terms &amp; conditions"
+                android:text="@string/our_terms_amp_conditions"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_17ssp"
                 android:fontFamily="@font/objectivity_medium" />
@@ -73,7 +73,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="protect "
+                    android:text="@string/protect"
                     android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_17ssp"
                     android:textColor="@color/purple_text"
@@ -81,7 +81,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="You."
+                    android:text="@string/you"
                     android:textColor="@color/purple"
                     android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_17ssp"
