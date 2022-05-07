@@ -43,7 +43,7 @@ import java.util.stream.Collectors;
 
 public class ChatFragment extends Fragment {
 
-    ImageView home, chat, sellAnItem, profile, notifications;
+    ImageView home, chat, sellAnItem, profile, notifications,back_arrow;
     NavController navController;
     MainActivity mainActivity;
     RecyclerView activeChatsRV, archiveChatsRV;
@@ -51,6 +51,7 @@ public class ChatFragment extends Fragment {
     FirebaseFirestore db;
     ArrayList<Chats> chats;
     ArrayList<Chats> archifechats;
+
 
     ChatItemAdapter usersAdapter;
     ChatItemAdapter archiveAdapter;
@@ -102,7 +103,7 @@ public class ChatFragment extends Fragment {
         notifications = view.findViewById(R.id.notification);
         activeChatsRV = view.findViewById(R.id.active_chats_RV);
         archiveChatsRV = view.findViewById(R.id.archive_chats_RV);
-
+        back_arrow = view.findViewById(R.id.back_arrow);
         deleteChats = view.findViewById(R.id.delete_chats);
 
         chats = new ArrayList<>();
@@ -182,25 +183,24 @@ public class ChatFragment extends Fragment {
                 archifechats.clear();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     Chats user = snapshot1.getValue(Chats.class);
-
                     if (user.getCustumerUserId().equals(Integer.valueOf(AppDefs.user.getId())) || user.getOwnerUserId().equals(Integer.valueOf(AppDefs.user.getId()))) {
                         if (user.getCustumerUserId().equals(Integer.valueOf(AppDefs.user.getId()))) {
                             if (user.getLiveForCustamer()) {
-                                if ((user.getStatus() == 2 && !user.getWhoArchive().equals(Integer.valueOf(AppDefs.user.getId()))) || user.getStatus() == 1) {
+                                if ((user.getStatus() == 2 && user.getWhoArchive().equals(Integer.valueOf(AppDefs.user.getId()))) ) {
                                     // user.setStatus(1);
-                                    chats.add(user);
-                                } else {
                                     archifechats.add(user);
+                                } else {
+                                    chats.add(user);
                                 }
                             }
 
                         } else {
                             if (user.getLiveForOwner()) {
-                                if ((user.getStatus() == 2 && user.getWhoArchive() != Integer.valueOf(AppDefs.user.getId())) || user.getStatus() == 1) {
-                                    // user.setStatus(1);
-                                    chats.add(user);
-                                } else {
+                                if ((user.getStatus() == 2 && user.getWhoArchive().equals(Integer.valueOf(AppDefs.user.getId()))) ) {                                    // user.setStatus(1);
                                     archifechats.add(user);
+                                } else {
+
+                                    chats.add(user);
                                 }
                             }
 
@@ -265,7 +265,6 @@ public class ChatFragment extends Fragment {
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                                         Chats user = snapshot.getValue(Chats.class);
-                                        Toast.makeText(mainActivity, user.getCustumerUserId().toString(), Toast.LENGTH_SHORT).show();
                                         final HashMap<String, Object> post1 = new HashMap<>();
 
 
@@ -553,6 +552,7 @@ public class ChatFragment extends Fragment {
 
                     if (Integer.valueOf(whoArcive).equals(Integer.valueOf(AppDefs.user.getId()))) {
                         post1.put("status", Integer.valueOf(1));
+                        post1.put("whoArchive", 0);
                     } else {
                         post1.put("status", Integer.valueOf(5));
                     }

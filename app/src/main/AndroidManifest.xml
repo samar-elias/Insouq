@@ -16,7 +16,9 @@
         <activity
             android:name=".Views.Main.Chat.ChatDetailesActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".Views.Main.Chat.BusinessChatDetailsActivity"
+            android:exported="false" />
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
 

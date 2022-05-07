@@ -76,7 +76,7 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
             holder.checked.setVisibility(View.GONE);
         }
         if(chat.getOwnerUserId().equals(Integer.valueOf(AppDefs.user.getId()))) {
-            holder.dec.setText(String.valueOf(AppDefs.user.getFirstName()));
+            holder.dec.setText(chat.getCasomerUserName());
 
         }else {
             holder.dec.setText(chat.getFirstName()+" "+chat.getLastName());
@@ -120,13 +120,18 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ChatDetailesActivity.class);
+                intent.putExtra("userId", String.valueOf(chat.getOwnerUserId()));
                 intent.putExtra("chatId", chat.getChatId());
-                intent.putExtra("user_Id", chat.getOwnerUserId());
+                intent.putExtra("adsId",String.valueOf(chat.getAdId()));
+                intent.putExtra("type",String.valueOf(chat.getType()));
+
+
 
                 //intent.putParcelableArrayListExtra("Message",  user.getMessage());
                  intent.putExtra("image", chat.getAdMainImage());
                 intent.putExtra("firstName",chat.getFirstName()+" "+chat.getLastName());
                 intent.putExtra("userImage",chat.getUserImage());
+                intent.putExtra("castomer_name",chat.getCasomerUserName());
 
 
                 intent.putExtra("description",chat.getDescription());

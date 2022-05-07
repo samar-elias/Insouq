@@ -314,11 +314,16 @@
         <entry key="..\:/Samar's files/Insouq Application/InsouqApplication/app/src/main/res/layout/verify_mobile_pop_up.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/drawable-nodpi/receive_drawable.xml" value="0.121" />
         <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/drawable-nodpi/sent_drawable.xml" value="0.1725" />
-        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/activity_chat_detailes.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/activity_buisness_chat_detailes.xml" value="0.24635416666666668" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/activity_chat_detailes.xml" value="0.264" />
         <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/business_details_item.xml" value="0.17314814814814813" />
         <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/chat_item_layout.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/delete_chat_item_pop_up.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/fragment_business_details.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/fragment_chat.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/fragment_make_offer_bottom_sheet_dialog.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/fragment_motor_details.xml" value="0.25" />
+        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/image_slider_item.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/item_receive.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/item_sent.xml" value="0.25" />
         <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/sent_drawable.xml" value="0.25" />

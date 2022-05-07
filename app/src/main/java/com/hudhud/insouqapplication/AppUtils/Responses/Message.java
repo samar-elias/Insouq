@@ -22,6 +22,7 @@ public class Message {
     private New aNew;
     private List<String> LocURL;
     public List<String> files;
+    private String image;
 
 
     public Message() {
@@ -42,6 +43,20 @@ public class Message {
 
         this.LocURL=LocURL;
         this.files=files;
+    }
+    public Message(Integer sender, String message, Boolean isLiveForCustamer, Boolean isLiveForOwner, String messageTime, Integer seen, String chatId, String messageId, List<String> LocURL, List<String> files,String image) {
+        Sender = sender;
+        Message = message;
+        this.isLiveForCustamer = isLiveForCustamer;
+        this.isLiveForOwner = isLiveForOwner;
+        MessageTime = messageTime;
+        this.seen = seen;
+        ChatId = chatId;
+        MessageId = messageId;
+
+        this.LocURL=LocURL;
+        this.files=files;
+        this.image=image;
     }
 
     public Integer getSender() {
@@ -130,5 +145,13 @@ public class Message {
 
     public void setFiles(List<String> files) {
         this.files = files;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
