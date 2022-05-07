@@ -264,6 +264,9 @@
         <action
             android:id="@+id/action_businessDetailsFragment2_to_makeOfferBottomSheetDialogFragment"
             app:destination="@id/makeOfferBottomSheetDialogFragment" />
+        <action
+            android:id="@+id/action_businessDetailsFragment2_to_chatFragment"
+            app:destination="@id/chatFragment" />
         <argument
             android:name="position"
             app:argType="integer" />
