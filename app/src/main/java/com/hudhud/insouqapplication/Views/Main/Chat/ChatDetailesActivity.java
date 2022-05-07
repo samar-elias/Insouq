@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -20,9 +19,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.ClientError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationListener;
@@ -33,9 +39,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -45,10 +49,13 @@ import com.hudhud.insouqapplication.AppUtils.Helpers.Constant;
 import com.hudhud.insouqapplication.AppUtils.Helpers.FirebaseManger;
 import com.hudhud.insouqapplication.AppUtils.Responses.Chats;
 import com.hudhud.insouqapplication.AppUtils.Responses.Message;
+import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
 import com.hudhud.insouqapplication.R;
 import com.makeramen.roundedimageview.RoundedImageView;
 
-import java.text.DateFormat;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -71,12 +78,13 @@ public class ChatDetailesActivity extends AppCompatActivity {
     FirebaseStorage storage;
 
     ProgressDialog dialog;
-
+    public RequestQueue queue;
 
     RecyclerView recyclerView;
     RoundedImageView images;
     CircleImageView profile_image;
-    TextView username, adds_detailes, tv_adds_price, tv_adds_time,tv_unblock;
+    TextView username, adds_detailes, tv_adds_price, tv_adds_time,tv_unblock,view_add;
+    private ArrayList<Integer> mKeys ;
 
 
     private final ArrayList<Message> messages = new ArrayList<>();
@@ -93,12 +101,16 @@ public class ChatDetailesActivity extends AppCompatActivity {
     String title = "";
     String price = "";
 
-    String user_Id = "";
+    String userId ;
+    String castomer_name="";
     Location currentLocation;
+    String adsId="";
+    String type="";
     LinearLayoutCompat message_layout, message_layout2;
 
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +119,7 @@ public class ChatDetailesActivity extends AppCompatActivity {
         back_arrow = findViewById(R.id.back_arrow);
         recyclerView = findViewById(R.id.chat_messages_RV);
         attach = findViewById(R.id.attach);
+        view_add=findViewById(R.id.view_add);
         message_layout = findViewById(R.id.message_layout);
         message_layout2 = findViewById(R.id.message_layout2);
         messageEdt = findViewById(R.id.message_edt);
@@ -121,12 +134,26 @@ public class ChatDetailesActivity extends AppCompatActivity {
         username = findViewById(R.id.user_name);
         location = findViewById(R.id.location);
         chat_id = getIntent().getStringExtra("chatId");
-        user_Id = getIntent().getStringExtra("user_Id");
+        userId = getIntent().getStringExtra("userId");
         firstName = getIntent().getStringExtra("firstName");
         userImage = getIntent().getStringExtra("userImage");
         description = getIntent().getStringExtra("description");
+        castomer_name=getIntent().getStringExtra("castomer_name");
+        adsId=getIntent().getStringExtra("adsId");
+        type=getIntent().getStringExtra("type");
+
         firebaseManger = FirebaseManger.getInstance();
-        username.setText(firstName);
+        queue = Volley.newRequestQueue(this);
+        mKeys = new ArrayList<>();
+        mKeys.clear();
+
+        if(Integer.valueOf(userId).equals(Integer.valueOf(AppDefs.user.getId()))) {
+            username.setText(castomer_name);
+
+        }else {
+            username.setText(firstName);
+        }
+
         image = getIntent().getStringExtra("image");
         title = getIntent().getStringExtra("title");
         price = getIntent().getStringExtra("price");
@@ -149,6 +176,13 @@ public class ChatDetailesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        view_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showInfo();
             }
         });
 
@@ -214,21 +248,15 @@ public class ChatDetailesActivity extends AppCompatActivity {
         dialog.setMessage("Uploading image...");
         dialog.setCancelable(false);
 
-        // messages = new ArrayList<>();
-        adapter = new MessagesAdapter(this, this, messages);
+
+        adapter = new MessagesAdapter(this, this, messages,image);
         LinearLayoutManager llm = new LinearLayoutManager(this);
        /* llm.setReverseLayout(true);
         llm.setStackFromEnd(true);*/
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(adapter);
-        /*Handler handler = new Handler();
-        Runnable runnable = new Runnable() {
-            public void run() {
-              changeSeen();
 
-            }
-        };
-        handler.postDelayed(runnable, 5000);*/
+
 
 
         location.setOnClickListener(new View.OnClickListener() {
@@ -302,7 +330,10 @@ public class ChatDetailesActivity extends AppCompatActivity {
                     }
                 });
                 messageEdt.setText("");
-                //loadMassage();
+                mKeys.clear();
+               /* changeSeen();
+
+                loadMassage();*/
 
 
             }
@@ -491,7 +522,7 @@ public class ChatDetailesActivity extends AppCompatActivity {
                         for (DataSnapshot snapshot1 : snapshot.getChildren()) {
 
                             Message message = snapshot1.getValue(Message.class);
-                            if(message.getSender() != Integer.valueOf(AppDefs.user.getId())){
+                            if(!message.getSender().equals(Integer.valueOf(AppDefs.user.getId()))){
                                 post1.put("seen", 1);
                                 firebaseManger.getDatabaseReference().child(Constant.Chats).child(chat_id)
                                         .child("message").child(message.getMessageId()).updateChildren(post1);
@@ -539,15 +570,22 @@ public class ChatDetailesActivity extends AppCompatActivity {
                                     boolean y = message.getLiveForOwner();
                                     if (chats.getCustumerUserId().equals(Integer.valueOf(AppDefs.user.getId()))) {
                                         if (x) {
+
                                             message.setMessageId(snapshot1.getKey());
                                             messages.add(message);
+
+
+
                                         }
 
                                     } else {
 
                                         if (y) {
+
                                             message.setMessageId(snapshot1.getKey());
                                             messages.add(message);
+
+
                                         }
 
                                     }
@@ -559,11 +597,31 @@ public class ChatDetailesActivity extends AppCompatActivity {
                             }
 
 
+
                         }
 
                         @Override
                         public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                            changeSeen();
+                           // loadMassage();
+
+
+                            Message chatModel = snapshot.getValue(Message.class);
+                            Integer location = chatModel.getSeen();
+                            mKeys.add(location);
+                            for (int i=mKeys.size();i>=1;i--){
+                                messages.set(messages.size()-i, chatModel);
+                                adapter.notifyDataSetChanged();
+                            }
+
+
+
+
+
+
+
+
+
+
 
                         }
 
@@ -574,7 +632,7 @@ public class ChatDetailesActivity extends AppCompatActivity {
 
                         @Override
                         public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                            changeSeen();
+
                         }
 
                         @Override
@@ -606,6 +664,16 @@ public class ChatDetailesActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+    public  void showInfo(){
+        if (type.equals("5")){
+            Intent intent=new Intent(this,BusinessChatDetailsActivity.class);
+            intent.putExtra("adsId",String.valueOf(adsId));
+            intent.putExtra("type",String.valueOf(type));
+            startActivity(intent);
+
+        }
+
     }
 
 
