@@ -36,6 +36,7 @@
                 app:layout_constraintEnd_toStartOf="@id/close"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:textAlignment="viewStart"
                 android:text="Your ad “Audi 2010 for sale” is expiring in 2 days"
                 android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/purple_text"
@@ -53,6 +54,7 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:text="Ad Updates"
+                android:textAlignment="viewStart"
                 android:fontFamily="@font/objectivity_regular"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_8ssp"
@@ -79,6 +81,7 @@
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:text="52 min ago"
+                android:textAlignment="viewStart"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:textSize="@dimen/_8ssp"
                 android:fontFamily="@font/objectivity_regular"/>

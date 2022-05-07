@@ -32,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="About Insouq"
+            android:text="@string/about_insouq"
             android:fontFamily="@font/objectivity_medium"
             android:textColor="@color/white"
             android:textSize="@dimen/_15ssp"/>
@@ -58,7 +58,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="Get to know"
+                android:text="@string/get_to_know"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_17ssp"
                 android:fontFamily="@font/objectivity_medium" />
@@ -74,7 +74,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="INSOUQ!"
+                    android:text="@string/insouq"
                     android:textColor="@color/purple"
                     android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_17ssp"

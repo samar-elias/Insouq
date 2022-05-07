@@ -7,6 +7,7 @@
     tools:text="UAE"
     android:background="@drawable/white_radius_3"
     android:padding="@dimen/_10sdp"
+    android:textAlignment="viewStart"
     android:gravity="start"
     android:textColor="@color/gray_3"
     android:fontFamily="@font/objectivity_regular"

@@ -62,7 +62,7 @@ public class ClassifiedsAdapter extends RecyclerView.Adapter<ClassifiedsAdapter.
             holder.usage.setText(electronicAd.getEnUsage());
             holder.age.setText(electronicAd.getEnAge());
         }
-        holder.price.setText(electronicAd.getPrice()+" AED");
+        holder.price.setText("AED "+electronicAd.getPrice());
 
         if (electronicAd.getIsFav().equals("true")){
             holder.favourite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_favorite_red_24));

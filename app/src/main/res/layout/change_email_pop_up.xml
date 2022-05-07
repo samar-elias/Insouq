@@ -45,8 +45,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/gray_border_raduis_10"
-
-                    android:hint="New Email Address"
+                    android:hint="@string/new_email_address"
+                    android:gravity="start"
+                    android:textAlignment="viewStart"
                     android:textColorHint="@color/gray"
                     android:fontFamily="@font/objectivity_regular"
                     android:textSize="@dimen/_12ssp"
@@ -59,7 +60,7 @@
                 app:cornerRadius="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:backgroundTint="@color/base_orange"
-                android:text="Change Email"
+                android:text="@string/change_email"
                 android:textColor="@color/white"
                 android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_10ssp" />

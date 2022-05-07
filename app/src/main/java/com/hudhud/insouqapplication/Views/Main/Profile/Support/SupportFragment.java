@@ -26,6 +26,7 @@ import android.widget.VideoView;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
+import com.hudhud.insouqapplication.AppUtils.Responses.Answer;
 import com.hudhud.insouqapplication.AppUtils.Responses.Question;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
 import com.hudhud.insouqapplication.R;
@@ -100,30 +101,36 @@ public class SupportFragment extends Fragment {
         profile.setOnClickListener(view -> startActivity("notifications"));
     }
 
+    public void navigateToQuestion(Question question){
+        navController.navigate(SupportFragmentDirections.actionSupportFragmentToQuestionFragment(question));
+    }
+
     private void getQuestions(){
         questions.clear();
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
         StringRequest questionsRequest = new StringRequest(Request.Method.GET, Urls.StaticData_URL+"GetFAQ", response -> {
             mainActivity.hideProgressDialog();
             try {
-                JSONArray questionsArray = new JSONArray(response);
+                JSONObject questionObject = new JSONObject(response);
+                JSONArray questionsArray = questionObject.getJSONArray("results");
                 for (int i=0; i<questionsArray.length(); i++){
                     Question question = new Question();
                     JSONObject questionObj = questionsArray.getJSONObject(i);
-                    question.setId(questionObj.getString("id"));
-                    question.setQuestion(questionObj.getString("question"));
-                    question.setAnswerImg(questionObj.getString("answerImg2"));
-                    String img1 = questionObj.getString("answerImg").replace("\\", "/");
-                    question.setAnswerImg2(img1);
-                    question.setAnswerImg3(questionObj.getString("answerImg3"));
-                    question.setArQuestion(questionObj.getString("ar_Question"));
-                    question.setArAnswerImg(questionObj.getString("ar_AnswerImg2"));
-                    String img2 = questionObj.getString("ar_AnswerImg").replace("\\", "/");
-                    question.setArAnswerImg2(img2);
-                    question.setArAnswerImg3(questionObj.getString("ar_AnswerImg3"));
-                    question.setIsDeleted(questionObj.getString("isDeleted"));
+                    question.setQuestion(questionObj.getString("Question_En"));
+                    question.setArQuestion(questionObj.getString("Question_Ar"));
+                    JSONArray answersArray = questionObj.getJSONArray("Answers");
+                    ArrayList<Answer> answers = new ArrayList<>();
+                    for (int j=0; j<answersArray.length(); j++){
+                        JSONObject answerObj = answersArray.getJSONObject(j);
+                        Answer answer = new Answer();
+                        answer.setArAnswer(answerObj.getString("AnsAR"));
+                        answer.setEnAnswer(answerObj.getString("AnsEN"));
+                        answers.add(answer);
+                    }
+                    question.setAnswers(answers);
                     questions.add(question);
                 }
+
                 setQuestionsRV();
             } catch (JSONException e) {
                 e.printStackTrace();

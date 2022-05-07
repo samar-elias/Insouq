@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/plate_image"
-        app:layout_constraintStart_toStartOf="@id/plate_image"
+        app:layout_constraintLeft_toLeftOf="@id/plate_image"
         android:text="1"
         android:layout_margin="@dimen/_7sdp"
         android:textSize="@dimen/_6ssp"

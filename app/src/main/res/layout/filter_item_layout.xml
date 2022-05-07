@@ -16,6 +16,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAlignment="viewStart"
         android:text="test for showing long text item"
         android:fontFamily="@font/objectivity_medium"
         android:textColor="@color/dark_purple"/>

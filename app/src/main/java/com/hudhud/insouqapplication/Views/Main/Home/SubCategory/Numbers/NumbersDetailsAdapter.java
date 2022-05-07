@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,10 +54,18 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         NumberAd newAd = numberAds.get(position);
 
+        ArrayList<specificationModel> numbersSpecifications = new ArrayList<>();
+
         if (newAd.getCategory().equals("Mobile Numbers")){
             holder.viewInCar.setVisibility(View.GONE);
+            if (!newAd.getNumber().equals("null")){
+                numbersSpecifications.add(new specificationModel(context.getResources().getString(R.string.number), newAd.getNumber(), R.drawable.mobile_number_img));
+            }
         }else {
             holder.viewInCar.setVisibility(View.VISIBLE);
+            if (!newAd.getNumber().equals("null")){
+                numbersSpecifications.add(new specificationModel(context.getResources().getString(R.string.number), newAd.getNumber(), R.drawable.plate_number_img));
+            }
         }
 
         if (newAd.getCategory().equals("Mobile Numbers")){
@@ -118,7 +127,9 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
                 holder.ummAlQuwainPrivateLayout.setVisibility(View.INVISIBLE);
                 holder.dubaiPrivateLayout.setVisibility(View.VISIBLE);
                 holder.dubaiPrivatePlateCode.setText(newAd.getPlateCode());
+                holder.dubaiPrivatePlateCodeLong.setText(newAd.getPlateCode());
                 holder.dubaiPrivatePlateNumber.setText(newAd.getNumber());
+                holder.dubaiPrivatePlateNumberLong.setText(newAd.getNumber());
             }else if (newAd.getPlateType().equals("Private Car") && newAd.getEmirate().equals("Abu Dhabi")){
                 holder.abuDhabiBikeLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiPrivateLayout.setVisibility(View.VISIBLE);
@@ -135,6 +146,8 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
                 holder.dubaiPrivateLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiPrivatePlateCode.setText(newAd.getPlateCode());
                 holder.abuDhabiPrivatePlateNumber.setText(newAd.getNumber());
+                holder.abuDhabiPrivatePlateCodeLong.setText(newAd.getPlateCode());
+                holder.abuDhabiPrivatePlateNumberLong.setText(newAd.getNumber());
             }else if (newAd.getPlateType().equals("Private Car") && newAd.getEmirate().equals("Sharjah")){
                 holder.abuDhabiBikeLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiPrivateLayout.setVisibility(View.INVISIBLE);
@@ -151,6 +164,8 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
                 holder.dubaiPrivateLayout.setVisibility(View.INVISIBLE);
                 holder.sharjahPrivatePlateCode.setText(newAd.getPlateCode());
                 holder.sharjahPrivatePlateNumber.setText(newAd.getNumber());
+                holder.sharjahPrivatePlateCodeLong.setText(newAd.getPlateCode());
+                holder.sharjahPrivatePlateNumberLong.setText(newAd.getNumber());
             }else if (newAd.getPlateType().equals("Classic") && newAd.getEmirate().equals("Abu Dhabi")){
                 holder.abuDhabiBikeLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiPrivateLayout.setVisibility(View.INVISIBLE);
@@ -167,7 +182,7 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
                 holder.dubaiPrivateLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiClassicPlateCode.setText(newAd.getPlateCode());
                 holder.abuDhabiClassicPlateNumber.setText(newAd.getNumber());
-            }else if (newAd.getPlateType().equals("Private Car") && newAd.getEmirate().equals("Fujairah")){
+            }else if (newAd.getPlateType().equals("Motor Cycle") || newAd.getPlateType().equals("Private Car") && newAd.getEmirate().equals("Fujairah")){
                 holder.abuDhabiBikeLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiPrivateLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiClassicLayout.setVisibility(View.INVISIBLE);
@@ -183,6 +198,8 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
                 holder.dubaiPrivateLayout.setVisibility(View.INVISIBLE);
                 holder.fujairahPrivatePlateCode.setText(newAd.getPlateCode());
                 holder.fujairahPrivatePlateNumber.setText(newAd.getNumber());
+                holder.fujairahPrivatePlateCodeLong.setText(newAd.getPlateCode());
+                holder.fujairahPrivatePlateNumberLong.setText(newAd.getNumber());
             }else if (newAd.getPlateType().equals("Private Car") && newAd.getEmirate().equals("Umm al Quwain")){
                 holder.abuDhabiBikeLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiPrivateLayout.setVisibility(View.INVISIBLE);
@@ -199,6 +216,8 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
                 holder.dubaiPrivateLayout.setVisibility(View.INVISIBLE);
                 holder.ummAlQuwainPrivatePlateCode.setText(newAd.getPlateCode());
                 holder.ummAlQuwainPrivatePlateNumber.setText(newAd.getNumber());
+                holder.ummAlQuwainPrivatePlateCodeLong.setText(newAd.getPlateCode());
+                holder.ummAlQuwainPrivatePlateNumberLong.setText(newAd.getNumber());
             }else if (newAd.getPlateType().equals("Private Car") && newAd.getEmirate().equals("Ras al Khaimah")){
                 holder.abuDhabiBikeLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiPrivateLayout.setVisibility(View.INVISIBLE);
@@ -215,6 +234,8 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
                 holder.dubaiPrivateLayout.setVisibility(View.INVISIBLE);
                 holder.rasAlkhaimahPrivatePlateCode.setText(newAd.getPlateCode());
                 holder.rasAlkhaimahPrivatePlateNumber.setText(newAd.getNumber());
+                holder.rasAlkhaimahPrivatePlateCodeLong.setText(newAd.getPlateCode());
+                holder.rasAlkhaimahPrivatePlateNumberLong.setText(newAd.getNumber());
             }else if (newAd.getPlateType().equals("Private Car") && newAd.getEmirate().equals("Ajman")){
                 holder.abuDhabiBikeLayout.setVisibility(View.INVISIBLE);
                 holder.abuDhabiPrivateLayout.setVisibility(View.INVISIBLE);
@@ -231,6 +252,8 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
                 holder.dubaiPrivateLayout.setVisibility(View.INVISIBLE);
                 holder.ajmanPrivatePlateCode.setText(newAd.getPlateCode());
                 holder.ajmanPrivatePlateNumber.setText(newAd.getNumber());
+                holder.ajmanPrivatePlateCodeLong.setText(newAd.getPlateCode());
+                holder.ajmanPrivatePlateNumberLong.setText(newAd.getNumber());
             }
         }
 
@@ -247,8 +270,6 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
         }
 
         numberDetailsFragment.getUserInfo(newAd.getUserId(), holder.img, holder.name, holder.member);
-
-        ArrayList<specificationModel> numbersSpecifications = new ArrayList<>();
 
         if (!newAd.getEmirate().equals("null")){
             if (AppDefs.language.equals("ar")){
@@ -281,9 +302,7 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
         if (!newAd.getPlateCode().equals("null")){
             numbersSpecifications.add(new specificationModel(context.getResources().getString(R.string.plate_code), newAd.getPlateCode(), R.drawable.plate_code_img));
         }
-        if (!newAd.getNumber().equals("null")){
-            numbersSpecifications.add(new specificationModel(context.getResources().getString(R.string.number), newAd.getNumber(), R.drawable.mobile_number_img));
-        }
+
 
         SpecificationAdapter specificationAdapter = new SpecificationAdapter(numbersSpecifications);
         holder.specificationsRV.setAdapter(specificationAdapter);
@@ -360,7 +379,17 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
             }
         });
 
-        holder.viewInCar.setOnClickListener(view -> numberDetailsFragment.navigateToViewInCar(newAd));
+        if (newAd.getPlateType().equals("Private Car")){
+            holder.viewInCar.setVisibility(View.VISIBLE);
+        }else {
+            holder.viewInCar.setVisibility(View.INVISIBLE);
+        }
+
+        holder.viewInCar.setOnClickListener(view -> {
+            if (newAd.getPlateType().equals("Private Car")){
+                numberDetailsFragment.navigateToViewInCar(newAd);
+            }
+        });
 
         holder.backToPrevious.setOnClickListener(view -> numberDetailsFragment.navigateBack());
     }
@@ -384,8 +413,12 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
         RecyclerView specificationsRV;
         ImageView viewInCar;
         ImageView mobileNumberImage;
-        ConstraintLayout mobileNumberLayout, abuDhabiBikeLayout, abuDhabiClassicLayout, abuDhabiPrivateLayout, ajmanPrivateLayout, dubaiBikeLayout, dubaiClassicLayout, dubaiPrivateLayout, fujairahPrivateLayout, rasAlKhaimahClassicLayout, rasAlKhaimahPrivateLayout, sharjahPrivateLayout, sharjahClassicLayout, ummAlQuwainPrivateLayout;
-        TextView abuDhabiBikePlateCode, abuDhabiBikePlateNumber, abuDhabiClassicPlateCode, abuDhabiClassicPlateNumber, abuDhabiPrivatePlateCode, abuDhabiPrivatePlateNumber, ajmanPrivatePlateCode, ajmanPrivatePlateNumber, dubaiBikePlateCode, dubaiBikePlateNumber, dubaiClassicPlateNumber, dubaiPrivatePlateCode, dubaiPrivatePlateNumber, fujairahPrivatePlateCode, fujairahPrivatePlateNumber, rasAlkhaimahClassicPlateNumber, rasAlkhaimahPrivatePlateCode, rasAlkhaimahPrivatePlateNumber, sharjahPrivatePlateCode, sharjahPrivatePlateNumber, sharjahClassicPlateNumber, ummAlQuwainPrivatePlateCode, ummAlQuwainPrivatePlateNumber;
+        LinearLayoutCompat dubaiPrivateLayout, ajmanPrivateLayout, abuDhabiPrivateLayout, fujairahPrivateLayout, rasAlKhaimahPrivateLayout, sharjahPrivateLayout, ummAlQuwainPrivateLayout;
+        ConstraintLayout mobileNumberLayout, abuDhabiBikeLayout, abuDhabiClassicLayout, dubaiBikeLayout, dubaiClassicLayout, rasAlKhaimahClassicLayout, sharjahClassicLayout;
+        TextView abuDhabiBikePlateCode, abuDhabiBikePlateNumber, abuDhabiClassicPlateCode, abuDhabiClassicPlateNumber, abuDhabiPrivatePlateCode, abuDhabiPrivatePlateNumber, abuDhabiPrivatePlateCodeLong, abuDhabiPrivatePlateNumberLong, ajmanPrivatePlateCode, ajmanPrivatePlateNumber
+                , ajmanPrivatePlateCodeLong, ajmanPrivatePlateNumberLong, dubaiBikePlateCode, dubaiBikePlateNumber, dubaiClassicPlateNumber, dubaiPrivatePlateCode, dubaiPrivatePlateCodeLong, dubaiPrivatePlateNumber, dubaiPrivatePlateNumberLong, fujairahPrivatePlateCode, fujairahPrivatePlateNumber
+                , fujairahPrivatePlateCodeLong, fujairahPrivatePlateNumberLong, rasAlkhaimahClassicPlateNumber, rasAlkhaimahPrivatePlateCode, rasAlkhaimahPrivatePlateNumber, rasAlkhaimahPrivatePlateCodeLong, rasAlkhaimahPrivatePlateNumberLong
+                , sharjahPrivatePlateCode, sharjahPrivatePlateNumber, sharjahPrivatePlateCodeLong, sharjahPrivatePlateNumberLong, sharjahClassicPlateNumber, ummAlQuwainPrivatePlateCode, ummAlQuwainPrivatePlateNumber, ummAlQuwainPrivatePlateCodeLong, ummAlQuwainPrivatePlateNumberLong;
         TextView mobileNumberCode, mobileNumber;
 
         public ViewHolder(@NonNull View itemView) {
@@ -478,27 +511,41 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
             abuDhabiBikePlateCode = itemView.findViewById(R.id.adb_plate_code);
             abuDhabiClassicPlateCode = itemView.findViewById(R.id.adc_plate_code);
             abuDhabiPrivatePlateCode = itemView.findViewById(R.id.adp_plate_code);
+            abuDhabiPrivatePlateCodeLong = itemView.findViewById(R.id.adp_plate_code_long);
             ajmanPrivatePlateCode = itemView.findViewById(R.id.ap_plate_code);
+            ajmanPrivatePlateCodeLong = itemView.findViewById(R.id.ap_plate_code_long);
             dubaiBikePlateCode = itemView.findViewById(R.id.db_plate_code);
             dubaiPrivatePlateCode = itemView.findViewById(R.id.dp_plate_code);
+            dubaiPrivatePlateCodeLong = itemView.findViewById(R.id.dp_plate_code_long);
             fujairahPrivatePlateCode = itemView.findViewById(R.id.fp_plate_code);
+            fujairahPrivatePlateCodeLong = itemView.findViewById(R.id.fp_plate_code_long);
             rasAlkhaimahPrivatePlateCode = itemView.findViewById(R.id.rkp_plate_code);
+            rasAlkhaimahPrivatePlateCodeLong = itemView.findViewById(R.id.rkp_plate_code_long);
             sharjahPrivatePlateCode = itemView.findViewById(R.id.sp_plate_code);
+            sharjahPrivatePlateCodeLong = itemView.findViewById(R.id.sp_plate_code_long);
             ummAlQuwainPrivatePlateCode = itemView.findViewById(R.id.uqp_plate_code);
+            ummAlQuwainPrivatePlateCodeLong = itemView.findViewById(R.id.uqp_plate_code_long);
 
             abuDhabiBikePlateNumber = itemView.findViewById(R.id.adb_plate_number);
             abuDhabiClassicPlateNumber = itemView.findViewById(R.id.adc_plate_number);
             abuDhabiPrivatePlateNumber = itemView.findViewById(R.id.adp_plate_number);
+            abuDhabiPrivatePlateNumberLong = itemView.findViewById(R.id.adp_plate_number_long);
             ajmanPrivatePlateNumber = itemView.findViewById(R.id.ap_plate_number);
+            ajmanPrivatePlateNumberLong = itemView.findViewById(R.id.ap_plate_number_long);
             dubaiBikePlateNumber = itemView.findViewById(R.id.db_plate_number);
             dubaiClassicPlateNumber = itemView.findViewById(R.id.dc_plate_number);
             dubaiPrivatePlateNumber = itemView.findViewById(R.id.dp_plate_number);
+            dubaiPrivatePlateNumberLong = itemView.findViewById(R.id.dp_plate_number_long);
             fujairahPrivatePlateNumber = itemView.findViewById(R.id.fp_plate_number);
+            fujairahPrivatePlateNumberLong = itemView.findViewById(R.id.fp_plate_number_long);
             rasAlkhaimahClassicPlateNumber = itemView.findViewById(R.id.rkc_plate_number);
             rasAlkhaimahPrivatePlateNumber = itemView.findViewById(R.id.rkp_plate_number);
+            rasAlkhaimahPrivatePlateNumberLong = itemView.findViewById(R.id.rkp_plate_number_long);
             sharjahPrivatePlateNumber = itemView.findViewById(R.id.sp_plate_number);
+            sharjahPrivatePlateNumberLong = itemView.findViewById(R.id.sp_plate_number_long);
             sharjahClassicPlateNumber = itemView.findViewById(R.id.sc_plate_number);
             ummAlQuwainPrivatePlateNumber = itemView.findViewById(R.id.uqp_plate_number);
+            ummAlQuwainPrivatePlateNumberLong = itemView.findViewById(R.id.uqp_plate_number_long);
 
             mobileNumberCode = itemView.findViewById(R.id.mobile_number_code);
             mobileNumber = itemView.findViewById(R.id.mobile_number);

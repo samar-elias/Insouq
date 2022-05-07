@@ -101,6 +101,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:textAlignment="viewStart"
                 android:text="Senior Product Designer"
                 android:textColor="@color/purple_text"
                 android:fontFamily="@font/objectivity_medium"

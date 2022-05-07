@@ -50,6 +50,7 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:fontFamily="@font/objectivity_medium"
                 android:text="@string/ad_title"
+                android:textAlignment="viewStart"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toStartOf="@id/favourite"
@@ -74,6 +75,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/loc_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="@string/location"
+                android:textAlignment="viewStart"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:fontFamily="@font/objectivity_regular"
                 android:textColor="@color/purple_text"
@@ -85,7 +87,7 @@
                 android:layout_height="@dimen/_15sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/loc_icon"
-                android:src="@drawable/color_list"
+                android:src="@drawable/color"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:alpha="0.5"/>
             <TextView
@@ -136,7 +138,7 @@
                 android:layout_height="@dimen/_15sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/icon1"
-                android:src="@drawable/age_list"
+                android:src="@drawable/age_1"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:alpha="0.5"/>
             <TextView
@@ -160,7 +162,7 @@
                 android:layout_height="@dimen/_15sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/icon3"
-                android:src="@drawable/storage_list"
+                android:src="@drawable/storage"
                 android:alpha="0.5"
                 android:layout_marginTop="@dimen/_10sdp"/>
             <TextView
@@ -172,6 +174,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/icon4"
                 android:text="@string/storage"
+                android:textAlignment="viewStart"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:layout_marginStart="@dimen/_5sdp"
@@ -187,6 +190,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="AED xxx.xxx"
+                android:textAlignment="viewStart"
                 android:textColor="@color/orange"
                 android:fontFamily="@font/objectivity_bold"
                 android:textSize="@dimen/_12ssp"

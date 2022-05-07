@@ -8,6 +8,7 @@
     android:background="@color/off_white"
     android:gravity="start"
     android:padding="@dimen/_10sdp"
+    android:textAlignment="viewStart"
     android:textColor="@color/base_orange"
     android:fontFamily="@font/objectivity_regular"
     android:textSize="@dimen/_13ssp">

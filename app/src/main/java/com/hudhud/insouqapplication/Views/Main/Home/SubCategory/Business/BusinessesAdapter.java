@@ -56,7 +56,7 @@ public class BusinessesAdapter extends RecyclerView.Adapter<BusinessesAdapter.Vi
         holder.date.setText(businessAd.getPostedDate());
 
         holder.title.setText(businessAd.getTitle());
-        holder.price.setText(businessAd.getPrice()+" AED");
+        holder.price.setText("AED "+businessAd.getPrice());
 
         if (AppDefs.language.equals("ar")){
             holder.location.setText(businessAd.getArLocation());

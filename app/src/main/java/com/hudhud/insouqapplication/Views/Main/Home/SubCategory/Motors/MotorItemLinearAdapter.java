@@ -73,7 +73,7 @@ public class MotorItemLinearAdapter extends RecyclerView.Adapter<MotorItemLinear
                 }else {
                     holder.value.setText(usedCarAd.getEnColor());
                 }
-                Glide.with(context).load(R.drawable.color_list).into(holder.icon);
+                Glide.with(context).load(R.drawable.color).into(holder.icon);
                 Glide.with(context).load(R.drawable.kilometer_list).into(holder.kiloIcon);
                 break;
             case "5":
@@ -84,8 +84,8 @@ public class MotorItemLinearAdapter extends RecyclerView.Adapter<MotorItemLinear
                     holder.kilos.setText(usedCarAd.getEnLength());
                     holder.value.setText(usedCarAd.getEnAge());
                 }
-                Glide.with(context).load(R.drawable.age_list).into(holder.icon);
-                Glide.with(context).load(R.drawable.lenght_list).into(holder.kiloIcon);
+                Glide.with(context).load(R.drawable.age_1).into(holder.icon);
+                Glide.with(context).load(R.drawable.lenght_img).into(holder.kiloIcon);
                 break;
             case "7":
                 if (AppDefs.language.equals("ar")){
@@ -125,7 +125,7 @@ public class MotorItemLinearAdapter extends RecyclerView.Adapter<MotorItemLinear
                 break;
         }
 
-        holder.price.setText(usedCarAd.getPrice()+" AED");
+        holder.price.setText("AED "+usedCarAd.getPrice());
         holder.year.setText(usedCarAd.getYear());
 
 //        String postDate = usedCarAd.getPostDate().substring(0, usedCarAd.getPostDate().indexOf("T"));

@@ -125,7 +125,7 @@
                     android:id="@+id/services_posted_in_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_5sdp"/>
+                    android:padding="@dimen/_8sdp"/>
             </LinearLayout>
 
 
@@ -148,7 +148,7 @@
                 android:id="@+id/services_sub_cat_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"/>
+                android:padding="@dimen/_8sdp"/>
         </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

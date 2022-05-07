@@ -105,7 +105,7 @@
                         android:id="@+id/posted_in_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"/>
+                        android:padding="@dimen/_8sdp"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -127,7 +127,7 @@
                         android:id="@+id/professional_level_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"/>
+                        android:padding="@dimen/_8sdp"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <TextView
@@ -148,7 +148,7 @@
                         android:id="@+id/employment_types_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"/>
+                        android:padding="@dimen/_8sdp"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <TextView
@@ -169,7 +169,7 @@
                         android:id="@+id/job_types_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"/>
+                        android:padding="@dimen/_8sdp"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <TextView
@@ -190,7 +190,7 @@
                         android:id="@+id/work_experience_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"/>
+                        android:padding="@dimen/_8sdp"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <TextView
@@ -211,7 +211,7 @@
                         android:id="@+id/education_level_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"/>
+                        android:padding="@dimen/_8sdp"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.constraintlayout.widget.ConstraintLayout

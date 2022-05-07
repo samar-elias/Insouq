@@ -8,7 +8,8 @@
     android:background="@drawable/white_radius_3"
     android:layout_margin="@dimen/_15sdp"
     android:gravity="start"
-    android:textColor="@color/gray_3"
+    android:textColor="@color/blue_gray"
+    android:textAlignment="viewStart"
     android:fontFamily="@font/objectivity_regular"
     android:textSize="@dimen/_10ssp">
 

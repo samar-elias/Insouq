@@ -19,6 +19,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/remove"
         android:text="Duha"
+        android:textAlignment="viewStart"
         android:layout_gravity="center_vertical"
         android:fontFamily="@font/objectivity_regular"
         android:textColor="@color/purple_text"

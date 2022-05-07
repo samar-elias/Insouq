@@ -9,6 +9,7 @@
     android:layout_margin="@dimen/_15sdp"
     android:gravity="start"
     android:padding="@dimen/_13sdp"
+    android:textAlignment="viewStart"
     android:textColor="@color/gray_4"
     android:fontFamily="@font/objectivity_regular"
     android:textSize="@dimen/_11ssp">

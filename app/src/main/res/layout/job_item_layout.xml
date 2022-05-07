@@ -47,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Warehouse Manager"
+            android:textAlignment="viewStart"
             android:fontFamily="@font/objectivity_medium"
             android:textSize="@dimen/_12ssp"
             android:textColor="@color/purple_text"/>
@@ -71,6 +72,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/loc_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="@string/location"
+                android:textAlignment="viewStart"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:fontFamily="@font/objectivity_regular"
                 android:textColor="@color/purple_text"
@@ -85,7 +87,7 @@
         android:layout_height="@dimen/_15sdp"
         app:layout_constraintTop_toBottomOf="@id/item_view"
         app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/work_experience_list"
+        android:src="@drawable/work_experience_img"
         android:alpha="0.5"
         android:layout_marginTop="@dimen/_10sdp"/>
 
@@ -112,7 +114,7 @@
         app:layout_constraintBottom_toBottomOf="@id/time_icon"
         android:layout_marginStart="@dimen/_20sdp"
         android:alpha="0.5"
-        android:src="@drawable/phone_number_list"/>
+        android:src="@drawable/employment_type_img"/>
 
     <TextView
         android:id="@+id/job_experience"
@@ -135,6 +137,7 @@
         app:layout_constraintTop_toBottomOf="@id/time_icon"
         android:text="2 days ago"
         android:gravity="end"
+        android:textAlignment="viewEnd"
         android:fontFamily="@font/objectivity_regular"
         android:layout_marginTop="@dimen/_5sdp"
         android:textSize="@dimen/_8ssp"/>

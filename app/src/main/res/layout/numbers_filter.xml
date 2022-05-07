@@ -132,7 +132,7 @@
                     android:id="@+id/emirate_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_5sdp"/>
+                    android:padding="@dimen/_8sdp"/>
 
             </LinearLayout>
 
@@ -154,7 +154,7 @@
                     android:id="@+id/plate_type_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_5sdp"/>
+                    android:padding="@dimen/_8sdp"/>
             </LinearLayout>
 
                 <TextView
@@ -175,7 +175,7 @@
                     android:id="@+id/plate_code_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_5sdp"/>
+                    android:padding="@dimen/_8sdp"/>
             </LinearLayout>
 
                 <TextView
@@ -357,7 +357,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:text="@string/mobile_number"
                     android:background="@drawable/gray_border_raduis_5"
-                    android:padding="@dimen/_5sdp"
+                    android:padding="@dimen/_8sdp"
                     android:textAllCaps="true"
                     android:fontFamily="@font/objectivity_medium"
                     android:textColor="@color/blue_gray"
@@ -381,7 +381,7 @@
                         android:id="@+id/operators_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"/>
+                        android:padding="@dimen/_8sdp"/>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -403,7 +403,7 @@
                         android:id="@+id/codes_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"/>
+                        android:padding="@dimen/_8sdp"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <TextView
@@ -424,7 +424,7 @@
                         android:id="@+id/mobile_plan_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"/>
+                        android:padding="@dimen/_8sdp"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <TextView

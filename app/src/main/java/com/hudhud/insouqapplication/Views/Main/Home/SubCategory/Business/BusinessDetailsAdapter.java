@@ -57,6 +57,7 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
         holder.title.setText(businessAd.getTitle());
         holder.description.setText(businessAd.getDescription());
         holder.price.setText(businessAd.getPrice());
+        holder.postDate.setText(context.getResources().getString(R.string.posted_in)+" "+businessAd.getPostedDate());
 
         if (AppDefs.language.equals("ar")) {
             holder.location.setText(businessAd.getArLocation());
@@ -176,7 +177,7 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
         ConstraintLayout specificationLayout, descriptionLayout, locationLayout, directionsLayout, makeAnOffer, makeAnOffer2, contactLayout;
         ImageView backToPrevious, descriptionArrow, locationArrow, locationImage, favourite, direction, share, img, makeOfferImg;
         TextView description, reportAd, descriptionLine, applyForJob2, applyForJob, title, price, location, makeOfferTxt,
-                location2, name, member;
+                location2, name, member, postDate;
         boolean showDescription, showLocation, showSpecification;
         ImageView showSpecificationArrow, showDescriptionArrow, showLocationArrow, directions;
         TextView contactTitle;
@@ -202,6 +203,7 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
             call = itemView.findViewById(R.id.call);
             sms = itemView.findViewById(R.id.sms);
             share = itemView.findViewById(R.id.share);
+            postDate = itemView.findViewById(R.id.post_date);
 
             title = itemView.findViewById(R.id.title);
             price = itemView.findViewById(R.id.price);

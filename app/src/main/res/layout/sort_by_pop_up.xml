@@ -97,7 +97,7 @@
                 app:cornerRadius="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:backgroundTint="@color/base_orange"
-                android:text="Sort"
+                android:text="@string/sort"
                 android:textColor="@color/white"
                 android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_10ssp" />

@@ -8,25 +8,25 @@
     <ImageView
         android:id="@+id/plate_image"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_130sdp"
+        android:layout_height="@dimen/_70sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:scaleType="fitXY"
         android:src="@drawable/ras_alkhaimah_private"
-        android:layout_marginStart="@dimen/_40sdp"
-        android:layout_marginEnd="@dimen/_40sdp"/>
+        android:layout_marginStart="@dimen/_90sdp"
+        android:layout_marginEnd="@dimen/_90sdp"/>
 
     <TextView
         android:id="@+id/rkp_plate_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/plate_image"
-        app:layout_constraintEnd_toEndOf="@id/plate_image"
+        app:layout_constraintRight_toRightOf="@id/plate_image"
         android:text="1"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
-        android:textSize="@dimen/_50ssp"
+        android:textSize="@dimen/_35ssp"
         android:fontFamily="@font/bebas"
         android:textColor="@color/black"/>
 
@@ -42,7 +42,7 @@
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_3sdp"
-        android:textSize="@dimen/_65ssp"
+        android:textSize="@dimen/_35ssp"
         android:fontFamily="@font/bebas"
         android:textColor="@color/black"/>
 

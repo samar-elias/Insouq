@@ -68,7 +68,7 @@ public class MotorItemGridAdapter extends RecyclerView.Adapter<MotorItemGridAdap
                 }else {
                     holder.value.setText(usedCarAd.getEnColor());
                 }
-                Glide.with(context).load(R.drawable.color_list).into(holder.icon);
+                Glide.with(context).load(R.drawable.color).into(holder.icon);
                 Glide.with(context).load(R.drawable.kilometer_list).into(holder.kiloIcon);
                 break;
             case "5":
@@ -79,8 +79,8 @@ public class MotorItemGridAdapter extends RecyclerView.Adapter<MotorItemGridAdap
                     holder.kilos.setText(usedCarAd.getEnLength());
                     holder.value.setText(usedCarAd.getEnAge());
                 }
-                Glide.with(context).load(R.drawable.age_list).into(holder.icon);
-                Glide.with(context).load(R.drawable.lenght_list).into(holder.kiloIcon);
+                Glide.with(context).load(R.drawable.age_1).into(holder.icon);
+                Glide.with(context).load(R.drawable.lenght_img).into(holder.kiloIcon);
                 break;
             case "7":
                 if (AppDefs.language.equals("ar")){
@@ -88,6 +88,10 @@ public class MotorItemGridAdapter extends RecyclerView.Adapter<MotorItemGridAdap
                 }else {
                     holder.kilos.setText(usedCarAd.getEnPartName());
                 }
+                holder.icon.setVisibility(View.GONE);
+                holder.value.setVisibility(View.GONE);
+//                Glide.with(context).load(R.drawable.age_1).into(holder.kiloIcon);
+//                Glide.with(context).load(R.drawable.condition_2).into(holder.yearIcon);
                 break;
 
         }
@@ -121,7 +125,7 @@ public class MotorItemGridAdapter extends RecyclerView.Adapter<MotorItemGridAdap
                 break;
         }
 
-        holder.price.setText(usedCarAd.getPrice()+" AED");
+        holder.price.setText("AED "+usedCarAd.getPrice());
         holder.year.setText(usedCarAd.getYear());
         if (usedCarAd.getIsFav().equals("true")){
             fav = true;

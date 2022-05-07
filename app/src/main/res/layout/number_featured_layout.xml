@@ -42,6 +42,7 @@
         android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
+        android:textAlignment="viewStart"
         android:text="G-24585"
         android:fontFamily="@font/objectivity_medium"
         android:textColor="@color/purple_text"

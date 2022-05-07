@@ -46,6 +46,8 @@
                     android:fontFamily="@font/objectivity_medium"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:gravity="start"
+                    android:textAlignment="viewStart"
                     android:layout_marginEnd="@dimen/_3sdp"
                     android:textColor="@color/purple_text"
                     android:textSize="@dimen/_10ssp"/>
@@ -75,6 +77,8 @@
                     app:layout_constraintBottom_toBottomOf="@id/loc_icon"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:text="@string/location"
+                    android:gravity="start"
+                    android:textAlignment="viewStart"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/objectivity_regular"
                     android:textColor="@color/purple_text"
@@ -114,6 +118,8 @@
                     android:textColor="@color/orange"
                     android:fontFamily="@font/objectivity_bold"
                     android:textSize="@dimen/_10ssp"
+                    android:gravity="start"
+                    android:textAlignment="viewStart"
                     android:layout_marginTop="@dimen/_10sdp"/>
                 <TextView
                     android:id="@+id/posted_date"

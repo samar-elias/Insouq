@@ -119,6 +119,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Anissa"
+                    android:textAlignment="viewStart"
                     android:backgroundTint="@color/gray"
                     android:textColorHint="@color/black"
                     android:textColor="@color/black"
@@ -141,6 +142,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Wang"
+                    android:textAlignment="viewStart"
                     android:backgroundTint="@color/gray"
                     android:textColorHint="@color/black"
                     android:textColor="@color/black"
@@ -165,6 +167,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="example@example.com"
+                    android:textAlignment="viewStart"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/objectivity_regular"
@@ -439,6 +442,7 @@
                     android:backgroundTint="@color/gray"
                     android:textColorHint="@color/gray"
                     android:textColor="@color/black"
+                    android:textAlignment="viewStart"
                     android:fontFamily="@font/objectivity_regular"
                     android:textSize="@dimen/_13ssp"
                     android:hint="@string/current_location"/>
@@ -449,6 +453,7 @@
                     android:backgroundTint="@color/gray"
                     android:textColorHint="@color/gray"
                     android:textColor="@color/black"
+                    android:textAlignment="viewStart"
                     android:fontFamily="@font/objectivity_regular"
                     android:textSize="@dimen/_13ssp"
                     android:hint="@string/current_position"/>
@@ -459,6 +464,7 @@
                     android:backgroundTint="@color/gray"
                     android:textColorHint="@color/gray"
                     android:textColor="@color/black"
+                    android:textAlignment="viewStart"
                     android:fontFamily="@font/objectivity_regular"
                     android:textSize="@dimen/_13ssp"
                     android:hint="@string/current_company"/>
@@ -546,6 +552,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:hint="@string/cover_note"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray"
                     android:backgroundTint="@color/gray"
@@ -583,7 +590,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="The weekly dubizzle newsletter of the most popular steals"
+                    android:text="@string/the_weekly_insouq_newsletter_of_the_most_popular_steals"
                     android:textColor="@color/purple_text"
                     android:fontFamily="@font/objectivity_medium"
                     android:buttonTint="@color/purple"
@@ -592,7 +599,7 @@
                 <CheckBox
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Amazing offers and bargains from our advertising partners"
+                    android:text="@string/amazing_offers_and_bargains_from_our_advertising_partners"
                     android:textColor="@color/purple_text"
                     android:fontFamily="@font/objectivity_medium"
                     android:buttonTint="@color/purple"

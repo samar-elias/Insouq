@@ -65,16 +65,16 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
         ArrayList<specificationModel> motorSpecifications = new ArrayList<>();
         if (!motorAd.getEnModel().equals("null")){
             if (AppDefs.language.equals("ar")){
-                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.brand), motorAd.getArMaker(), R.drawable.maker_img));
+                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.brand), motorAd.getArMaker(), R.drawable.brand_img_));
             }else {
-                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.brand), motorAd.getEnMaker(), R.drawable.maker_img));
+                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.brand), motorAd.getEnMaker(), R.drawable.brand_img_));
             }
         }
         if (!motorAd.getEnModel().equals("null")){
             if (AppDefs.language.equals("ar")){
-                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.model), motorAd.getArModel(), R.drawable.model_img));
+                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.model), motorAd.getArModel(), R.drawable.cars_model));
             }else {
-                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.model), motorAd.getEnModel(), R.drawable.model_img));
+                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.model), motorAd.getEnModel(), R.drawable.cars_model));
             }
         }
         if (!motorAd.getEnTrim().equals("null")){
@@ -185,7 +185,7 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
             if (AppDefs.language.equals("ar")){
                 motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.age), motorAd.getArAge(), R.drawable.age_1));
             }else {
-                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.age), motorAd.getEnAge(), R.drawable.age));
+                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.age), motorAd.getEnAge(), R.drawable.age_1));
             }
         }
         if (!motorAd.getEnUsage().equals("null")){
@@ -230,13 +230,15 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
                 motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.steering_side), motorAd.getEnSteeringSide(), R.drawable.steering_side_img));
             }
         }
-        if (!motorAd.getEnPartName().equals("null")){
-            if (AppDefs.language.equals("ar")){
-                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.name_of_part), motorAd.getArPartName(), R.drawable.name_of_part_img));
-            }else {
-                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.name_of_part), motorAd.getEnPartName(), R.drawable.name_of_part_img));
-            }
-        }
+
+//        if (!motorAd.getEnPartName().equals("null")){
+//            if (AppDefs.language.equals("ar")){
+//                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.name_of_part), motorAd.getArPartName(), R.drawable.name_of_part_img));
+//            }else {
+//                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.name_of_part), motorAd.getEnPartName(), R.drawable.name_of_part_img));
+//            }
+//        }
+
         if (!motorAd.getEnEngineSize().equals("null")){
             if (AppDefs.language.equals("ar")){
                 motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.engine_size), motorAd.getArEngineSize(), R.drawable.engine_size_img));
@@ -260,7 +262,7 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
             case "2":
             case "8":
             case "9":
-                holder.kilo.setText(motorAd.getKiloMeters()+" KM");
+                holder.kilo.setText(motorAd.getKiloMeters());
                 break;
             case "5":
                 if (AppDefs.language.equals("ar")){

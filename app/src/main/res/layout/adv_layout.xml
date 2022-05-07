@@ -34,6 +34,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:scaleType="fitXY"
+                android:src="@drawable/insouq_logo"
                 android:background="@drawable/white_radius_10" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,6 +53,8 @@
                     android:text="2017 Macbook Air 13 inch"
                     android:textColor="@color/purple_text"
                     android:textSize="@dimen/_10ssp"
+                    android:gravity="start"
+                    android:textAlignment="viewStart"
                     android:ellipsize="end"
                     android:maxLines="1"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +67,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/objectivity_bold"
                     android:text=""
+                    android:gravity="start"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/orange"
                     android:textSize="@dimen/_10ssp"
                     android:layout_marginTop="@dimen/_5sdp"

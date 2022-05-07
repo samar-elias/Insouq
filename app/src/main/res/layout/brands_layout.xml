@@ -33,6 +33,8 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:text="Private car"
+            android:gravity="start"
+            android:textAlignment="viewStart"
             android:fontFamily="@font/objectivity_bold"
             android:textColor="@color/purple_text"
             android:textSize="@dimen/_15ssp"/>

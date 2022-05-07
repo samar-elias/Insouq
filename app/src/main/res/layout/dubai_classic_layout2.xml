@@ -22,9 +22,9 @@
         android:layout_width="1dp"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="@id/plate_image"
-        app:layout_constraintEnd_toEndOf="@id/plate_image"
+        app:layout_constraintRight_toRightOf="@id/plate_image"
         app:layout_constraintHorizontal_bias="0.38"
-        app:layout_constraintStart_toStartOf="@id/plate_image"
+        app:layout_constraintLeft_toLeftOf="@id/plate_image"
         app:layout_constraintTop_toTopOf="@id/plate_image" />
     <TextView
         android:id="@+id/dc_plate_number2"
@@ -32,8 +32,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/plate_image"
         app:layout_constraintBottom_toBottomOf="@id/plate_image"
-        app:layout_constraintStart_toStartOf="@id/line"
-        app:layout_constraintEnd_toEndOf="@id/plate_image"
+        app:layout_constraintLeft_toLeftOf="@id/line"
+        app:layout_constraintRight_toRightOf="@id/plate_image"
         android:text="00000"
         android:gravity="center"
         android:layout_marginStart="@dimen/_3sdp"

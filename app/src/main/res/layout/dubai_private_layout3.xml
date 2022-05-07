@@ -8,24 +8,24 @@
     <ImageView
         android:id="@+id/plate_image"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_130sdp"
+        android:layout_height="@dimen/_70sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:scaleType="fitXY"
         android:src="@drawable/dubai_private"
-        android:layout_marginStart="@dimen/_40sdp"
-        android:layout_marginEnd="@dimen/_40sdp"/>
+        android:layout_marginStart="@dimen/_90sdp"
+        android:layout_marginEnd="@dimen/_90sdp"/>
 
     <TextView
         android:id="@+id/dp_plate_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/plate_image"
-        app:layout_constraintEnd_toEndOf="@id/plate_image"
+        app:layout_constraintRight_toRightOf="@id/plate_image"
         android:text="A"
         android:layout_marginEnd="@dimen/_12sdp"
-        android:textSize="@dimen/_50ssp"
+        android:textSize="@dimen/_35ssp"
         android:fontFamily="@font/bebas"
         android:textColor="@color/black"/>
 
@@ -34,14 +34,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/plate_image"
-        app:layout_constraintStart_toStartOf="@id/plate_image"
-        app:layout_constraintEnd_toEndOf="@id/plate_image"
+        app:layout_constraintLeft_toLeftOf="@id/plate_image"
+        app:layout_constraintRight_toRightOf="@id/plate_image"
         android:text="00000"
         android:gravity="center"
         android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_3sdp"
-        android:textSize="@dimen/_50ssp"
+        android:textSize="@dimen/_35ssp"
         android:fontFamily="@font/bebas"
         android:textColor="@color/black"/>
 

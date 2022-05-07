@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
+import com.hudhud.insouqapplication.AppUtils.Helpers.LocaleHelper;
 import com.hudhud.insouqapplication.AppUtils.Responses.UserFS;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
 import com.hudhud.insouqapplication.R;
@@ -49,6 +50,7 @@ public class ProfileFragment extends Fragment {
     boolean isEnglish = true;
     boolean visibleListing = false;
     CircleImageView profileImage;
+    String lang = "en";
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -120,6 +122,14 @@ public class ProfileFragment extends Fragment {
             String newPic = AppDefs.user.getProfilePicture().replace("\\", "/");
             Glide.with(mainActivity).load(newPic).into(profileImage);
         }
+
+        if (AppDefs.language.equals("ar")){
+            isEnglish = false;
+            language.setText("English");
+        }else {
+            isEnglish = true;
+            language.setText("عربي");
+        }
     }
 
     private void onClick(){
@@ -161,12 +171,17 @@ public class ProfileFragment extends Fragment {
 
         language.setOnClickListener(view -> {
             if (isEnglish){
-                language.setText("Arabic");
+                language.setText("عربي");
                 isEnglish = false;
+                lang = "ar";
             }else {
                 language.setText("English");
                 isEnglish = true;
+                lang = "en";
             }
+            LocaleHelper.setAppLocale(lang, mainActivity);
+            AppDefs.language = lang;
+            saveUserToSharedPreferences();
 //            changeLanguage();
         });
     }
@@ -244,6 +259,20 @@ public class ProfileFragment extends Fragment {
             myAdsOptionsAlertBuilder.dismiss();
         });
         close.setOnClickListener(view -> myAdsOptionsAlertBuilder.dismiss());
+    }
+
+    private void saveUserToSharedPreferences(){
+        SharedPreferences sharedPreferences = mainActivity.getSharedPreferences(AppDefs.SHARED_PREF_KEY,MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(AppDefs.LANGUAGE_KEY, AppDefs.language);
+
+        editor.apply();
+
+        Intent intent = new Intent(mainActivity, SplashActivity.class);
+        startActivity(intent);
+        mainActivity.finish();
+
     }
 
     private void showLogoutMessage(){

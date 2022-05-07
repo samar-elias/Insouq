@@ -32,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="View On Car"
+            android:text="@string/view_in_car"
             android:fontFamily="@font/objectivity_medium"
             android:textColor="@color/white"
             android:textSize="@dimen/_15ssp"/>
@@ -237,7 +237,7 @@
 
         <include
             android:id="@+id/abu_dhabi_bike_layout2"
-            layout="@layout/abu_dhabi_bike_layout2"
+            layout="@layout/abu_dhabi_bike_layout_long2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="visible"
@@ -259,7 +259,7 @@
 
         <include
             android:id="@+id/abu_dhabi_private_layout2"
-            layout="@layout/abu_dhabi_private_layout2"
+            layout="@layout/abu_dhabi_private_layout_long2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -270,7 +270,7 @@
 
         <include
             android:id="@+id/ajman_private_layout2"
-            layout="@layout/ajman_private_layout2"
+            layout="@layout/ajman_private_layout_long2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="invisible"
@@ -303,7 +303,7 @@
 
         <include
             android:id="@+id/dubai_private_layout2"
-            layout="@layout/dubai_private_layout2"
+            layout="@layout/dubai_private_layout_long2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="invisible"
@@ -314,7 +314,7 @@
 
         <include
             android:id="@+id/fujairah_private_layout2"
-            layout="@layout/fujairah_private_layout2"
+            layout="@layout/fujairah_private_layout_long2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="invisible"
@@ -336,7 +336,7 @@
 
         <include
             android:id="@+id/ras_alkhaimah_private_layout2"
-            layout="@layout/ras_alkhaimah_private_layout2"
+            layout="@layout/ras_alkhaimah_private_layout_long2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="invisible"
@@ -347,7 +347,7 @@
 
         <include
             android:id="@+id/sharjah_private_layout2"
-            layout="@layout/sharjah_private_layout2"
+            layout="@layout/sharjah_private_layout_long2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="invisible"
@@ -369,7 +369,7 @@
 
         <include
             android:id="@+id/umm_alqwain_private_layout2"
-            layout="@layout/umm_alqwain_private_layout2"
+            layout="@layout/umm_alqwain_private_layout_long2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -399,7 +399,7 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:paddingTop="@dimen/_10sdp"
             android:paddingBottom="@dimen/_10sdp"
-            android:text="Share"
+            android:text="@string/share"
             android:textAllCaps="true"
             android:gravity="center"
             android:textColor="@color/white"
@@ -420,7 +420,7 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:paddingTop="@dimen/_10sdp"
             android:paddingBottom="@dimen/_10sdp"
-            android:text="Save"
+            android:text="@string/save"
             android:textAllCaps="true"
             android:gravity="center"
             android:textColor="@color/white"
