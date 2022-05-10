@@ -15,6 +15,7 @@
         android:backgroundTint="@color/light_purple_text"
         android:visibility="gone"/>
     <LinearLayout
+        android:elevation="0.3dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"

@@ -846,4 +846,5 @@ public class BusinessChatDetailsActivity extends AppCompatActivity {
 
     }
 
+
 }

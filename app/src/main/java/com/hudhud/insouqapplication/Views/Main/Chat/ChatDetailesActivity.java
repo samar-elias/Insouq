@@ -4,9 +4,13 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -17,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -27,6 +32,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.ClientError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
@@ -39,7 +45,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -56,6 +64,10 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -81,8 +93,8 @@ public class ChatDetailesActivity extends AppCompatActivity {
     public RequestQueue queue;
 
     RecyclerView recyclerView;
-    RoundedImageView images;
-    CircleImageView profile_image;
+    AppCompatImageView images;
+    AppCompatImageView profile_image;
     TextView username, adds_detailes, tv_adds_price, tv_adds_time,tv_unblock,view_add;
     private ArrayList<Integer> mKeys ;
 
@@ -185,6 +197,11 @@ public class ChatDetailesActivity extends AppCompatActivity {
                 showInfo();
             }
         });
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+
+            }
+        }, 1000);
 
         firebaseManger.getDatabaseReference().child(Constant.Chats).child(chat_id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -249,7 +266,7 @@ public class ChatDetailesActivity extends AppCompatActivity {
         dialog.setCancelable(false);
 
 
-        adapter = new MessagesAdapter(this, this, messages,image);
+        adapter = new MessagesAdapter(this, this, messages,userImage);
         LinearLayoutManager llm = new LinearLayoutManager(this);
        /* llm.setReverseLayout(true);
         llm.setStackFromEnd(true);*/
@@ -296,6 +313,8 @@ public class ChatDetailesActivity extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                changeSeen();
+
                 String messageTxt = messageEdt.getText().toString();
 
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a", Locale.US);
@@ -374,32 +393,55 @@ public class ChatDetailesActivity extends AppCompatActivity {
                     Calendar calendar = Calendar.getInstance();
                     StorageReference reference = storage.getReference().child("Chats").child(calendar.getTimeInMillis() + "");
                     dialog.show();
-                    reference.putFile(selectedImage).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    String filePath = selectedImage.toString();
+                    Uri selectedfile = data.getData(); //The uri with the location of the file
+                    if (selectedfile != null) {
+                        Bitmap bitmap = null;
+                        try {
+                            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedfile);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                        byte[] byteArray = outputStream.toByteArray();
+
+                        //Use your Base64 String as you wish
+                        String encodedString = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                        Log.d("myfile",encodedString);
+
+                        JSONObject csaveChatinfoObject = new JSONObject();
+                        try {
+                            csaveChatinfoObject.put("image64", encodedString);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        List<String> file = new ArrayList<>();
+                        List<String> LocURL = new ArrayList<>();
+                        JsonObjectRequest changePasswordRequest = new JsonObjectRequest(Request.Method.POST, Urls.AddImageChat, csaveChatinfoObject, response -> {
+                            //mainActivity.hideProgressDialog();
                             dialog.dismiss();
-                            if (task.isSuccessful()) {
-                                reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        String filePath = uri.toString();
-                                        List<String> file = new ArrayList<>();
-                                        List<String> LocURL = new ArrayList<>();
+                            try {
 
-                                        String randomKey = database.getReference().push().getKey();
+                                Log.d("img",response.getString("results"));
 
-                                        String messageTxt = messageEdt.getText().toString();
 
-                                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a", Locale.US);
+                                String randomKey = database.getReference().push().getKey();
 
-                                        String time = df.format(new Date());
-                                        //  Message message = new Message(messageTxt, senderUid, date.getTime());
-                                        Message message = new Message(Integer.valueOf(AppDefs.user.getId()), messageTxt, true, true, String.valueOf(time), 2, chat_id, randomKey, LocURL, file);
+                                String messageTxt = messageEdt.getText().toString();
 
-                                        message.setMessage("photo");
-                                        file.add(filePath);
-                                        message.setFiles(file);
-                                        messageEdt.setText("");
+                                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a", Locale.US);
+
+                                String time = df.format(new Date());
+                                //  Message message = new Message(messageTxt, senderUid, date.getTime());
+                                Message message = new Message(Integer.valueOf(AppDefs.user.getId()), messageTxt, true, true, String.valueOf(time), 2, chat_id, randomKey, LocURL, file);
+
+                                message.setMessage("photo");
+                                file.add(response.getString("results"));
+                                message.setFiles(file);
+                                messageEdt.setText("");
 
 
 
@@ -410,13 +452,13 @@ public class ChatDetailesActivity extends AppCompatActivity {
                                         database.getReference().child("Chats").child(senderRoom).updateChildren(lastMsgObj);
                                         database.getReference().child("Chats").child(receiverRoom).updateChildren(lastMsgObj);*/
 
-                                        database.getReference().child("Chats")
-                                                .child(chat_id)
-                                                .child("message")
-                                                .child(randomKey)
-                                                .setValue(message).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
+                                database.getReference().child("Chats")
+                                        .child(chat_id)
+                                        .child("message")
+                                        .child(randomKey)
+                                        .setValue(message).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
                                                 /*database.getReference().child("Chats")
                                                         .child(receiverRoom)
                                                         .child("message")
@@ -427,18 +469,48 @@ public class ChatDetailesActivity extends AppCompatActivity {
 
                                                     }
                                                 });*/
-                                            }
-                                        });
+                                    }
+                                });
+                    /*reference.putFile(selectedImage).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            dialog.dismiss();
+                            if (task.isSuccessful()) {
+                                reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+
 
                                         //Toast.makeText(ChatActivity.this, filePath, Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
                         }
-                    });
+                    });*/
+                                Toast.makeText(this, "add success", Toast.LENGTH_LONG).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                // Toast.makeText(mainActivity, e.toString(), Toast.LENGTH_LONG).show();
+
+                            }
+                        }, error -> {
+                            //  mainActivity.hideProgressDialog();
+                            //  mainActivity.showResponseMessage(getResources().getString(R.string.change_password), getResources().getString(R.string.wrong_current_password));
+                        });
+                        queue.add(changePasswordRequest);
+                    }
+
+
+
+
                 }
             }
         }
+
+
+
+
+
     }
 
 
@@ -509,12 +581,14 @@ public class ChatDetailesActivity extends AppCompatActivity {
                     });
 
                 }
+
+
             }
         });
     }
     private void changeSeen(){
-         firebaseManger.getDatabaseReference().child(Constant.Chats).child(chat_id).child("message").
-                addListenerForSingleValueEvent(new ValueEventListener() {
+        Query query = firebaseManger.getDatabaseReference().child(Constant.Chats).child(chat_id).child("message");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         final HashMap<String, Object> post1 = new HashMap<>();
@@ -527,10 +601,16 @@ public class ChatDetailesActivity extends AppCompatActivity {
                                 firebaseManger.getDatabaseReference().child(Constant.Chats).child(chat_id)
                                         .child("message").child(message.getMessageId()).updateChildren(post1);
 
+
                             }
 
 
+
+
                         }
+
+
+
 
                     }
 
@@ -547,8 +627,9 @@ public class ChatDetailesActivity extends AppCompatActivity {
         firebaseManger.getDatabaseReference().child(Constant.Chats).child(chat_id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                changeSeen();
+
                 if (dataSnapshot.exists()) {
+                    changeSeen();
                     Chats chats = dataSnapshot.getValue(Chats.class);
                     chats.getCustumerUserId();
 
@@ -608,20 +689,12 @@ public class ChatDetailesActivity extends AppCompatActivity {
                             Message chatModel = snapshot.getValue(Message.class);
                             Integer location = chatModel.getSeen();
                             mKeys.add(location);
-                            for (int i=mKeys.size();i>=1;i--){
-                                messages.set(messages.size()-i, chatModel);
-                                adapter.notifyDataSetChanged();
+                            if (mKeys.size() != -1){
+                                for (int i=mKeys.size();i>=1;i--){
+                                    messages.set(messages.size()-i, chatModel);
+                                    adapter.notifyDataSetChanged();
+                                }
                             }
-
-
-
-
-
-
-
-
-
-
 
                         }
 
@@ -674,6 +747,21 @@ public class ChatDetailesActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    public static String getBase64FromPath(String path) {
+        String base64 = "";
+        try {/*from   w w w .  ja  va  2s  .  c om*/
+            File file = new File(path);
+            byte[] buffer = new byte[(int) file.length() + 100];
+            @SuppressWarnings("resource")
+            int length = new FileInputStream(file).read(buffer);
+            base64 = Base64.encodeToString(buffer, 0, length,
+                    Base64.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return base64;
     }
 
 
