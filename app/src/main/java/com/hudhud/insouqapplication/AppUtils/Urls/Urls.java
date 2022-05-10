@@ -31,5 +31,6 @@ public class Urls {
     public static String GetChatsByAdId= BASE_URL+"Chat/GetChatsByAdId";
     public static String SaveChat=BASE_URL+"Chat/SaveChat";
     public static String AdsDetailes=BASE_URL+"Ads/GetAd?adId=";
+    public static String AddImageChat=BASE_URL+"Chat/SaveChatImages";
 
 }

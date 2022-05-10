@@ -514,7 +514,7 @@ public class BusinessDetailsFragment extends Fragment {
                 JSONObject userObject = new JSONObject(response);
                 firstName = userObject.getString("firstName");
                 lastName = userObject.getString("lastName");
-                hideInfo=userObject.getBoolean("");
+                //hideInfo=userObject.getBoolean("");
 
                 String newPic = "https://insouq.com" + userObject.getString("profilePicture").replace("\\", "/");
 
@@ -595,7 +595,7 @@ public class BusinessDetailsFragment extends Fragment {
 
                 Log.d("myadd", userObject.toString());
 
-                navToChat();
+                //navToChat();
 
 
             } catch (JSONException e) {

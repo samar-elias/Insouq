@@ -2,6 +2,8 @@ package com.hudhud.insouqapplication.Views.Main.Chat;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +25,11 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHolder> {
 
@@ -86,7 +91,7 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
         holder.last_massage.setText(chat.getLastMessage());
       //  DateFormat.getTimeInstance(DateFormat.MEDIUM).format(date);
 
-        try {
+       /* try {
             String originalString = chat.getLastUpdate();
             Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(originalString);
             String newstr = new SimpleDateFormat("H:mm").format(date);
@@ -96,7 +101,17 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
             //Handle exception here
             e.printStackTrace();
 
-    }
+    }*/
+        String originalString = chat.getLastUpdate();
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(originalString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String newstr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+        String timeAgo=covertTimeToText(newstr);
+        holder.time.setText(String.valueOf(timeAgo));
 
         String newPic = chat.getAdMainImage().replace("\\", "/");
         Glide.with(context).load(Urls.IMAGE_URL+newPic).into(holder.image);
@@ -174,5 +189,54 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
             time=itemView.findViewById(R.id.time);
 
         }
+
     }
+    public String covertTimeToText(String dataDate) {
+
+        String convTime = null;
+
+        String prefix = "";
+        String suffix = "Ago";
+
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date pasTime = dateFormat.parse(dataDate);
+
+            Date nowTime = new Date();
+
+            long dateDiff = nowTime.getTime() - pasTime.getTime();
+
+            long second = TimeUnit.MILLISECONDS.toSeconds(dateDiff);
+            long minute = TimeUnit.MILLISECONDS.toMinutes(dateDiff);
+            long hour   = TimeUnit.MILLISECONDS.toHours(dateDiff);
+            long day  = TimeUnit.MILLISECONDS.toDays(dateDiff);
+
+            if (second < 60) {
+                convTime = second + " Seconds " + suffix;
+            } else if (minute < 60) {
+                convTime = minute + " Minutes "+suffix;
+            } else if (hour < 24) {
+                convTime = hour + " Hours "+suffix;
+            } else if (day >= 7) {
+                if (day > 360) {
+                    convTime = (day / 360) + " Years " + suffix;
+                } else if (day > 30) {
+                    convTime = (day / 30) + " Months " + suffix;
+                } else {
+                    convTime = (day / 7) + " Week " + suffix;
+                }
+            } else if (day < 7) {
+                convTime = day+" Days "+suffix;
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Log.e("ConvTimeE", e.getMessage());
+        }
+
+        return convTime;
+    }
+
+
 }
+
