@@ -153,7 +153,7 @@
                         android:textSize="@dimen/_10ssp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/purple_text"
-                        android:fontFamily="@font/objectivity_regular"/>
+                        android:fontFamily="@font/objectivity_medium"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -192,7 +192,7 @@
                         android:textSize="@dimen/_10ssp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/purple_text"
-                        android:fontFamily="@font/objectivity_regular"/>
+                        android:fontFamily="@font/objectivity_medium"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/jobs"
@@ -230,7 +230,7 @@
                         android:textSize="@dimen/_10ssp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/purple_text"
-                        android:fontFamily="@font/objectivity_regular"/>
+                        android:fontFamily="@font/objectivity_medium"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/services"
@@ -268,7 +268,7 @@
                         android:textSize="@dimen/_10ssp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/purple_text"
-                        android:fontFamily="@font/objectivity_regular"/>
+                        android:fontFamily="@font/objectivity_medium"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
             <LinearLayout
@@ -319,7 +319,7 @@
                         android:textSize="@dimen/_10ssp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/purple_text"
-                        android:fontFamily="@font/objectivity_regular"/>
+                        android:fontFamily="@font/objectivity_medium"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -358,7 +358,7 @@
                         android:textSize="@dimen/_10ssp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/purple_text"
-                        android:fontFamily="@font/objectivity_regular"/>
+                        android:fontFamily="@font/objectivity_medium"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/numbers"
@@ -396,7 +396,7 @@
                         android:textSize="@dimen/_10ssp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/purple_text"
-                        android:fontFamily="@font/objectivity_regular"/>
+                        android:fontFamily="@font/objectivity_medium"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/property"
@@ -436,7 +436,7 @@
                         android:textSize="@dimen/_10ssp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textColor="@color/purple_text"
-                        android:fontFamily="@font/objectivity_regular"/>
+                        android:fontFamily="@font/objectivity_medium"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
             <include
@@ -905,7 +905,7 @@
                         android:layout_marginEnd="@dimen/_15sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:textSize="@dimen/_10ssp"
-                        android:fontFamily="@font/objectivity_regular"
+                        android:fontFamily="@font/objectivity_medium"
                         android:textColor="@color/purple_text"
                         android:alpha="0.5"
                         android:text="@string/alert_description"/>

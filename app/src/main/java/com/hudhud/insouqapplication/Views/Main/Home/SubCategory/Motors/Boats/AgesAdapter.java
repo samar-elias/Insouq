@@ -50,8 +50,8 @@ public class AgesAdapter extends RecyclerView.Adapter<AgesAdapter.ViewHolder> {
                 AppDefs.brand = brand.getId();
                 filter1Fragment.navigateToList();
             }else {
-                AppDefs.brand = brand.getTitleEn()+"^"+brand.getTitleAr();
-                filter1Fragment.navigateToModels(brand.getTitleEn()+"^"+brand.getTitleAr());
+                AppDefs.brand = brand.getTitleEn()+"-"+brand.getTitleAr();
+                filter1Fragment.navigateToModels(brand.getTitleEn()+"-"+brand.getTitleAr());
             }
         });
     }

@@ -11,7 +11,7 @@
     android:padding="@dimen/_13sdp"
     android:textAlignment="viewStart"
     android:textColor="@color/gray_4"
-    android:fontFamily="@font/objectivity_regular"
+    android:fontFamily="@font/objectivity_medium"
     android:textSize="@dimen/_11ssp">
 
 </TextView>

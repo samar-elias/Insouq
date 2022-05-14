@@ -260,6 +260,7 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
         holder.title.setText(newAd.getTitle());
         holder.description.setText(newAd.getDescription());
         holder.price.setText(newAd.getPrice());
+        holder.postDate.setText(context.getResources().getString(R.string.posted_on)+" "+newAd.getPostDate());
 
         if (AppDefs.language.equals("ar")) {
             holder.location.setText(newAd.getArLocation());
@@ -271,13 +272,6 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
 
         numberDetailsFragment.getUserInfo(newAd.getUserId(), holder.img, holder.name, holder.member);
 
-        if (!newAd.getEmirate().equals("null")){
-            if (AppDefs.language.equals("ar")){
-                numbersSpecifications.add(new specificationModel(context.getResources().getString(R.string.emirate), newAd.getArEmirate(), R.drawable.emirate_img));
-            }else {
-                numbersSpecifications.add(new specificationModel(context.getResources().getString(R.string.emirate), newAd.getEmirate(), R.drawable.emirate_img));
-            }
-        }
         if (!newAd.getPlateType().equals("null")){
             if (AppDefs.language.equals("ar")){
                 numbersSpecifications.add(new specificationModel(context.getResources().getString(R.string.plate_type), newAd.getArPlateType(), R.drawable.plate_type_img));
@@ -301,6 +295,13 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
         }
         if (!newAd.getPlateCode().equals("null")){
             numbersSpecifications.add(new specificationModel(context.getResources().getString(R.string.plate_code), newAd.getPlateCode(), R.drawable.plate_code_img));
+        }
+        if (!newAd.getEmirate().equals("null")){
+            if (AppDefs.language.equals("ar")){
+                numbersSpecifications.add(new specificationModel(context.getResources().getString(R.string.emirate), newAd.getArEmirate(), R.drawable.emirate_img));
+            }else {
+                numbersSpecifications.add(new specificationModel(context.getResources().getString(R.string.emirate), newAd.getEmirate(), R.drawable.emirate_img));
+            }
         }
 
 
@@ -391,6 +392,14 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
             }
         });
 
+        if (AppDefs.language.equals("ar")){
+            holder.next.setScaleX(-1);
+            holder.previous.setScaleX(-1);
+        }else {
+            holder.next.setScaleX(1);
+            holder.previous.setScaleX(1);
+        }
+
         holder.backToPrevious.setOnClickListener(view -> numberDetailsFragment.navigateBack());
     }
 
@@ -402,7 +411,7 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
     public class ViewHolder extends RecyclerView.ViewHolder {
         ConstraintLayout specificationLayout, descriptionLayout, locationLayout, directionsLayout, makeAnOffer, makeAnOffer2, contactLayout;
         ImageView backToPrevious, descriptionArrow, locationArrow, locationImage, favourite, direction, share, img, makeOfferImg;
-        TextView description, reportAd, descriptionLine, applyForJob2, applyForJob, title, price, location, makeOfferTxt,
+        TextView description, reportAd, descriptionLine, postDate, applyForJob2, applyForJob, title, price, location, makeOfferTxt,
                 location2, name, member;
         boolean showDescription, showLocation, showSpecification;
         ImageView showSpecificationArrow, showDescriptionArrow, showLocationArrow, directions;
@@ -464,6 +473,7 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
             descriptionArrow = itemView.findViewById(R.id.show_description_arrow);
             description = itemView.findViewById(R.id.description);
             descriptionLine = itemView.findViewById(R.id.line2);
+            postDate = itemView.findViewById(R.id.post_date);
             showDescription = false;
             descriptionLine.setVisibility(View.GONE);
             description.setVisibility(View.GONE);

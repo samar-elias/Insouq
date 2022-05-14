@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textColor="@color/base_orange"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_12ssp"
                 android:hint="00000000"
                 android:textAlignment="viewStart"
@@ -135,7 +135,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/date_of_birth"
                     android:textColor="@color/base_orange"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_12ssp"/>
                 <ImageView
                     android:id="@+id/calender"
@@ -195,7 +195,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textColor="@color/base_orange"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_12ssp"
                 android:hint="@string/cover_note"
                 android:textAlignment="viewStart"
@@ -257,7 +257,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textColor="@color/base_orange"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_12ssp"
                 android:hint="@string/current_company"
                 android:textColorHint="@color/base_orange"/>
@@ -276,7 +276,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textColor="@color/base_orange"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_12ssp"
                 android:hint="@string/current_position"
                 android:textColorHint="@color/base_orange"/>

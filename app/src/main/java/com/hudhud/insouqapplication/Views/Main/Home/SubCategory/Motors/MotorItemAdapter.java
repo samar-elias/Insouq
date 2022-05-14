@@ -100,8 +100,8 @@ public class MotorItemAdapter extends RecyclerView.Adapter<MotorItemAdapter.View
                 }
                 holder.icon.setVisibility(View.GONE);
                 holder.value.setVisibility(View.GONE);
-                Glide.with(context).load(R.drawable.age_1).into(holder.kiloIcon);
-                Glide.with(context).load(R.drawable.condition_2).into(holder.yearIcon);
+                Glide.with(context).load(R.drawable.part_name).into(holder.kiloIcon);
+                Glide.with(context).load(R.drawable.car_year).into(holder.yearIcon);
                 break;
         }
 

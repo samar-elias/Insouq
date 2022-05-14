@@ -74,19 +74,19 @@
             <ImageView
                 android:id="@+id/sell_icon"
                 android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="@dimen/_35sdp"
+                app:layout_constraintTop_toTopOf="@id/sell_item_title"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="@id/sell_item_title"
                 android:src="@drawable/motors_pink"/>
             <TextView
                 android:id="@+id/sell_item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/sell_icon"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="@dimen/_5sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/sell_icon"
                 android:text="@string/motors"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:textSize="@dimen/_30ssp"
                 android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/purple_text"/>
@@ -97,6 +97,7 @@
                 app:layout_constraintStart_toEndOf="@id/sell_item_title"
                 app:layout_constraintBottom_toBottomOf="@id/sell_item_title"
                 android:text="@string/it_is"
+                android:visibility="gone"
                 android:textSize="@dimen/_30ssp"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
@@ -111,8 +112,8 @@
                 android:text="@string/what_exactly_would_you_like_to_list_in"
                 android:textSize="@dimen/_12ssp"
                 android:layout_marginEnd="@dimen/_30sdp"
-                android:layout_marginRight="@dimen/_30sdp"
                 android:textColor="@color/purple_text"
+                android:fontFamily="@font/objectivity_medium"
                 android:alpha="0.5"/>
             <TextView
                 android:id="@+id/category_name_description"
@@ -123,10 +124,10 @@
                 app:layout_constraintBottom_toBottomOf="@id/sell_item_description"
                 android:text="@string/motors__"
                 android:textSize="@dimen/_12ssp"
+                android:fontFamily="@font/objectivity_medium"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:textColor="@color/purple_text"
-                android:alpha="0.5"
-                android:layout_marginLeft="@dimen/_30sdp" />
+                android:alpha="0.5" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/sub_categories_RV"
                 android:layout_width="match_parent"

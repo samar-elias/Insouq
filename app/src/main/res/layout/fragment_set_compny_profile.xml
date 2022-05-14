@@ -120,7 +120,7 @@
                 android:text="@string/recommended_40_characters"
                 android:textColor="@color/purple_text"
                 android:alpha="0.5"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_9ssp"
                 android:layout_marginTop="@dimen/_5sdp"/>
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -332,7 +332,7 @@
         android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="@string/here_s_how_your_ad_will_look"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:textColor="@color/purple_text"
         android:textSize="@dimen/_11ssp"/>
 

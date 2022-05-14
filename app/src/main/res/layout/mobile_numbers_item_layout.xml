@@ -64,7 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:fontFamily="@font/objectivity_regular"
+            android:fontFamily="@font/objectivity_medium"
             android:text="@string/location"
             android:textAlignment="viewStart"
             android:textColor="@color/purple_text"
@@ -80,7 +80,7 @@
             app:layout_constraintBottom_toBottomOf="@id/number_location"
             app:layout_constraintEnd_toEndOf="parent"
             android:gravity="end"
-            android:fontFamily="@font/objectivity_regular"
+            android:fontFamily="@font/objectivity_medium"
             android:text="@string/posted"
             android:textSize="@dimen/_7ssp" />
 

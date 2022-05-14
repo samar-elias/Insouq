@@ -421,7 +421,7 @@
                     android:padding="@dimen/_13sdp"
                     android:textColor="@color/base_orange"
                     android:textColorHint="@color/gray"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_11ssp"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -446,7 +446,7 @@
                     android:background="@drawable/white_radius_3"
                     android:textColor="@color/purple_text"
                     android:textColorHint="@color/gray"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_11ssp"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -469,7 +469,7 @@
                     android:background="@drawable/white_radius_3"
                     android:textColor="@color/purple_text"
                     android:textColorHint="@color/gray"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_11ssp"
                     android:layout_marginTop="@dimen/_5sdp"/>
                 <TextView
@@ -494,7 +494,7 @@
                     android:background="@drawable/white_radius_3"
                     android:textColor="@color/purple_text"
                     android:textColorHint="@color/gray"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_11ssp"/>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -599,7 +599,7 @@
         android:textColor="@color/purple_text"
         android:visibility="gone"
         android:alpha="0.5"
-        android:fontFamily="@font/objectivity_regular"/>
+        android:fontFamily="@font/objectivity_medium"/>
 
     <include
         android:id="@+id/motors_ad_layout"

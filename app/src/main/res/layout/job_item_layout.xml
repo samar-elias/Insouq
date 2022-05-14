@@ -74,7 +74,7 @@
                 android:text="@string/location"
                 android:textAlignment="viewStart"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_10ssp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -102,7 +102,7 @@
         android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_5sdp"
         android:textColor="@color/purple_text"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:textSize="@dimen/_10ssp"/>
 
     <ImageView
@@ -127,7 +127,7 @@
         android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_5sdp"
         android:textColor="@color/purple_text"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:textSize="@dimen/_10ssp"/>
 
     <TextView
@@ -138,7 +138,7 @@
         android:text="2 days ago"
         android:gravity="end"
         android:textAlignment="viewEnd"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:layout_marginTop="@dimen/_5sdp"
         android:textSize="@dimen/_8ssp"/>
 

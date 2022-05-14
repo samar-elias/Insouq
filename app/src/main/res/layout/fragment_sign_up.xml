@@ -94,8 +94,8 @@
                     android:textAlignment="viewStart"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white_trans40"
-                    android:fontFamily="@font/objectivity_regular"
-                    android:textSize="@dimen/_10ssp"
+                    android:fontFamily="@font/objectivity_medium"
+                    android:textSize="@dimen/_12ssp"
                     android:maxLines="1"/>
                 <EditText
                     android:id="@+id/last_name_edt"
@@ -108,8 +108,8 @@
                     android:textAlignment="viewStart"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white_trans40"
-                    android:fontFamily="@font/objectivity_regular"
-                    android:textSize="@dimen/_10ssp"
+                    android:fontFamily="@font/objectivity_medium"
+                    android:textSize="@dimen/_12ssp"
                     android:maxLines="1"
                     android:layout_marginTop="@dimen/_10sdp" />
 
@@ -144,8 +144,8 @@
                         android:hint="@string/mobile_number"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white_trans40"
-                        android:fontFamily="@font/objectivity_regular"
-                        android:textSize="@dimen/_10ssp"
+                        android:fontFamily="@font/objectivity_medium"
+                        android:textSize="@dimen/_12ssp"
                         android:maxLines="1"/>
                 </LinearLayout>
 
@@ -165,8 +165,8 @@
                         android:hint="@string/email"
                         android:inputType="textEmailAddress"
                         android:textColorHint="@color/white_trans40"
-                        android:fontFamily="@font/objectivity_regular"
-                        android:textSize="@dimen/_10ssp"
+                        android:fontFamily="@font/objectivity_medium"
+                        android:textSize="@dimen/_12ssp"
                         app:layout_constraintEnd_toStartOf="@id/correct_form"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -202,8 +202,8 @@
                         android:hint="@string/your_password"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white_trans40"
-                        android:fontFamily="@font/objectivity_regular"
-                        android:textSize="@dimen/_10ssp"
+                        android:fontFamily="@font/objectivity_medium"
+                        android:textSize="@dimen/_12ssp"
                         android:maxLines="1"/>
                     <ImageView
                         android:id="@+id/show_hide_password"

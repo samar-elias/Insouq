@@ -68,7 +68,7 @@
                 android:text="Tell us more about your company"
                 android:textColor="@color/purple_text"
                 android:alpha="0.5"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_12ssp"
                 android:layout_marginTop="@dimen/_5sdp"/>
             <TextView
@@ -134,7 +134,7 @@
                 android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, \n\nContrary to popular belief, Lorem Ipsum is not simply random text."
                 android:textColor="@color/purple_text"
                 android:textColorHint="@color/purple_text"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_11ssp"
                 android:layout_marginTop="@dimen/_15sdp"/>
             <TextView
@@ -261,7 +261,7 @@
                 android:text="Email address will be used for receiving applications"
                 android:textColor="@color/purple_text"
                 android:alpha="0.5"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_9ssp"
                 android:layout_marginTop="@dimen/_5sdp"/>
             <TextView

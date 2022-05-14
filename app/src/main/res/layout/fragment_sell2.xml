@@ -92,7 +92,7 @@
                     android:text="@string/try_to_have_an_informative_title_that_s_to_be_point_and_not_very_long"
                     android:textColor="@color/purple_text"
                     android:alpha="0.5"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_10ssp"
                     android:layout_marginTop="@dimen/_10sdp"/>
                 <EditText
@@ -109,7 +109,7 @@
                     android:padding="@dimen/_13sdp"
                     android:textColor="@color/purple_text"
                     android:textColorHint="@color/gray"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_11ssp"/>
                 <TextView
                     android:layout_width="match_parent"
@@ -117,7 +117,7 @@
                     android:text="@string/recommended_40_characters"
                     android:textColor="@color/purple_text"
                     android:alpha="0.5"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_9ssp"
                     android:layout_marginTop="@dimen/_5sdp"/>
                 <TextView
@@ -148,7 +148,7 @@
                     android:inputType="text"
                     android:imeOptions="actionDone"
                     android:hint="@string/other_please_type_here"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_11ssp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textColor="@color/purple_text"
@@ -172,7 +172,7 @@
                     android:inputType="text"
                     android:imeOptions="actionDone"
                     android:hint="@string/other_please_type_here"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_11ssp"
                     android:textColor="@color/purple_text"
                     android:padding="@dimen/_13sdp"
@@ -198,7 +198,7 @@
                     android:inputType="text"
                     android:imeOptions="actionDone"
                     android:hint="@string/other_please_type_here"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_11ssp"
                     android:textColor="@color/purple_text"
                     android:padding="@dimen/_13sdp"
@@ -219,7 +219,7 @@
                     android:padding="@dimen/_13sdp"
                     android:textColor="@color/purple_text"
                     android:textColorHint="@color/gray"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_11ssp"/>
 
                 <com.google.android.material.button.MaterialButton
@@ -250,13 +250,13 @@
         android:text="@string/here_s_how_your_ad_will_look"
         android:textColor="@color/purple_text"
         android:alpha="0.5"
-        android:fontFamily="@font/objectivity_regular"/>
+        android:fontFamily="@font/objectivity_medium"/>
 
     <include
         android:id="@+id/motors_ad_layout"
         layout="@layout/motor_item_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_90sdp"
+        android:layout_height="@dimen/_115sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/_10sdp"

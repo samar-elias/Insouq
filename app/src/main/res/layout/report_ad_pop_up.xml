@@ -44,7 +44,7 @@
                     android:background="@drawable/white_radius_10"
                     android:hint="@string/reason_for_reporting"
                     android:textColorHint="@color/gray"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_12ssp"
                     android:padding="@dimen/_10sdp"
                     android:textColor="@color/purple_text"/>
@@ -61,7 +61,7 @@
                     android:background="@drawable/white_radius_10"
                     android:hint="@string/description_of_reporting"
                     android:textColorHint="@color/gray"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_12ssp"
                     android:padding="@dimen/_10sdp"
                     android:textColor="@color/purple_text"/>

@@ -57,7 +57,7 @@
             android:paddingBottom="@dimen/_2sdp"
             android:text="Villa"
             android:textSize="@dimen/_8ssp"
-            android:fontFamily="@font/objectivity_regular"
+            android:fontFamily="@font/objectivity_medium"
             android:textColor="@color/purple_text"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -87,7 +87,7 @@
                 android:layout_marginLeft="@dimen/_2sdp"
                 android:text="5"
                 android:textSize="@dimen/_8ssp"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/purple_text"/>
 
             <ImageView
@@ -111,7 +111,7 @@
                 android:layout_marginLeft="@dimen/_2sdp"
                 android:text="4"
                 android:textSize="@dimen/_8ssp"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/purple_text"/>
 
             <ImageView
@@ -135,7 +135,7 @@
                 android:layout_marginLeft="@dimen/_2sdp"
                 android:text="3,480 sq. ft."
                 android:textSize="@dimen/_8ssp"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/purple_text"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -160,7 +160,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/_3sdp"
             android:gravity="end"
-            android:fontFamily="@font/objectivity_regular"
+            android:fontFamily="@font/objectivity_medium"
             android:text="2 days ago"
             android:textSize="@dimen/_7ssp" />
 

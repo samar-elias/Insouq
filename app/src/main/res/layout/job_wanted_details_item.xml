@@ -111,8 +111,8 @@
                 android:layout_marginTop="@dimen/_10sdp"/>
             <ImageView
                 android:id="@+id/location_icon"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
                 app:layout_constraintTop_toBottomOf="@id/line"
                 app:layout_constraintStart_toStartOf="parent"
                 android:src="@drawable/location"
@@ -144,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:text="Emaar business park, Dubai"
                     android:textColor="@color/purple_text"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_9ssp"/>
                 <TextView
                     android:id="@+id/post_date"
@@ -152,7 +152,7 @@
                     android:layout_height="wrap_content"
                     android:text="Posted on 20 May 2019, 22:43"
                     android:textColor="@color/purple_text"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_9ssp"
                     android:layout_marginTop="@dimen/_5sdp"/>
             </LinearLayout>
@@ -359,7 +359,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/purple_text"
                 android:visibility="gone"
                 android:text="Audi S5 2017 with two liter turbo petrol engine with perfect condition. \n \n
@@ -441,7 +441,7 @@ The roof has fully tinted with \n \n"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:text="Arabian Ranches 3, \n Dubailand, Dubai"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textColor="@color/purple_text"
                     android:textSize="@dimen/_10ssp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -465,6 +465,7 @@ The roof has fully tinted with \n \n"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:background="@drawable/top_purple_layout"
                     android:text="@string/contact_seller"
+                    android:fontFamily="@font/objectivity_medium"
                     android:gravity="center"
                     android:paddingTop="@dimen/_2sdp"
                     android:paddingBottom="@dimen/_2sdp"
@@ -500,7 +501,7 @@ The roof has fully tinted with \n \n"
                         android:id="@+id/member_since"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/objectivity_regular"
+                        android:fontFamily="@font/objectivity_medium"
                         android:text="Member since Feb 18, 2017"
                         android:textColor="@color/gray"
                         android:textSize="@dimen/_10ssp"

@@ -52,6 +52,7 @@ public class ServicesDetailsAdapter extends RecyclerView.Adapter<ServicesDetails
         servicesDetailsFragment.getUserInfo(serviceAd.getUserId(), holder.img, holder.name, holder.member);
 
         holder.title.setText(serviceAd.getTitle());
+        holder.postDate.setText(context.getResources().getString(R.string.posted_on)+" "+serviceAd.getPostedDate());
         holder.description.setText(serviceAd.getDescription());
 //        holder.member.setText(jobDetailsFragment.memberSince);
 //        holder.name.setText(jobDetailsFragment.profileName);
@@ -151,6 +152,14 @@ public class ServicesDetailsAdapter extends RecyclerView.Adapter<ServicesDetails
             }
         });
 
+        if (AppDefs.language.equals("ar")){
+            holder.next.setScaleX(-1);
+            holder.previous.setScaleX(-1);
+        }else {
+            holder.next.setScaleX(1);
+            holder.previous.setScaleX(1);
+        }
+
         holder.backToPrevious.setOnClickListener(view -> servicesDetailsFragment.backToPrevious());
     }
 
@@ -163,7 +172,7 @@ public class ServicesDetailsAdapter extends RecyclerView.Adapter<ServicesDetails
         ConstraintLayout descriptionLayout, locationLayout, directionsLayout;
         ImageView backToPrevious, descriptionArrow, locationArrow, locationImage, favourite, direction, share, img;
         TextView description, reportAd, descriptionLine, applyForJob2, applyForJob, title, companyName, location,
-                location2, employmentType, workExperience, name, member;
+                location2, employmentType, postDate, workExperience, name, member;
         Boolean showDescription, showLocation;
         RecyclerView similarJobsRV;
         LinearLayout call, sms;
@@ -210,6 +219,7 @@ public class ServicesDetailsAdapter extends RecyclerView.Adapter<ServicesDetails
             locationImage = itemView.findViewById(R.id.location_image);
             locationImage.setVisibility(View.GONE);
             directionsLayout.setVisibility(View.GONE);
+            postDate = itemView.findViewById(R.id.post_date);
 
             //similar
             similarJobsRV = itemView.findViewById(R.id.similar_jobs_RV);

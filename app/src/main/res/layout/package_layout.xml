@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text=" AED"
             android:textColor="@color/light_purple_text"
-            android:fontFamily="@font/objectivity_regular"
+            android:fontFamily="@font/objectivity_medium"
             android:textSize="@dimen/_7ssp"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -33,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/your_ad_has_been_deleted_we_would_love_to_know_the_reason_for_deleting_your_ad"
-            android:fontFamily="@font/objectivity_regular"
+            android:fontFamily="@font/objectivity_medium"
             android:textColor="@color/purple_text"
             android:textAlignment="viewStart"
             android:layout_marginTop="@dimen/_15sdp"

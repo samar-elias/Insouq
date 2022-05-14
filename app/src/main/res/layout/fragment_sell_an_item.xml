@@ -84,8 +84,8 @@
                 android:text="@string/let_s_start_by_selecting_the_right_category_for_your_listing"
                 android:textSize="@dimen/_12ssp"
                 android:textAlignment="viewStart"
+                android:fontFamily="@font/objectivity_medium"
                 android:layout_marginEnd="@dimen/_30sdp"
-                android:layout_marginRight="@dimen/_30sdp"
                 android:textColor="@color/purple_text"
                 android:alpha="0.5"/>
             <LinearLayout

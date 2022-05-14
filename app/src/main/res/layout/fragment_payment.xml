@@ -78,7 +78,7 @@
                 android:text="@string/enter_your_card_information_to_complete_your_payment_process"
                 android:textColor="@color/purple_text"
                 android:alpha="0.5"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_13ssp"
                 android:layout_marginTop="@dimen/_10sdp"/>
 

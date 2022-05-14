@@ -84,7 +84,7 @@
                 android:text="Select the package you want"
                 android:textColor="@color/purple_text"
                 android:alpha="0.5"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_13ssp"
                 android:layout_marginTop="@dimen/_10sdp"/>
             <LinearLayout

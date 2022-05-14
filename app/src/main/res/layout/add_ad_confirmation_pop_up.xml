@@ -33,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="our ad is under review, we will notify you when the ad is active"
-            android:fontFamily="@font/objectivity_regular"
+            android:fontFamily="@font/objectivity_medium"
             android:gravity="center"
             android:textColor="@color/purple_text"
             android:layout_marginTop="@dimen/_15sdp"

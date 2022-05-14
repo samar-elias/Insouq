@@ -30,7 +30,7 @@
         android:textAlignment="viewStart"
         android:textColor="@color/purple_text"
         android:layout_marginTop="@dimen/_5sdp"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:textSize="@dimen/_11ssp"/>
 
     <ImageView
@@ -52,7 +52,7 @@
         android:layout_marginLeft="@dimen/_5sdp"
         android:text="Full-time"
         android:textColor="@color/purple_text"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:textSize="@dimen/_11ssp" />
 
     <ImageView
@@ -75,7 +75,7 @@
         android:textAlignment="viewStart"
         android:text="2 Years"
         android:textColor="@color/purple_text"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:textSize="@dimen/_11ssp" />
 
     <TextView
@@ -88,7 +88,7 @@
         android:text="2 days ago"
         android:gravity="end"
         android:textAlignment="viewEnd"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:layout_marginTop="@dimen/_5sdp"
         android:textSize="@dimen/_10ssp"/>
 

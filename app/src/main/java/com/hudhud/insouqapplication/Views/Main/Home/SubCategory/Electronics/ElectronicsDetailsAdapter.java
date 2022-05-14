@@ -56,6 +56,8 @@ public class ElectronicsDetailsAdapter extends RecyclerView.Adapter<ElectronicsD
         holder.title.setText(electronicAd.getTitle());
         holder.description.setText(electronicAd.getDescription());
         holder.price.setText(electronicAd.getPrice());
+        holder.postDate.setText(context.getResources().getString(R.string.posted_on)+" "+electronicAd.getPostedDate());
+
 
         if (AppDefs.language.equals("ar")) {
             holder.location.setText(electronicAd.getArLocation());
@@ -143,11 +145,27 @@ public class ElectronicsDetailsAdapter extends RecyclerView.Adapter<ElectronicsD
         }
 
 
-        if (!electronicAd.getEnStorage().equals("null")){
+        if (!electronicAd.getEnStorage().equals("null")  && !electronicAd.getEnStorage().isEmpty()){
             if (AppDefs.language.equals("ar")){
                 electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.storage), electronicAd.getArStorage(), R.drawable.storage));
             }else {
                 electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.storage), electronicAd.getEnStorage(), R.drawable.storage));
+            }
+        }
+
+        if (!electronicAd.getEnRam().equals("null") && !electronicAd.getEnRam().isEmpty()){
+            if (AppDefs.language.equals("ar")){
+                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.ram), electronicAd.getArStorage(), R.drawable.ram));
+            }else {
+                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.ram), electronicAd.getEnStorage(), R.drawable.ram));
+            }
+        }
+
+        if (!electronicAd.getEnVersion().equals("null") && !electronicAd.getEnVersion().isEmpty()){
+            if (AppDefs.language.equals("ar")){
+                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.version), electronicAd.getArStorage(), R.drawable.version));
+            }else {
+                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.version), electronicAd.getEnStorage(), R.drawable.version));
             }
         }
 
@@ -227,6 +245,14 @@ public class ElectronicsDetailsAdapter extends RecyclerView.Adapter<ElectronicsD
             }
         });
 
+        if (AppDefs.language.equals("ar")){
+            holder.next.setScaleX(-1);
+            holder.previous.setScaleX(-1);
+        }else {
+            holder.next.setScaleX(1);
+            holder.previous.setScaleX(1);
+        }
+
         holder.backToPrevious.setOnClickListener(view -> electronicsDetailsFragment.navigateBack());    }
 
     @Override
@@ -237,7 +263,7 @@ public class ElectronicsDetailsAdapter extends RecyclerView.Adapter<ElectronicsD
     public class ViewHolder extends RecyclerView.ViewHolder {
         ConstraintLayout specificationLayout, descriptionLayout, locationLayout, directionsLayout, makeAnOffer, makeAnOffer2, contactLayout;
         ImageView backToPrevious, descriptionArrow, locationArrow, locationImage, favourite, direction, share, img, makeOfferImg;
-        TextView description, reportAd, descriptionLine, applyForJob2, applyForJob, title, price, location, makeOfferTxt,
+        TextView description, reportAd, descriptionLine, postDate, applyForJob2, applyForJob, title, price, location, makeOfferTxt,
                 location2, name, member;
         boolean showDescription, showLocation, showSpecification;
         ImageView showSpecificationArrow, showDescriptionArrow, showLocationArrow, directions;
@@ -264,6 +290,7 @@ public class ElectronicsDetailsAdapter extends RecyclerView.Adapter<ElectronicsD
             call = itemView.findViewById(R.id.call);
             sms = itemView.findViewById(R.id.sms);
             share = itemView.findViewById(R.id.share);
+            postDate = itemView.findViewById(R.id.post_date);
 
             title = itemView.findViewById(R.id.title);
             price = itemView.findViewById(R.id.price);

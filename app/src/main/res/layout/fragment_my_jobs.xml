@@ -185,7 +185,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="OC Consultancy"
-                        android:fontFamily="@font/objectivity_regular"
+                        android:fontFamily="@font/objectivity_medium"
                         android:textSize="@dimen/_12ssp"
                         android:textColor="@color/purple_text"
                         android:layout_marginTop="@dimen/_5sdp"/>
@@ -210,7 +210,7 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:textColor="@color/purple_text"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_11ssp"/>
 
 
@@ -234,7 +234,7 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
                     android:textColor="@color/purple_text"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_11ssp"/>
 
                 <TextView
@@ -245,7 +245,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:text=" Job Type"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_12ssp"
                     android:textColor="@color/purple_text" />
                 <TextView
@@ -256,7 +256,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     android:text=" Ad Status"
                     android:layout_marginTop="@dimen/_2sdp"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_12ssp"
                     android:textColor="@color/purple_text" />
 
@@ -268,7 +268,7 @@
                     app:layout_constraintEnd_toStartOf="@id/get_views"
                     app:layout_constraintTop_toBottomOf="@id/ad_status"
                     android:text="2 days ago"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textSize="@dimen/_10ssp"/>
 

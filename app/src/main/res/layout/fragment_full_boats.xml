@@ -467,7 +467,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/white_radius_3"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:hint="00.000"
                     android:textAlignment="viewStart"
                     android:imeOptions="actionNext"
@@ -494,7 +494,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/white_radius_3"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:hint="@string/phone_number"
                     android:imeOptions="actionDone"
                     android:textAlignment="viewStart"
@@ -522,7 +522,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/white_radius_3"
                     android:baselineAligned="false"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:hint="@string/write_more_about_your_ad"
                     android:imeOptions="actionNext"
                     android:textAlignment="viewStart"
@@ -707,7 +707,7 @@
         android:textColor="@color/purple_text"
         android:visibility="gone"
         android:alpha="0.5"
-        android:fontFamily="@font/objectivity_regular"/>
+        android:fontFamily="@font/objectivity_medium"/>
 
     <include
         android:id="@+id/motors_ad_layout"

@@ -63,13 +63,22 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
         Helpers.setSliderTimer(3000, holder.viewPager, mAdapter);
 
         ArrayList<specificationModel> motorSpecifications = new ArrayList<>();
-        if (!motorAd.getEnModel().equals("null")){
+        if (!motorAd.getEnMaker().equals("null")){
             if (AppDefs.language.equals("ar")){
                 motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.brand), motorAd.getArMaker(), R.drawable.brand_img_));
             }else {
                 motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.brand), motorAd.getEnMaker(), R.drawable.brand_img_));
             }
         }
+
+        if (!motorAd.getSubCategoryEnName().equals("null")){
+            if (AppDefs.language.equals("ar")){
+                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.brand), motorAd.getSubCategoryArName(), R.drawable.brand_img_));
+            }else {
+                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.brand), motorAd.getSubCategoryEnName(), R.drawable.brand_img_));
+            }
+        }
+
         if (!motorAd.getEnModel().equals("null")){
             if (AppDefs.language.equals("ar")){
                 motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.model), motorAd.getArModel(), R.drawable.cars_model));
@@ -86,11 +95,16 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
         }
         if (!motorAd.getEnColor().equals("null")){
             if (AppDefs.language.equals("ar")){
-                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.color), motorAd.getArColor(), R.drawable.color));
+                holder.color.setText(motorAd.getArColor());
+//                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.color), motorAd.getArColor(), R.drawable.color));
             }else {
-                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.color), motorAd.getEnColor(), R.drawable.color));
+                holder.color.setText(motorAd.getEnColor());
+//                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.color), motorAd.getEnColor(), R.drawable.color));
             }
+        }else {
+            holder.color.setText("N/A");
         }
+
         if (!motorAd.getEnDoors().equals("null")){
             if (AppDefs.language.equals("ar")){
                 motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.doors), motorAd.getArDoors(), R.drawable.doors));
@@ -98,6 +112,7 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
                 motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.doors), motorAd.getEnDoors(), R.drawable.doors));
             }
         }
+
         if (!motorAd.getWarranty().equals("null")){
             switch (motorAd.getWarranty()) {
                 case "0":
@@ -162,9 +177,9 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
         }
         if (!motorAd.getEnMechanicalCondition().equals("null")){
             if (AppDefs.language.equals("ar")){
-                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.mechanical_condition), motorAd.getArMechanicalCondition(), R.drawable.mechanical_condition_img));
+                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.mechanical_condition), motorAd.getArMechanicalCondition(), R.drawable.m_condition));
             }else {
-                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.mechanical_condition), motorAd.getEnMechanicalCondition(), R.drawable.mechanical_condition_img));
+                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.mechanical_condition), motorAd.getEnMechanicalCondition(), R.drawable.m_condition));
             }
         }
         if (!motorAd.getEnCapacity().equals("null")){
@@ -230,22 +245,21 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
                 motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.steering_side), motorAd.getEnSteeringSide(), R.drawable.steering_side_img));
             }
         }
-
-//        if (!motorAd.getEnPartName().equals("null")){
-//            if (AppDefs.language.equals("ar")){
-//                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.name_of_part), motorAd.getArPartName(), R.drawable.name_of_part_img));
-//            }else {
-//                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.name_of_part), motorAd.getEnPartName(), R.drawable.name_of_part_img));
-//            }
-//        }
-
-        if (!motorAd.getEnEngineSize().equals("null")){
+        if (!motorAd.getEnPartName().equals("null")){
             if (AppDefs.language.equals("ar")){
-                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.engine_size), motorAd.getArEngineSize(), R.drawable.engine_size_img));
+                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.name_of_part), motorAd.getArPartName(), R.drawable.part_name));
             }else {
-                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.engine_size), motorAd.getEnEngineSize(), R.drawable.engine_size_img));
+                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.name_of_part), motorAd.getEnPartName(), R.drawable.part_name));
             }
         }
+
+//        if (!motorAd.getEnEngineSize().equals("null")){
+//            if (AppDefs.language.equals("ar")){
+//                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.engine_size), motorAd.getArEngineSize(), R.drawable.engine_size_img));
+//            }else {
+//                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.engine_size), motorAd.getEnEngineSize(), R.drawable.engine_size_img));
+//            }
+//        }
 
         SpecificationAdapter specificationAdapter = new SpecificationAdapter(motorSpecifications);
         holder.specificationsRV.setAdapter(specificationAdapter);
@@ -271,28 +285,29 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
                     holder.kilo.setText(motorAd.getEnLength());
                 }
                 break;
-            case "7":
-                if (AppDefs.language.equals("ar")){
-                    holder.kilo.setText(motorAd.getArPartName());
-                }else {
-                    holder.kilo.setText(motorAd.getEnPartName());
-                }
+            default:
+                holder.kilo.setText("N/A");
                 break;
         }
 
         if (AppDefs.language.equals("ar")){
             holder.location.setText(motorAd.getArLocation());
             holder.location2.setText(motorAd.getArLocation());
-            holder.color.setText(motorAd.getArColor());
         }else {
             holder.location.setText(motorAd.getEnLocation());
             holder.location2.setText(motorAd.getEnLocation());
-            holder.color.setText(motorAd.getEnColor());
+        }
+
+        if (AppDefs.language.equals("ar")){
+            holder.next.setScaleX(-1);
+            holder.previous.setScaleX(-1);
+        }else {
+            holder.next.setScaleX(1);
+            holder.previous.setScaleX(1);
         }
 
         holder.backToPrevious.setOnClickListener(view -> motorDetailsFragment.navigateBack());
         holder.reportAd.setOnClickListener(view -> motorDetailsFragment.setReportAd(motorAd.getId()));
-
         holder.contactTitle.setOnClickListener(view -> {
             if (holder.showProfile){
                 holder.contactLayout.setVisibility(View.GONE);
@@ -313,6 +328,8 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
 //            holder.makeOfferTxt.setText(context.getResources().getString(R.string.make_an_offer));
 //            holder.makeOfferImg.setVisibility(View.VISIBLE);
 //        }
+
+        holder.postDateTime.setText(context.getResources().getString(R.string.posted_on)+" "+motorAd.getPostDate());
         holder.makeOfferTxt.setText(context.getResources().getString(R.string.make_an_offer));
         holder.makeOfferImg.setVisibility(View.VISIBLE);
         if (motorAd.getIsFav().equals("true")){
@@ -396,7 +413,7 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
         TextView description, descriptionLine, makeOfferTxt;
         ImageView locationImage, backToPrevious, share;
         ImageView next, previous, itemImage;
-        TextView  reportAd, itemText, itemText2, itemPrice, location, location2, kilo, year, color;
+        TextView  reportAd, itemText, itemText2, itemPrice, location, location2, kilo, year, color, postDateTime;
         TextView contactTitle;
         ConstraintLayout contactLayout;
         int count = 4, step = 1;
@@ -473,6 +490,8 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
 
             next = itemView.findViewById(R.id.next);
             previous = itemView.findViewById(R.id.previous);
+
+            postDateTime = itemView.findViewById(R.id.post_date);
         }
     }
 }

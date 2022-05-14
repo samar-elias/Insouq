@@ -57,7 +57,7 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
         holder.title.setText(businessAd.getTitle());
         holder.description.setText(businessAd.getDescription());
         holder.price.setText(businessAd.getPrice());
-        holder.postDate.setText(context.getResources().getString(R.string.posted_in)+" "+businessAd.getPostedDate());
+        holder.postDate.setText(context.getResources().getString(R.string.posted_on)+" "+businessAd.getPostedDate());
 
         if (AppDefs.language.equals("ar")) {
             holder.location.setText(businessAd.getArLocation());
@@ -82,13 +82,13 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
 
         if (!businessAd.getCategoryEnName().equals("null")){
             if (AppDefs.language.equals("ar")){
-                businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getCategoryArName(), R.drawable.category_name));
+                businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getCategoryArName(), R.drawable.category_name_list));
             }else {
-                businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getCategoryEnName(), R.drawable.category_name));
+                businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getCategoryEnName(), R.drawable.category_name_list));
             }
         }
         if (!businessAd.getOtherCategoryNAme().equals("null")){
-            businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getOtherCategoryNAme(), R.drawable.category_name));
+            businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getOtherCategoryNAme(), R.drawable.category_name_list));
         }
 
         SpecificationAdapter specificationAdapter = new SpecificationAdapter(businessSpecifications);
@@ -165,6 +165,14 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
                 businessDetailsFragment.scrollToPosition(position-1);
             }
         });
+
+        if (AppDefs.language.equals("ar")){
+            holder.next.setScaleX(-1);
+            holder.previous.setScaleX(-1);
+        }else {
+            holder.next.setScaleX(1);
+            holder.previous.setScaleX(1);
+        }
 
         holder.backToPrevious.setOnClickListener(view -> businessDetailsFragment.navigateBack());    }
 

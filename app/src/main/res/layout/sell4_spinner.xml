@@ -10,7 +10,7 @@
     android:gravity="start"
     android:textColor="@color/blue_gray"
     android:textAlignment="viewStart"
-    android:fontFamily="@font/objectivity_regular"
+    android:fontFamily="@font/objectivity_medium"
     android:textSize="@dimen/_10ssp">
 
 </TextView>

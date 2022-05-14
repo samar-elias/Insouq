@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
+import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Responses.SubCategory;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
 import com.hudhud.insouqapplication.R;
@@ -43,7 +44,11 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SubCategory subCategory = subCategories.get(position);
-        holder.subCategoryTitle.setText(subCategory.getNameEn());
+        if (AppDefs.language.equals("ar")){
+            holder.subCategoryTitle.setText(subCategory.getNameAr());
+        }else {
+            holder.subCategoryTitle.setText(subCategory.getNameEn());
+        }
         holder.numOfAds.setText(subCategory.getNumberOfAds()+ context.getString(R.string.ads));
         String newPic = subCategory.getIcon().replace("\\", "/");
         Glide.with(context).load(newPic).into(holder.subCategoryIcon);

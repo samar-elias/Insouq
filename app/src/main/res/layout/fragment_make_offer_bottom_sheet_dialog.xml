@@ -85,7 +85,7 @@
                     android:text="154,000"
                     android:textSize="@dimen/_17ssp"
                     android:textColor="@color/gray_4"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>

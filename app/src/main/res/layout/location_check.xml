@@ -10,5 +10,5 @@
         android:text="@string/location"
         android:textSize="@dimen/_10ssp"
         android:textColor="@color/purple_text"
-        android:fontFamily="@font/objectivity_regular"/>
+        android:fontFamily="@font/objectivity_medium"/>
 </androidx.appcompat.widget.LinearLayoutCompat>
