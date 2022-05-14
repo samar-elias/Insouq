@@ -490,7 +490,7 @@ public class FullPartFragment extends Fragment {
                 }else {
                     setSpinner(ageSpinner, ageEnTitles);
                 }
-                currentAge = ageEnTitles.get(0)+"^"+ageArTitles.get(0);
+                currentAge = ageEnTitles.get(0)+"-"+ageArTitles.get(0);
                 getConditions();
             } catch (JSONException e) {
                 e.printStackTrace();

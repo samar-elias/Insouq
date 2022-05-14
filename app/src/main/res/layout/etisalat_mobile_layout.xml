@@ -29,8 +29,8 @@
         android:layout_marginLeft="@dimen/_14sdp"
         android:layout_marginRight="@dimen/_7sdp"
         android:layout_marginBottom="@dimen/_3sdp"
-        android:textSize="@dimen/_15ssp"
-        android:fontFamily="@font/bebas"
+        android:textSize="@dimen/_13ssp"
+        android:fontFamily="@font/mobile_font"
         android:textColor="@color/black"/>
     <TextView
         android:id="@+id/mobile_number"
@@ -42,12 +42,11 @@
         app:layout_constraintTop_toTopOf="@id/mobile_image"
         android:text="0000000"
         android:maxLength="7"
+        android:layout_marginLeft="@dimen/_1sdp"
         android:gravity="left"
-        android:layout_marginLeft="@dimen/_5sdp"
-        android:layout_marginRight="@dimen/_5sdp"
         android:layout_marginBottom="@dimen/_3sdp"
-        android:textSize="@dimen/_15ssp"
-        android:fontFamily="@font/bebas"
+        android:textSize="@dimen/_13ssp"
+        android:fontFamily="@font/mobile_font"
         android:textColor="@color/black"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

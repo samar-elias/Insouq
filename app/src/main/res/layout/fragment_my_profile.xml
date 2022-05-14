@@ -123,7 +123,7 @@
                     android:backgroundTint="@color/gray"
                     android:textColorHint="@color/black"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_13ssp"
                     android:hint="@string/first_name"/>
                 <TextView
@@ -146,7 +146,7 @@
                     android:backgroundTint="@color/gray"
                     android:textColorHint="@color/black"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_13ssp"
                     android:hint="@string/last_name"/>
 
@@ -170,7 +170,7 @@
                     android:textAlignment="viewStart"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_13ssp"/>
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/change_email"
@@ -211,7 +211,7 @@
                         android:text="******"
                         android:layout_weight="0.92"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/objectivity_regular"
+                        android:fontFamily="@font/objectivity_medium"
                         android:textSize="@dimen/_13ssp" />
                     <ImageView
                         android:layout_width="0dp"
@@ -240,7 +240,7 @@
                     android:layout_marginTop="@dimen/_10sdp">
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="vertical">
                         <TextView
                             android:layout_width="wrap_content"
@@ -255,18 +255,24 @@
                         <com.rilixtech.widget.countrycodepicker.CountryCodePicker
                             android:id="@+id/ccp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            app:ccp_showFlag="false"
+                            app:ccp_clickable="false"
+                            app:ccp_hideNameCode="true"
+                            app:ccp_textSize="@dimen/_11ssp"/>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:orientation="vertical">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_5sdp"
                             android:alpha="0.3"
@@ -278,9 +284,9 @@
 
                         <TextView
                             android:id="@+id/mobile_number"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:fontFamily="@font/objectivity_regular"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/objectivity_medium"
                             android:text="0000000"
                             android:gravity="center_vertical"
                             android:textColor="@color/black"
@@ -328,7 +334,7 @@
                     android:textColor="@color/black"
                     android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
                     android:drawableRight="@drawable/ic_baseline_calendar_today_24"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_13ssp" />
                 <TextView
                     android:layout_width="match_parent"
@@ -443,7 +449,7 @@
                     android:textColorHint="@color/gray"
                     android:textColor="@color/black"
                     android:textAlignment="viewStart"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_13ssp"
                     android:hint="@string/current_location"/>
                 <EditText
@@ -454,7 +460,7 @@
                     android:textColorHint="@color/gray"
                     android:textColor="@color/black"
                     android:textAlignment="viewStart"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_13ssp"
                     android:hint="@string/current_position"/>
                 <EditText
@@ -465,7 +471,7 @@
                     android:textColorHint="@color/gray"
                     android:textColor="@color/black"
                     android:textAlignment="viewStart"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_13ssp"
                     android:hint="@string/current_company"/>
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -556,7 +562,7 @@
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray"
                     android:backgroundTint="@color/gray"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_13ssp"/>
                 <TextView
                     android:layout_width="match_parent"

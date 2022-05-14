@@ -57,7 +57,7 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
         holder.title.setText(businessAd.getTitle());
         holder.description.setText(businessAd.getDescription());
         holder.price.setText(businessAd.getPrice());
-        holder.postDate.setText(context.getResources().getString(R.string.posted_in)+" "+businessAd.getPostedDate());
+        holder.postDate.setText(context.getResources().getString(R.string.posted_on)+" "+businessAd.getPostedDate());
 
         if (AppDefs.language.equals("ar")) {
             holder.location.setText(businessAd.getArLocation());
@@ -82,13 +82,13 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
 
         if (!businessAd.getCategoryEnName().equals("null")){
             if (AppDefs.language.equals("ar")){
-                businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getCategoryArName(), R.drawable.category_name));
+                businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getCategoryArName(), R.drawable.category_name_list));
             }else {
-                businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getCategoryEnName(), R.drawable.category_name));
+                businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getCategoryEnName(), R.drawable.category_name_list));
             }
         }
         if (!businessAd.getOtherCategoryNAme().equals("null")){
-            businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getOtherCategoryNAme(), R.drawable.category_name));
+            businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getOtherCategoryNAme(), R.drawable.category_name_list));
         }
 
         SpecificationAdapter specificationAdapter = new SpecificationAdapter(businessSpecifications);
@@ -165,10 +165,15 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
                 businessDetailsFragment.scrollToPosition(position-1);
             }
         });
-        holder.chats.setOnClickListener(v -> {
-            businessDetailsFragment.checkAds(Integer.valueOf(businessAd.getId()),Integer.valueOf(businessAd.getUserId()),businessAd.getMainImage(),businessAd.getPostedDate(),businessAd.getTitle(),businessAd.getPrice(),"5");
 
-        });
+        if (AppDefs.language.equals("ar")){
+            holder.next.setScaleX(-1);
+            holder.previous.setScaleX(-1);
+        }else {
+            holder.next.setScaleX(1);
+            holder.previous.setScaleX(1);
+        }
+
         holder.backToPrevious.setOnClickListener(view -> businessDetailsFragment.navigateBack());    }
 
     @Override
@@ -185,7 +190,7 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
         ImageView showSpecificationArrow, showDescriptionArrow, showLocationArrow, directions;
         TextView contactTitle;
         RecyclerView similarBusinessRV;
-        LinearLayout call, sms,chats;
+        LinearLayout call, sms;
         ImageView next, previous;
         RecyclerView specificationsRV;
         ViewPager viewPager;
@@ -210,7 +215,7 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
 
             title = itemView.findViewById(R.id.title);
             price = itemView.findViewById(R.id.price);
-            chats = itemView.findViewById(R.id.chat);
+
             contactTitle = itemView.findViewById(R.id.contact_title);
             contactLayout = itemView.findViewById(R.id.contact_profile);
 

@@ -62,6 +62,7 @@ public class MotorItemLinearAdapter extends RecyclerView.Adapter<MotorItemLinear
         }else {
             holder.location.setText(usedCarAd.getEnLocation());
         }
+
         switch (categoryId){
             case "2":
             case "8":
@@ -89,10 +90,16 @@ public class MotorItemLinearAdapter extends RecyclerView.Adapter<MotorItemLinear
                 break;
             case "7":
                 if (AppDefs.language.equals("ar")){
-                    holder.kilos.setText(usedCarAd.getArPartName());
+                    holder.kilos.setText(usedCarAd.getSubCategoryArName());
+                    holder.year.setText(usedCarAd.getArPartName());
                 }else {
-                    holder.kilos.setText(usedCarAd.getEnPartName());
+                    holder.year.setText(usedCarAd.getEnPartName());
+                    holder.kilos.setText(usedCarAd.getSubCategoryEnName());
                 }
+                holder.icon.setVisibility(View.GONE);
+                holder.value.setVisibility(View.GONE);
+                Glide.with(context).load(R.drawable.age_1).into(holder.kiloIcon);
+                Glide.with(context).load(R.drawable.part_name).into(holder.yearIcon);
                 break;
         }
 
@@ -151,7 +158,7 @@ public class MotorItemLinearAdapter extends RecyclerView.Adapter<MotorItemLinear
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView favourite, image, icon, kiloIcon;
+        ImageView favourite, image, icon, kiloIcon, yearIcon;
         TextView title, location, kilos, year, price, postDate, brand, value;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -167,6 +174,7 @@ public class MotorItemLinearAdapter extends RecyclerView.Adapter<MotorItemLinear
             icon = itemView.findViewById(R.id.icon);
             value = itemView.findViewById(R.id.value);
             kiloIcon = itemView.findViewById(R.id.kilos_icon);
+            yearIcon = itemView.findViewById(R.id.motor_year_icon);
         }
     }
 }

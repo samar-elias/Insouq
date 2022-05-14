@@ -425,7 +425,7 @@
                         android:text="@string/support"
                         android:textAllCaps="true"
                         android:textColor="@color/purple_text"
-                        android:fontFamily="@font/objectivity_regular"
+                        android:fontFamily="@font/objectivity_medium"
                         android:textSize="@dimen/_10ssp"
                         android:layout_marginLeft="@dimen/_40sdp" />
                     <TextView
@@ -437,7 +437,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:textAllCaps="true"
                         android:textColor="@color/purple_text"
-                        android:fontFamily="@font/objectivity_regular"
+                        android:fontFamily="@font/objectivity_medium"
                         android:textSize="@dimen/_10ssp"
                         android:layout_marginLeft="@dimen/_40sdp" />
                     <TextView
@@ -449,7 +449,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:textAllCaps="true"
                         android:textColor="@color/purple_text"
-                        android:fontFamily="@font/objectivity_regular"
+                        android:fontFamily="@font/objectivity_medium"
                         android:textSize="@dimen/_10ssp"
                         android:layout_marginLeft="@dimen/_40sdp" />
                     <TextView
@@ -462,7 +462,7 @@
                         android:textAllCaps="true"
                         android:visibility="gone"
                         android:textColor="@color/purple_text"
-                        android:fontFamily="@font/objectivity_regular"
+                        android:fontFamily="@font/objectivity_medium"
                         android:textSize="@dimen/_10ssp"
                         android:layout_marginLeft="@dimen/_40sdp" />
                     <TextView
@@ -471,10 +471,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_40sdp"
                         android:text="@string/selling_guidelines"
+                        android:visibility="gone"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:textAllCaps="true"
                         android:textColor="@color/purple_text"
-                        android:fontFamily="@font/objectivity_regular"
+                        android:fontFamily="@font/objectivity_medium"
                         android:textSize="@dimen/_10ssp"
                         android:layout_marginLeft="@dimen/_40sdp" />
                     <TextView
@@ -486,7 +487,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:textAllCaps="true"
                         android:textColor="@color/purple_text"
-                        android:fontFamily="@font/objectivity_regular"
+                        android:fontFamily="@font/objectivity_medium"
                         android:textSize="@dimen/_10ssp"
                         android:layout_marginLeft="@dimen/_40sdp" />
                     <TextView
@@ -499,7 +500,7 @@
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:textAllCaps="true"
                         android:textColor="@color/purple_text"
-                        android:fontFamily="@font/objectivity_regular"
+                        android:fontFamily="@font/objectivity_medium"
                         android:textSize="@dimen/_10ssp"
                         android:layout_marginLeft="@dimen/_40sdp" />
                 </LinearLayout>

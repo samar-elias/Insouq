@@ -699,7 +699,7 @@ public class Sell3Fragment extends Fragment {
                 if (i==0){
                     currentHorsePower = "-1";
                 }else {
-                    currentHorsePower = horsepowerEnTitles.get(i)+"^"+horsepowerArTitles.get(i);
+                    currentHorsePower = horsepowerEnTitles.get(i)+"-"+horsepowerArTitles.get(i);
                 }
             }
 
@@ -1026,7 +1026,7 @@ public class Sell3Fragment extends Fragment {
                 }else {
                     setSpinner(horsePowerSpinner, horsepowerEnTitles);
                 }
-                currentHorsePower = horsepowerEnTitles.get(0)+"^"+horsepowerArTitles.get(0);
+                currentHorsePower = horsepowerEnTitles.get(0)+"-"+horsepowerArTitles.get(0);
                 getLocations();
             } catch (JSONException e) {
                 e.printStackTrace();

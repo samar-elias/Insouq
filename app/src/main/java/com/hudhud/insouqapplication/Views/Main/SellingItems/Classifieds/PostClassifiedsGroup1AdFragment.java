@@ -396,7 +396,7 @@ public class PostClassifiedsGroup1AdFragment extends Fragment {
                 if (i==0){
                     currentAge = "-1";
                 }else {
-                    currentAge = ageEnTitles.get(i)+"^"+ageArTitles.get(i);
+                    currentAge = ageEnTitles.get(i)+"-"+ageArTitles.get(i);
                 }
             }
 
@@ -519,7 +519,7 @@ public class PostClassifiedsGroup1AdFragment extends Fragment {
                 }else {
                     setSpinner(agesSpinner, ageEnTitles);
                 }
-                currentAge = ageEnTitles.get(0)+"^"+ageArTitles.get(0);
+                currentAge = ageEnTitles.get(0)+"-"+ageArTitles.get(0);
             } catch (JSONException e) {
                 e.printStackTrace();
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.age), mainActivity.getResources().getString(R.string.error_occured));

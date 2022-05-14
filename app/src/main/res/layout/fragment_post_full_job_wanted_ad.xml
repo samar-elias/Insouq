@@ -88,7 +88,7 @@
                 android:background="@drawable/white_radius_10"
                 android:textColor="@color/purple_text"
                 android:textColorHint="@color/gray"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_11ssp"
                 android:inputType="text"
                 android:imeOptions="actionDone"
@@ -189,7 +189,7 @@
                 android:background="@drawable/white_radius_3"
                 android:textColor="@color/purple_text"
                 android:textColorHint="@color/gray"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_11ssp"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -337,7 +337,7 @@
         android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="@string/here_s_how_your_ad_will_look"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:textColor="@color/purple_text"
         android:textSize="@dimen/_11ssp"/>
 

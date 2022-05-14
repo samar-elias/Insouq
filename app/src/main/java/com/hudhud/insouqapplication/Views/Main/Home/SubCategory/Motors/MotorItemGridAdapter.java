@@ -84,16 +84,17 @@ public class MotorItemGridAdapter extends RecyclerView.Adapter<MotorItemGridAdap
                 break;
             case "7":
                 if (AppDefs.language.equals("ar")){
-                    holder.kilos.setText(usedCarAd.getArPartName());
+                    holder.kilos.setText(usedCarAd.getSubCategoryArName());
+                    holder.year.setText(usedCarAd.getArPartName());
                 }else {
-                    holder.kilos.setText(usedCarAd.getEnPartName());
+                    holder.year.setText(usedCarAd.getEnPartName());
+                    holder.kilos.setText(usedCarAd.getSubCategoryEnName());
                 }
                 holder.icon.setVisibility(View.GONE);
                 holder.value.setVisibility(View.GONE);
-//                Glide.with(context).load(R.drawable.age_1).into(holder.kiloIcon);
-//                Glide.with(context).load(R.drawable.condition_2).into(holder.yearIcon);
+                Glide.with(context).load(R.drawable.age_1).into(holder.kiloIcon);
+                Glide.with(context).load(R.drawable.part_name).into(holder.yearIcon);
                 break;
-
         }
 
         switch (categoryId){
@@ -161,7 +162,7 @@ public class MotorItemGridAdapter extends RecyclerView.Adapter<MotorItemGridAdap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView favourite, image, icon, kiloIcon;
+        ImageView favourite, image, icon, kiloIcon, yearIcon;
         TextView title, location, kilos, year, price, postDate, value;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -176,6 +177,7 @@ public class MotorItemGridAdapter extends RecyclerView.Adapter<MotorItemGridAdap
             icon = itemView.findViewById(R.id.icon);
             value = itemView.findViewById(R.id.value);
             kiloIcon = itemView.findViewById(R.id.kilos_icon);
+            yearIcon = itemView.findViewById(R.id.motor_year_icon);
         }
     }
 }

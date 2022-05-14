@@ -51,6 +51,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Helpers.Helpers;
+import com.hudhud.insouqapplication.AppUtils.Helpers.LocaleHelper;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
 import com.hudhud.insouqapplication.R;
 import com.hudhud.insouqapplication.Views.Main.MainActivity;
@@ -80,6 +81,8 @@ public class HomeRegistrationFragment extends Fragment{
     CallbackManager mCallbackManager;
     ConstraintLayout continueGoogle;
     LoginButton continueFacebook;
+    TextView switchLanguage;
+    String lang = "en";
 
     public HomeRegistrationFragment() {
         // Required empty public constructor
@@ -122,6 +125,9 @@ public class HomeRegistrationFragment extends Fragment{
         tabLayout = view.findViewById(R.id.tabDots);
         continueGoogle = view.findViewById(R.id.continue_google);
         continueFacebook = view.findViewById(R.id.facebook_login);
+        switchLanguage = view.findViewById(R.id.switch_to_arabic);
+
+        lang = AppDefs.language;
 
         mCallbackManager = CallbackManager.Factory.create();
 
@@ -155,6 +161,19 @@ public class HomeRegistrationFragment extends Fragment{
             public void onError(FacebookException error) {
                 Log.d(TAG, "facebook:onError", error);
             }
+        });
+
+        switchLanguage.setOnClickListener(view -> {
+            if (lang.equals("en")){
+                AppDefs.language = "ar" ;
+            }else {
+                AppDefs.language = "en" ;
+            }
+            LocaleHelper.setAppLocale(AppDefs.language, registrationActivity);
+            Intent registrationIntent = new Intent(registrationActivity, RegistrationActivity.class);
+            startActivity(registrationIntent);
+            registrationActivity.finish();
+
         });
     }
 

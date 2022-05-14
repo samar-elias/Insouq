@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:text="52 min ago"
             android:textAlignment="viewStart"
-            android:fontFamily="@font/objectivity_regular"
+            android:fontFamily="@font/objectivity_medium"
             android:textSize="@dimen/_8ssp"
             android:textColor="@color/purple_text"
             android:alpha="0.5"
@@ -73,7 +73,7 @@
                 android:layout_height="match_parent"
                 android:text="Allow email alert"
                 android:gravity="center_vertical"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_9ssp"
                 android:textColor="@color/purple_text"
                 android:layout_marginTop="@dimen/_5sdp"/>
@@ -96,7 +96,7 @@
                 android:layout_height="match_parent"
                 android:text="Allow push notifications"
                 android:gravity="center_vertical"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_9ssp"
                 android:textColor="@color/purple_text"
                 android:layout_marginTop="@dimen/_5sdp"/>

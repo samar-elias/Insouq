@@ -8,7 +8,7 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="sign_in">Sign in</string>
     <string name="register">Register</string>
-    <string name="switch_to_arabic"><u>Switch to Arabic</u></string>
+    <string name="switch_to_arabic">Switch to Arabic</string>
     <string name="first_name">First Name</string>
     <string name="email">Email Address</string>
     <string name="email_phone">Email Address or Phone Number</string>
@@ -52,6 +52,7 @@
     <string name="choose_a_category">Choose a category</string>
     <string name="motors">Motors</string>
     <string name="property">Property</string>
+    <string name="loading">Loading...</string>
     <string name="jobs">Jobs</string>
     <string name="services">Services</string>
     <string name="business">Business</string>
@@ -546,9 +547,9 @@
     <string name="ccv" translatable="false">CCv</string>
     <string name="pay">Pay</string>
     <string name="your_privacy_is">Your Privacy is</string>
-    <string name="priority">Priority.</string>
+    <string name="priority">our Priority.</string>
     <string name="our" translatable="false">our</string>
-    <string name="sell_an_item">Sell an Item</string>
+    <string name="sell_an_item">List an Item</string>
     <string name="let_s_start_by_selecting_the_right_category_for_your_listing">Let’s start by selecting the right category for your listing.</string>
     <string name="sell_better_now">Sell better now</string>
     <string name="with">with</string>
@@ -571,4 +572,6 @@
     <string name="resend_code">Resend Code</string>
     <string name="soon">Soon</string>
     <string name="coming_soon">Coming soon!</string>
+    <string name="on_insouq">on Insouq</string>
+    <string name="posted_on">Posted on</string>
 </resources>

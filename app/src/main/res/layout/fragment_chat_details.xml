@@ -109,7 +109,7 @@
                 android:layout_marginEnd="@dimen/_15sdp"
                 android:padding="@dimen/_10sdp"
                 android:hint="@string/type_your_message_here"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_10ssp"
                 android:background="@drawable/light_gray_border_raduis_10"/>
             <ImageView

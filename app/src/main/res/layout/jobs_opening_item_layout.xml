@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:text="Company name"
             android:textAlignment="viewStart"
-            android:fontFamily="@font/objectivity_regular"
+            android:fontFamily="@font/objectivity_medium"
             android:textSize="@dimen/_12ssp"
             android:textColor="@color/purple_text"
             android:layout_marginTop="@dimen/_5sdp"/>
@@ -75,7 +75,7 @@
         android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_5sdp"
         android:textColor="@color/purple_text"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:textSize="@dimen/_11ssp"/>
 
     <ImageView
@@ -99,7 +99,7 @@
         android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_5sdp"
         android:textColor="@color/purple_text"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:textSize="@dimen/_11ssp"/>
 
     <TextView
@@ -111,7 +111,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="2 days ago"
         android:gravity="end"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:textSize="@dimen/_10ssp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

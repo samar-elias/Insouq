@@ -80,7 +80,7 @@
                     android:gravity="start"
                     android:textAlignment="viewStart"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textColor="@color/purple_text"
                     android:textSize="@dimen/_8ssp"/>
 
@@ -103,7 +103,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:text="@string/category"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textColor="@color/purple_text"
                     android:textSize="@dimen/_8ssp"/>
 
@@ -130,7 +130,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:text="@string/posted"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_6ssp"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

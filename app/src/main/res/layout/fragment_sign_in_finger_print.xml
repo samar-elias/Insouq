@@ -57,7 +57,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/welcome_back"
-            android:fontFamily="@font/objectivity_regular"
+            android:fontFamily="@font/objectivity_medium"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"/>
         <TextView
@@ -81,7 +81,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/use_touch_id"
             android:textColor="@color/white"
-            android:fontFamily="@font/objectivity_regular"
+            android:fontFamily="@font/objectivity_medium"
             android:textSize="@dimen/_12ssp"
             android:layout_marginTop="@dimen/_20sdp"/>
         <ImageView
@@ -104,7 +104,7 @@
             android:textSize="@dimen/_11ssp"
             android:text="@string/cant_use_touch_id"
             android:textColor="@color/white"
-            android:fontFamily="@font/objectivity_regular"/>
+            android:fontFamily="@font/objectivity_medium"/>
         <TextView
             android:id="@+id/sign_in_btn"
             android:layout_width="match_parent"

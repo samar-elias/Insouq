@@ -128,20 +128,19 @@
                 android:layout_marginTop="@dimen/_10sdp"/>
             <ImageView
                 android:id="@+id/location_icon"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                app:layout_constraintTop_toBottomOf="@id/line"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                app:layout_constraintTop_toTopOf="@id/location_details"
+                app:layout_constraintBottom_toBottomOf="@id/location_details"
                 app:layout_constraintStart_toStartOf="parent"
                 android:src="@drawable/location"
                 android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_10sdp"/>
+                android:layout_marginEnd="@dimen/_15sdp" />
             <LinearLayout
                 android:id="@+id/location_details"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/location_icon"
-                app:layout_constraintBottom_toBottomOf="@id/location_icon"
+                app:layout_constraintTop_toBottomOf="@id/line"
                 app:layout_constraintStart_toEndOf="@id/location_icon"
                 app:layout_constraintEnd_toStartOf="@id/share"
                 android:layout_marginStart="@dimen/_5sdp"
@@ -159,9 +158,9 @@
                     android:id="@+id/post_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Posted on 20 May 2019, 22:43"
+                    android:text="@string/posted_on"
                     android:textColor="@color/gray_2"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_9ssp"
                     android:layout_marginTop="@dimen/_2sdp"/>
             </LinearLayout>
@@ -213,7 +212,7 @@
                         android:id="@+id/bath_icon"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:src="@drawable/car_mileage"
+                        android:src="@drawable/kilometer_list"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -289,7 +288,7 @@
                         android:id="@+id/area_icon"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        android:src="@drawable/ic_baseline_format_color_fill_24"
+                        android:src="@drawable/color"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -429,7 +428,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/purple_text"
                 android:visibility="gone"
                 android:text="Audi S5 2017 with two liter turbo petrol engine with perfect condition. \n \n
@@ -509,7 +508,7 @@ The roof has fully tinted with \n \n"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:text="Arabian Ranches 3, \n Dubailand, Dubai"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textColor="@color/purple_text"
                     android:textSize="@dimen/_10ssp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -575,6 +574,7 @@ The roof has fully tinted with \n \n"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:background="@drawable/top_purple_layout"
                     android:text="@string/contact_seller"
+                    android:fontFamily="@font/objectivity_medium"
                     android:gravity="center"
                     android:paddingTop="@dimen/_2sdp"
                     android:paddingBottom="@dimen/_2sdp"
@@ -625,7 +625,7 @@ The roof has fully tinted with \n \n"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:text="Member since Feb 18, 2017"
-                        android:fontFamily="@font/objectivity_regular"
+                        android:fontFamily="@font/objectivity_medium"
                         android:textSize="@dimen/_10ssp"
                         android:textColor="@color/gray"/>
                     <androidx.constraintlayout.widget.ConstraintLayout

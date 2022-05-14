@@ -77,7 +77,7 @@
                 android:text="@string/location"
                 android:textAlignment="viewStart"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_10ssp"/>
 
@@ -101,7 +101,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_10ssp"/>
 
@@ -128,7 +128,7 @@
                 android:maxLines="1"
                 android:visibility="gone"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_10ssp"/>
 
@@ -152,7 +152,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_10ssp"/>
 
@@ -178,7 +178,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:layout_marginStart="@dimen/_5sdp"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_10ssp"/>
 
@@ -200,7 +200,7 @@
                 android:id="@+id/posted_since"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:text="@string/posted"
                 android:textColor="@color/gray"
                 android:textSize="@dimen/_8ssp"

@@ -49,7 +49,7 @@
                     android:gravity="start"
                     android:textAlignment="viewStart"
                     android:textColorHint="@color/gray"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_12ssp"
                     android:padding="@dimen/_10sdp"
                     android:textColor="@color/purple_text"/>

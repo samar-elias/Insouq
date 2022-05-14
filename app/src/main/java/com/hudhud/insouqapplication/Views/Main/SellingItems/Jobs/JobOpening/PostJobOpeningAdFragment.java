@@ -211,7 +211,7 @@ public class PostJobOpeningAdFragment extends Fragment {
                 if (i==0){
                     currentWorkExperience = "-1";
                 }else {
-                    currentWorkExperience = workExperienceEnTitles.get(i)+"^"+workExperienceArTitles.get(i);
+                    currentWorkExperience = workExperienceEnTitles.get(i)+"-"+workExperienceArTitles.get(i);
                 }
             }
 
@@ -413,7 +413,7 @@ public class PostJobOpeningAdFragment extends Fragment {
                 }else {
                     setSpinner(workExperienceSpinner, workExperienceEnTitles);
                 }
-                currentWorkExperience = workExperienceEnTitles.get(0)+"^"+workExperienceArTitles.get(0);
+                currentWorkExperience = workExperienceEnTitles.get(0)+"-"+workExperienceArTitles.get(0);
                 getEducationLevel();
             } catch (JSONException e) {
                 e.printStackTrace();

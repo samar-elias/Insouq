@@ -49,6 +49,10 @@ public class AppDefs {
     public static String language = getLanguage();
 
     public static String getLanguage(){
-        return Locale.getDefault().getDisplayLanguage();
+        if (Locale.getDefault().getDisplayLanguage().equals("العربية")){
+            return "ar";
+        }else {
+            return "en";
+        }
     }
 }

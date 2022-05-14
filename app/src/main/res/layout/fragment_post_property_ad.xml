@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:alpha="0.5"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:text="@string/try_to_have_an_informative_title_that_s_to_be_point_and_not_very_long"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_12ssp" />
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:alpha="0.5"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:text="@string/recommended_40_characters"
                 android:textColor="@color/purple_text"
                 android:textSize="@dimen/_9ssp" />
@@ -134,7 +134,7 @@
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:text="@string/here_s_how_your_ad_will_look"
         android:textColor="@color/purple_text"
         android:textSize="@dimen/_11ssp"

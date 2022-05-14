@@ -82,7 +82,7 @@
                 android:text="Manage your ad information here. "
                 android:textColor="@color/purple_text"
                 android:alpha="0.5"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_13ssp"
                 android:layout_marginTop="@dimen/_10sdp"/>
 
@@ -128,7 +128,7 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:text="Ad Type"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_10ssp" />
@@ -150,7 +150,7 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:text="Ad Category"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_10ssp" />
@@ -170,7 +170,7 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:text="Dodge"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_10ssp" />
@@ -190,7 +190,7 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:text="Charger"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_10ssp" />
@@ -210,7 +210,7 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:text="Ad Status"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_10ssp" />
@@ -230,7 +230,7 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:text="10 July, 2020. 09:25."
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_10ssp" />
@@ -250,7 +250,7 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:text="14 July, 2020. 19:35."
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_10ssp" />
@@ -270,7 +270,7 @@
                     android:layout_marginStart="@dimen/_15sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:text="23 views"
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_10ssp" />

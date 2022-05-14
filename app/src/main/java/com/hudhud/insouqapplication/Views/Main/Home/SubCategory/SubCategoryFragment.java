@@ -100,6 +100,7 @@ import org.ocpsoft.prettytime.PrettyTime;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
@@ -287,6 +288,9 @@ public class SubCategoryFragment extends Fragment {
             position = SubCategoryFragmentArgs.fromBundle(getArguments()).getPosition();
             categoryId = SubCategoryFragmentArgs.fromBundle(getArguments()).getCategoryId();
         }
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+
         navController = Navigation.findNavController(view);
         navBar = view.findViewById(R.id.nav_bar_layout);
         scrollView = view.findViewById(R.id.scrollView);
@@ -360,6 +364,7 @@ public class SubCategoryFragment extends Fragment {
         usedCarsPriceBar = view.findViewById(R.id.used_cars_price_seek_bar);
         usedCarsMileageBar = view.findViewById(R.id.used_cars_mileage_bar);
         usedCarsYearBar = view.findViewById(R.id.used_cars_year_bar);
+        usedCarsYearBar.setCurrentValues(1900, year+1);
         resetMotorFilter = view.findViewById(R.id.reset_motor_filter_btn);
         boatAgeSpinner = view.findViewById(R.id.boat_age_spinner);
         boatUsageSpinner = view.findViewById(R.id.boat_usage_spinner);
@@ -372,6 +377,7 @@ public class SubCategoryFragment extends Fragment {
         machineryHorsepowerSpinner = view.findViewById(R.id.machinery_horsepower_spinner);
         machinesPriceBar = view.findViewById(R.id.machinery_price_seek_bar);
         machinesYearBar = view.findViewById(R.id.machinery_year_bar);
+        machinesYearBar.setCurrentValues(1900, year+1);
         bikeFilterLayout = view.findViewById(R.id.bikes_filter);
         bikeFilterResults = view.findViewById(R.id.filter_results_bikes_btn);
         bikesCategorySpinner = view.findViewById(R.id.bikes_brand_spinner);
@@ -379,12 +385,15 @@ public class SubCategoryFragment extends Fragment {
         bikePostedInSpinner = view.findViewById(R.id.bikes_posted_in_spinner);
         bikesPriceBar = view.findViewById(R.id.bikes_price_seek_bar);
         bikesYearBar = view.findViewById(R.id.bikes_year_bar);
+        bikesYearBar.setCurrentValues(1900, year+1);
         bikesMileageBar = view.findViewById(R.id.bikes_mileage_bar);
         partsNameSpinner = view.findViewById(R.id.part_names_spinner);
         partsCategorySpinner = view.findViewById(R.id.parts_category_spinner);
         partsMakeSpinner = view.findViewById(R.id.parts_sub_cat_spinner);
         partPriceBar = view.findViewById(R.id.parts_price_seek_bar);
         partYearBar = view.findViewById(R.id.parts_year_bar);
+        partYearBar.setCurrentValues(1900, year+1);
+
 
         usedCarsRV = view.findViewById(R.id.location_RV);
         bikesRV = view.findViewById(R.id.location_RV2);
@@ -6296,7 +6305,7 @@ public class SubCategoryFragment extends Fragment {
         boatHorsepowerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                currentBoatHorsePower = boatHorsepowerEnTitles.get(i)+"^"+boatHorsepowerArTitles.get(i);
+                currentBoatHorsePower = boatHorsepowerEnTitles.get(i)+"-"+boatHorsepowerArTitles.get(i);
                 enHorse = boatHorsepowerEnTitles.get(i);
                 arHorse = boatHorsepowerArTitles.get(i);
                 if(enHorse.equals(mainActivity.getResources().getString(R.string.other))){
@@ -6394,7 +6403,7 @@ public class SubCategoryFragment extends Fragment {
         machineryHorsepowerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                machineryHorsepower = machineryEnHorsepowerTitles.get(i)+"^"+machineryArHorsepowerTitles.get(i);
+                machineryHorsepower = machineryEnHorsepowerTitles.get(i)+"-"+machineryArHorsepowerTitles.get(i);
                 enHorse = machineryEnHorsepowerTitles.get(i);
                 arHorse = machineryArHorsepowerTitles.get(i);
                 if (enHorse.equals("-1")){
@@ -6583,7 +6592,7 @@ public class SubCategoryFragment extends Fragment {
         workExperienceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                workExperience = workExperienceEnTitles.get(i)+"^"+workExperienceArTitles.get(i);
+                workExperience = workExperienceEnTitles.get(i)+"-"+workExperienceArTitles.get(i);
                 enWorkExperience = workExperienceEnTitles.get(i);
                 arWorkExperience = workExperienceArTitles.get(i);
             }
@@ -6828,7 +6837,7 @@ public class SubCategoryFragment extends Fragment {
         category1AgeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                category1Age = classifiedsCategory1AgeEnTitles.get(i)+"^"+classifiedsCategory1AgeArTitles.get(i);
+                category1Age = classifiedsCategory1AgeEnTitles.get(i)+"-"+classifiedsCategory1AgeArTitles.get(i);
                 enAge = classifiedsCategory1AgeEnTitles.get(i);
                 arAge = classifiedsCategory1AgeArTitles.get(i);
             }
@@ -6842,7 +6851,7 @@ public class SubCategoryFragment extends Fragment {
         category2AgeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                category2Age = classifiedsCategory2AgeEnTitles.get(i)+"^"+classifiedsCategory2AgeArTitles.get(i);
+                category2Age = classifiedsCategory2AgeEnTitles.get(i)+"-"+classifiedsCategory2AgeArTitles.get(i);
                 enAge = classifiedsCategory2AgeEnTitles.get(i);
                 arAge = classifiedsCategory2AgeArTitles.get(i);
             }
@@ -6920,7 +6929,7 @@ public class SubCategoryFragment extends Fragment {
         electronicsAgeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                electronicsAge = electronicsAgeEnTitles.get(i)+"^"+electronicsAgeArTitles.get(i);
+                electronicsAge = electronicsAgeEnTitles.get(i)+"-"+electronicsAgeArTitles.get(i);
                 enAge = electronicsAgeEnTitles.get(i);
                 arAge = electronicsAgeArTitles.get(i);
             }
@@ -7132,7 +7141,7 @@ public class SubCategoryFragment extends Fragment {
                     setSpinner(boatHorsepowerSpinner, boatHorsepowerEnTitles);
                 }
                 if (boatHorsepowerEnTitles.size()>0) {
-                    currentBoatHorsePower = boatHorsepowerEnTitles.get(0) + "^" + boatHorsepowerArTitles.get(0);
+                    currentBoatHorsePower = boatHorsepowerEnTitles.get(0) + "-" + boatHorsepowerArTitles.get(0);
                 }
                 getBoatWarranty();
             } catch (JSONException e) {
@@ -7174,7 +7183,7 @@ public class SubCategoryFragment extends Fragment {
                 }else {
                     setSpinner(boatAgeSpinner, boatAgeEnTitles);
                 }
-                currentBoatAge = boatAgeEnTitles.get(0)+"^"+boatAgeArTitles.get(0);
+                currentBoatAge = boatAgeEnTitles.get(0)+"-"+boatAgeArTitles.get(0);
                 getBoatUsages();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -7314,7 +7323,7 @@ public class SubCategoryFragment extends Fragment {
                 }else {
                     setSpinner(machineryHorsepowerSpinner, machineryEnHorsepowerTitles);
                 }
-                machineryHorsepower = machineryEnHorsepowerTitles.get(0)+"^"+machineryArHorsepowerTitles.get(0);
+                machineryHorsepower = machineryEnHorsepowerTitles.get(0)+"-"+machineryArHorsepowerTitles.get(0);
             } catch (JSONException e) {
                 e.printStackTrace();
                 mainActivity.hideProgressDialog();
@@ -7657,7 +7666,7 @@ public class SubCategoryFragment extends Fragment {
                 }else {
                     setSpinner(workExperienceSpinner, workExperienceEnTitles);
                 }
-                workExperience = workExperienceEnTitles.get(0)+"^"+workExperienceArTitles.get(0);
+                workExperience = workExperienceEnTitles.get(0)+"-"+workExperienceArTitles.get(0);
                 getEducationLevel();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -8152,7 +8161,7 @@ public class SubCategoryFragment extends Fragment {
                 }else {
                     setSpinner(category1AgeSpinner, classifiedsCategory1AgeEnTitles);
                 }
-                category1Age = classifiedsCategory1AgeEnTitles.get(0)+"^"+classifiedsCategory1AgeArTitles.get(0);
+                category1Age = classifiedsCategory1AgeEnTitles.get(0)+"-"+classifiedsCategory1AgeArTitles.get(0);
                 getClassifieds1Usages();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -8213,7 +8222,7 @@ public class SubCategoryFragment extends Fragment {
                 }else {
                     setSpinner(category2AgeSpinner, classifiedsCategory2AgeEnTitles);
                 }
-                category2Age = classifiedsCategory2AgeEnTitles.get(0)+"^"+classifiedsCategory2AgeArTitles.get(0);
+                category2Age = classifiedsCategory2AgeEnTitles.get(0)+"-"+classifiedsCategory2AgeArTitles.get(0);
                 getClassifieds2Usages();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -8352,7 +8361,7 @@ public class SubCategoryFragment extends Fragment {
                 }else {
                     setSpinner(electronicsAgeSpinner, electronicsAgeEnTitles);
                 }
-                electronicsAge = electronicsAgeEnTitles.get(0)+"^"+electronicsAgeArTitles.get(0);
+                electronicsAge = electronicsAgeEnTitles.get(0)+"-"+electronicsAgeArTitles.get(0);
                 getElectronicsWarranty();
             } catch (JSONException e) {
                 e.printStackTrace();

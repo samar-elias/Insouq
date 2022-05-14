@@ -421,8 +421,8 @@
                     android:background="@drawable/white_radius_3"
                     android:textColor="@color/base_orange"
                     android:textColorHint="@color/gray"
-                    android:fontFamily="@font/objectivity_regular"
-                    android:textSize="@dimen/_11ssp"/>
+                    android:fontFamily="@font/objectivity_bold"
+                    android:textSize="@dimen/_13ssp"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -446,8 +446,8 @@
                     android:background="@drawable/white_radius_3"
                     android:textColor="@color/purple_text"
                     android:textColorHint="@color/gray"
-                    android:fontFamily="@font/objectivity_regular"
-                    android:textSize="@dimen/_11ssp"/>
+                    android:fontFamily="@font/objectivity_bold"
+                    android:textSize="@dimen/_13ssp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -469,7 +469,7 @@
                     android:background="@drawable/white_radius_3"
                     android:textColor="@color/purple_text"
                     android:textColorHint="@color/gray"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_11ssp"
                     android:layout_marginTop="@dimen/_5sdp"/>
                 <TextView
@@ -491,7 +491,7 @@
                     android:textAlignment="viewStart"
                     android:textColor="@color/purple_text"
                     android:textColorHint="@color/gray"
-                    android:fontFamily="@font/objectivity_regular"
+                    android:fontFamily="@font/objectivity_medium"
                     android:textSize="@dimen/_11ssp"
                     android:padding="@dimen/_13sdp"
                     android:maxLength="5"
@@ -699,19 +699,18 @@
         android:text="@string/here_s_how_your_ad_will_look"
         android:textColor="@color/purple_text"
         android:alpha="0.5"
-        android:fontFamily="@font/objectivity_regular"/>
+        android:fontFamily="@font/objectivity_medium"/>
 
     <include
         android:id="@+id/motors_ad_layout"
         layout="@layout/motor_item_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_90sdp"
+        android:layout_height="@dimen/_115sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/_10sdp"
         app:layout_constraintTop_toBottomOf="@id/text"
         app:layout_constraintBottom_toTopOf="@id/nav_bar_layout"/>
-
 
     <LinearLayout
         android:id="@+id/nav_bar_layout"

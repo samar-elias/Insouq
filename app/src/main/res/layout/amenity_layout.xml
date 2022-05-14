@@ -24,7 +24,7 @@
         app:layout_constraintTop_toBottomOf="@id/amenity_image"
         app:layout_constraintStart_toStartOf="@+id/amenity_image"
         app:layout_constraintEnd_toEndOf="@id/amenity_image"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:textColor="@color/purple_text"
         android:textSize="@dimen/_8ssp"
         android:gravity="center"

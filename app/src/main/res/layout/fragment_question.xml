@@ -47,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="How can I pay for my order?"
         android:textAlignment="viewStart"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:textSize="@dimen/_11ssp"
         android:textColor="@color/purple_text"
         android:layout_margin="@dimen/_15sdp"/>

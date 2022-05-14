@@ -83,7 +83,7 @@
                 android:text="@string/try_to_have_an_informative_title_that_s_to_be_point_and_not_very_long"
                 android:textColor="@color/purple_text"
                 android:alpha="0.5"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_12ssp"
                 android:layout_marginTop="@dimen/_10sdp"/>
             <EditText
@@ -99,7 +99,7 @@
                 android:padding="@dimen/_13sdp"
                 android:textColor="@color/purple_text"
                 android:textColorHint="@color/gray"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_11ssp"/>
 
             <TextView
@@ -117,7 +117,7 @@
                 android:text="@string/recommended_40_characters"
                 android:textColor="@color/purple_text"
                 android:alpha="0.5"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_9ssp"
                 android:layout_marginTop="@dimen/_5sdp"/>
 
@@ -456,7 +456,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@color/base_orange"
                 android:textColorHint="@color/gray"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_11ssp"/>
             <TextView
                 android:layout_width="match_parent"
@@ -480,7 +480,7 @@
                 android:textColorHint="@color/gray"
                 android:padding="@dimen/_13sdp"
                 android:background="@drawable/white_radius_3"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_11ssp"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -502,7 +502,7 @@
                 android:background="@drawable/white_radius_3"
                 android:textColor="@color/purple_text"
                 android:textColorHint="@color/gray"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_11ssp"
                 android:layout_marginTop="@dimen/_5sdp"/>
             <TextView
@@ -542,7 +542,7 @@
                 android:background="@drawable/white_radius_3"
                 android:visibility="gone"
                 android:hint="@string/other_please_type_here"
-                android:fontFamily="@font/objectivity_regular"
+                android:fontFamily="@font/objectivity_medium"
                 android:textSize="@dimen/_10ssp"
                 android:inputType="text"
                 android:imeOptions="actionDone"
@@ -639,7 +639,7 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:visibility="gone"
         android:text="@string/here_s_how_your_ad_will_look"
-        android:fontFamily="@font/objectivity_regular"
+        android:fontFamily="@font/objectivity_medium"
         android:textColor="@color/purple_text"
         android:textSize="@dimen/_11ssp"/>
 

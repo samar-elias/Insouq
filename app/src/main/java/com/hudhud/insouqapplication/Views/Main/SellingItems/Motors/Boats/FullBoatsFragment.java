@@ -443,7 +443,7 @@ public class FullBoatsFragment extends Fragment {
                 if (i ==0){
                     currentHorsepower = "-1";
                 }else {
-                    currentHorsepower = horsepowerEnTitles.get(i)+"^"+horsepowerArTitles.get(i);
+                    currentHorsepower = horsepowerEnTitles.get(i)+"-"+horsepowerArTitles.get(i);
                 }
             }
 
@@ -589,7 +589,7 @@ public class FullBoatsFragment extends Fragment {
                     setSpinner(horsepowerSpinner, horsepowerEnTitles);
                 }
                 if (horsepowerEnTitles.size()>0) {
-                    currentHorsepower = horsepowerEnTitles.get(0) + "^" + horsepowerArTitles.get(0);
+                    currentHorsepower = horsepowerEnTitles.get(0) + "-" + horsepowerArTitles.get(0);
                 }
                 getWarranty();
             } catch (JSONException e) {
@@ -634,7 +634,7 @@ public class FullBoatsFragment extends Fragment {
                 }else {
                     setSpinner(ageSpinner, ageEnTitles);
                 }
-                currentAge = ageEnTitles.get(0)+"^"+ageArTitles.get(0);
+                currentAge = ageEnTitles.get(0)+"-"+ageArTitles.get(0);
                 getUsages();
             } catch (JSONException e) {
                 e.printStackTrace();

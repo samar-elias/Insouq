@@ -16,7 +16,7 @@
             app:layout_constraintEnd_toStartOf="@id/add_icon"
             android:text="How can I pay for my order?"
             android:textAlignment="viewStart"
-            android:fontFamily="@font/objectivity_regular"
+            android:fontFamily="@font/objectivity_medium"
             android:textSize="@dimen/_11ssp"
             android:textColor="@color/purple_text" />
         <ImageView
@@ -44,7 +44,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/_10sdp"
-            android:fontFamily="@font/objectivity_regular"
+            android:fontFamily="@font/objectivity_medium"
             android:textSize="@dimen/_11ssp"
             android:textColor="@color/purple_text"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc accumsan libero erat, vitae elementum justo iaculis vel. Cras lobortis, nulla vitae suscipit dapibus, diam leo fringilla quam, sit amet vehicula ex nibh et nibh.\n\nDonec metus sem, fringilla eget semper in, luctus id neque. Phasellus euismod dolor quis lacinia dignissim. "

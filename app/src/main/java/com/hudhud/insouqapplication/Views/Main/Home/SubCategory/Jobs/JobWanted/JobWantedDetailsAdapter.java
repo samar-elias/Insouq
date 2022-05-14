@@ -51,6 +51,7 @@ public class JobWantedDetailsAdapter extends RecyclerView.Adapter<JobWantedDetai
         jobDetailsFragment.getUserInfo(jobAd.getUserId(), holder.img, holder.name, holder.member);
 
         holder.title.setText(jobAd.getTitle());
+        holder.postDate.setText(context.getResources().getString(R.string.posted_on)+" "+jobAd.getPostedDate());
         holder.companyName.setText(jobAd.getCompanyName());
         holder.description.setText(jobAd.getDescription());
 //        holder.member.setText(jobDetailsFragment.memberSince);
@@ -76,27 +77,23 @@ public class JobWantedDetailsAdapter extends RecyclerView.Adapter<JobWantedDetai
         if (!jobAd.getOtherJobType().equals("null")){
             jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.job_type), jobAd.getOtherJobType(), R.drawable.job_type_img));
         }
-        if (!jobAd.getEnCurrentLocation().equals("null")){
+
+        if (!jobAd.getEnCareerLevel().equals("null")){
             if (AppDefs.language.equals("ar")){
-                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.current_location), jobAd.getArCurrentLocation(), R.drawable.location));
+                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.career_level), jobAd.getArCareerLevel(), R.drawable.career_level_img));
             }else {
-                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.current_location), jobAd.getEnCurrentLocation(), R.drawable.location));
+                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.career_level), jobAd.getEnCareerLevel(), R.drawable.career_level_img));
             }
         }
-        if (!jobAd.getEnEducationalLevel().equals("null")){
+
+        if (!jobAd.getEnEmploymentType().equals("null")){
             if (AppDefs.language.equals("ar")){
-                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.education_level), jobAd.getArEducationalLevel(), R.drawable.education_level_img));
+                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.employment_type), jobAd.getArEmploymentType(), R.drawable.employment_type_img));
             }else {
-                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.education_level), jobAd.getEnEducationalLevel(), R.drawable.education_level_img));
+                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.employment_type), jobAd.getEnEmploymentType(), R.drawable.employment_type_img));
             }
         }
-        if (!jobAd.getEnWorkExperience().equals("null")){
-            if (AppDefs.language.equals("ar")){
-                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.work_experience), jobAd.getArWorkExperience(), R.drawable.work_experience_img));
-            }else {
-                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.work_experience), jobAd.getEnWorkExperience(), R.drawable.work_experience_img));
-            }
-        }
+
         if (!jobAd.getEnCommitment().equals("null")){
             if (AppDefs.language.equals("ar")){
                 jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.commitment), jobAd.getArCommitment(), R.drawable.commitment_img));
@@ -104,6 +101,47 @@ public class JobWantedDetailsAdapter extends RecyclerView.Adapter<JobWantedDetai
                 jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.commitment), jobAd.getEnCommitment(), R.drawable.commitment_img));
             }
         }
+
+        if (!jobAd.getEnWorkExperience().equals("null")){
+            if (AppDefs.language.equals("ar")){
+                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.work_experience), jobAd.getArWorkExperience(), R.drawable.work_experience_img));
+            }else {
+                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.work_experience), jobAd.getEnWorkExperience(), R.drawable.work_experience_img));
+            }
+        }
+
+        if (!jobAd.getEnMinWorkExperience().equals("null")){
+            if (AppDefs.language.equals("ar")){
+                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.minimum_work_experience), jobAd.getArMinWorkExperience(), R.drawable.work_experience_img));
+            }else {
+                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.minimum_work_experience), jobAd.getEnMinWorkExperience(), R.drawable.work_experience_img));
+            }
+        }
+
+        if (!jobAd.getEnCurrentLocation().equals("null")){
+            if (AppDefs.language.equals("ar")){
+                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.current_location), jobAd.getArCurrentLocation(), R.drawable.location));
+            }else {
+                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.current_location), jobAd.getEnCurrentLocation(), R.drawable.location));
+            }
+        }
+
+        if (!jobAd.getEnMinEducationalLevel().equals("null")){
+            if (AppDefs.language.equals("ar")){
+                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.education_level), jobAd.getArMinEducationalLevel(), R.drawable.education_level_img));
+            }else {
+                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.education_level), jobAd.getEnMinEducationalLevel(), R.drawable.education_level_img));
+            }
+        }
+
+        if (!jobAd.getEnEducationalLevel().equals("null")){
+            if (AppDefs.language.equals("ar")){
+                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.education_level), jobAd.getArEducationalLevel(), R.drawable.education_level_img));
+            }else {
+                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.education_level), jobAd.getEnEducationalLevel(), R.drawable.education_level_img));
+            }
+        }
+
         if (!jobAd.getEnNoticePeriod().equals("null")){
             if (AppDefs.language.equals("ar")){
                 jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.notice_period), jobAd.getArNoticePeriod(), R.drawable.notice_period_img));
@@ -118,36 +156,9 @@ public class JobWantedDetailsAdapter extends RecyclerView.Adapter<JobWantedDetai
                 jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.visa_status), jobAd.getEnVisaStatus(), R.drawable.visa_status_img));
             }
         }
-        if (!jobAd.getEnCareerLevel().equals("null")){
-            if (AppDefs.language.equals("ar")){
-                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.career_level), jobAd.getArCareerLevel(), R.drawable.career_level_img));
-            }else {
-                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.career_level), jobAd.getEnCareerLevel(), R.drawable.career_level_img));
-            }
-        }
+
         if (!jobAd.getExpectedSalary().equals("null")){
-            jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.expected_monthly_salary), jobAd.getExpectedSalary()));
-        }
-        if (!jobAd.getEnEmploymentType().equals("null")){
-            if (AppDefs.language.equals("ar")){
-                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.employment_type), jobAd.getArEmploymentType(), R.drawable.employment_type_img));
-            }else {
-                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.employment_type), jobAd.getEnEmploymentType(), R.drawable.employment_type_img));
-            }
-        }
-        if (!jobAd.getEnMinWorkExperience().equals("null")){
-            if (AppDefs.language.equals("ar")){
-                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.minimum_work_experience), jobAd.getArMinWorkExperience(), R.drawable.work_experience_img));
-            }else {
-                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.minimum_work_experience), jobAd.getEnMinWorkExperience(), R.drawable.work_experience_img));
-            }
-        }
-        if (!jobAd.getEnMinEducationalLevel().equals("null")){
-            if (AppDefs.language.equals("ar")){
-                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.education_level), jobAd.getArMinEducationalLevel(), R.drawable.education_level_img));
-            }else {
-                jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.education_level), jobAd.getEnMinEducationalLevel(), R.drawable.education_level_img));
-            }
+            jobSpecifications.add(new specificationModel(context.getResources().getString(R.string.expected_monthly_salary), jobAd.getExpectedSalary(), R.drawable.salary_img));
         }
 
         SpecificationAdapter specificationAdapter = new SpecificationAdapter(jobSpecifications);
@@ -223,6 +234,14 @@ public class JobWantedDetailsAdapter extends RecyclerView.Adapter<JobWantedDetai
             }
         });
 
+        if (AppDefs.language.equals("ar")){
+            holder.next.setScaleX(-1);
+            holder.previous.setScaleX(-1);
+        }else {
+            holder.next.setScaleX(1);
+            holder.previous.setScaleX(1);
+        }
+
         holder.backToPrevious.setOnClickListener(view -> jobDetailsFragment.backToPrevious());
     }
 
@@ -235,7 +254,7 @@ public class JobWantedDetailsAdapter extends RecyclerView.Adapter<JobWantedDetai
         ConstraintLayout descriptionLayout, locationLayout, directionsLayout;
         ImageView backToPrevious, descriptionArrow, locationArrow, locationImage, favourite, direction, share, img;
         TextView description, reportAd, descriptionLine, applyForJob2, applyForJob, title, companyName, location,
-                location2, employmentType, workExperience, name, member;
+                location2, employmentType, workExperience, postDate, name, member;
         Boolean showDescription, showLocation;
         RecyclerView similarJobsRV;
         LinearLayout call, sms;
@@ -281,6 +300,7 @@ public class JobWantedDetailsAdapter extends RecyclerView.Adapter<JobWantedDetai
             showLocation = false;
             locationArrow = itemView.findViewById(R.id.show_location_arrow);
             locationImage = itemView.findViewById(R.id.location_image);
+            postDate = itemView.findViewById(R.id.post_date);
             locationImage.setVisibility(View.GONE);
             directionsLayout.setVisibility(View.GONE);
 
