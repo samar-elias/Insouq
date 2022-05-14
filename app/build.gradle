@@ -131,6 +131,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.pixplicity.sharp:library:1.1.0'
 
+    implementation 'com.google.firebase:firebase-storage:20.0.1'
+    implementation 'com.google.firebase:firebase-config:21.0.2'
 }
 repositories {
     mavenCentral()

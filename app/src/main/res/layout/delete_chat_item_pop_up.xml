@@ -51,6 +51,17 @@
             android:fontFamily="@font/objectivity_medium"
             android:layout_marginTop="@dimen/_15sdp"/>
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/archive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/base_orange"
+            app:cornerRadius="@dimen/_15sdp"
+
+            android:textSize="@dimen/_9ssp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/objectivity_medium"
+            android:layout_marginTop="@dimen/_15sdp"/>
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/cancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

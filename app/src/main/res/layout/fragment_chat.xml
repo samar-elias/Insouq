@@ -20,6 +20,15 @@
         android:paddingStart="@dimen/_20sdp"
         android:paddingEnd="@dimen/_20sdp"
         android:paddingBottom="@dimen/_30sdp">
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/back_arrow"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
         <TextView
             android:id="@+id/sub_category_title"
             android:layout_width="wrap_content"
@@ -31,17 +40,9 @@
             android:fontFamily="@font/objectivity_medium"
             android:textColor="@color/white"
             android:textSize="@dimen/_15ssp"/>
-        <TextView
-            android:id="@+id/edit_chats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/edit"
-            android:fontFamily="@font/objectivity_medium"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_12ssp"/>
+
+
+
         <TextView
             android:id="@+id/delete_chats"
             android:layout_width="wrap_content"
@@ -52,7 +53,7 @@
             android:text="Delete"
             android:fontFamily="@font/objectivity_medium"
             android:textColor="@color/white"
-            android:visibility="gone"
+            android:visibility="visible"
             android:textSize="@dimen/_12ssp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -66,27 +67,19 @@
         app:layout_constraintBottom_toBottomOf="@id/toolbar_layout"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_20sdp"
-        android:padding="@dimen/_10sdp"
+
         android:background="@drawable/radius_5_white">
-        <TextView
-            android:id="@+id/search_text"
-            android:layout_width="0dp"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/search_icon"
             android:text="@string/search_hint"
             android:textColor="@color/purple_text"
             android:alpha="0.3"/>
-        <ImageView
-            android:id="@+id/search_icon"
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:src="@drawable/search_gray" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
     <ScrollView
         android:id="@+id/scrollView"
@@ -135,7 +128,6 @@
         </LinearLayout>
 
     </ScrollView>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/nav_bar_layout"
         android:layout_width="match_parent"
@@ -167,14 +159,14 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:weightSum="2"
+                android:padding="@dimen/_10sdp"
                 android:gravity="center"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp">
                 <ImageView
                     android:id="@+id/home"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/_15sdp"
+                    android:layout_height="@dimen/_20sdp"
                     android:layout_weight="1"
                     android:src="@drawable/home"
                     android:layout_marginEnd="@dimen/_10sdp"
@@ -182,8 +174,7 @@
                 <ImageView
                     android:id="@+id/chat"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/_15sdp"
+                    android:layout_height="@dimen/_20sdp"
                     android:layout_weight="1"
                     android:src="@drawable/chat_purple" />
             </LinearLayout>
@@ -193,25 +184,24 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:weightSum="2"
+                android:padding="@dimen/_10sdp"
                 android:gravity="center"
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginLeft="@dimen/_20sdp">
                 <ImageView
                     android:id="@+id/notification"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/_15sdp"
+                    android:layout_height="@dimen/_20sdp"
                     android:layout_weight="1"
-                    android:src="@drawable/notification_gray"/>
+                    android:src="@drawable/profile"/>
                 <ImageView
                     android:id="@+id/profile"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/_15sdp"
+                    android:layout_height="@dimen/_20sdp"
                     android:layout_weight="1"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginLeft="@dimen/_20sdp"
-                    android:src="@drawable/profile"/>
+                    android:src="@drawable/list"/>
             </LinearLayout>
         </LinearLayout>
         <ImageView
