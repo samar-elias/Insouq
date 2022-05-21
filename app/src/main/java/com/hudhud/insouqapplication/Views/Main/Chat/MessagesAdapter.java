@@ -42,7 +42,8 @@ public class MessagesAdapter extends RecyclerView.Adapter {
     final int ITEM_RECEIVE = 2;
     ChatDetailesActivity chatDetailesActivity;
     List<String> type = new ArrayList<>();
-
+    String x="";
+    String y="";
 
     FirebaseRemoteConfig remoteConfig;
     Boolean isReciver = true;
@@ -170,6 +171,27 @@ public class MessagesAdapter extends RecyclerView.Adapter {
                     viewHolder.status.setText("Deliverd");
                 }
             }
+            try {
+                String originalString = messages.get(position).getMessageTime();
+                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(originalString);
+                String newstr = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                y= newstr;
+
+
+
+            } catch (ParseException e) {
+                //Handle exception here
+                e.printStackTrace();
+
+            }
+            if (x.equals(y)){
+                viewHolder.date_massage.setVisibility(View.GONE);
+            }else {
+                viewHolder.date_massage.setVisibility(View.VISIBLE);
+                viewHolder.date_massage.setText(y);
+                x=y;
+            }
+
 
 
         } else {
@@ -238,6 +260,26 @@ public class MessagesAdapter extends RecyclerView.Adapter {
                 //System.out.println(n);
 
             }
+            try {
+                String originalString = messages.get(position).getMessageTime();
+                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(originalString);
+                String newstr = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                y= newstr;
+
+
+
+            } catch (ParseException e) {
+                //Handle exception here
+                e.printStackTrace();
+
+            }
+            if (x.equals(y)){
+                viewHolder.date_massage.setVisibility(View.GONE);
+            }else {
+                viewHolder.date_massage.setVisibility(View.VISIBLE);
+                viewHolder.date_massage.setText(y);
+                x=y;
+            }
 
         }
 
@@ -250,7 +292,7 @@ public class MessagesAdapter extends RecyclerView.Adapter {
 
     public class SentViewHolder extends RecyclerView.ViewHolder {
 
-        TextView message, tv_time, status;
+        TextView message, tv_time, status,date_massage;
         ImageView image;
         LinearLayout liner;
 
@@ -261,12 +303,13 @@ public class MessagesAdapter extends RecyclerView.Adapter {
             tv_time = itemView.findViewById(R.id.time);
             status = itemView.findViewById(R.id.status);
             liner = itemView.findViewById(R.id.linear);
+            date_massage=itemView.findViewById(R.id.date_massage);
         }
     }
 
     public class ReceiverViewHolder extends RecyclerView.ViewHolder {
 
-        TextView message, tv_time, status;
+        TextView message, tv_time, status,date_massage;
         ImageView image,image_profile;
         CardView cardView;
         LinearLayout liner;
@@ -280,6 +323,7 @@ public class MessagesAdapter extends RecyclerView.Adapter {
             cardView = itemView.findViewById(R.id.card);
             liner = itemView.findViewById(R.id.linear);
             image_profile=itemView.findViewById(R.id.image_profile);
+            date_massage=itemView.findViewById(R.id.date_massage);
 
         }
     }

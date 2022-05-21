@@ -767,7 +767,7 @@ public class BusinessChatDetailsActivity extends AppCompatActivity {
                 JSONObject userObject = new JSONObject(response);
                 firstName = userObject.getString("firstName");
                 lastName = userObject.getString("lastName");
-                hideInfo = userObject.getBoolean("");
+                hideInfo=userObject.getBoolean("hideInformation");
 
                 String newPic = "https://insouq.com" + userObject.getString("profilePicture").replace("\\", "/");
 
@@ -781,7 +781,7 @@ public class BusinessChatDetailsActivity extends AppCompatActivity {
                 }
                 Message message = new Message(anew);
                 Chats chats1 = new Chats(adId, 0, 0, Integer.valueOf(AppDefs.user.getId()), message,
-                        "", true, "", key, userId, true, image, 1, "5", description, title, price, imageProfile, firstName, lastName, String.valueOf(AppDefs.user.getFirstName() + " " + AppDefs.user.getLastName()));
+                        "", true, "", key, userId, true, image, 1, "5", description, title, price, imageProfile, firstName, lastName, String.valueOf(AppDefs.user.getFirstName() + " " + AppDefs.user.getLastName()),hideInfo);
 
 
                 firebaseManger.getDatabaseReference().child(Constant.Chats).child(key).setValue(chats1);

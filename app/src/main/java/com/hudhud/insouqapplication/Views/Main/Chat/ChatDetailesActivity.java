@@ -169,8 +169,8 @@ public class ChatDetailesActivity extends AppCompatActivity {
         image = getIntent().getStringExtra("image");
         title = getIntent().getStringExtra("title");
         price = getIntent().getStringExtra("price");
-        adds_detailes.setText(description);
-        tv_adds_time.setText(title);
+        adds_detailes.setText(title);
+        tv_adds_time.setText(description);
         tv_adds_price.setText(price);
 
 
@@ -293,7 +293,6 @@ public class ChatDetailesActivity extends AppCompatActivity {
                 firebaseManger.getDatabaseReference().child(Constant.Chats).child(chat_id).updateChildren(post1);
 
 
-                Toast.makeText(ChatDetailesActivity.this, "block click", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -487,7 +486,6 @@ public class ChatDetailesActivity extends AppCompatActivity {
                             }
                         }
                     });*/
-                                Toast.makeText(this, "add success", Toast.LENGTH_LONG).show();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 // Toast.makeText(mainActivity, e.toString(), Toast.LENGTH_LONG).show();
@@ -531,7 +529,6 @@ public class ChatDetailesActivity extends AppCompatActivity {
                     lng = currentLocation.getLongitude();
                     String locURL = "https://www.google.com/maps/search/?api=1&query=" + lat + "," + lng;
                     String urlmapImg = "https://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lng + "&zoom=13&size=300x300&sensor=false&key=AIzaSyDtQgHRpKBnlCfmlFyIKhliytfCb9tHgJY";
-                    Toast.makeText(getApplicationContext(), currentLocation.getLatitude() + "" + currentLocation.getLongitude(), Toast.LENGTH_SHORT).show();
 
                     List<String> file = new ArrayList<>();
                     List<String> LocURL = new ArrayList<>();
@@ -689,12 +686,12 @@ public class ChatDetailesActivity extends AppCompatActivity {
                             Message chatModel = snapshot.getValue(Message.class);
                             Integer location = chatModel.getSeen();
                             mKeys.add(location);
-                            if (mKeys.size() != -1){
+                           /* if (mKeys.size() != -1 && messages.size() !=-1){
                                 for (int i=mKeys.size();i>=1;i--){
                                     messages.set(messages.size()-i, chatModel);
                                     adapter.notifyDataSetChanged();
                                 }
-                            }
+                            }*/
 
                         }
 

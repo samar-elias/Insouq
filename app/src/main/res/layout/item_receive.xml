@@ -5,6 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp">
+    <TextView
+        android:id="@+id/date_massage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingTop="5dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="5dp"
+
+
+
+        android:textSize="7dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
@@ -12,6 +27,7 @@
         android:layout_height="@dimen/_30sdp"
         app:cardCornerRadius="@dimen/_10sdp"
         android:visibility="gone"
+        android:paddingBottom="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -21,6 +37,7 @@
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
             android:src="@drawable/car"
+
 
 
             app:layout_constraintDimensionRatio="H,1:1"
@@ -39,7 +56,7 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/status"
         app:layout_constraintStart_toEndOf="@+id/card"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/date_massage">
 
         <ImageView
             android:id="@+id/image"
@@ -49,36 +66,37 @@
             android:scaleType="centerCrop"
             android:visibility="gone"
             app:srcCompat="@drawable/logo" />
+
         <LinearLayout
             android:id="@id/linear"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-        <TextView
-            android:id="@+id/message"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingTop="5dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
-            android:text="TextView"
-            android:textSize="13sp" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:gravity="right"
-            android:paddingLeft="8sp"
-            android:paddingTop="5dp"
-            android:paddingRight="5dp"
-            android:paddingBottom="5dp"
-            android:text="TextView"
-            android:textSize="7dp" />
+
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                android:text="TextView"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:paddingLeft="8sp"
+                android:paddingTop="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="5dp"
+                android:text="TextView"
+                android:textSize="7dp" />
         </LinearLayout>
 
     </LinearLayout>
