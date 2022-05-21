@@ -28,12 +28,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/car"/>
+                android:src="@drawable/car"
+                android:visibility="gone"/>
+            <include
+                android:id="@+id/slider"
+                layout="@layout/include_slider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_90sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/business_image"
+                app:layout_constraintTop_toBottomOf="@id/slider"
                 android:padding="@dimen/_7sdp">
                 <TextView
                     android:id="@+id/business_title"

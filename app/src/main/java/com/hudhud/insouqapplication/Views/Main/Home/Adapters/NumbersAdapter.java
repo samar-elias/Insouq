@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
+import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Responses.NewAd;
 import com.hudhud.insouqapplication.AppUtils.Responses.NewNumberAd;
 import com.hudhud.insouqapplication.AppUtils.Responses.NumberAd;
@@ -49,7 +50,11 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         NumberAd newAd = newAds.get(position);
 
-        holder.loc.setText(newAd.getEnLocation());
+        if (AppDefs.language.equals("ar")){
+            holder.loc.setText(newAd.getArLocation());
+        }else {
+            holder.loc.setText(newAd.getEnLocation());
+        }
         if (!newAd.getPrice().isEmpty()){
             holder.price.setText("AED "+newAd.getPrice());
         }
@@ -98,7 +103,7 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.ViewHold
                     break;
             }
         }else if (newAd.getCategory().equals("Plate Numbers")){
-            holder.title.setText(newAd.getPlateType());
+            holder.title.setText(newAd.getEmirate()+", "+newAd.getPlateType());
             holder.mobileNumberLayout.setVisibility(View.INVISIBLE);
             if (newAd.getPlateType().equals("Private Car") && newAd.getEmirate().equals("Dubai")){
                 holder.abuDhabiBikeLayout.setVisibility(View.INVISIBLE);

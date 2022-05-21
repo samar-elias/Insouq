@@ -70,7 +70,7 @@ public class PostMobileNumberAdFragment extends Fragment {
     private static final int REQUEST_CODE = 101;
     EditText mobileNumberTitleEdt, mobileNumberPriceEdt, phoneNumberEdt, descriptionEdt, mobileNumberEdt;
     Spinner operatorsSpinner, codesSpinner, numberPlanSpinner, locationsSpinner;
-    TextView location, adTitle, adPrice, adLocation, mobileNumberCode, mobileNumber;
+    TextView location, mobileNumberCode, mobileNumber;
     ImageView mobileNumberImage;
     int subCatId;
     ArrayList<String> operatorsIds, operatorsArTitles, operatorsEnTitles, mobileCodes, plansArTitles, plansEnTitles, locationsArTitles, locationsEnTitles;
@@ -81,6 +81,11 @@ public class PostMobileNumberAdFragment extends Fragment {
     ArrayList<PackageFS> packages = new ArrayList<>();
     public String packageId = "";
     public CheckBox freeCB;
+    ConstraintLayout mobileLayout;
+
+    //Ad sample
+    TextView adTitle, adPrice, adLocation, adNumberPlan, adOperator;
+    ImageView emirateIcon, plateIcon;
 
     public PostMobileNumberAdFragment() {
         // Required empty public constructor
@@ -125,8 +130,8 @@ public class PostMobileNumberAdFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         agreementCheckBok = view.findViewById(R.id.agreement_checkbox);
@@ -135,6 +140,11 @@ public class PostMobileNumberAdFragment extends Fragment {
         phoneNumberEdt = view.findViewById(R.id.phone_number);
         descriptionEdt = view.findViewById(R.id.ad_short_description);
         mobileNumberEdt = view.findViewById(R.id.number_edt);
+        adNumberPlan = view.findViewById(R.id.emirate);
+        emirateIcon = view.findViewById(R.id.emirate_icon);
+        plateIcon = view.findViewById(R.id.icon);
+        adOperator = view.findViewById(R.id.value);
+        mobileLayout = view.findViewById(R.id.mobile_number_plate);
 
         operatorsSpinner = view.findViewById(R.id.operators_spinner);
         codesSpinner = view.findViewById(R.id.codes_spinner);
@@ -142,15 +152,12 @@ public class PostMobileNumberAdFragment extends Fragment {
         locationsSpinner = view.findViewById(R.id.locations_spinner);
 
         adTitle = view.findViewById(R.id.number_title);
-        adLocation = view.findViewById(R.id.number_location);
+        adLocation = view.findViewById(R.id.ad_location);
         adPrice = view.findViewById(R.id.number_price);
         location = view.findViewById(R.id.location);
         mobileNumberCode = view.findViewById(R.id.mobile_number_code);
         mobileNumber = view.findViewById(R.id.mobile_number);
         mobileNumberImage = view.findViewById(R.id.mobile_image);
-        if (!AppDefs.user.getMobileNumber().equals("null")) {
-            phoneNumberEdt.setText(AppDefs.user.getMobileNumber());
-        }
 
         operatorsIds = new ArrayList<>();
         operatorsArTitles = new ArrayList<>();
@@ -165,6 +172,13 @@ public class PostMobileNumberAdFragment extends Fragment {
             subCatId = PostMobileNumberAdFragmentArgs.fromBundle(getArguments()).getSubCatId();
             Send.mobileNumberAd.setCategoryId(String.valueOf(subCatId));
         }
+        if (!AppDefs.user.getMobileNumber().equals("null")) {
+            phoneNumberEdt.setText(AppDefs.user.getMobileNumber());
+        }
+        Glide.with(mainActivity).load(R.drawable.number_plan_img).into(emirateIcon);
+        Glide.with(mainActivity).load(R.drawable.operator_img).into(plateIcon);
+        adNumberPlan.setText(mainActivity.getResources().getString(R.string.number_plan));
+        adOperator.setText(mainActivity.getResources().getString(R.string.operator));
     }
 
     private void onClick(){
@@ -175,28 +189,38 @@ public class PostMobileNumberAdFragment extends Fragment {
         list.setOnClickListener(view -> startActivity("notifications"));
         location.setOnClickListener(view -> startMapsActivity());
 
-        mobileNumberTitleEdt.setOnEditorActionListener((textView, i, keyEvent) -> {
-            switch (i) {
-                case EditorInfo.IME_ACTION_DONE:
-                case EditorInfo.IME_ACTION_NEXT:
-                case EditorInfo.IME_ACTION_PREVIOUS:
-                    adTitle.setText(String.valueOf(mobileNumberTitleEdt.getText()));
-                    mainActivity.hideKeyboard();
-                    return true;
+        mobileNumberTitleEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
-            return false;
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adTitle.setText(String.valueOf(mobileNumberTitleEdt.getText()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
         });
 
-        mobileNumberPriceEdt.setOnEditorActionListener((textView, i, keyEvent) -> {
-            switch (i) {
-                case EditorInfo.IME_ACTION_DONE:
-                case EditorInfo.IME_ACTION_NEXT:
-                case EditorInfo.IME_ACTION_PREVIOUS:
-                    adPrice.setText(String.valueOf(mobileNumberPriceEdt.getText()));
-                    mainActivity.hideKeyboard();
-                    return true;
+        mobileNumberPriceEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
-            return false;
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adPrice.setText(String.valueOf("AED "+mobileNumberPriceEdt.getText()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
         });
 
         mobileNumberEdt.addTextChangedListener(new TextWatcher() {
@@ -216,16 +240,16 @@ public class PostMobileNumberAdFragment extends Fragment {
             }
         });
 
-        mobileNumberEdt.setOnEditorActionListener((textView, i, keyEvent) ->{
-            switch (i) {
-                case EditorInfo.IME_ACTION_DONE:
-                case EditorInfo.IME_ACTION_NEXT:
-                case EditorInfo.IME_ACTION_PREVIOUS:
-                    mainActivity.hideKeyboard();
-                    return true;
-            }
-            return false;
-        });
+//        mobileNumberEdt.setOnEditorActionListener((textView, i, keyEvent) ->{
+//            switch (i) {
+//                case EditorInfo.IME_ACTION_DONE:
+//                case EditorInfo.IME_ACTION_NEXT:
+//                case EditorInfo.IME_ACTION_PREVIOUS:
+//                    mainActivity.hideKeyboard();
+//                    return true;
+//            }
+//            return false;
+//        });
 
         continueBtn.setOnClickListener(view -> {
             String adTitle  = String.valueOf(mobileNumberTitleEdt.getText());
@@ -235,6 +259,8 @@ public class PostMobileNumberAdFragment extends Fragment {
             String description = String.valueOf(descriptionEdt.getText());
             if (adTitle.isEmpty() || adPrice.isEmpty() || phoneNum.isEmpty() || number.isEmpty()){
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.mobile_number), mainActivity.getResources().getString(R.string.fill_all_fields));
+            }else if(Integer.parseInt(adPrice)>10000000){
+                mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.number), mainActivity.getResources().getString(R.string.price_high));
             }else if (latitude.isEmpty() || longitude.isEmpty() || address.isEmpty()){
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.electronics_ad), mainActivity.getResources().getString(R.string.location_error));
             }else  if (!agreementCheckBok.isChecked()){
@@ -279,9 +305,15 @@ public class PostMobileNumberAdFragment extends Fragment {
                 }
                 if (i==0){
                     currentOperator = "";
+                    adOperator.setText(mainActivity.getResources().getString(R.string.operator));
                 }else {
                     currentOperator = operatorsEnTitles.get(i)+"-"+operatorsArTitles.get(i);
                     currentOperatorId = operatorsIds.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adOperator.setText(operatorsArTitles.get(i));
+                    }else {
+                        adOperator.setText(operatorsEnTitles.get(i));
+                    }
                     getMobileNumberCodes(currentOperator);
                     setNumberImage();
                 }
@@ -330,8 +362,14 @@ public class PostMobileNumberAdFragment extends Fragment {
                 }
                 if (i==0){
                     currentPlan = "-1";
+                    adNumberPlan.setText(mainActivity.getResources().getString(R.string.number_plan));
                 }else {
                     currentPlan = plansEnTitles.get(i)+"-"+plansArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adNumberPlan.setText(plansArTitles.get(i));
+                    }else {
+                        adNumberPlan.setText(plansEnTitles.get(i));
+                    }
                 }
             }
 
@@ -356,9 +394,9 @@ public class PostMobileNumberAdFragment extends Fragment {
                 }else {
                     currentLocation = locationsEnTitles.get(i)+"-"+locationsArTitles.get(i);
                     if (AppDefs.language.equals("ar")){
-                        adLocation.setText(locationsArTitles.get(0));
+                        adLocation.setText(locationsArTitles.get(i));
                     }else {
-                        adLocation.setText(locationsEnTitles.get(0));
+                        adLocation.setText(locationsEnTitles.get(i));
                     }
                 }
             }
@@ -371,6 +409,7 @@ public class PostMobileNumberAdFragment extends Fragment {
     }
 
     private void setNumberImage(){
+        mobileLayout.setVisibility(View.VISIBLE);
         switch (currentOperatorId){
             case "1":
                 Glide.with(mainActivity).load(R.drawable.etisalat).into(mobileNumberImage);
@@ -498,7 +537,7 @@ public class PostMobileNumberAdFragment extends Fragment {
                     adLocation.setText(locationsArTitles.get(0));
                 }else {
                     setSpinner(locationsSpinner, locationsEnTitles);
-                    adLocation.setText(locationsEnTitles.get(0));
+//                    adLocation.setText(locationsEnTitles.get(0));
                 }
                 currentLocation = locationsEnTitles.get(0)+"-"+locationsArTitles.get(0);
 
@@ -566,7 +605,7 @@ public class PostMobileNumberAdFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

@@ -2,8 +2,9 @@
     <string name="app_name">Insouq</string>
     <string name="google_places_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDdvVeT_QR6KjMJ1KldQFO6u8hyioTa16M</string>
     <string name="google_client_id" translatable="false">677303639754-ggotd556ld1vv1iu6buiedjpkj94nt9n.apps.googleusercontent.com</string>
-    <string name="facebook_app_id" translatable="false">1044688766336296</string>
-    <string name="fb_login_protocol_scheme" translatable="false">fb1044688766336296</string>
+    <string name="facebook_app_id" translatable="false">3101710686813874</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb3101710686813874</string>
+    <string name="fb_client_token" translatable="false">1c1a77d84466f90aef21acf3186f397d</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="sign_in">Sign in</string>
@@ -574,4 +575,7 @@
     <string name="coming_soon">Coming soon!</string>
     <string name="on_insouq">on Insouq</string>
     <string name="posted_on">Posted on</string>
+    <string name="choose_location">Please choose location from filter!</string>
+    <string name="price_high">The price is very high!</string>
+    <string name="check_terms">Please agree on our terms and conditions to continue sign up!</string>
 </resources>

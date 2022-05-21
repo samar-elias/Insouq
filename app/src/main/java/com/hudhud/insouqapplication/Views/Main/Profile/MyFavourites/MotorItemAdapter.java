@@ -9,12 +9,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.tabs.TabLayout;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
+import com.hudhud.insouqapplication.AppUtils.Helpers.Helpers;
 import com.hudhud.insouqapplication.AppUtils.Responses.UsedCarAd;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
 import com.hudhud.insouqapplication.R;
+import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.ImageViewPagerAdapter;
 import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.SubCategoryFragment;
 
 import java.util.ArrayList;
@@ -23,7 +27,6 @@ public class MotorItemAdapter extends RecyclerView.Adapter<MotorItemAdapter.View
 
     MyFavouritesFragment subCategoryFragment;
     ArrayList<UsedCarAd> usedCarAds;
-    String categoryId;
     Context context;
     boolean fav = false;
 
@@ -46,58 +49,157 @@ public class MotorItemAdapter extends RecyclerView.Adapter<MotorItemAdapter.View
         UsedCarAd usedCarAd = usedCarAds.get(position);
 
         holder.postDate.setText(usedCarAd.getPostDate());
-        holder.title.setText(usedCarAd.getTitle());
+//        holder.title.setText(usedCarAd.getTitle());
         if (usedCarAd.getIsFav().equals("true")){
             fav = true;
             holder.favourite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_favorite_red_24));
         }else {
-            fav = true;
+            fav = false;
             holder.favourite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_favorite_border_24));
         }
-        holder.favourite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_favorite_red_24));
         String newPic = usedCarAd.getMainImage().replace("\\", "/");
         Glide.with(context).load(Urls.IMAGE_URL+newPic).into(holder.image);
+
+        holder.viewPager.setVisibility(View.VISIBLE);
+        holder.tabLayout.setupWithViewPager(holder.viewPager, true);
+        ImageViewPagerAdapter mAdapter = new ImageViewPagerAdapter(usedCarAd.getPictures(), subCategoryFragment.mainActivity);
+        mAdapter.notifyDataSetChanged();
+        holder.viewPager.setOffscreenPageLimit(3);
+        holder.viewPager.setAdapter(mAdapter);
+
+        Helpers.setSliderTimer(3000, holder.viewPager, mAdapter);
+
         if (AppDefs.language.equals("ar")){
             holder.location.setText(usedCarAd.getArLocation());
         }else {
             holder.location.setText(usedCarAd.getEnLocation());
         }
+
         switch (usedCarAd.getCategoryId()){
             case "2":
             case "8":
             case "9":
+            case "6":
                 holder.kilos.setText(usedCarAd.getKiloMeters()+" KM");
+                if (AppDefs.language.equals("ar")){
+                    holder.value.setText(usedCarAd.getArColor());
+                }else {
+                    holder.value.setText(usedCarAd.getEnColor());
+                }
+                Glide.with(context).load(R.drawable.color).into(holder.icon);
+                Glide.with(context).load(R.drawable.kilometer_list).into(holder.kiloIcon);
                 break;
             case "5":
                 if (AppDefs.language.equals("ar")){
                     holder.kilos.setText(usedCarAd.getArLength());
+                    holder.value.setText(usedCarAd.getArAge());
                 }else {
                     holder.kilos.setText(usedCarAd.getEnLength());
+                    holder.value.setText(usedCarAd.getEnAge());
                 }
+                Glide.with(context).load(R.drawable.age_list).into(holder.icon);
+                Glide.with(context).load(R.drawable.lenght_img).into(holder.kiloIcon);
                 break;
             case "7":
                 if (AppDefs.language.equals("ar")){
-                    holder.kilos.setText(usedCarAd.getArPartName());
+                    holder.kilos.setText(usedCarAd.getSubCategoryArName());
+                    holder.year.setText(usedCarAd.getArPartName());
                 }else {
-                    holder.kilos.setText(usedCarAd.getEnPartName());
+                    holder.year.setText(usedCarAd.getEnPartName());
+                    holder.kilos.setText(usedCarAd.getSubCategoryEnName());
                 }
+                holder.icon.setVisibility(View.GONE);
+                holder.value.setVisibility(View.GONE);
+                switch (usedCarAd.getSubCategoryId()){
+                    case "84":
+                        Glide.with(context).load(R.drawable.car_parts).into(holder.kiloIcon);
+                        break;
+                    case "169":
+                        Glide.with(context).load(R.drawable.boat_parts).into(holder.kiloIcon);
+                        break;
+                    case "170":
+                        Glide.with(context).load(R.drawable.machinery_parts).into(holder.kiloIcon);
+                        break;
+                    case "171":
+                        Glide.with(context).load(R.drawable.bike_parts).into(holder.kiloIcon);
+                        break;
+                    default:
+                        Glide.with(context).load(R.drawable.part_name).into(holder.kiloIcon);
+                }
+                Glide.with(context).load(R.drawable.car_year).into(holder.yearIcon);
                 break;
         }
-        holder.price.setText(usedCarAd.getPrice()+" AED");
-        holder.year.setText(usedCarAd.getYear());
-//        String postDate = usedCarAd.getPostDate().substring(0, usedCarAd.getPostDate().indexOf("T"));
-//        holder.postDate.setText(postDate);
+
+        switch (usedCarAd.getCategoryId()){
+            case "2":
+            case "8":
+                if (AppDefs.language.equals("ar")){
+                    if (usedCarAd.getYear().equals("0")){
+                        holder.title.setText(usedCarAd.getArMaker()+", "+usedCarAd.getArModel()+", "+context.getResources().getText(R.string.unknown));
+                    }else {
+                        holder.title.setText(usedCarAd.getArMaker()+", "+usedCarAd.getArModel()+", "+usedCarAd.getYear());
+                    }
+                }else {
+                    if (usedCarAd.getYear().equals("0")){
+                        holder.title.setText(usedCarAd.getEnMaker()+", "+usedCarAd.getEnModel()+", "+context.getResources().getText(R.string.unknown));
+                    }else {
+                        holder.title.setText(usedCarAd.getEnMaker()+", "+usedCarAd.getEnModel()+", "+usedCarAd.getYear());
+                    }
+                }
+                break;
+            case "6":
+            case "9":
+                if (AppDefs.language.equals("ar")){
+                    if (usedCarAd.getYear().equals("0")){
+                        holder.title.setText(usedCarAd.getSubCategoryArName()+", "+context.getResources().getText(R.string.unknown));
+                    }else {
+                        holder.title.setText(usedCarAd.getSubCategoryArName()+", "+usedCarAd.getYear());
+                    }
+                }else {
+                    if (usedCarAd.getYear().equals("0")){
+                        holder.title.setText(usedCarAd.getSubCategoryEnName()+", "+context.getResources().getText(R.string.unknown));
+                    }else {
+                        holder.title.setText(usedCarAd.getSubCategoryEnName()+", "+usedCarAd.getYear());
+                    }
+                }
+                break;
+            case "5":
+                if (AppDefs.language.equals("ar")){
+                    if (usedCarAd.getYear().equals("0")){
+                        holder.title.setText(usedCarAd.getCategoryArName()+", "+context.getResources().getText(R.string.unknown));
+                    }else {
+                        holder.title.setText(usedCarAd.getCategoryArName()+", "+usedCarAd.getYear());
+                    }
+                }else {
+                    if (usedCarAd.getYear().equals("0")){
+                        holder.title.setText(usedCarAd.getCategoryEnName()+", "+context.getResources().getText(R.string.unknown));
+                    }else {
+                        holder.title.setText(usedCarAd.getCategoryEnName()+", "+usedCarAd.getYear());
+                    }
+                }
+                break;
+            case "7":
+                holder.title.setText(usedCarAd.getTitle());
+                break;
+        }
+
+        holder.price.setText("AED "+usedCarAd.getPrice());
+        if (usedCarAd.getYear().equals("0")){
+            holder.year.setText(context.getResources().getText(R.string.unknown));
+        }else {
+            holder.year.setText(usedCarAd.getYear());
+        }
 
         holder.itemView.setOnClickListener(v -> subCategoryFragment.navigateToMotorsDetails(position));
         holder.favourite.setOnClickListener(view -> {
             if (!fav){
                 holder.favourite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_favorite_red_24));
                 fav = true;
-                subCategoryFragment.addToFavourite(usedCarAd.getId());
+                subCategoryFragment.addToFavourite(usedCarAd.getId(), "1");
             }else {
                 holder.favourite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_favorite_border_24));
                 fav = false;
-                subCategoryFragment.removeFromFavourite(usedCarAd.getId());
+                subCategoryFragment.removeFromFavourite(usedCarAd.getId(), "1");
             }
         });
     }
@@ -108,8 +210,11 @@ public class MotorItemAdapter extends RecyclerView.Adapter<MotorItemAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView favourite, image;
-        TextView title, location, kilos, year, price, postDate;
+        ImageView favourite, image, icon, kiloIcon, yearIcon;
+        TextView title, location, kilos, year, price, postDate, value;
+        ViewPager viewPager;
+        TabLayout tabLayout;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             favourite = itemView.findViewById(R.id.favourite_motor);
@@ -120,6 +225,12 @@ public class MotorItemAdapter extends RecyclerView.Adapter<MotorItemAdapter.View
             year = itemView.findViewById(R.id.motor_year);
             price = itemView.findViewById(R.id.motor_price);
             postDate = itemView.findViewById(R.id.posted_date);
+            icon = itemView.findViewById(R.id.icon);
+            value = itemView.findViewById(R.id.value);
+            kiloIcon = itemView.findViewById(R.id.kilos_icon);
+            yearIcon = itemView.findViewById(R.id.motor_year_icon);
+            viewPager = itemView.findViewById(R.id.viewPager);
+            tabLayout = itemView.findViewById(R.id.tabDots);
         }
     }
 }

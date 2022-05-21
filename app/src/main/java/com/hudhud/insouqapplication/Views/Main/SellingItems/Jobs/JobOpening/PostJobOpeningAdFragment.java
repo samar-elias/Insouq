@@ -17,6 +17,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,6 +85,9 @@ public class PostJobOpeningAdFragment extends Fragment {
     public CheckBox freeCB;
     String title, companyName, description, phoneNumber, otherJobType;
 
+    //Ad sample
+    TextView adTitle, adLocation, adEmployment, adExperience;
+
     public PostJobOpeningAdFragment() {
         // Required empty public constructor
     }
@@ -124,8 +129,8 @@ public class PostJobOpeningAdFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
         location = view.findViewById(R.id.location);
 
         continueBtn = view.findViewById(R.id.continue_btn);
@@ -134,6 +139,11 @@ public class PostJobOpeningAdFragment extends Fragment {
         companyNameEdt = view.findViewById(R.id.company_name_edt);
         phoneNumberEdt = view.findViewById(R.id.phone_number);
         otherJobTypeEdt = view.findViewById(R.id.other_job_type);
+
+        adTitle = view.findViewById(R.id.job_title);
+        adLocation = view.findViewById(R.id.job_company);
+        adEmployment = view.findViewById(R.id.job_time);
+        adExperience = view.findViewById(R.id.job_experience);
 
         jobTypesSpinner = view.findViewById(R.id.job_types_spinner);
         locationsSpinner = view.findViewById(R.id.locations_spinner);
@@ -190,6 +200,23 @@ public class PostJobOpeningAdFragment extends Fragment {
                 packagesPopUp();
             }
         });
+
+        adTitleEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adTitle.setText(adTitleEdt.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     private void setSpinner(Spinner spinner, ArrayList<String> arrayList){
@@ -210,8 +237,14 @@ public class PostJobOpeningAdFragment extends Fragment {
                 }
                 if (i==0){
                     currentWorkExperience = "-1";
+                    adExperience.setText(mainActivity.getResources().getString(R.string.work_experience));
                 }else {
                     currentWorkExperience = workExperienceEnTitles.get(i)+"-"+workExperienceArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adExperience.setText(workExperienceArTitles.get(i));
+                    }else {
+                        adExperience.setText(workExperienceEnTitles.get(i));
+                    }
                 }
             }
 
@@ -256,8 +289,14 @@ public class PostJobOpeningAdFragment extends Fragment {
                 }
                 if (i==0){
                     currentLocation = "-1";
+                    adLocation.setText(mainActivity.getResources().getString(R.string.location));
                 }else {
                     currentLocation = locationEnTitles.get(i)+"-"+locationArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adLocation.setText(locationArTitles.get(i));
+                    }else {
+                        adLocation.setText(locationEnTitles.get(i));
+                    }
                 }
             }
 
@@ -316,7 +355,17 @@ public class PostJobOpeningAdFragment extends Fragment {
                 }else {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.gray_3));
                 }
-                currentEmploymentType = employmentTypeEnTitles.get(i)+"-"+employmentTypeArTitles.get(i);
+                if (i==0){
+                    currentEmploymentType = "-1";
+                    adEmployment.setText(mainActivity.getResources().getString(R.string.employment_type));
+                }else {
+                    currentEmploymentType = employmentTypeEnTitles.get(i)+"-"+employmentTypeArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adEmployment.setText(employmentTypeArTitles.get(i));
+                    }else {
+                        adEmployment.setText(employmentTypeEnTitles.get(i));
+                    }
+                }
             }
 
             @Override
@@ -616,7 +665,7 @@ public class PostJobOpeningAdFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

@@ -21,6 +21,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,13 +84,13 @@ public class PostElectronicsAdFragment extends Fragment {
     private static final int REQUEST_CODE = 101;
     int subCatId;
     ImageView image1, image2, image3, image4, image5, image7, image6, image8, image9, image10, uploadImage, mainImage;
-    ImageView closeImage1, closeImage2, closeImage3, closeImage4, closeImage5, closeImage7, closeImage6, closeImage8, closeImage9, closeImage10, closeMainImage, adImage;
+    ImageView closeImage1, closeImage2, closeImage3, closeImage4, closeImage5, closeImage7, closeImage6, closeImage8, closeImage9, closeImage10, closeMainImage;
     String image1Path = "", image2Path = "", image3Path = "", image4Path = "", image5Path = "", image7Path = "", image6Path = "", image8Path = "", image9Path = "", image10Path = "", mainPath = "", longitude = "", latitude = "", address = "";
     Bitmap image1Bitmap, image2Bitmap, image3Bitmap, image4Bitmap, image5Bitmap, image7Bitmap, image6Bitmap, image8Bitmap, image9Bitmap, image10Bitmap;
     Spinner subCategoriesSpinner, subTypesSpinner, versionSpinner, ramSpinner, storageSpinner, agesSpinner, usagesSpinner, colorsSpinner, underWarrantySpinner, locationsSpinner;
     LinearLayoutCompat versions, ram, storage;
     EditText electronicsAdEdt, electronicsAdPriceEdt, electronicsAdDescEdt, otherSubCat, otherTrim, phoneNum;
-    TextView electronicsTitle, adLocation, adPrice, location;
+    TextView location;
     ArrayList<Integer> adSubCategoriesIds, trimIds;
     ArrayList<String> adSubCategoriesTitles, trimTitles, versionEnTitles, versionArTitles, ramEnTitles, ramArTitles, storageEnTitles, storageArTitles, agesEnTitles, agesArTitles, usageEnTitles, usageArTitles, underWarranty, colorsEnTitles, colorsArTitles, locationsEnTitles, locationsArTitles;
     ArrayList<String> pictures = new ArrayList<>();
@@ -97,6 +99,10 @@ public class PostElectronicsAdFragment extends Fragment {
     public String packageId = "";
     public CheckBox freeCB;
     boolean spinner1 = false, spinner2 = false, spinner3 = false, spinner4 = false, spinner5 = false, spinner6 = false, spinner7 = false, spinner8 = false, spinner9 = false, spinner10 = false;
+
+    //Ad sample
+    TextView electronicsTitle, adLocation, adPrice, value1, value2, value3;
+    ImageView adImage, icon1, icon2, icon3;
 
     public PostElectronicsAdFragment() {
         // Required empty public constructor
@@ -140,8 +146,8 @@ public class PostElectronicsAdFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         agreementCheckBok = view.findViewById(R.id.agreement_checkbox);
         electronicsAdEdt = view.findViewById(R.id.electronics_ad_edt);
@@ -155,6 +161,12 @@ public class PostElectronicsAdFragment extends Fragment {
         location = view.findViewById(R.id.location);
         phoneNum = view.findViewById(R.id.phone_number);
         adImage = view.findViewById(R.id.electronics_image);
+        icon1 = view.findViewById(R.id.icon1);
+        icon2 = view.findViewById(R.id.icon3);
+        icon3 = view.findViewById(R.id.icon4);
+        value1 = view.findViewById(R.id.value1);
+        value2 = view.findViewById(R.id.value3);
+        value3 = view.findViewById(R.id.value4);
 
         adSubCategoriesIds = new ArrayList<>();
         adSubCategoriesTitles = new ArrayList<>();
@@ -232,10 +244,14 @@ public class PostElectronicsAdFragment extends Fragment {
                 versions.setVisibility(View.VISIBLE);
                 ram.setVisibility(View.VISIBLE);
                 storage.setVisibility(View.VISIBLE);
+                value3.setVisibility(View.VISIBLE);
+                icon3.setVisibility(View.VISIBLE);
             }else {
                 versions.setVisibility(View.GONE);
                 ram.setVisibility(View.GONE);
                 storage.setVisibility(View.GONE);
+                value3.setVisibility(View.GONE);
+                icon3.setVisibility(View.GONE);
             }
             Send.electronicsAd.setCategoryId(String.valueOf(subCatId));
         }
@@ -256,6 +272,8 @@ public class PostElectronicsAdFragment extends Fragment {
             String otherTrimStr = String.valueOf(otherTrim.getText());
             if (adPrice.isEmpty() || adTitle.isEmpty()){
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.electronics_ad), mainActivity.getResources().getString(R.string.fill_all_fields));
+            }else if(Integer.parseInt(adPrice)>10000000){
+                mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.classifieds), mainActivity.getResources().getString(R.string.price_high));
             }else if (otherSubCat.getVisibility() == View.VISIBLE){
                 if (otherSubCategory.isEmpty()){
                     mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.electronics_ad), mainActivity.getResources().getString(R.string.fill_all_fields));
@@ -279,31 +297,41 @@ public class PostElectronicsAdFragment extends Fragment {
             }
         });
 
-        electronicsAdEdt.setOnEditorActionListener(((textView, i, keyEvent) -> {
-            switch (i) {
-                case EditorInfo.IME_ACTION_DONE:
-                case EditorInfo.IME_ACTION_NEXT:
-                case EditorInfo.IME_ACTION_PREVIOUS:
-                    electronicsTitle.setText(String.valueOf(electronicsAdEdt.getText()));
-                    Send.electronicsAd.setTitle(String.valueOf(electronicsAdEdt.getText()));
-                    mainActivity.hideKeyboard();
-                    return true;
-            }
-            return false;
-        }));
+        electronicsAdEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        electronicsAdPriceEdt.setOnEditorActionListener(((textView, i, keyEvent) -> {
-            switch (i) {
-                case EditorInfo.IME_ACTION_DONE:
-                case EditorInfo.IME_ACTION_NEXT:
-                case EditorInfo.IME_ACTION_PREVIOUS:
-                    adPrice.setText(electronicsAdPriceEdt.getText() +" AED");
-                    Send.electronicsAd.setPrice(String.valueOf(electronicsAdPriceEdt.getText()));
-                    mainActivity.hideKeyboard();
-                    return true;
             }
-            return false;
-        }));
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                electronicsTitle.setText(String.valueOf(electronicsAdEdt.getText()));
+                Send.electronicsAd.setTitle(String.valueOf(electronicsAdEdt.getText()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        electronicsAdPriceEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adPrice.setText("AED "+electronicsAdPriceEdt.getText());
+                Send.electronicsAd.setPrice(String.valueOf(electronicsAdPriceEdt.getText()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         uploadImage.setOnClickListener(view -> {
             if (image1Path.isEmpty()){
@@ -398,51 +426,61 @@ public class PostElectronicsAdFragment extends Fragment {
         });
 
         closeImage1.setOnClickListener(view -> {
+            clearMainPath(image1Path, image1);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image1);
             image1Path = "";
         });
 
         closeImage2.setOnClickListener(view -> {
+            clearMainPath(image2Path, image2);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image2);
             image2Path = "";
         });
 
         closeImage3.setOnClickListener(view -> {
+            clearMainPath(image3Path, image3);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image3);
             image3Path = "";
         });
 
         closeImage4.setOnClickListener(view -> {
+            clearMainPath(image4Path, image4);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image4);
             image4Path = "";
         });
 
         closeImage5.setOnClickListener(view -> {
+            clearMainPath(image5Path, image5);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image5);
             image5Path = "";
         });
 
         closeImage6.setOnClickListener(view -> {
+            clearMainPath(image6Path, image6);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image6);
             image6Path = "";
         });
 
         closeImage7.setOnClickListener(view -> {
+            clearMainPath(image7Path, image7);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image7);
             image7Path = "";
         });
 
         closeImage8.setOnClickListener(view -> {
+            clearMainPath(image8Path, image8);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image8);
             image8Path = "";
         });
 
         closeImage9.setOnClickListener(view -> {
+            clearMainPath(image9Path, image9);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image9);
             image9Path = "";
         });
 
         closeImage10.setOnClickListener(view -> {
+            clearMainPath(image10Path, image10);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image10);
             image10Path = "";
         });
@@ -455,6 +493,7 @@ public class PostElectronicsAdFragment extends Fragment {
         Send.electronicsAd.setOtherSubCategory(otherSubCategory);
         Send.electronicsAd.setOtherSubTypeId(otherTrimStr);
         Send.electronicsAd.setDescription(adDescriptions);
+        pictures.clear();
         if (!image1Path.isEmpty()){
             pictures.add(image1Path);
         }
@@ -602,8 +641,14 @@ public class PostElectronicsAdFragment extends Fragment {
                 }
                 if (i==0){
                     Send.electronicsAd.setAge("-1");
+                    value2.setText(mainActivity.getResources().getString(R.string.age));
                 }else {
                     Send.electronicsAd.setAge(agesEnTitles.get(i)+"-"+agesArTitles.get(i));
+                    if (AppDefs.language.equals("ar")){
+                        value2.setText(agesArTitles.get(i));
+                    }else {
+                        value2.setText(agesEnTitles.get(i));
+                    }
                 }
             }
 
@@ -671,8 +716,14 @@ public class PostElectronicsAdFragment extends Fragment {
                 }
                 if (i==0){
                     Send.electronicsAd.setStorage("-1");
+                    value3.setText(mainActivity.getResources().getString(R.string.storage));
                 }else {
                     Send.electronicsAd.setStorage(storageEnTitles.get(i)+"-"+storageArTitles.get(i));
+                    if (AppDefs.language.equals("ar")){
+                        value3.setText(storageArTitles.get(i));
+                    }else {
+                        value3.setText(storageEnTitles.get(i));
+                    }
                 }
             }
 
@@ -746,8 +797,14 @@ public class PostElectronicsAdFragment extends Fragment {
                 }
                 if (i==0){
                     Send.electronicsAd.setColor("-1");
+                    value1.setText(mainActivity.getResources().getString(R.string.color));
                 }else {
                     Send.electronicsAd.setColor(colorsEnTitles.get(i)+"-"+colorsArTitles.get(i));
+                    if (AppDefs.language.equals("ar")){
+                        value1.setText(colorsArTitles.get(i));
+                    }else {
+                        value1.setText(colorsEnTitles.get(i));
+                    }
                 }
             }
 
@@ -769,9 +826,14 @@ public class PostElectronicsAdFragment extends Fragment {
                 }
                 if (i==0){
                     Send.electronicsAd.setLocation("-1");
+                    adLocation.setText(mainActivity.getResources().getString(R.string.location));
                 }else {
                     Send.electronicsAd.setLocation(locationsEnTitles.get(i)+"-"+locationsArTitles.get(i));
-                    adLocation.setText(locationsEnTitles.get(i));
+                    if (AppDefs.language.equals("ar")){
+                        adLocation.setText(locationsArTitles.get(i));
+                    }else {
+                        adLocation.setText(locationsEnTitles.get(i));
+                    }
                 }
             }
 
@@ -785,7 +847,7 @@ public class PostElectronicsAdFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
@@ -1155,7 +1217,6 @@ public class PostElectronicsAdFragment extends Fragment {
                     locationsEnTitles.add(locationObj.getString("en_Text"));
                 }
                 Send.electronicsAd.setLocation(locationsEnTitles.get(0)+"-"+locationsArTitles.get(0));
-                adLocation.setText(locationsEnTitles.get(0));
                 if (AppDefs.language.equals("ar")){
                     setSpinner(locationsSpinner, locationsArTitles);
                 }else {
@@ -1381,6 +1442,15 @@ public class PostElectronicsAdFragment extends Fragment {
         img8.setBackground(null);
         img9.setBackground(null);
         img10.setBackground(null);
+    }
+
+    private void clearMainPath(String imagePath, ImageView image){
+        String subPath = imagePath.substring(imagePath.lastIndexOf("/")+1);
+        if (subPath.equals(mainPath)){
+            Glide.with(mainActivity).load(R.drawable.ic_electronics).into(adImage);
+            image.setBackground(null);
+        }
+        mainPath = "";
     }
 
     @Override

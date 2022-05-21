@@ -38,6 +38,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Responses.PackageFS;
@@ -69,7 +70,7 @@ public class PostNumbersAdFragment extends Fragment {
     private static final int REQUEST_CODE = 101;
     EditText plateNumberTitleEdt, plateNumberPriceEdt, phoneNumberEdt, descriptionEdt, plateNumberEdt;
     Spinner emiratesSpinner, plateTypeSpinner, plateCodeSpinner, locationSpinner;
-    TextView location, adTitle, adPrice, adLocation;
+    TextView location;
     ArrayList<String> emiratesArTitles, emiratesEnTitles, platesTypesAr, plateTypesEn, plateCodes, locationsArTitles, locationsEnTitles;
     ArrayList<Integer> platesIds;
     ImageView adImage;
@@ -82,6 +83,10 @@ public class PostNumbersAdFragment extends Fragment {
     ArrayList<PackageFS> packages = new ArrayList<>();
     public String packageId = "";
     public CheckBox freeCB;
+    
+    //Ad sample
+    TextView adTitle, adPrice, adLocation, adPlate, adEmirate;
+    ImageView emirateIcon, plateIcon;
 
     public PostNumbersAdFragment() {
         // Required empty public constructor
@@ -125,8 +130,8 @@ public class PostNumbersAdFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         agreementCheckBok = view.findViewById(R.id.agreement_checkbox);
@@ -135,9 +140,10 @@ public class PostNumbersAdFragment extends Fragment {
         phoneNumberEdt = view.findViewById(R.id.phone_number);
         descriptionEdt = view.findViewById(R.id.ad_short_description);
         plateNumberEdt = view.findViewById(R.id.number_edt);
-        if (!AppDefs.user.getMobileNumber().equals("null")) {
-            phoneNumberEdt.setText(AppDefs.user.getMobileNumber());
-        }
+        adEmirate = view.findViewById(R.id.emirate);
+        emirateIcon = view.findViewById(R.id.emirate_icon);
+        plateIcon = view.findViewById(R.id.icon);
+        adPlate = view.findViewById(R.id.value);
 
         emiratesSpinner = view.findViewById(R.id.emirates_spinner);
         plateTypeSpinner = view.findViewById(R.id.plate_type_spinner);
@@ -175,34 +181,39 @@ public class PostNumbersAdFragment extends Fragment {
 
         abuDhabiBikePlateCode = view.findViewById(R.id.adb_plate_code);
         abuDhabiClassicPlateCode = view.findViewById(R.id.adc_plate_code);
-        abuDhabiPrivatePlateCode = view.findViewById(R.id.adp_plate_code);
-        ajmanPrivatePlateCode = view.findViewById(R.id.ap_plate_code);
+        abuDhabiPrivatePlateCode = view.findViewById(R.id.adp_plate_code_long);
+        ajmanPrivatePlateCode = view.findViewById(R.id.ap_plate_code_long);
         dubaiBikePlateCode = view.findViewById(R.id.db_plate_code);
-        dubaiPrivatePlateCode = view.findViewById(R.id.dp_plate_code);
-        fujairahPrivatePlateCode = view.findViewById(R.id.fp_plate_code);
-        rasAlkhaimahPrivatePlateCode = view.findViewById(R.id.rkp_plate_code);
-        sharjahPrivatePlateCode = view.findViewById(R.id.sp_plate_code);
-        ummAlQuwainPrivatePlateCode = view.findViewById(R.id.uqp_plate_code);
+        dubaiPrivatePlateCode = view.findViewById(R.id.dp_plate_code_long);
+        fujairahPrivatePlateCode = view.findViewById(R.id.fp_plate_code_long);
+        rasAlkhaimahPrivatePlateCode = view.findViewById(R.id.rkp_plate_code_long);
+        sharjahPrivatePlateCode = view.findViewById(R.id.sp_plate_code_long);
+        ummAlQuwainPrivatePlateCode = view.findViewById(R.id.uqp_plate_code_long);
 
         abuDhabiBikePlateNumber = view.findViewById(R.id.adb_plate_number);
         abuDhabiClassicPlateNumber = view.findViewById(R.id.adc_plate_number);
-        abuDhabiPrivatePlateNumber = view.findViewById(R.id.adp_plate_number);
-        ajmanPrivatePlateNumber = view.findViewById(R.id.ap_plate_number);
+        abuDhabiPrivatePlateNumber = view.findViewById(R.id.adp_plate_number_long);
+        ajmanPrivatePlateNumber = view.findViewById(R.id.ap_plate_number_long);
         dubaiBikePlateNumber = view.findViewById(R.id.db_plate_number);
         dubaiClassicPlateNumber = view.findViewById(R.id.dc_plate_number);
-        dubaiPrivatePlateNumber = view.findViewById(R.id.dp_plate_number);
-        fujairahPrivatePlateNumber = view.findViewById(R.id.fp_plate_number);
+        dubaiPrivatePlateNumber = view.findViewById(R.id.dp_plate_number_long);
+        fujairahPrivatePlateNumber = view.findViewById(R.id.fp_plate_number_long);
         rasAlkhaimahClassicPlateNumber = view.findViewById(R.id.rkc_plate_number);
-        rasAlkhaimahPrivatePlateNumber = view.findViewById(R.id.rkp_plate_number);
-        sharjahPrivatePlateNumber = view.findViewById(R.id.sp_plate_number);
+        rasAlkhaimahPrivatePlateNumber = view.findViewById(R.id.rkp_plate_number_long);
+        sharjahPrivatePlateNumber = view.findViewById(R.id.sp_plate_number_long);
         sharjahClassicPlateNumber = view.findViewById(R.id.sc_plate_number);
-        ummAlQuwainPrivatePlateNumber = view.findViewById(R.id.uqp_plate_number);
+        ummAlQuwainPrivatePlateNumber = view.findViewById(R.id.uqp_plate_number_long);
 
         if (getArguments() != null){
             subCatId = PostNumbersAdFragmentArgs.fromBundle(getArguments()).getSubCatId();
             Send.plateNumberAd.setCategoryId(String.valueOf(subCatId));
         }
-        phoneNumberEdt.setText(AppDefs.user.getMobileNumber());
+        if (!AppDefs.user.getMobileNumber().equals("null")) {
+            phoneNumberEdt.setText(AppDefs.user.getMobileNumber());
+        }
+        Glide.with(mainActivity).load(R.drawable.emirate_img).into(emirateIcon);
+        Glide.with(mainActivity).load(R.drawable.plate_type_img).into(plateIcon);
+
     }
 
     private void onClick(){
@@ -212,42 +223,39 @@ public class PostNumbersAdFragment extends Fragment {
         profile.setOnClickListener(view -> startActivity("profile"));
         list.setOnClickListener(view -> startActivity("notifications"));
 
-//        plateNumberEdt.setOnEditorActionListener((textView, i, keyEvent) -> {
-//            switch (i) {
-//                case EditorInfo.IME_ACTION_DONE:
-//                case EditorInfo.IME_ACTION_NEXT:
-//                case EditorInfo.IME_ACTION_PREVIOUS:
-//                    currentPlateNumber = String.valueOf(plateNumberEdt.getText());
-//                    setPlateImage();
-//                    mainActivity.hideKeyboard();
-//                    return true;
-//            }
-//            return false;
-//        });
+        plateNumberTitleEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        plateNumberTitleEdt.setOnEditorActionListener(((textView, i, keyEvent) -> {
-            switch (i) {
-                case EditorInfo.IME_ACTION_DONE:
-                case EditorInfo.IME_ACTION_NEXT:
-                case EditorInfo.IME_ACTION_PREVIOUS:
-                    adTitle.setText(String.valueOf(plateNumberTitleEdt.getText()));
-                    mainActivity.hideKeyboard();
-                    return true;
             }
-            return false;
-        }));
 
-        plateNumberPriceEdt.setOnEditorActionListener(((textView, i, keyEvent) -> {
-            switch (i) {
-                case EditorInfo.IME_ACTION_DONE:
-                case EditorInfo.IME_ACTION_NEXT:
-                case EditorInfo.IME_ACTION_PREVIOUS:
-                    adPrice.setText(String.valueOf(plateNumberPriceEdt.getText()));
-                    mainActivity.hideKeyboard();
-                    return true;
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adTitle.setText(String.valueOf(plateNumberTitleEdt.getText()));
             }
-            return false;
-        }));
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        plateNumberPriceEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adPrice.setText("AED "+plateNumberPriceEdt.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         location.setOnClickListener(view -> startMapsActivity());
 
@@ -259,6 +267,8 @@ public class PostNumbersAdFragment extends Fragment {
             String plateNumber = String.valueOf(plateNumberEdt.getText());
             if (adTitle.isEmpty() || price.isEmpty() || phoneNum.isEmpty() || plateNumber.isEmpty()){
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.plate_number_ad), mainActivity.getResources().getString(R.string.fill_all_fields));
+            }else if(Integer.parseInt(price)>10000000){
+                mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.number), mainActivity.getResources().getString(R.string.price_high));
             }else if (latitude.isEmpty() || longitude.isEmpty() || address.isEmpty()){
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.electronics_ad), mainActivity.getResources().getString(R.string.location_error));
             }else  if (!agreementCheckBok.isChecked()){
@@ -315,8 +325,14 @@ public class PostNumbersAdFragment extends Fragment {
                 }
                 if (i==0){
                     currentEmirate = "-1";
+                    adEmirate.setText(mainActivity.getResources().getString(R.string.emirate));
                 }else {
                     currentEmirate = emiratesEnTitles.get(i)+"-"+emiratesArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adEmirate.setText(emiratesArTitles.get(i));
+                    }else {
+                        adEmirate.setText(emiratesEnTitles.get(i));
+                    }
                 }
                 getPlateType(currentEmirate);
             }
@@ -339,10 +355,15 @@ public class PostNumbersAdFragment extends Fragment {
                 }
                 if (i==0){
                     currentPlate = "-1";
+                    adPlate.setText(mainActivity.getResources().getString(R.string.plate_type));
                 }else {
                     currentPlate = plateTypesEn.get(i)+"-"+platesTypesAr.get(i);
                     currentPlateId = platesIds.get(i);
-
+                    if (AppDefs.language.equals("ar")){
+                        adPlate.setText(platesTypesAr.get(i));
+                    }else {
+                        adPlate.setText(plateTypesEn.get(i));
+                    }
                     setPlateImage();
                 }
                 getPlateCodes(currentEmirate, currentPlate);
@@ -392,9 +413,14 @@ public class PostNumbersAdFragment extends Fragment {
                 }
                 if (i==0){
                     currentLocation = "-1";
+                    adLocation.setText(mainActivity.getResources().getString(R.string.location));
                 }else {
                     currentLocation = locationsEnTitles.get(i)+"-"+ locationsArTitles.get(i);
-                    adLocation.setText(currentLocation);
+                    if (AppDefs.language.equals("ar")){
+                        adLocation.setText(locationsArTitles.get(i));
+                    }else {
+                        adLocation.setText(locationsEnTitles.get(i));
+                    }
                 }
             }
 
@@ -840,7 +866,7 @@ public class PostNumbersAdFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

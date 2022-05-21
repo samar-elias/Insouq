@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -82,12 +83,12 @@ public class PostClassifiedsGroup3AdFragment extends Fragment {
     MainActivity mainActivity;
     MaterialButton continueBtn;
     private static final int REQUEST_CODE = 101;
-    ImageView image1, image2, image3, image4, image5, image7, image6, image8, image9, image10, uploadImage, mainImage, adImage;
+    ImageView image1, image2, image3, image4, image5, image7, image6, image8, image9, image10, uploadImage, mainImage;
     ImageView closeImage1, closeImage2, closeImage3, closeImage4, closeImage5, closeImage7, closeImage6, closeImage8, closeImage9, closeImage10, closeMainImage;
     String image1Path = "", image2Path = "", image3Path = "", image4Path = "", image5Path = "", image7Path = "", image6Path = "", image8Path = "", image9Path = "", image10Path = "", mainPath = "", longitude = "", latitude = "", address = "";
     Bitmap image1Bitmap, image2Bitmap, image3Bitmap, image4Bitmap, image5Bitmap, image7Bitmap, image6Bitmap, image8Bitmap, image9Bitmap, image10Bitmap;
     EditText priceEdt, phoneNumberEdt, descriptionEdt;
-    TextView location, adTitle, adPrice, adLocation, priceTitle;
+    TextView location, priceTitle;
     Spinner agesSpinner, usagesSpinner, conditionsSpinner, locationsSpinner;
     ArrayList<String> locationArTitles, locationEnTitles;
     String currentLocation = "", adId = "";
@@ -97,6 +98,11 @@ public class PostClassifiedsGroup3AdFragment extends Fragment {
     ArrayList<PackageFS> packages = new ArrayList<>();
     public String packageId = "";
     public CheckBox freeCB;
+
+    //Ad sample
+    TextView adPrice, adCondition, adAge, adLocation, adTitle;
+    ImageView adImage, conditionIcon;
+    LinearLayoutCompat layoutCompat;
 
     public PostClassifiedsGroup3AdFragment() {
         // Required empty public constructor
@@ -139,8 +145,8 @@ public class PostClassifiedsGroup3AdFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         adTitle = view.findViewById(R.id.electronics_title);
@@ -153,6 +159,13 @@ public class PostClassifiedsGroup3AdFragment extends Fragment {
         location = view.findViewById(R.id.location);
         agreementCheckBox = view.findViewById(R.id.agreement_checkbox);
         priceTitle = view.findViewById(R.id.price_title);
+        adAge = view.findViewById(R.id.ad_age);
+        adCondition = view.findViewById(R.id.ad_condition);
+        conditionIcon = view.findViewById(R.id.condition_icon);
+        layoutCompat = view.findViewById(R.id.usage_age_layout);
+        adCondition.setVisibility(View.GONE);
+        conditionIcon.setVisibility(View.GONE);
+        layoutCompat.setVisibility(View.GONE);
 
         agesSpinner = view.findViewById(R.id.ages_spinner);
         usagesSpinner = view.findViewById(R.id.usages_spinner);
@@ -325,51 +338,61 @@ public class PostClassifiedsGroup3AdFragment extends Fragment {
         });
 
         closeImage1.setOnClickListener(view -> {
+            clearMainPath(image1Path, image1);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image1);
             image1Path = "";
         });
 
         closeImage2.setOnClickListener(view -> {
+            clearMainPath(image2Path, image2);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image2);
             image2Path = "";
         });
 
         closeImage3.setOnClickListener(view -> {
+            clearMainPath(image3Path, image3);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image3);
             image3Path = "";
         });
 
         closeImage4.setOnClickListener(view -> {
+            clearMainPath(image4Path, image4);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image4);
             image4Path = "";
         });
 
         closeImage5.setOnClickListener(view -> {
+            clearMainPath(image5Path, image5);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image5);
             image5Path = "";
         });
 
         closeImage6.setOnClickListener(view -> {
+            clearMainPath(image6Path, image6);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image6);
             image6Path = "";
         });
 
         closeImage7.setOnClickListener(view -> {
+            clearMainPath(image7Path, image7);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image7);
             image7Path = "";
         });
 
         closeImage8.setOnClickListener(view -> {
+            clearMainPath(image8Path, image8);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image8);
             image8Path = "";
         });
 
         closeImage9.setOnClickListener(view -> {
+            clearMainPath(image9Path, image9);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image9);
             image9Path = "";
         });
 
         closeImage10.setOnClickListener(view -> {
+            clearMainPath(image10Path, image10);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image10);
             image10Path = "";
         });
@@ -394,8 +417,14 @@ public class PostClassifiedsGroup3AdFragment extends Fragment {
                 }
                 if (i==0){
                     currentLocation = "-1";
+                    adLocation.setText(mainActivity.getResources().getString(R.string.location));
                 }else {
                     currentLocation = locationEnTitles.get(i)+"-"+locationArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adLocation.setText(locationArTitles.get(i));
+                    }else {
+                        adLocation.setText(locationEnTitles.get(i));
+                    }
                 }
             }
 
@@ -538,7 +567,10 @@ public class PostClassifiedsGroup3AdFragment extends Fragment {
     private void setData(String price, String description, String phoneNumber){
         if (price.isEmpty() || phoneNumber.isEmpty()){
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.classifieds_ad), mainActivity.getResources().getString(R.string.fill_all_fields));
+        }else if(Integer.parseInt(price)>10000000){
+            mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.classifieds), mainActivity.getResources().getString(R.string.price_high));
         }else {
+            pictures.clear();
             price = mainActivity.formatter.format(Double.parseDouble(price));
             Send.addClassifiedAd.setPrice(price);
             Send.addClassifiedAd.setAdId(adId);
@@ -672,7 +704,7 @@ public class PostClassifiedsGroup3AdFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
@@ -755,6 +787,15 @@ public class PostClassifiedsGroup3AdFragment extends Fragment {
         PackagesAdapter3 businessPackagesAdapter = new PackagesAdapter3(this,packages, -1);
         recyclerView.setAdapter(businessPackagesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
+    }
+
+    private void clearMainPath(String imagePath, ImageView image){
+        String subPath = imagePath.substring(imagePath.lastIndexOf("/")+1);
+        if (subPath.equals(mainPath)){
+            Glide.with(mainActivity).load(R.drawable.ic_classified).into(adImage);
+            image.setBackground(null);
+        }
+        mainPath = "";
     }
 
     @Override

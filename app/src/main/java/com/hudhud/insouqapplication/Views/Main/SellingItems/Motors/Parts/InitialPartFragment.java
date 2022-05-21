@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
@@ -54,6 +55,10 @@ public class InitialPartFragment extends Fragment {
     String currentSubCat = "", currentSubType = "", currentPart = "", currentYear = "";
     int thisYear;
     boolean spinner1 = false, spinner2 = false, spinner3 = false;
+
+    //Ad sample
+    TextView adTitle, adYear, adSubCat;
+    ImageView subCatIcon;
 
     public InitialPartFragment() {
         // Required empty public constructor
@@ -95,8 +100,8 @@ public class InitialPartFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         titleEdt = view.findViewById(R.id.motor_title_edt);
@@ -107,6 +112,10 @@ public class InitialPartFragment extends Fragment {
         subTypeSpinner = view.findViewById(R.id.sub_type_spinner);
         partSpinner = view.findViewById(R.id.part_spinner);
         yearEdt = view.findViewById(R.id.years_edt);
+        adTitle = view.findViewById(R.id.motor_title);
+        adYear = view.findViewById(R.id.motor_year);
+        adSubCat = view.findViewById(R.id.kilos_amount);
+        subCatIcon = view.findViewById(R.id.kilos_icon);
 
         subCategoryArTitles = new ArrayList<>();
         subCategoryEnTitles = new ArrayList<>();
@@ -119,6 +128,7 @@ public class InitialPartFragment extends Fragment {
         years = new ArrayList<>();
 
         thisYear = Calendar.getInstance().get(Calendar.YEAR);
+
     }
 
     private void onClick(){
@@ -153,6 +163,39 @@ public class InitialPartFragment extends Fragment {
 
         });
 
+        yearEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adYear.setText(String.valueOf(yearEdt.getText()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        titleEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adTitle.setText(String.valueOf(titleEdt.getText()));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     private void onSpinnerClick(){
@@ -169,6 +212,8 @@ public class InitialPartFragment extends Fragment {
                 if (i==0){
                     currentSubCat = "-1";
                     getSubTypes();
+                    Glide.with(mainActivity).load(R.drawable.part_name).into(subCatIcon);
+                    adSubCat.setText(mainActivity.getResources().getString(R.string.sub_category));
                 }else {
                     if (subCategoryEnTitles.size() == 1){
                         otherSubCategoryEdt.setVisibility(View.VISIBLE);
@@ -179,6 +224,29 @@ public class InitialPartFragment extends Fragment {
                     }else {
                         otherSubCategoryEdt.setVisibility(View.GONE);
                         currentSubCat = subCategoryIds.get(i-1);
+                        if (AppDefs.language.equals("ar")){
+                            adSubCat.setText(subCategoryArTitles.get(i));
+                            Send.partSubCat = subCategoryArTitles.get(i);
+                        }else {
+                            adSubCat.setText(subCategoryEnTitles.get(i));
+                            Send.partSubCat = subCategoryEnTitles.get(i);
+                        }
+                        switch (currentSubCat){
+                            case "84":
+                                Glide.with(mainActivity).load(R.drawable.car_parts).into(subCatIcon);
+                                break;
+                            case "169":
+                                Glide.with(mainActivity).load(R.drawable.boat_parts).into(subCatIcon);
+                                break;
+                            case "170":
+                                Glide.with(mainActivity).load(R.drawable.machinery_parts).into(subCatIcon);
+                                break;
+                            case "171":
+                                Glide.with(mainActivity).load(R.drawable.bike_parts).into(subCatIcon);
+                                break;
+                            default:
+                                Glide.with(mainActivity).load(R.drawable.part_name).into(subCatIcon);
+                        }
                         getSubTypes();
                     }
                 }
@@ -390,7 +458,7 @@ public class InitialPartFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

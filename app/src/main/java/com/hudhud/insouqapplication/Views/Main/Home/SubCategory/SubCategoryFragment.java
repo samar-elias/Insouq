@@ -128,7 +128,7 @@ public class SubCategoryFragment extends Fragment {
     MaterialButton resetFilters;
     LinearLayoutCompat noAds;
     LinearLayout navBar;
-    MainActivity mainActivity;
+    public MainActivity mainActivity;
     TextView usedCarsCloseBtn, propertyCloseBtn, jobsCloseBtn, serviceCloseBtn, businessCloseBtn, numberCloseBtn, classifiedsCloseBtn, electronicsCloseBtn;
     ConstraintLayout toolbarLayout;
     MaterialButton usedCarsFilterResults, boatsFilterResults, machineFilterResults, bikeFilterResults, partFilterResults, jobFilterResults, serviceFilterResults, businessFilterResults, numberFilterResults,
@@ -4035,6 +4035,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject jobObj = jobsArray.getJSONObject(i);
                     JobAd jobAd = new JobAd();
                     jobAd.setId(jobObj.getString("Id"));
+                    jobAd.setAgentId(jobObj.getString("AgentId"));
                     jobAd.setTitle(jobObj.getString("Title"));
                     jobAd.setDescription(jobObj.getString("Description"));
                     jobAd.setEnLocation(jobObj.getString("En_Location"));
@@ -4134,6 +4135,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject jobObj = jobsArray.getJSONObject(i);
                     JobAd jobAd = new JobAd();
                     jobAd.setId(jobObj.getString("Id"));
+                    jobAd.setAgentId(jobObj.getString("AgentId"));
                     jobAd.setTitle(jobObj.getString("Title"));
                     jobAd.setDescription(jobObj.getString("Description"));
                     jobAd.setEnLocation(jobObj.getString("En_Location"));
@@ -4233,6 +4235,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject jobObj = jobsArray.getJSONObject(i);
                     JobAd jobAd = new JobAd();
                     jobAd.setId(jobObj.getString("Id"));
+                    jobAd.setAgentId(jobObj.getString("AgentId"));
                     jobAd.setTitle(jobObj.getString("Title"));
                     jobAd.setDescription(jobObj.getString("Description"));
                     jobAd.setEnLocation(jobObj.getString("En_Location"));
@@ -4335,6 +4338,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject jobObj = jobsArray.getJSONObject(i);
                     JobAd jobAd = new JobAd();
                     jobAd.setId(jobObj.getString("Id"));
+                    jobAd.setAgentId(jobObj.getString("AgentId"));
                     jobAd.setTitle(jobObj.getString("Title"));
                     jobAd.setDescription(jobObj.getString("Description"));
                     jobAd.setEnLocation(jobObj.getString("En_Location"));
@@ -4432,6 +4436,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject serviceObj = serviceAdsArray.getJSONObject(i);
                     ServiceAd serviceAd = new ServiceAd();
                     serviceAd.setId(serviceObj.getString("Id"));
+                    serviceAd.setAgentId(serviceObj.getString("AgentId"));
                     serviceAd.setTitle(serviceObj.getString("Title"));
                     serviceAd.setEnLocation(serviceObj.getString("En_Location"));
                     serviceAd.setArLocation(serviceObj.getString("Ar_Location"));
@@ -4499,6 +4504,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject businessObj = businessArray.getJSONObject(i);
                     BusinessAd businessAd = new BusinessAd();
                     businessAd.setId(businessObj.getString("Id"));
+                    businessAd.setAgentId(businessObj.getString("AgentId"));
                     businessAd.setTitle(businessObj.getString("Title"));
                     businessAd.setArLocation(businessObj.getString("Ar_Location"));
                     businessAd.setEnLocation(businessObj.getString("En_Location"));
@@ -4508,6 +4514,7 @@ public class SubCategoryFragment extends Fragment {
                     businessAd.setDescription(businessObj.getString("Description"));
                     businessAd.setLat(businessObj.getString("Lat"));
                     businessAd.setLng(businessObj.getString("Lng"));
+                    businessAd.setCategoryId(businessObj.getString("CategoryId"));
                     businessAd.setCategoryArName(businessObj.getString("CategoryArName"));
                     businessAd.setCategoryEnName(businessObj.getString("CategoryEnName"));
                     businessAd.setOtherCategoryNAme(businessObj.getString("OtherCategoryName"));
@@ -4563,6 +4570,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject numberObj = numbersArray.getJSONObject(i);
                     NumberAd numberAd = new NumberAd();
                     numberAd.setId(numberObj.getString("id"));
+                    numberAd.setAgentId(numberObj.getString("AgentId"));
                     numberAd.setTitle(numberObj.getString("title"));
                     if (numberObj.has("price")){
                         numberAd.setPrice(numberObj.getString("price"));
@@ -4732,6 +4740,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject numberObj = numbersArray.getJSONObject(i);
                     NumberAd numberAd = new NumberAd();
                     numberAd.setId(numberObj.getString("Id"));
+                    numberAd.setAgentId(numberObj.getString("AgentId"));
                     numberAd.setTitle(numberObj.getString("Title"));
                     if (numberObj.has("Price")){
                         numberAd.setPrice(numberObj.getString("Price"));
@@ -4802,6 +4811,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject numberObj = numbersArray.getJSONObject(i);
                     NumberAd numberAd = new NumberAd();
                     numberAd.setId(numberObj.getString("Id"));
+                    numberAd.setAgentId(numberObj.getString("AgentId"));
                     numberAd.setTitle(numberObj.getString("Title"));
                     if (numberObj.has("Price")){
                         numberAd.setPrice(numberObj.getString("Price"));
@@ -4873,6 +4883,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject numberObj = numbersArray.getJSONObject(i);
                     NumberAd numberAd = new NumberAd();
                     numberAd.setId(numberObj.getString("Id"));
+                    numberAd.setAgentId(numberObj.getString("AgentId"));
                     numberAd.setTitle(numberObj.getString("Title"));
                     if (numberObj.has("Price")){
                         numberAd.setPrice(numberObj.getString("Price"));
@@ -5035,6 +5046,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject numberObj = numbersArray.getJSONObject(i);
                     NumberAd numberAd = new NumberAd();
                     numberAd.setId(numberObj.getString("Id"));
+                    numberAd.setAgentId(numberObj.getString("AgentId"));
                     numberAd.setTitle(numberObj.getString("Title"));
                     if (numberObj.has("Price")){
                         numberAd.setPrice(numberObj.getString("Price"));
@@ -5248,6 +5260,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject numberObj = numbersArray.getJSONObject(i);
                     NumberAd numberAd = new NumberAd();
                     numberAd.setId(numberObj.getString("Id"));
+                    numberAd.setAgentId(numberObj.getString("AgentId"));
                     numberAd.setTitle(numberObj.getString("Title"));
                     if (numberObj.has("Price")){
                         numberAd.setPrice(numberObj.getString("Price"));
@@ -5319,6 +5332,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setAgentId(electronicObj.getString("AgentId"));
                     electronicAd.setTitle(electronicObj.getString("Title"));
                     electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("En_Location"));
@@ -5419,6 +5433,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setAgentId(electronicObj.getString("AgentId"));
                     electronicAd.setTitle(electronicObj.getString("Title"));
                     electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("En_Location"));
@@ -5519,6 +5534,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setAgentId(electronicObj.getString("AgentId"));
                     electronicAd.setTitle(electronicObj.getString("Title"));
                     electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("En_Location"));
@@ -5620,6 +5636,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setAgentId(electronicObj.getString("AgentId"));
                     electronicAd.setTitle(electronicObj.getString("Title"));
                     electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("En_Location"));
@@ -5707,6 +5724,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setAgentId(electronicObj.getString("AgentId"));
                     electronicAd.setTitle(electronicObj.getString("Title"));
                     electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("En_Location"));
@@ -5803,6 +5821,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setAgentId(electronicObj.getString("AgentId"));
                     electronicAd.setTitle(electronicObj.getString("Title"));
                     electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("En_Location"));
@@ -5899,6 +5918,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setAgentId(electronicObj.getString("AgentId"));
                     electronicAd.setTitle(electronicObj.getString("Title"));
                     electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("En_Location"));
@@ -5996,6 +6016,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("Id"));
+                    electronicAd.setAgentId(electronicObj.getString("AgentId"));
                     electronicAd.setTitle(electronicObj.getString("Title"));
                     electronicAd.setArLocation(electronicObj.getString("Ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("En_Location"));
@@ -6076,7 +6097,9 @@ public class SubCategoryFragment extends Fragment {
         MaterialButton done = myAdsOptionsAlertView.findViewById(R.id.done);
         done.setOnClickListener(view -> {
             if(currentLocation.isEmpty()){
-                saveSearch(myAdsOptionsAlertBuilder, "Dubai-دبي");
+                mainActivity.showResponseMessage(categoryName, mainActivity.getResources().getString(R.string.choose_location));
+//                saveSearch(myAdsOptionsAlertBuilder, "Dubai-دبي");
+                myAdsOptionsAlertBuilder.dismiss();
             }else {
                 saveSearch(myAdsOptionsAlertBuilder, currentLocation);
             }
@@ -8533,7 +8556,7 @@ public class SubCategoryFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
@@ -8695,6 +8718,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject jobObj = jobsArray.getJSONObject(i);
                     JobAd jobAd = new JobAd();
                     jobAd.setId(jobObj.getString("id"));
+                    jobAd.setAgentId(jobObj.getString("AgentId"));
                     jobAd.setTitle(jobObj.getString("title"));
                     jobAd.setDescription(jobObj.getString("description"));
                     jobAd.setEnLocation(jobObj.getString("en_Location"));
@@ -8811,6 +8835,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject serviceObj = serviceAdsArray.getJSONObject(i);
                     ServiceAd serviceAd = new ServiceAd();
                     serviceAd.setId(serviceObj.getString("id"));
+                    serviceAd.setAgentId(serviceObj.getString("AgentId"));
                     serviceAd.setTitle(serviceObj.getString("title"));
                     serviceAd.setEnLocation(serviceObj.getString("en_Location"));
                     serviceAd.setArLocation(serviceObj.getString("ar_Location"));
@@ -8889,6 +8914,7 @@ public class SubCategoryFragment extends Fragment {
                     businessAd.setDescription(businessObj.getString("description"));
                     businessAd.setLat(businessObj.getString("lat"));
                     businessAd.setLng(businessObj.getString("lng"));
+                    businessAd.setCategoryId(businessObj.getString("categoryId"));
                     businessAd.setCategoryArName(businessObj.getString("categoryArName"));
                     businessAd.setCategoryEnName(businessObj.getString("categoryEnName"));
                     businessAd.setOtherCategoryNAme(businessObj.getString("otherCategoryName"));
@@ -8957,6 +8983,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject numberObj = numbersArray.getJSONObject(i);
                     NumberAd numberAd = new NumberAd();
                     numberAd.setId(numberObj.getString("id"));
+                    numberAd.setAgentId(numberObj.getString("AgentId"));
                     numberAd.setTitle(numberObj.getString("title"));
                     if (numberObj.has("price")){
                         numberAd.setPrice(numberObj.getString("price"));
@@ -9028,6 +9055,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("id"));
+                    electronicAd.setAgentId(electronicObj.getString("AgentId"));
                     electronicAd.setTitle(electronicObj.getString("title"));
                     electronicAd.setArLocation(electronicObj.getString("ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("en_Location"));
@@ -9104,6 +9132,7 @@ public class SubCategoryFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("id"));
+                    electronicAd.setAgentId(electronicObj.getString("AgentId"));
                     electronicAd.setTitle(electronicObj.getString("title"));
                     electronicAd.setArLocation(electronicObj.getString("ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("en_Location"));
@@ -9377,7 +9406,7 @@ public class SubCategoryFragment extends Fragment {
 
     private void setSelectedLocationsAdapter(RecyclerView locationRV){
         if (selectedCities.size()>0) {
-            currentLocation = selectedCities.get(0).getTitleAr() + "-" + selectedCities.get(0).getTitleEn();
+            currentLocation = selectedCities.get(0).getTitleEn() + "-" + selectedCities.get(0).getTitleAr();
         }
         SelectedLocationsAdapter locationsAdapter = new SelectedLocationsAdapter(this, selectedCities);
         locationRV.setAdapter(locationsAdapter);

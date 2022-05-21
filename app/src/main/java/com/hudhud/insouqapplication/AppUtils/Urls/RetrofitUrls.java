@@ -259,7 +259,7 @@ public interface RetrofitUrls {
             @Part("careerLevel") RequestBody careerLevel,
             @Part("visaStatus") RequestBody visaStatus,
             @Part("expectedMonthlySalary") RequestBody expectedMonthlySalary,
-            @Part MultipartBody.Part fileCV
+            @Part("CvFile64") RequestBody CVFile
     );
 
     //Machinery.
@@ -291,43 +291,44 @@ public interface RetrofitUrls {
     @Multipart
     @POST("ApplyForJob" )
     Call<AddAdsResponse> applyForJob(
-            @Part("adId") RequestBody adId,
-            @Part("defaultLanguage") RequestBody defaultLanguage,
+            @Part("AdId") RequestBody adId,
+            @Part("DefaultLanguage") RequestBody defaultLanguage,
             @Part("DOB") RequestBody DOB,
-            @Part("coverNote") RequestBody coverNote,
-            @Part("gender") RequestBody gender,
-            @Part("currentCompany") RequestBody currentCompany,
-            @Part("nationality") RequestBody nationality,
-            @Part("educationLevel") RequestBody educationLevel,
-            @Part("currentPosition") RequestBody currentPosition,
-            @Part("workExperience") RequestBody workExperience,
-            @Part("commitment") RequestBody commitment,
-            @Part("noticePeriod") RequestBody noticePeriod,
-            @Part("visaStatus") RequestBody visaStatus,
-            @Part("careerLevel") RequestBody careerLevel,
-            @Part("phoneNumber") RequestBody phoneNumber,
-            @Part MultipartBody.Part fileCV
+            @Part("CoverNote") RequestBody coverNote,
+            @Part("Gender") RequestBody gender,
+            @Part("CurrentCompany") RequestBody currentCompany,
+            @Part("Nationality") RequestBody nationality,
+            @Part("EducationLevel") RequestBody educationLevel,
+            @Part("CurrentPosition") RequestBody currentPosition,
+            @Part("WorkExperience") RequestBody workExperience,
+            @Part("Commitment") RequestBody commitment,
+            @Part("NoticePeriod") RequestBody noticePeriod,
+            @Part("VisaStatus") RequestBody visaStatus,
+            @Part("CareerLevel") RequestBody careerLevel,
+            @Part("PhoneNumber") RequestBody phoneNumber,
+            @Part("CvFile64") RequestBody CVFile,
+            @Part("Id") RequestBody id
     );
 
     //Update profile
     @Multipart
     @POST("UpdateProfile" )
     Call<UserFS> updateProfile(
-            @Part("firstName") RequestBody firstName,
-            @Part("lastName") RequestBody lastName,
-            @Part("gender") RequestBody gender,
+            @Part("FirstName") RequestBody firstName,
+            @Part("LastName") RequestBody lastName,
+            @Part("Gender") RequestBody gender,
             @Part("DOB") RequestBody DOB,
-            @Part("nationality") RequestBody nationality,
-            @Part("defaultLocation") RequestBody defaultLocation,
-            @Part("defaultLanguage") RequestBody defaultLanguage,
-            @Part("careerLevel") RequestBody careerLevel,
-            @Part("education") RequestBody education,
-            @Part("currentPosition") RequestBody currentPosition,
-            @Part("currentCompany") RequestBody currentCompany,
-            @Part("coverNote") RequestBody coverNote,
-            @Part("hideInfromation") RequestBody hideInfromation,
-            @Part MultipartBody.Part fileCV,
-            @Part MultipartBody.Part fileIndustry,
+            @Part("Nationality") RequestBody nationality,
+            @Part("DefaultLocation") RequestBody defaultLocation,
+            @Part("DefaultLanguage") RequestBody defaultLanguage,
+            @Part("CareerLevel") RequestBody careerLevel,
+            @Part("Education") RequestBody education,
+            @Part("CurrentPosition") RequestBody currentPosition,
+            @Part("CurrentCompany") RequestBody currentCompany,
+            @Part("CoverNote") RequestBody coverNote,
+            @Part("CideInfromation") RequestBody hideInformation,
+            @Part("CvFile64") RequestBody CVFile,
+            @Part("IndustryFile64") RequestBody industryFile,
             @Part MultipartBody.Part profilePic
     );
 

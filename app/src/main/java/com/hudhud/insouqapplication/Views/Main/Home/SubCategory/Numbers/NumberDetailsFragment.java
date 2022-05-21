@@ -304,12 +304,9 @@ public class NumberDetailsFragment extends Fragment {
     }
 
     public void sendSMS(String phone){
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse("smsto:"));
-        i.setType("vnd.android-dir/mms-sms");
-        i.putExtra("address",phone);
-        startActivity(Intent.createChooser(i, "Send sms via:"));
-    }
+        Uri uri = Uri.parse("smsto:"+phone);
+        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+        startActivity(intent); }
 
     private void setSpecifications(){
 //        specificationModel motorSpecification1 = new specificationModel( getResources().getString(R.string.mileage),"47,000");
@@ -451,7 +448,7 @@ public class NumberDetailsFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

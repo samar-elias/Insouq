@@ -72,11 +72,11 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             if (!fav){
                 holder.favourite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_favorite_red_24));
                 fav = true;
-                subCategoryFragment.addToFavourite(jobAd.getId());
+                subCategoryFragment.addToFavourite(jobAd.getId(), "3");
             }else {
                 holder.favourite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_favorite_border_24));
                 fav = false;
-                subCategoryFragment.removeFromFavourite(jobAd.getId());
+                subCategoryFragment.removeFromFavourite(jobAd.getId(), "3");
             }
         });
         holder.favourite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_favorite_red_24));

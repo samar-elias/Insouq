@@ -419,6 +419,7 @@
                     android:textAllCaps="true"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:padding="@dimen/_13sdp"
+                    android:maxLength="8"
                     android:background="@drawable/white_radius_3"
                     android:textColor="@color/base_orange"
                     android:textColorHint="@color/gray"
@@ -464,7 +465,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_13sdp"
                     android:inputType="text"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionDone"
                     android:textAlignment="viewStart"
                     android:hint="@string/write_more_about_your_ad"
                     android:background="@drawable/white_radius_3"
@@ -703,9 +704,9 @@
 
     <include
         android:id="@+id/motors_ad_layout"
-        layout="@layout/motor_item_layout"
+        layout="@layout/post_motor_item_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_90sdp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/_10sdp"

@@ -628,7 +628,7 @@
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/specification_layout"></androidx.recyclerview.widget.RecyclerView>
+                    app:layout_constraintTop_toBottomOf="@id/specification_layout" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -968,6 +968,7 @@ The roof has fully tinted with \n \n"
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
+            android:id="@+id/chat"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_10sdp"

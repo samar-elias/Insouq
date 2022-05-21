@@ -20,6 +20,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,6 +100,10 @@ public class FullBoatsFragment extends Fragment {
     public String packageId = "";
     public CheckBox freeCB;
 
+    //Ad sample
+    TextView adTitle, adYear, adLocation, price, length;
+    ImageView lengthIcon;
+
     public FullBoatsFragment() {
         // Required empty public constructor
     }
@@ -139,8 +145,8 @@ public class FullBoatsFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         agreementCheckBox = view.findViewById(R.id.agreement_checkbox);
         location = view.findViewById(R.id.location);
@@ -154,6 +160,12 @@ public class FullBoatsFragment extends Fragment {
         conditionSpinner = view.findViewById(R.id.conditions_spinner);
         lengthSpinner = view.findViewById(R.id.length_spinner);
         locationSpinner = view.findViewById(R.id.locations_spinner);
+        adTitle = view.findViewById(R.id.motor_title);
+        adYear = view.findViewById(R.id.motor_year);
+        length = view.findViewById(R.id.kilos_amount);
+        lengthIcon = view.findViewById(R.id.kilos_icon);
+        adLocation = view.findViewById(R.id.ad_location);
+        price = view.findViewById(R.id.motor_price);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         image1 = view.findViewById(R.id.image1);
@@ -167,7 +179,7 @@ public class FullBoatsFragment extends Fragment {
         image9 = view.findViewById(R.id.image9);
         image10 = view.findViewById(R.id.image10);
         uploadImage = view.findViewById(R.id.upload_pictures);
-        mainImage = view.findViewById(R.id.main_image_);
+        mainImage = view.findViewById(R.id.motor_image);
 
         closeImage1 = view.findViewById(R.id.close_img1);
         closeImage2 = view.findViewById(R.id.close_img2);
@@ -199,6 +211,10 @@ public class FullBoatsFragment extends Fragment {
         if (!AppDefs.user.getMobileNumber().equals("null")) {
             phoneNumberEdt.setText(AppDefs.user.getMobileNumber());
         }
+        adTitle.setText(mainActivity.getResources().getString(R.string.boats)+", "+ Send.addBoatsAd.getYear());
+        adYear.setText(Send.addBoatsAd.getYear());
+        Glide.with(mainActivity).load(R.drawable.lenght_img).into(lengthIcon);
+        length.setText(mainActivity.getResources().getString(R.string.length));
     }
 
     private void onClick(){
@@ -214,7 +230,10 @@ public class FullBoatsFragment extends Fragment {
             String description = String.valueOf(descriptionEdt.getText());
             if (price.isEmpty() || phoneNumber.isEmpty()){
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.motors), mainActivity.getResources().getString(R.string.fill_all_fields));
+            }else if(Integer.parseInt(price)>10000000){
+                mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.motors), mainActivity.getResources().getString(R.string.price_high));
             }else {
+                pictures.clear();
                 if (!image1Path.isEmpty()){
                     pictures.add(image1Path);
                 }
@@ -287,108 +306,147 @@ public class FullBoatsFragment extends Fragment {
 
         location.setOnClickListener(view -> startMapsActivity());
 
+        priceEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                price.setText(priceEdt.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+
         image1.setOnClickListener(view -> {
             mainImage.setImageBitmap(image1Bitmap);
             mainPath = image1Path.substring(image1Path.lastIndexOf("/")+1);
+            mainImage.setImageBitmap(image1Bitmap);
             changeImages(image1, image2, image3, image4, image5, image6, image7, image8, image9, image10);
         });
         image2.setOnClickListener(view -> {
             mainImage.setImageBitmap(image2Bitmap);
             mainPath = image2Path.substring(image2Path.lastIndexOf("/")+1);
+            mainImage.setImageBitmap(image2Bitmap);
             changeImages(image2, image1, image3, image4, image5, image6, image7, image8, image9, image10);
         });
         image3.setOnClickListener(view -> {
             mainImage.setImageBitmap(image3Bitmap);
             mainPath = image3Path.substring(image3Path.lastIndexOf("/")+1);
+            mainImage.setImageBitmap(image3Bitmap);
             changeImages(image3, image2, image1, image4, image5, image6, image7, image8, image9, image10);
         });
         image4.setOnClickListener(view -> {
             mainImage.setImageBitmap(image4Bitmap);
             mainPath = image4Path.substring(image4Path.lastIndexOf("/")+1);;
+            mainImage.setImageBitmap(image4Bitmap);
             changeImages(image4, image2, image3, image1, image5, image6, image7, image8, image9, image10);
         });
         image5.setOnClickListener(view -> {
             mainImage.setImageBitmap(image5Bitmap);
             mainPath = image5Path.substring(image5Path.lastIndexOf("/")+1);;
+            mainImage.setImageBitmap(image5Bitmap);
             changeImages(image5, image2, image3, image4, image1, image6, image7, image8, image9, image10);
         });
         image6.setOnClickListener(view -> {
             mainImage.setImageBitmap(image6Bitmap);
             mainPath = image6Path.substring(image6Path.lastIndexOf("/")+1);;
+            mainImage.setImageBitmap(image6Bitmap);
             changeImages(image6, image2, image3, image4, image5, image1, image7, image8, image9, image10);
         });
         image7.setOnClickListener(view -> {
             mainImage.setImageBitmap(image7Bitmap);
             mainPath = image7Path.substring(image7Path.lastIndexOf("/")+1);;
+            mainImage.setImageBitmap(image7Bitmap);
             changeImages(image7, image2, image3, image4, image5, image6, image1, image8, image9, image10);
         });
         image8.setOnClickListener(view -> {
             mainImage.setImageBitmap(image8Bitmap);
             mainPath = image8Path.substring(image8Path.lastIndexOf("/")+1);;
+            mainImage.setImageBitmap(image8Bitmap);
             changeImages(image8, image2, image3, image4, image5, image6, image7, image1, image9, image10);
         });
         image9.setOnClickListener(view -> {
             mainImage.setImageBitmap(image9Bitmap);
             mainPath = image9Path.substring(image9Path.lastIndexOf("/")+1);;
+            mainImage.setImageBitmap(image9Bitmap);
             changeImages(image9, image2, image3, image4, image5, image6, image7, image8, image1, image10);
         });
         image10.setOnClickListener(view -> {
             mainImage.setImageBitmap(image10Bitmap);
             mainPath = image10Path.substring(image10Path.lastIndexOf("/")+1);;
+            mainImage.setImageBitmap(image10Bitmap);
             changeImages(image10, image2, image3, image4, image5, image6, image7, image8, image9, image1);
         });
 
-        closeMainImage.setOnClickListener(view -> {
-            Glide.with(mainActivity).load(R.drawable.gray_image).into(mainImage);
-            mainPath = "";
-        });
+//        closeMainImage.setOnClickListener(view -> {
+//            Glide.with(mainActivity).load(R.drawable.gray_image).into(mainImage);
+//            mainPath = "";
+//        });
 
         closeImage1.setOnClickListener(view -> {
+            clearMainPath(image1Path, image1);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image1);
             image1Path = "";
         });
 
         closeImage2.setOnClickListener(view -> {
+            clearMainPath(image2Path, image2);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image2);
             image2Path = "";
         });
 
         closeImage3.setOnClickListener(view -> {
+            clearMainPath(image3Path, image3);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image3);
             image3Path = "";
         });
 
         closeImage4.setOnClickListener(view -> {
+            clearMainPath(image4Path, image4);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image4);
             image4Path = "";
         });
 
         closeImage5.setOnClickListener(view -> {
+            clearMainPath(image5Path, image5);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image5);
             image5Path = "";
         });
 
         closeImage6.setOnClickListener(view -> {
+            clearMainPath(image6Path, image6);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image6);
             image6Path = "";
         });
 
         closeImage7.setOnClickListener(view -> {
+            clearMainPath(image7Path, image7);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image7);
             image7Path = "";
         });
 
         closeImage8.setOnClickListener(view -> {
+            clearMainPath(image8Path, image8);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image8);
             image8Path = "";
         });
 
         closeImage9.setOnClickListener(view -> {
+            clearMainPath(image9Path, image9);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image9);
             image9Path = "";
         });
 
         closeImage10.setOnClickListener(view -> {
+            clearMainPath(image10Path, image10);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image10);
             image10Path = "";
         });
@@ -534,8 +592,14 @@ public class FullBoatsFragment extends Fragment {
                 }
                 if (i==0){
                     currentLength = "-1";
+                    length.setText(mainActivity.getResources().getString(R.string.length));
                 }else {
                     currentLength = lengthEnTitles.get(i)+"-"+lengthArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        length.setText(lengthArTitles.get(i));
+                    }else {
+                        length.setText(lengthEnTitles.get(i));
+                    }
                 }
             }
 
@@ -557,8 +621,14 @@ public class FullBoatsFragment extends Fragment {
                 }
                 if (i==0){
                     currentLocation = "-1";
+                    adLocation.setText(mainActivity.getResources().getString(R.string.location));
                 }else {
                     currentLocation = locationEnTitles.get(i)+"-"+locationArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adLocation.setText(locationArTitles.get(i));
+                    }else {
+                        adLocation.setText(locationEnTitles.get(i));
+                    }
                 }
             }
 
@@ -896,7 +966,7 @@ public class FullBoatsFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
@@ -1049,6 +1119,15 @@ public class FullBoatsFragment extends Fragment {
         img8.setBackground(null);
         img9.setBackground(null);
         img10.setBackground(null);
+    }
+
+    private void clearMainPath(String imagePath, ImageView image){
+        String subPath = imagePath.substring(imagePath.lastIndexOf("/")+1);
+        if (subPath.equals(mainPath)){
+            Glide.with(mainActivity).load(R.drawable.ic_motors).into(mainImage);
+            image.setBackground(null);
+        }
+        mainPath = "";
     }
 
     @Override

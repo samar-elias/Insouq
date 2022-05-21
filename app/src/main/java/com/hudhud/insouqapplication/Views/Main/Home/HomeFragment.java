@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Responses.BusinessAd;
@@ -74,6 +77,7 @@ public class HomeFragment extends Fragment {
     ArrayList<NewNumberAd> newNumberAds;
 
     // home
+    public RequestQueue queue ;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -110,7 +114,7 @@ public class HomeFragment extends Fragment {
 
     private void initViews(View view){
         navController = Navigation.findNavController(view);
-
+        queue =  Volley.newRequestQueue(mainActivity);
         profile = view.findViewById(R.id.profile);
         chat = view.findViewById(R.id.chat);
         notifications = view.findViewById(R.id.notification);
@@ -252,6 +256,7 @@ public class HomeFragment extends Fragment {
                     subCategory.setIcon(subCategoryObject.getString("firstImage"));
                     subCategory.setStatus(subCategoryObject.getInt("status"));
                     subCategory.setTypeId(subCategoryObject.getInt("typeId"));
+                    Log.d("cats", subCategory.getId()+", "+subCategory.getNameEn());
                     subCategories.add(subCategory);
                 }
                 setSubCategoriesAdapter(id,subCategoriesRV, categoryName);
@@ -262,7 +267,7 @@ public class HomeFragment extends Fragment {
             mainActivity.hideProgressDialog();
             mainActivity.showResponseMessage(getResources().getString(R.string.network_error), getResources().getString(R.string.error_occured));
         });
-        mainActivity.queue.add(getSubCategories);
+        queue.add(getSubCategories);
     }
 
     private void setSubCategoriesAdapter(int id, RecyclerView subCategoriesRV, String categoryName){
@@ -398,7 +403,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setNewAds(){
-        mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
+//        mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
         getMotorsNewAds();
         getJobsNewAds();
         getServicesNewAds();
@@ -406,7 +411,7 @@ public class HomeFragment extends Fragment {
         getClassifiedsNewAds();
         getNumberAds();
         getElectronicsNewAds();
-        mainActivity.hideProgressDialog();
+//        mainActivity.hideProgressDialog();
     }
 
     private void getMotorsNewAds(){
@@ -523,7 +528,7 @@ public class HomeFragment extends Fragment {
         }, error -> {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.new_ads), mainActivity.getResources().getString(R.string.internet_connection_error));
         });
-        mainActivity.queue.add(newAdsRequest);
+        queue.add(newAdsRequest);
     }
 
     private void setMotorsNewAdapter(){
@@ -549,6 +554,7 @@ public class HomeFragment extends Fragment {
                     JSONObject jobObj = jobsArray.getJSONObject(i);
                     JobAd jobAd = new JobAd();
                     jobAd.setId(jobObj.getString("id"));
+                    jobAd.setAgentId(jobObj.getString("agentId"));
                     jobAd.setTitle(jobObj.getString("title"));
                     jobAd.setDescription(jobObj.getString("description"));
                     jobAd.setEnLocation(jobObj.getString("en_Location"));
@@ -576,7 +582,7 @@ public class HomeFragment extends Fragment {
                     jobAd.setArEducationalLevel(jobObj.getString("ar_EducationLevel"));
                     jobAd.setCurrentPosition(jobObj.getString("currentPosition"));
                     jobAd.setArWorkExperience(jobObj.getString("ar_WorkExperience"));
-                    jobAd.setEnWorkExperience(jobObj.getString("en_Commitment"));
+                    jobAd.setEnWorkExperience(jobObj.getString("en_WorkExperience"));
                     jobAd.setArCommitment(jobObj.getString("ar_Commitment"));
                     jobAd.setEnCommitment(jobObj.getString("en_Commitment"));
                     jobAd.setArNoticePeriod(jobObj.getString("ar_NoticePeriod"));
@@ -610,7 +616,7 @@ public class HomeFragment extends Fragment {
         }, error -> {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.new_ads), mainActivity.getResources().getString(R.string.internet_connection_error));
         });
-        mainActivity.queue.add(newAdsRequest);
+        queue.add(newAdsRequest);
     }
 
     private void setJobsNewAdapter(){
@@ -633,6 +639,7 @@ public class HomeFragment extends Fragment {
                     JSONObject serviceObj = serviceAdsArray.getJSONObject(i);
                     ServiceAd serviceAd = new ServiceAd();
                     serviceAd.setId(serviceObj.getString("id"));
+                    serviceAd.setAgentId(serviceObj.getString("agentId"));
                     serviceAd.setTitle(serviceObj.getString("title"));
                     serviceAd.setEnLocation(serviceObj.getString("en_Location"));
                     serviceAd.setArLocation(serviceObj.getString("ar_Location"));
@@ -662,7 +669,7 @@ public class HomeFragment extends Fragment {
         }, error -> {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.new_ads), mainActivity.getResources().getString(R.string.internet_connection_error));
         });
-        mainActivity.queue.add(newAdsRequest);
+        queue.add(newAdsRequest);
     }
 
     private void setServicesNewAdapter(){
@@ -685,6 +692,7 @@ public class HomeFragment extends Fragment {
                     JSONObject businessObj = businessArray.getJSONObject(i);
                     BusinessAd businessAd = new BusinessAd();
                     businessAd.setId(businessObj.getString("id"));
+                    businessAd.setAgentId(businessObj.getString("agentId"));
                     businessAd.setTitle(businessObj.getString("title"));
                     businessAd.setArLocation(businessObj.getString("ar_Location"));
                     businessAd.setEnLocation(businessObj.getString("en_Location"));
@@ -694,6 +702,7 @@ public class HomeFragment extends Fragment {
                     businessAd.setDescription(businessObj.getString("description"));
                     businessAd.setLat(businessObj.getString("lat"));
                     businessAd.setLng(businessObj.getString("lng"));
+                    businessAd.setCategoryId(businessObj.getString("categoryId"));
                     businessAd.setCategoryArName(businessObj.getString("categoryArName"));
                     businessAd.setCategoryEnName(businessObj.getString("categoryEnName"));
                     businessAd.setOtherCategoryNAme(businessObj.getString("otherCategoryName"));
@@ -724,7 +733,7 @@ public class HomeFragment extends Fragment {
         }, error -> {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.new_ads), mainActivity.getResources().getString(R.string.internet_connection_error));
         });
-        mainActivity.queue.add(newAdsRequest);
+        queue.add(newAdsRequest);
     }
 
     private void setBusinessNewAdapter(){
@@ -747,6 +756,7 @@ public class HomeFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("id"));
+                    electronicAd.setAgentId(electronicObj.getString("agentId"));
                     electronicAd.setTitle(electronicObj.getString("title"));
                     electronicAd.setArLocation(electronicObj.getString("ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("en_Location"));
@@ -797,7 +807,7 @@ public class HomeFragment extends Fragment {
         }, error -> {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.new_ads), mainActivity.getResources().getString(R.string.internet_connection_error));
         });
-        mainActivity.queue.add(newAdsRequest);
+        queue.add(newAdsRequest);
     }
 
     private void setClassifiedsNewAdapter(){
@@ -820,6 +830,7 @@ public class HomeFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("id"));
+                    electronicAd.setAgentId(electronicObj.getString("agentId"));
                     electronicAd.setTitle(electronicObj.getString("title"));
                     electronicAd.setArLocation(electronicObj.getString("ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("en_Location"));
@@ -871,7 +882,7 @@ public class HomeFragment extends Fragment {
         }, error -> {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.new_ads), mainActivity.getResources().getString(R.string.internet_connection_error));
         });
-        mainActivity.queue.add(newAdsRequest);
+        queue.add(newAdsRequest);
     }
 
     private void setElectronicsNewAdapter(){
@@ -894,6 +905,7 @@ public class HomeFragment extends Fragment {
                     JSONObject numberObj = numbersArray.getJSONObject(i);
                     NumberAd numberAd = new NumberAd();
                     numberAd.setId(numberObj.getString("id"));
+                    numberAd.setAgentId(numberObj.getString("agentId"));
                     numberAd.setTitle(numberObj.getString("title"));
                     if (numberObj.has("price")){
                         numberAd.setPrice(numberObj.getString("price"));
@@ -930,7 +942,7 @@ public class HomeFragment extends Fragment {
         }, error -> {
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.new_ads), mainActivity.getResources().getString(R.string.internet_connection_error));
         });
-        mainActivity.queue.add(newAdsRequest);
+        queue.add(newAdsRequest);
     }
 
     private void setNumbersAdapter(){

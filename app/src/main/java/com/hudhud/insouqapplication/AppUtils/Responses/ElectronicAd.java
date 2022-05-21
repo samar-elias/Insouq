@@ -3,13 +3,15 @@ package com.hudhud.insouqapplication.AppUtils.Responses;
 import java.util.ArrayList;
 
 public class ElectronicAd {
-    private String status, id, title, enLocation, arLocation, postedDate, price, mainImage, enAge, arAge, enUsage, arUsage, enBrand, arBrand, enCondition, arCondition, description, lat, lng, userId, subCatArName, subCatEnName, otherSubCat, subTypeArName, subTypeEnName,
+    private String status, categoryId, id, agentId, title, enLocation, arLocation, postedDate, price, mainImage, enAge, arAge, enUsage, arUsage, enBrand, arBrand, enCondition, arCondition, description, lat, lng, userId, subCatArName, subCatEnName, otherSubCat, subTypeArName, subTypeEnName,
             otherSubType, phoneNumber, isFav, enColor, arColor, warranty, enVersion, arVersion, enRam, arRam, enStorage, arStorage;
     private ArrayList<Picture> pictures;
 
     public ElectronicAd() {
         status = "";
         this.id = "";
+        this.categoryId = "";
+        this.agentId = "";
         this.title = "";
         this.enLocation = "";
         this.arLocation = "";
@@ -350,5 +352,21 @@ public class ElectronicAd {
 
     public void setArStorage(String arStorage) {
         this.arStorage = arStorage;
+    }
+
+    public String getAgentId() {
+        return agentId;
+    }
+
+    public void setAgentId(String agentId) {
+        this.agentId = agentId;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 }

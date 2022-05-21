@@ -9,13 +9,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.tabs.TabLayout;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
+import com.hudhud.insouqapplication.AppUtils.Helpers.Helpers;
 import com.hudhud.insouqapplication.AppUtils.Responses.ElectronicAd;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
 import com.hudhud.insouqapplication.R;
+import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.ImageViewPagerAdapter;
 import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.SubCategoryFragment;
 
 import java.util.ArrayList;
@@ -47,6 +51,15 @@ public class ClassifiedsAdapter extends RecyclerView.Adapter<ClassifiedsAdapter.
 
         String newPic = electronicAd.getMainImage().replace("\\", "/");
         Glide.with(context).load(Urls.IMAGE_URL+newPic).into(holder.image);
+
+        holder.viewPager.setVisibility(View.VISIBLE);
+        holder.tabLayout.setupWithViewPager(holder.viewPager, true);
+        ImageViewPagerAdapter mAdapter = new ImageViewPagerAdapter(electronicAd.getPictures(), subCategoryFragment.mainActivity);
+        mAdapter.notifyDataSetChanged();
+        holder.viewPager.setOffscreenPageLimit(3);
+        holder.viewPager.setAdapter(mAdapter);
+
+        Helpers.setSliderTimer(3000, holder.viewPager, mAdapter);
 
         holder.postedDate.setText(electronicAd.getPostedDate());
         if (AppDefs.language.equals("ar")){
@@ -94,6 +107,8 @@ public class ClassifiedsAdapter extends RecyclerView.Adapter<ClassifiedsAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView favourite, image;
         TextView title, location, price, postedDate, usage, age, condition;
+        ViewPager viewPager;
+        TabLayout tabLayout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             favourite = itemView.findViewById(R.id.favourite);
@@ -105,6 +120,8 @@ public class ClassifiedsAdapter extends RecyclerView.Adapter<ClassifiedsAdapter.
             usage = itemView.findViewById(R.id.ad_usage);
             age = itemView.findViewById(R.id.ad_age);
             condition = itemView.findViewById(R.id.ad_condition);
+            viewPager = itemView.findViewById(R.id.viewPager);
+            tabLayout = itemView.findViewById(R.id.tabDots);
         }
     }
 }

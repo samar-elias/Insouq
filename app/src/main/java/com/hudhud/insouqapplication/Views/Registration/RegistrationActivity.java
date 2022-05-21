@@ -14,6 +14,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.android.material.button.MaterialButton;
 import com.hudhud.insouqapplication.R;
 import com.hudhud.insouqapplication.Views.Main.MainActivity;
@@ -27,7 +29,8 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(getApplication());
         pDialog = new ProgressDialog(this);
         queue =  Volley.newRequestQueue(this);
 

@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -807,6 +808,7 @@ The roof has fully tinted with \n \n"
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
     <LinearLayout
         android:id="@+id/details_nav_layout"
         android:layout_width="match_parent"
@@ -819,6 +821,7 @@ The roof has fully tinted with \n \n"
         android:orientation="horizontal"
         android:weightSum="3">
         <LinearLayout
+            android:id="@+id/chat"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_10sdp"
@@ -898,4 +901,5 @@ The roof has fully tinted with \n \n"
                 android:textSize="@dimen/_10ssp" />
         </LinearLayout>
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

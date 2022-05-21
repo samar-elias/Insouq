@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Responses.AddAdsResponse;
@@ -72,15 +73,19 @@ public class PostServiceAdCarFragment extends Fragment {
     MaterialButton continueBtn;
     EditText servicesTitleEdt, phoneNumberEdt, descriptionsEdt, carLiftFromEdt, carLiftToEdt;
     Spinner locationsSpinner;
-    TextView location, adTitle, adLocation, adServiceType;
+    TextView location;
     String currentLocation = "", latitude = "", longitude = "", address = "";
     ArrayList<String> locationArTitles, locationEnTitles;
-    String categoryId;
+    String categoryId, categoryTitle;
     CheckBox agreementCheckBox;
     boolean spinner1 = false;
     ArrayList<PackageFS> packages = new ArrayList<>();
     public String packageId = "";
     public CheckBox freeCB;
+
+    //Ad sample
+    TextView adCategory, adTitle, adLocation, adServiceType;
+    ImageView catIcon;
 
     public PostServiceAdCarFragment() {
         // Required empty public constructor
@@ -123,8 +128,8 @@ public class PostServiceAdCarFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         servicesTitleEdt = view.findViewById(R.id.service_ad_title);
@@ -136,15 +141,54 @@ public class PostServiceAdCarFragment extends Fragment {
         location = view.findViewById(R.id.services_location);
         adTitle = view.findViewById(R.id.service_type);
         adLocation = view.findViewById(R.id.ad_location);
-//        adServiceType = view.findViewById(R.id.service_type);
+        adServiceType = view.findViewById(R.id.ad_sub_type);
         agreementCheckBox = view.findViewById(R.id.agreement_checkbox);
+        catIcon = view.findViewById(R.id.sub_category_icon);
+        adCategory = view.findViewById(R.id.ad_sub_category);
 
         locationArTitles = new ArrayList<>();
         locationEnTitles = new ArrayList<>();
 
         if (getArguments() != null){
+            int image = 0;
             categoryId = PostServiceAdFragmentArgs.fromBundle(getArguments()).getCatId();
+            categoryTitle = PostServiceAdFragmentArgs.fromBundle(getArguments()).getCategoryTitle();
             Send.addServicesAd.setCategoryId(categoryId);
+            switch (categoryId){
+                case "21":
+                    image = R.drawable.domestic;
+                    break;
+                case "24":
+                    image = R.drawable.others_services;
+                    break;
+                case "25":
+                    image = R.drawable.movers;
+                    break;
+                case "26":
+                    image = R.drawable.web_computers;
+                    break;
+                case "27":
+                    image = R.drawable.corporate;
+                    break;
+                case "28":
+                    image = R.drawable.home_maintenance;
+                    break;
+                case "29":
+                    image = R.drawable.events;
+                    break;
+                case "30":
+                    image = R.drawable.tutors;
+                    break;
+                case "31":
+                    image = R.drawable.others_services;
+                    break;
+                case "32":
+                    image = R.drawable.healthservices;
+                    break;
+            }
+            Glide.with(mainActivity).load(image).into(catIcon);
+            adCategory.setText(categoryTitle);
+            adServiceType.setText(mainActivity.getResources().getString(R.string.other));
         }
 
         if (!AppDefs.user.getMobileNumber().equals("null")) {
@@ -192,7 +236,6 @@ public class PostServiceAdCarFragment extends Fragment {
     }
 
     private void onSpinnerClick(){
-
         locationsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -203,11 +246,16 @@ public class PostServiceAdCarFragment extends Fragment {
                     spinner1 = true;
                     ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.gray_3));
                 }
-                currentLocation = locationEnTitles.get(i)+"-"+locationArTitles.get(i);
-                if (AppDefs.language.equals("ar")){
-                    adLocation.setText(locationArTitles.get(i));
+                if (i==0){
+                    currentLocation = "-1";
+                    adLocation.setText(mainActivity.getResources().getString(R.string.location));
                 }else {
-                    adLocation.setText(locationEnTitles.get(i));
+                    currentLocation = locationEnTitles.get(i)+"-"+locationArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adLocation.setText(locationArTitles.get(i));
+                    }else {
+                        adLocation.setText(locationEnTitles.get(i));
+                    }
                 }
             }
 
@@ -330,7 +378,7 @@ public class PostServiceAdCarFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

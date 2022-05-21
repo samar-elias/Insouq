@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
+import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Responses.BusinessAd;
 import com.hudhud.insouqapplication.AppUtils.Responses.UsedCarAd;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
@@ -47,11 +48,19 @@ public class BusinessProductsAdapter extends RecyclerView.Adapter<BusinessProduc
         if (newAd.getCategoryEnName().equals("null")){
             holder.title.setText(newAd.getOtherCategoryNAme());
         }else {
-            holder.title.setText(newAd.getCategoryEnName());
+            if (AppDefs.language.equals("ar")){
+                holder.title.setText(newAd.getCategoryArName());
+            }else {
+                holder.title.setText(newAd.getCategoryEnName());
+            }
         }
-        holder.loc.setText(newAd.getEnLocation());
+        if (AppDefs.language.equals("ar")){
+            holder.loc.setText(newAd.getArLocation());
+        }else {
+            holder.loc.setText(newAd.getEnLocation());
+        }
         if (!newAd.getPrice().isEmpty()){
-            holder.price.setText(newAd.getPrice()+ " AED");
+            holder.price.setText("AED "+newAd.getPrice());
         }
         String pic = newAd.getMainImage().replace("\\", "/");
         Glide.with(context).load(Urls.IMAGE_URL+pic).into(holder.image);
