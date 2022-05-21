@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
+import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Responses.ElectronicAd;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
 import com.hudhud.insouqapplication.R;
@@ -43,11 +44,18 @@ public class ElectronicsProductsAdapter extends RecyclerView.Adapter<Electronics
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ElectronicAd newAd = newAds.get(position);
 
-        holder.title.setText(newAd.getSubCatEnName());
         if (!newAd.getPrice().isEmpty()){
-            holder.price.setText(newAd.getPrice()+ " AED");
+            holder.price.setText("AED "+newAd.getPrice());
+        }else {
+            holder.price.setText(context.getResources().getString(R.string.unknown));
         }
-        holder.loc.setText(newAd.getEnLocation());
+        if (AppDefs.language.equals("ar")){
+            holder.loc.setText(newAd.getArLocation());
+            holder.title.setText(newAd.getSubCatArName());
+        }else {
+            holder.loc.setText(newAd.getEnLocation());
+            holder.title.setText(newAd.getSubCatEnName());
+        }
         String pic = newAd.getMainImage().replace("\\", "/");
         Glide.with(context).load(Urls.IMAGE_URL+pic).into(holder.image);
 

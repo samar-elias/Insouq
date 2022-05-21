@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:background="@drawable/white_radius_10"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp">
+
+        <ImageView
+            android:id="@+id/favourite"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/image_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/favourite">
+            <include
+                android:id="@+id/abu_dhabi_bike_layout"
+                layout="@layout/abu_dhabi_bike_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="invisible"/>
+
+            <include
+                android:id="@+id/abu_dhabi_classic_layout"
+                layout="@layout/abu_dhabi_classic_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="invisible"/>
+
+            <include
+                android:id="@+id/abu_dhabi_private_layout"
+                layout="@layout/abu_dhabi_private_layout_long"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:visibility="invisible"/>
+
+            <include
+                android:id="@+id/ajman_private_layout"
+                layout="@layout/ajman_private_layout_long"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:visibility="invisible"/>
+
+            <include
+                android:id="@+id/dubai_bike_layout"
+                layout="@layout/dubai_bike_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="invisible"/>
+
+            <include
+                android:id="@+id/dubai_classic_layout"
+                layout="@layout/dubai_classic_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="invisible"/>
+
+            <include
+                android:id="@+id/dubai_private_layout"
+                layout="@layout/dubai_private_layout_long"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:visibility="invisible"/>
+
+            <include
+                android:id="@+id/fujairah_private_layout"
+                layout="@layout/fujairah_private_layout_long"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:visibility="invisible"/>
+
+            <include
+                android:id="@+id/ras_alkhaimah_classic_layout"
+                layout="@layout/ras_alkhaimah_classic_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="invisible"/>
+
+            <include
+                android:id="@+id/ras_alkhaimah_private_layout"
+                layout="@layout/ras_alkhaimah_private_layout_long"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:visibility="invisible"/>
+
+            <include
+                android:id="@+id/sharjah_private_layout"
+                layout="@layout/sharjah_private_layout_long"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:visibility="invisible"/>
+
+            <include
+                android:id="@+id/sharjah_classic_layout"
+                layout="@layout/sharjah_classic_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="invisible"/>
+
+            <include
+                android:id="@+id/umm_alqwain_private_layout"
+                layout="@layout/umm_alqwain_private_layout_long"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="invisible"/>
+
+            <include
+                android:id="@+id/mobile_number_plate"
+                layout="@layout/etisalat_mobile_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="invisible"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/loc_icon"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/number_title"
+            android:src="@drawable/location"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:alpha="0.5"/>
+        <TextView
+            android:id="@+id/ad_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/loc_icon"
+            app:layout_constraintStart_toEndOf="@id/loc_icon"
+            app:layout_constraintBottom_toBottomOf="@id/loc_icon"
+            app:layout_constraintEnd_toStartOf="@id/number_price"
+            android:text="@string/location"
+            android:textAlignment="viewStart"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:fontFamily="@font/objectivity_medium"
+            android:textColor="@color/purple_text"
+            android:textSize="@dimen/_10ssp"/>
+        <ImageView
+            android:id="@+id/emirate_icon"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@id/ad_location"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:alpha="0.5"
+            android:src="@drawable/emirate_img"/>
+
+        <TextView
+            android:id="@+id/emirate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:fontFamily="@font/objectivity_medium"
+            android:text="@string/emirate"
+            android:textColor="@color/purple_text"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toEndOf="@id/emirate_icon"
+            app:layout_constraintTop_toTopOf="@id/emirate_icon" />
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            app:layout_constraintTop_toTopOf="@id/emirate_icon"
+            app:layout_constraintBottom_toBottomOf="@id/emirate_icon"
+            app:layout_constraintStart_toEndOf="@id/emirate"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:alpha="0.5"
+            android:src="@drawable/plate_type_img"/>
+
+        <TextView
+            android:id="@+id/value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:fontFamily="@font/objectivity_medium"
+            android:text="@string/plate_type"
+            android:textColor="@color/purple_text"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintStart_toEndOf="@id/icon"
+            app:layout_constraintTop_toTopOf="@id/icon" />
+        <TextView
+            android:id="@+id/number_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:fontFamily="@font/objectivity_medium"
+            android:text="Dubai mobile number"
+            android:textAlignment="viewStart"
+            android:textColor="@color/purple_text"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/image_layout"
+            app:layout_constraintEnd_toStartOf="@id/number_price"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="55dp" />
+        <TextView
+            android:id="@+id/number_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/objectivity_bold"
+            android:text="AED xxx,xxx"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/emirate_icon"/>
+        <TextView
+            android:id="@+id/posted_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/number_title"
+            app:layout_constraintBottom_toBottomOf="@id/number_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="end"
+            android:fontFamily="@font/objectivity_medium"
+            android:text="@string/posted"
+            android:textSize="@dimen/_7ssp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

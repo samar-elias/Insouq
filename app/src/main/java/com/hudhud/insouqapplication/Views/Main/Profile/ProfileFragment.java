@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.facebook.login.LoginManager;
 import com.google.android.material.button.MaterialButton;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Helpers.LocaleHelper;
@@ -232,7 +233,7 @@ public class ProfileFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
@@ -285,6 +286,8 @@ public class ProfileFragment extends Fragment {
             SharedPreferences.Editor editor = preferences.edit();
             editor.clear();
             editor.apply();
+
+            LoginManager.getInstance().logOut();
 
             AppDefs.user = new UserFS();
             Intent splashIntent = new Intent(mainActivity, SplashActivity.class);

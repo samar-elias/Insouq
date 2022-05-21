@@ -82,20 +82,23 @@ public class PostBusinessAdFragment extends Fragment {
     MaterialButton continueBtn;
     private static final int REQUEST_CODE = 101;
     ImageView image1, image2, image3, image4, image5, image7, image6, image8, image9, image10, uploadImage, mainImage;
-    ImageView closeImage1, closeImage2, closeImage3, closeImage4, closeImage5, closeImage7, closeImage6, closeImage8, closeImage9, closeImage10, closeMainImage, adImage;
+    ImageView closeImage1, closeImage2, closeImage3, closeImage4, closeImage5, closeImage7, closeImage6, closeImage8, closeImage9, closeImage10, closeMainImage;
     String image1Path = "", image2Path = "", image3Path = "", image4Path = "", image5Path = "", image7Path = "", image6Path = "", image8Path = "", image9Path = "", image10Path = "", mainPath = "", longitude = "", latitude = "", address = "";
     Bitmap image1Bitmap, image2Bitmap, image3Bitmap, image4Bitmap, image5Bitmap, image7Bitmap, image6Bitmap, image8Bitmap, image9Bitmap, image10Bitmap;
     Spinner categorySpinner, subCategorySpinner, locationSpinner;
     EditText titleEdt, priceEdt, phoneNumberEdt, descriptionEdt, otherSubCategory;
-    TextView title, adLocation, adPrice, location;
+    TextView location;
     CheckBox agreementCheckBok;
     ArrayList<String> categoriesArTitles, categoriesEnTitles, categoriesIds, subCategoriesArTitles, subCategoriesEnTitles, subCategoriesIds, locationsArTitles, locationsEnTitles;
     String currentCategoryId = "", currentSubCategoryId = "", currentLocation = "";
     ArrayList<String> pictures;
-    boolean spinner1 = false, spinner2 = false, spinner3 = false;
     ArrayList<PackageFS> packages = new ArrayList<>();
     public String packageId = "";
     public CheckBox freeCB;
+
+    //Ad sample
+    TextView title, adLocation, adPrice, category;
+    ImageView categoryIcon, adImage;
 
     public PostBusinessAdFragment() {
         // Required empty public constructor
@@ -139,8 +142,8 @@ public class PostBusinessAdFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         location = view.findViewById(R.id.location);
         categorySpinner = view.findViewById(R.id.category_spinner);
@@ -154,7 +157,9 @@ public class PostBusinessAdFragment extends Fragment {
         title = view.findViewById(R.id.business_title);
         adImage = view.findViewById(R.id.business_image);
         adLocation = view.findViewById(R.id.ad_location);
+        categoryIcon = view.findViewById(R.id.cat_icon);
         adPrice = view.findViewById(R.id.price);
+        category = view.findViewById(R.id.ad_cat);
         agreementCheckBok = view.findViewById(R.id.agreement_checkbox);
         continueBtn = view.findViewById(R.id.continue_btn);
 
@@ -229,7 +234,7 @@ public class PostBusinessAdFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                adPrice.setText(String.valueOf(priceEdt.getText()));
+                adPrice.setText("AED "+ priceEdt.getText());
             }
 
             @Override
@@ -252,11 +257,15 @@ public class PostBusinessAdFragment extends Fragment {
                     mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.business), mainActivity.getResources().getString(R.string.fill_all_fields));
                 }else if (currentCategoryId.equals("-1") || currentSubCategoryId.equals("-1") || currentLocation.equals("-1")){
                     mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.business), mainActivity.getResources().getString(R.string.fill_all_fields));
+                }else if (Integer.parseInt(adPrice) > 10000000){
+                    mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.business), mainActivity.getResources().getString(R.string.price_high));
                 }else {
                     setData(adTitle, adPrice, otherSubCat, adDescription, phoneNumber);
                 }
             }else if (currentCategoryId.equals("-1") || currentSubCategoryId.equals("-1") || currentLocation.equals("-1")){
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.business), mainActivity.getResources().getString(R.string.fill_all_fields));
+            }else if (Integer.parseInt(adPrice) > 10000000){
+                mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.business), mainActivity.getResources().getString(R.string.price_high));
             }else {
                 adPrice = formatter.format(Double.parseDouble(adPrice));
                 setData(adTitle, adPrice, "", adDescription, phoneNumber);
@@ -353,60 +362,72 @@ public class PostBusinessAdFragment extends Fragment {
         closeMainImage.setOnClickListener(view -> {
             Glide.with(mainActivity).load(R.drawable.gray_image).into(mainImage);
             mainPath = "";
+
         });
 
         closeImage1.setOnClickListener(view -> {
+            clearMainPath(image1Path, image1);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image1);
             image1Path = "";
         });
 
         closeImage2.setOnClickListener(view -> {
+            clearMainPath(image2Path, image2);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image2);
             image2Path = "";
         });
 
         closeImage3.setOnClickListener(view -> {
+            clearMainPath(image3Path, image3);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image3);
             image3Path = "";
         });
 
         closeImage4.setOnClickListener(view -> {
+            clearMainPath(image4Path, image4);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image4);
             image4Path = "";
         });
 
         closeImage5.setOnClickListener(view -> {
+            clearMainPath(image5Path, image5);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image5);
             image5Path = "";
         });
 
         closeImage6.setOnClickListener(view -> {
+            clearMainPath(image6Path, image6);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image6);
             image6Path = "";
         });
 
         closeImage7.setOnClickListener(view -> {
+            clearMainPath(image7Path, image7);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image7);
             image7Path = "";
         });
 
         closeImage8.setOnClickListener(view -> {
+            clearMainPath(image8Path, image8);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image8);
             image8Path = "";
         });
 
         closeImage9.setOnClickListener(view -> {
+            clearMainPath(image9Path, image9);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image9);
             image9Path = "";
         });
 
         closeImage10.setOnClickListener(view -> {
+            clearMainPath(image10Path, image10);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image10);
             image10Path = "";
         });
     }
 
     private void setData(String title, String price, String otherSubCat, String description, String phoneNumber){
+        pictures.clear();
         if (!image1Path.isEmpty()){
             pictures.add(image1Path);
         }
@@ -443,7 +464,7 @@ public class PostBusinessAdFragment extends Fragment {
         if (pictures.size()==0){
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.business), mainActivity.getResources().getString(R.string.minimum_pic));
         }else if (mainPath.isEmpty()){
-            mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.motors_ad), mainActivity.getResources().getString(R.string.select_main_image));
+            mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.business), mainActivity.getResources().getString(R.string.select_main_image));
         }else if (latitude.isEmpty() || longitude.isEmpty() || address.isEmpty()){
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.business), mainActivity.getResources().getString(R.string.location_error));
         }else  if (!agreementCheckBok.isChecked()){
@@ -511,7 +532,7 @@ public class PostBusinessAdFragment extends Fragment {
                         }
                     }
                 }else {
-                    mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.electronics_ad), mainActivity.getResources().getString(R.string.ad_posted_unsuccessfully));
+                    mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.business), mainActivity.getResources().getString(R.string.ad_posted_unsuccessfully));
                 }
             }
 
@@ -614,11 +635,12 @@ public class PostBusinessAdFragment extends Fragment {
                     locationsArTitles.add(locationObj.getString("ar_Text"));
                     locationsEnTitles.add(locationObj.getString("en_Text"));
                 }
-                adLocation.setText(locationsEnTitles.get(0));
                 if (AppDefs.language.equals("ar")){
                     setSpinner(locationSpinner, locationsArTitles);
+                    adLocation.setText(locationsArTitles.get(0));
                 }else {
                     setSpinner(locationSpinner, locationsEnTitles);
+                    adLocation.setText(locationsEnTitles.get(0));
                 }
                 currentLocation = locationsEnTitles.get(0)+"-"+locationsArTitles.get(0);
             } catch (JSONException e) {
@@ -639,11 +661,44 @@ public class PostBusinessAdFragment extends Fragment {
                 if (i!=0){
                     ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.purple_text));
                     ((TextView) adapterView.getChildAt(0)).setTypeface(Typeface.defaultFromStyle(BOLD));
+                    if (AppDefs.language.equals("ar")){
+                        category.setText(categoriesArTitles.get(i));
+                    }else {
+                        category.setText(categoriesEnTitles.get(i));
+                    }
                 }else {
+                    category.setText(mainActivity.getResources().getString(R.string.category));
                     ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.gray_3));
                 }
                 currentCategoryId = categoriesIds.get(i);
                 getSubCategories();
+                if (!currentCategoryId.equals("-1")){
+                    int image = R.drawable.category_name_list;
+                    switch (currentCategoryId){
+                        case "23":
+                            image = R.drawable.business_for_sale;
+                            break;
+                        case "56":
+                            image = R.drawable.trade_license_for_sale ;
+                            break;
+                        case "57":
+                            image = R.drawable.building_materials ;
+                            break;
+                        case "58":
+                            image = R.drawable.food_for_sale ;
+                            break;
+                        case "59":
+                            image = R.drawable.general_items ;
+                            break;
+                        case "60":
+                            image = R.drawable.shops_restaurants ;
+                            break;
+                        case "61":
+                            image = R.drawable.scarp_materials ;
+                            break;
+                    }
+                    Glide.with(mainActivity).load(image).into(categoryIcon);
+                }
             }
 
             @Override
@@ -659,7 +714,6 @@ public class PostBusinessAdFragment extends Fragment {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.purple_text));
                     ((TextView) adapterView.getChildAt(0)).setTypeface(Typeface.defaultFromStyle(BOLD));
                 }else {
-                    spinner2 = true;
                     ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.gray_3));
                 }
                 if (i==0){
@@ -690,14 +744,16 @@ public class PostBusinessAdFragment extends Fragment {
                 if (i!=0){
                     ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.purple_text));
                     ((TextView) adapterView.getChildAt(0)).setTypeface(Typeface.defaultFromStyle(BOLD));
-                }else {
-                    spinner3 = true;
-                    ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.gray_3));
-                }
-                if (i==0){
-                    currentLocation = "-1";
-                }else {
                     currentLocation = locationsEnTitles.get(i)+"-"+locationsArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adLocation.setText(locationsArTitles.get(i));
+                    }else {
+                        adLocation.setText(locationsEnTitles.get(i));
+                    }
+                }else {
+                    ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.gray_3));
+                    currentLocation = "-1";
+                    adLocation.setText(mainActivity.getResources().getString(R.string.location));
                 }
             }
 
@@ -710,7 +766,7 @@ public class PostBusinessAdFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
@@ -869,6 +925,15 @@ public class PostBusinessAdFragment extends Fragment {
         BusinessPackagesAdapter businessPackagesAdapter = new BusinessPackagesAdapter(this,packages, -1);
         recyclerView.setAdapter(businessPackagesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
+    }
+
+    private void clearMainPath(String imagePath, ImageView image){
+        String subPath = imagePath.substring(imagePath.lastIndexOf("/")+1);
+        if (subPath.equals(mainPath)){
+            Glide.with(mainActivity).load(R.drawable.ic_business).into(adImage);
+            image.setBackground(null);
+        }
+        mainPath = "";
     }
 
     @Override

@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Responses.AddAdsResponse;
@@ -76,16 +77,20 @@ public class PostServiceAdFragment extends Fragment {
     MaterialButton continueBtn;
     EditText servicesTitleEdt, otherSubCategoryEdt, phoneNumberEdt, descriptionsEdt;
     Spinner subCategoriesSpinner, locationsSpinner;
-    TextView location, adTitle, adLocation, adServiceType;
+    TextView location;
     String currentSubCategoryId = "", currentLocation = "", latitude = "", longitude = "", address = "";
     ArrayList<String> subCategoriesArTitles, subCategoriesEnTitles, locationArTitles, locationEnTitles;
     ArrayList<Integer> subCategoriesIds;
-    String categoryId;
+    String categoryId, categoryTitle;
     CheckBox agreementCheckBox;
     boolean spinner1 = false, spinner2 = false;
     ArrayList<PackageFS> packages = new ArrayList<>();
     public String packageId = "";
     public CheckBox freeCB;
+
+    //Ad sample
+    TextView adCategory, adTitle, adLocation, adServiceType;
+    ImageView catIcon;
 
     public PostServiceAdFragment() {
         // Required empty public constructor
@@ -129,8 +134,8 @@ public class PostServiceAdFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         servicesTitleEdt = view.findViewById(R.id.service_ad_title);
@@ -142,8 +147,10 @@ public class PostServiceAdFragment extends Fragment {
         location = view.findViewById(R.id.services_location);
         adTitle = view.findViewById(R.id.service_type);
         adLocation = view.findViewById(R.id.ad_location);
-        adServiceType = view.findViewById(R.id.service_type);
+        adServiceType = view.findViewById(R.id.ad_sub_type);
         agreementCheckBox = view.findViewById(R.id.agreement_checkbox);
+        catIcon = view.findViewById(R.id.sub_category_icon);
+        adCategory = view.findViewById(R.id.ad_sub_category);
 
         subCategoriesArTitles = new ArrayList<>();
         subCategoriesEnTitles = new ArrayList<>();
@@ -152,8 +159,44 @@ public class PostServiceAdFragment extends Fragment {
         locationEnTitles = new ArrayList<>();
 
         if (getArguments() != null){
+            int image = 0;
             categoryId = PostServiceAdFragmentArgs.fromBundle(getArguments()).getCatId();
+            categoryTitle = PostServiceAdFragmentArgs.fromBundle(getArguments()).getCategoryTitle();
             Send.addServicesAd.setCategoryId(categoryId);
+            switch (categoryId){
+                case "21":
+                    image = R.drawable.domestic;
+                    break;
+                case "24":
+                    image = R.drawable.others_services;
+                    break;
+                case "25":
+                    image = R.drawable.movers;
+                    break;
+                case "26":
+                    image = R.drawable.web_computers;
+                    break;
+                case "27":
+                    image = R.drawable.corporate;
+                    break;
+                case "28":
+                    image = R.drawable.home_maintenance;
+                    break;
+                case "29":
+                    image = R.drawable.events;
+                    break;
+                case "30":
+                    image = R.drawable.tutors;
+                    break;
+                case "31":
+                    image = R.drawable.others_services;
+                    break;
+                case "32":
+                    image = R.drawable.healthservices;
+                    break;
+            }
+            Glide.with(mainActivity).load(image).into(catIcon);
+            adCategory.setText(categoryTitle);
         }
 
         if (!AppDefs.user.getMobileNumber().equals("null")) {
@@ -253,6 +296,7 @@ public class PostServiceAdFragment extends Fragment {
                 }
                 if (i==0){
                     currentSubCategoryId = "-1";
+                    adServiceType.setText(mainActivity.getResources().getString(R.string.service_type));
                 }else{
                     if (subCategoriesEnTitles.size() == 1){
                         currentSubCategoryId = "0";
@@ -292,6 +336,7 @@ public class PostServiceAdFragment extends Fragment {
                 }
                 if (i==0){
                     currentLocation = "-1";
+                    adLocation.setText(mainActivity.getResources().getString(R.string.location));
                 }else {
                     currentLocation = locationEnTitles.get(i)+"-"+locationArTitles.get(i);
                     if (AppDefs.language.equals("ar")){
@@ -458,7 +503,7 @@ public class PostServiceAdFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

@@ -9,13 +9,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.tabs.TabLayout;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
+import com.hudhud.insouqapplication.AppUtils.Helpers.Helpers;
 import com.hudhud.insouqapplication.AppUtils.Responses.ElectronicAd;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
 import com.hudhud.insouqapplication.R;
+import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.ImageViewPagerAdapter;
 import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.SubCategoryFragment;
 
 import java.util.ArrayList;
@@ -50,6 +54,15 @@ public class ElectronicsGridItemAdapter extends RecyclerView.Adapter<Electronics
         String newPic = electronicAd.getMainImage().replace("\\", "/");
         Glide.with(context).load(Urls.IMAGE_URL+newPic).into(holder.image);
 
+        holder.viewPager.setVisibility(View.VISIBLE);
+        holder.tabLayout.setupWithViewPager(holder.viewPager, true);
+        ImageViewPagerAdapter mAdapter = new ImageViewPagerAdapter(electronicAd.getPictures(), subCategoryFragment.mainActivity);
+        mAdapter.notifyDataSetChanged();
+        holder.viewPager.setOffscreenPageLimit(3);
+        holder.viewPager.setAdapter(mAdapter);
+
+        Helpers.setSliderTimer(3000, holder.viewPager, mAdapter);
+
         holder.postedDate.setText(electronicAd.getPostedDate());
         if (AppDefs.language.equals("ar")){
             holder.title.setText(electronicAd.getSubTypeArName()+", "+ electronicAd.getSubTypeArName());
@@ -67,7 +80,7 @@ public class ElectronicsGridItemAdapter extends RecyclerView.Adapter<Electronics
         if (categoryId.equals("19") || categoryId.equals("33")){
             Glide.with(context).load(R.drawable.color).into(holder.icon1);
             Glide.with(context).load(R.drawable.usage_1).into(holder.icon2);
-            Glide.with(context).load(R.drawable.age_1).into(holder.icon3);
+            Glide.with(context).load(R.drawable.age_list).into(holder.icon3);
             Glide.with(context).load(R.drawable.storage).into(holder.icon4);
 
             holder.value1.setText(electronicAd.getEnColor());
@@ -93,7 +106,7 @@ public class ElectronicsGridItemAdapter extends RecyclerView.Adapter<Electronics
         }else {
             Glide.with(context).load(R.drawable.sub_category_list).into(holder.icon1);
             Glide.with(context).load(R.drawable.usage_1).into(holder.icon2);
-            Glide.with(context).load(R.drawable.age_1).into(holder.icon3);
+            Glide.with(context).load(R.drawable.age_list).into(holder.icon3);
             holder.icon4.setVisibility(View.GONE);
 
             holder.value1.setText(electronicAd.getSubCatEnName());
@@ -135,6 +148,8 @@ public class ElectronicsGridItemAdapter extends RecyclerView.Adapter<Electronics
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView favourite, image, icon1,icon2, icon3, icon4;
         TextView title, location, price, postedDate, value1, value2, value3, value4;
+        ViewPager viewPager;
+        TabLayout tabLayout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             favourite = itemView.findViewById(R.id.favourite_motor);
@@ -151,6 +166,8 @@ public class ElectronicsGridItemAdapter extends RecyclerView.Adapter<Electronics
             value2 = itemView.findViewById(R.id.value2);
             value3 = itemView.findViewById(R.id.value3);
             value4 = itemView.findViewById(R.id.value4);
+            viewPager = itemView.findViewById(R.id.viewPager);
+            tabLayout = itemView.findViewById(R.id.tabDots);
         }
     }
 }

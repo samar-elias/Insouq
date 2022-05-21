@@ -10,25 +10,31 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.tabs.TabLayout;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
+import com.hudhud.insouqapplication.AppUtils.Helpers.Helpers;
 import com.hudhud.insouqapplication.AppUtils.Responses.BusinessAd;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
 import com.hudhud.insouqapplication.R;
+import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.ImageViewPagerAdapter;
 import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.SubCategoryFragment;
 
 import java.util.ArrayList;
 
 import timber.log.Timber;
 
-public class BusinessesAdapter extends RecyclerView.Adapter<BusinessesAdapter.ViewHolder> {
+public class
+BusinessesAdapter extends RecyclerView.Adapter<BusinessesAdapter.ViewHolder> {
 
     SubCategoryFragment subCategoryFragment;
     Context context;
     boolean fav = false;
     ArrayList<BusinessAd> businessAds;
+    int image = R.drawable.other;
 
     public BusinessesAdapter(SubCategoryFragment subCategoryFragment, ArrayList<BusinessAd> businessAds) {
         this.subCategoryFragment = subCategoryFragment;
@@ -51,6 +57,15 @@ public class BusinessesAdapter extends RecyclerView.Adapter<BusinessesAdapter.Vi
         String newPic = businessAd.getMainImage().replace("\\", "/");
         Glide.with(context).load(Urls.IMAGE_URL+newPic).into(holder.image);
 
+        holder.viewPager.setVisibility(View.VISIBLE);
+        holder.tabLayout.setupWithViewPager(holder.viewPager, true);
+        ImageViewPagerAdapter mAdapter = new ImageViewPagerAdapter(businessAd.getPictures(), subCategoryFragment.mainActivity);
+        mAdapter.notifyDataSetChanged();
+        holder.viewPager.setOffscreenPageLimit(3);
+        holder.viewPager.setAdapter(mAdapter);
+
+        Helpers.setSliderTimer(3000, holder.viewPager, mAdapter);
+
         Timber.tag("picBusiness").d(newPic);
 
         holder.date.setText(businessAd.getPostedDate());
@@ -63,6 +78,32 @@ public class BusinessesAdapter extends RecyclerView.Adapter<BusinessesAdapter.Vi
         }else {
             holder.location.setText(businessAd.getEnLocation());
         }
+
+        switch (businessAd.getCategoryId()){
+            case "23":
+                image = R.drawable.business_for_sale;
+                break;
+            case "56":
+                image = R.drawable.trade_license_for_sale ;
+                break;
+            case "57":
+                image = R.drawable.building_materials ;
+                break;
+            case "58":
+                image = R.drawable.food_for_sale ;
+                break;
+            case "59":
+                image = R.drawable.general_items ;
+                break;
+            case "60":
+                image = R.drawable.shops_restaurants ;
+                break;
+            case "61":
+                image = R.drawable.scarp_materials ;
+                break;
+        }
+
+        Glide.with(context).load(image).into(holder.categoryIcon);
 
         if (businessAd.getOtherCategoryNAme().equals("null") || businessAd.getOtherCategoryNAme().isEmpty()){
             if (AppDefs.language.equals("ar")){
@@ -102,8 +143,10 @@ public class BusinessesAdapter extends RecyclerView.Adapter<BusinessesAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView favourite, image;
+        ImageView favourite, image, categoryIcon;
         TextView title, location, price, date, categoryName;
+        ViewPager viewPager;
+        TabLayout tabLayout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             favourite = itemView.findViewById(R.id.favourite);
@@ -113,6 +156,9 @@ public class BusinessesAdapter extends RecyclerView.Adapter<BusinessesAdapter.Vi
             price = itemView.findViewById(R.id.price);
             date = itemView.findViewById(R.id.posted_date);
             categoryName = itemView.findViewById(R.id.ad_cat);
+            categoryIcon = itemView.findViewById(R.id.cat_icon);
+            viewPager = itemView.findViewById(R.id.viewPager);
+            tabLayout = itemView.findViewById(R.id.tabDots);
         }
     }
 }

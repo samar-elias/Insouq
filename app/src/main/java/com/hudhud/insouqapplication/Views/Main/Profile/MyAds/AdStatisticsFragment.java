@@ -94,8 +94,8 @@ public class AdStatisticsFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
         searchNum = view.findViewById(R.id.number1);
         visitorsNum = view.findViewById(R.id.number2);
         chatNum = view.findViewById(R.id.number3);
@@ -191,7 +191,7 @@ public class AdStatisticsFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

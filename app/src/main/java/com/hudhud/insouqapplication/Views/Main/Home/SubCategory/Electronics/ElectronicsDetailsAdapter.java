@@ -58,6 +58,13 @@ public class ElectronicsDetailsAdapter extends RecyclerView.Adapter<ElectronicsD
         holder.price.setText(electronicAd.getPrice());
         holder.postDate.setText(context.getResources().getString(R.string.posted_on)+" "+electronicAd.getPostedDate());
 
+        if (electronicAd.getAgentId().equals("null")){
+            holder.chat.setEnabled(false);
+            holder.chat.setAlpha(0.3F);
+        }else {
+            holder.chat.setEnabled(true);
+            holder.chat.setAlpha(1);
+        }
 
         if (AppDefs.language.equals("ar")) {
             holder.location.setText(electronicAd.getArLocation());
@@ -71,7 +78,7 @@ public class ElectronicsDetailsAdapter extends RecyclerView.Adapter<ElectronicsD
 
         holder.viewPager.setVisibility(View.VISIBLE);
         holder.tabLayout.setupWithViewPager(holder.viewPager, true);
-        ImageViewPagerAdapter mAdapter = new ImageViewPagerAdapter(electronicAd.getPictures(), electronicsDetailsFragment.mainActivity);
+        ElectronicsImageViewPagerAdapter mAdapter = new ElectronicsImageViewPagerAdapter(electronicAd.getPictures(), electronicsDetailsFragment.mainActivity, electronicsDetailsFragment, true);
         mAdapter.notifyDataSetChanged();
         holder.viewPager.setOffscreenPageLimit(3);
         holder.viewPager.setAdapter(mAdapter);
@@ -101,9 +108,9 @@ public class ElectronicsDetailsAdapter extends RecyclerView.Adapter<ElectronicsD
 
         if (!electronicAd.getEnAge().equals("null")){
             if (AppDefs.language.equals("ar")){
-                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.age), electronicAd.getArAge(), R.drawable.age_1));
+                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.age), electronicAd.getArAge(), R.drawable.age_list));
             }else {
-                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.age), electronicAd.getEnAge(), R.drawable.age_1));
+                electronicsSpecifications.add(new specificationModel(context.getResources().getString(R.string.age), electronicAd.getEnAge(), R.drawable.age_list));
             }
         }
         if (!electronicAd.getEnUsage().equals("null")){
@@ -269,7 +276,7 @@ public class ElectronicsDetailsAdapter extends RecyclerView.Adapter<ElectronicsD
         ImageView showSpecificationArrow, showDescriptionArrow, showLocationArrow, directions;
         TextView contactTitle;
         RecyclerView similarBusinessRV;
-        LinearLayout call, sms;
+        LinearLayout call, sms, chat;
         ImageView next, previous;
         RecyclerView specificationsRV;
         ViewPager viewPager;
@@ -289,6 +296,7 @@ public class ElectronicsDetailsAdapter extends RecyclerView.Adapter<ElectronicsD
             direction = itemView.findViewById(R.id.directions);
             call = itemView.findViewById(R.id.call);
             sms = itemView.findViewById(R.id.sms);
+            chat = itemView.findViewById(R.id.chat);
             share = itemView.findViewById(R.id.share);
             postDate = itemView.findViewById(R.id.post_date);
 

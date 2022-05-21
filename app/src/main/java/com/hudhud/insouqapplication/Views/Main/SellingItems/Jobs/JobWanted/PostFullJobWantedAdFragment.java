@@ -18,6 +18,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,6 +96,9 @@ public class PostFullJobWantedAdFragment extends Fragment {
     public CheckBox freeCB;
     boolean spinner1 = false, spinner2 = false, spinner3 = false, spinner4 = false, spinner5 = false, spinner6 = false, spinner7 = false, spinner8 = false, spinner9 = false, spinner10 = false, spinner11 = false;
 
+    //Ad sample
+    TextView jobType, adLocation, adEducation, adExperience, adPosition;
+
     public PostFullJobWantedAdFragment() {
         // Required empty public constructor
     }
@@ -145,8 +150,8 @@ public class PostFullJobWantedAdFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         uploaded = view.findViewById(R.id.checked);
         continueBtn = view.findViewById(R.id.continue_btn);
@@ -167,6 +172,12 @@ public class PostFullJobWantedAdFragment extends Fragment {
         salarySpinner = view.findViewById(R.id.expected_monthly_salary_spinner);
         locationsSpinner = view.findViewById(R.id.locations_spinner);
         descriptionEdt = view.findViewById(R.id.ad_short_description);
+
+        jobType = view.findViewById(R.id.job_position);
+        adLocation = view.findViewById(R.id.job_type);
+        adEducation = view.findViewById(R.id.job_time);
+        adExperience = view.findViewById(R.id.job_experience);
+        adPosition = view.findViewById(R.id.value);
 
         genderEnTitles = new ArrayList<>();
         gendersArTitles = new ArrayList<>();
@@ -196,6 +207,7 @@ public class PostFullJobWantedAdFragment extends Fragment {
             uploaded.setVisibility(View.GONE);
         }
 
+        jobType.setText(Send.jobType);
     }
 
     private void onClick() {
@@ -208,6 +220,23 @@ public class PostFullJobWantedAdFragment extends Fragment {
         location.setOnClickListener(view -> startMapsActivity());
 
         uploadCV.setOnClickListener(view -> uploadFile());
+
+        currentPosition.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adPosition.setText(currentPosition.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         continueBtn.setOnClickListener(view -> {
             String currentPos = String.valueOf(currentPosition.getText());
@@ -317,8 +346,14 @@ public class PostFullJobWantedAdFragment extends Fragment {
                 }
                 if (i==0){
                     currentWorkExperience = "-1";
+                    adExperience.setText(mainActivity.getResources().getString(R.string.work_experience));
                 }else {
                     currentWorkExperience = workExperienceEnTitles.get(i)+"-"+workExperienceArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adExperience.setText(workExperienceArTitles.get(i));
+                    }else {
+                        adExperience.setText(workExperienceEnTitles.get(i));
+                    }
                 }
             }
 
@@ -455,8 +490,14 @@ public class PostFullJobWantedAdFragment extends Fragment {
                 }
                 if (i==0){
                     locationCurrent = "-1";
+                    adLocation.setText(mainActivity.getResources().getString(R.string.location));
                 }else {
                     locationCurrent = locationEnTitles.get(i)+"-"+locationArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adLocation.setText(locationArTitles.get(i));
+                    }else {
+                        adLocation.setText(locationEnTitles.get(i));
+                    }
                 }
             }
 
@@ -478,8 +519,14 @@ public class PostFullJobWantedAdFragment extends Fragment {
                 }
                 if (i==0){
                     currentEducationLevel = "-1";
+                    adEducation.setText(mainActivity.getResources().getString(R.string.education_level));
                 }else {
                     currentEducationLevel = educationLevelEnTitles.get(i)+"-"+educationLevelArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adEducation.setText(educationLevelArTitles.get(i));
+                    }else {
+                        adEducation.setText(educationLevelEnTitles.get(i));
+                    }
                 }
             }
 
@@ -913,7 +960,7 @@ public class PostFullJobWantedAdFragment extends Fragment {
         RequestBody currentProfessionalLevel = createRequestBody(Send.addJobWantedAd.getCareerLevel());
         RequestBody visaStatus = createRequestBody(Send.addJobWantedAd.getVisaStatus());
         RequestBody expectedMonthlySalary = createRequestBody(Send.addJobWantedAd.getExpectedMonthlySalary());
-        MultipartBody.Part file = createMultipartBodyPart("CVFile", Send.addJobWantedAd.getCVFile());
+        RequestBody file = createRequestBody(Send.addJobWantedAd.getCVFile());
 
         Call<AddAdsResponse> addJobWantedAd = retrofit.create(RetrofitUrls.class).addJobWantedAd(adId, description, location, lat, lan, gender, categoryId, nationality, currentLocation, educationLevel, currentPosition, workExperience, commitment, noticePeriod, currentProfessionalLevel, visaStatus, expectedMonthlySalary, file);
         addJobWantedAd.enqueue(new Callback<AddAdsResponse>() {
@@ -947,7 +994,7 @@ public class PostFullJobWantedAdFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
@@ -1038,7 +1085,7 @@ public class PostFullJobWantedAdFragment extends Fragment {
             location.setText(address);
         }else if (requestCode == REQUEST_CODE_FILE && resultCode == RESULT_OK){
             Uri uri = data.getData();
-            filePath = uri.getPath();
+            filePath = mainActivity.fileUriToBase64(uri, mainActivity.getContentResolver());
             uploaded.setVisibility(View.VISIBLE);
             Toast.makeText(mainActivity, mainActivity.getResources().getString(R.string.file_uploaded), Toast.LENGTH_SHORT).show();
         }

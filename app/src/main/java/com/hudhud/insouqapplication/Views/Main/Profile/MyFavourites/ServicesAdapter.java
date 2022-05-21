@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Responses.ServiceAd;
 import com.hudhud.insouqapplication.R;
@@ -23,6 +24,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
     Context context;
     boolean fav = false;
     ArrayList<ServiceAd> serviceAds;
+    int image = R.drawable.others_services;
 
     public ServicesAdapter(MyFavouritesFragment subCategoryFragment, ArrayList<ServiceAd> serviceAds) {
         this.subCategoryFragment = subCategoryFragment;
@@ -42,25 +44,72 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ServiceAd serviceAd = serviceAds.get(position);
 
+
         holder.type.setText(serviceAd.getTitle());
+
         holder.date.setText(serviceAd.getPostedDate());
+
+        switch (serviceAd.getCategoryId()){
+            case "21":
+                image = R.drawable.domestic;
+                break;
+            case "24":
+                image = R.drawable.others_services;
+                break;
+            case "25":
+                image = R.drawable.movers;
+                break;
+            case "26":
+                image = R.drawable.web_computers;
+                break;
+            case "27":
+                image = R.drawable.corporate;
+                break;
+            case "28":
+                image = R.drawable.home_maintenance;
+                break;
+            case "29":
+                image = R.drawable.events;
+                break;
+            case "30":
+                image = R.drawable.tutors;
+                break;
+            case "31":
+                image = R.drawable.others_services;
+                break;
+            case "32":
+                image = R.drawable.healthservices;
+                break;
+        }
+
+        Glide.with(context).load(image).into(holder.subIcon);
 
         if (AppDefs.language.equals("ar")){
             holder.subCat.setText(serviceAd.getCategoryArName());
-            holder.location.setText(context.getResources().getText(R.string.located)+" "+serviceAd.getArLocation());
+            holder.location.setText(serviceAd.getArLocation());
         }else {
             holder.subCat.setText(serviceAd.getCategoryEnName());
-            holder.location.setText(context.getResources().getText(R.string.located)+" "+serviceAd.getEnLocation());
+            holder.location.setText(serviceAd.getEnLocation());
         }
 
-        if (serviceAd.getOtherServiceType().isEmpty()|| serviceAd.getOtherServiceType().equals("null")){
+        if (!serviceAd.getServiceTypeEnName().equals("null")){
             if (AppDefs.language.equals("ar")){
                 holder.subType.setText(serviceAd.getServiceTypeArName());
             }else {
                 holder.subType.setText(serviceAd.getServiceTypeEnName());
             }
-        }else {
+        } else if (!serviceAd.getOtherServiceType().equals("null")){
             holder.subType.setText(serviceAd.getOtherServiceType());
+        }else {
+            holder.subType.setText(context.getResources().getString(R.string.other));
+        }
+
+        if (serviceAd.getIsFav().equals("true")){
+            holder.favourite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_favorite_red_24));
+            fav = true;
+        }else {
+            holder.favourite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_favorite_border_24));
+            fav = false;
         }
 
         if (serviceAd.getIsFav().equals("true")){
@@ -73,11 +122,11 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
             if (!fav){
                 holder.favourite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_favorite_red_24));
                 fav = true;
-                subCategoryFragment.addToFavourite(serviceAd.getId());
+                subCategoryFragment.addToFavourite(serviceAd.getId(), "4");
             }else {
                 holder.favourite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_favorite_border_24));
                 fav = false;
-                subCategoryFragment.removeFromFavourite(serviceAd.getId());
+                subCategoryFragment.removeFromFavourite(serviceAd.getId(), "4");
             }
         });
         holder.favourite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_favorite_red_24));
@@ -90,16 +139,17 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView favourite;
+        ImageView favourite, subIcon;
         TextView type, location, date, subCat, subType;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             favourite = itemView.findViewById(R.id.favourite);
             type = itemView.findViewById(R.id.service_type);
-            location = itemView.findViewById(R.id.location);
+            location = itemView.findViewById(R.id.ad_location);
             date = itemView.findViewById(R.id.posted_date);
             subCat = itemView.findViewById(R.id.ad_sub_category);
             subType = itemView.findViewById(R.id.ad_sub_type);
+            subIcon = itemView.findViewById(R.id.sub_category_icon);
         }
     }
 }

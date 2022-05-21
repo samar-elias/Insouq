@@ -30,6 +30,7 @@ public class ServicesDetailsAdapter extends RecyclerView.Adapter<ServicesDetails
     ServicesDetailsFragment servicesDetailsFragment;
     Context context;
     boolean fav = false;
+    int image = R.drawable.others_services;
 
     public ServicesDetailsAdapter(ArrayList<ServiceAd> serviceAds, ServicesDetailsFragment servicesDetailsFragment) {
         this.serviceAds = serviceAds;
@@ -54,6 +55,15 @@ public class ServicesDetailsAdapter extends RecyclerView.Adapter<ServicesDetails
         holder.title.setText(serviceAd.getTitle());
         holder.postDate.setText(context.getResources().getString(R.string.posted_on)+" "+serviceAd.getPostedDate());
         holder.description.setText(serviceAd.getDescription());
+
+        if (serviceAd.getAgentId().equals("null")){
+            holder.chat.setEnabled(false);
+            holder.chat.setAlpha(0.3F);
+        }else {
+            holder.chat.setEnabled(true);
+            holder.chat.setAlpha(1);
+        }
+
 //        holder.member.setText(jobDetailsFragment.memberSince);
 //        holder.name.setText(jobDetailsFragment.profileName);
 //        String img = jobDetailsFragment.profileImg.replace("\\", "/");
@@ -66,17 +76,51 @@ public class ServicesDetailsAdapter extends RecyclerView.Adapter<ServicesDetails
             holder.location.setText(serviceAd.getEnLocation());
             holder.location2.setText(serviceAd.getEnLocation());
         }
+
+        switch (serviceAd.getCategoryId()){
+            case "21":
+                image = R.drawable.domestic;
+                break;
+            case "24":
+                image = R.drawable.others_services;
+                break;
+            case "25":
+                image = R.drawable.movers;
+                break;
+            case "26":
+                image = R.drawable.web_computers;
+                break;
+            case "27":
+                image = R.drawable.corporate;
+                break;
+            case "28":
+                image = R.drawable.home_maintenance;
+                break;
+            case "29":
+                image = R.drawable.events;
+                break;
+            case "30":
+                image = R.drawable.tutors;
+                break;
+            case "31":
+                image = R.drawable.others_services;
+                break;
+            case "32":
+                image = R.drawable.healthservices;
+                break;
+        }
+
         ArrayList<specificationModel> serviceSpecifications = new ArrayList<>();
         if (!serviceAd.getServiceTypeEnName().equals("null")){
             if (AppDefs.language.equals("ar")){
-                serviceSpecifications.add(new specificationModel(context.getResources().getString(R.string.service_type), serviceAd.getServiceTypeArName(), R.drawable.service_type_img));
+                serviceSpecifications.add(new specificationModel(context.getResources().getString(R.string.service_type), serviceAd.getServiceTypeArName(), image));
             }else {
-                serviceSpecifications.add(new specificationModel(context.getResources().getString(R.string.service_type), serviceAd.getServiceTypeEnName(), R.drawable.service_type_img));
+                serviceSpecifications.add(new specificationModel(context.getResources().getString(R.string.service_type), serviceAd.getServiceTypeEnName(), image));
             }
         }
 
         if (!serviceAd.getOtherServiceType().equals("null")){
-            serviceSpecifications.add(new specificationModel(context.getResources().getString(R.string.service_type), serviceAd.getOtherServiceType(), R.drawable.service_type_img));
+            serviceSpecifications.add(new specificationModel(context.getResources().getString(R.string.service_type), serviceAd.getOtherServiceType(), image));
         }
 
         SpecificationAdapter specificationAdapter = new SpecificationAdapter(serviceSpecifications);
@@ -175,7 +219,7 @@ public class ServicesDetailsAdapter extends RecyclerView.Adapter<ServicesDetails
                 location2, employmentType, postDate, workExperience, name, member;
         Boolean showDescription, showLocation;
         RecyclerView similarJobsRV;
-        LinearLayout call, sms;
+        LinearLayout call, sms, chat;
         ImageView next, previous;
         RecyclerView specificationsRV;
         public ViewHolder(@NonNull View itemView) {
@@ -201,6 +245,7 @@ public class ServicesDetailsAdapter extends RecyclerView.Adapter<ServicesDetails
 
             call = itemView.findViewById(R.id.call);
             sms = itemView.findViewById(R.id.sms);
+            chat = itemView.findViewById(R.id.chat);
 
             //description
             descriptionLayout = itemView.findViewById(R.id.description_layout);

@@ -56,7 +56,7 @@ public class SignUpFragment extends Fragment {
     CheckBox signUpCheckBox;
     String firstName = "", lastName = "", mobileNumber = "", emailAddress = "", password = "";
     ConstraintLayout layout;
-    ImageView showHidePassword, correctForm;
+    ImageView showHidePassword, correctForm, navigateBack;
     Boolean passwordVisible = false;
 
     public SignUpFragment() {
@@ -93,6 +93,7 @@ public class SignUpFragment extends Fragment {
 
     private void initViews(View view){
         navController = Navigation.findNavController(view);
+        navigateBack = view.findViewById(R.id.back_arrow);
         signUp = view.findViewById(R.id.sign_up_btn);
         firstNameEdt = view.findViewById(R.id.first_name_edt);
         lastNameEdt = view.findViewById(R.id.last_name_edt);
@@ -116,6 +117,8 @@ public class SignUpFragment extends Fragment {
     }
 
     private void onClick(){
+        navigateBack.setOnClickListener(view -> navController.popBackStack());
+
         signUp.setOnClickListener(view -> {
             firstName = String.valueOf(firstNameEdt.getText());
             lastName = String.valueOf(lastNameEdt.getText());

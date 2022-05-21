@@ -163,7 +163,7 @@
 
             <include
                 android:id="@+id/umm_alqwain_private_layout"
-                layout="@layout/umm_alqwain_private_layout"
+                layout="@layout/umm_alqwain_private_layout_long"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"

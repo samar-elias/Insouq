@@ -20,6 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/white_radius_10">
+            <include
+                android:id="@+id/slider"
+                layout="@layout/include_slider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_90sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
             <ImageView
                 android:id="@+id/product_image"
                 android:layout_width="match_parent"
@@ -28,13 +36,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:scaleType="centerCrop"
+                android:visibility="gone"
                 android:background="@drawable/white_radius_10"
                 android:src="@drawable/car"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/product_image"
+                app:layout_constraintTop_toBottomOf="@id/slider"
                 android:padding="@dimen/_7sdp">
                 <TextView
                     android:id="@+id/job_title"

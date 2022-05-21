@@ -9,13 +9,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.tabs.TabLayout;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
+import com.hudhud.insouqapplication.AppUtils.Helpers.Helpers;
 import com.hudhud.insouqapplication.AppUtils.Responses.Picture;
 import com.hudhud.insouqapplication.AppUtils.Responses.UsedCarAd;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
 import com.hudhud.insouqapplication.R;
+import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.ImageViewPagerAdapter;
 import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.SubCategoryFragment;
 
 import java.util.ArrayList;
@@ -51,6 +55,16 @@ public class MotorItemGridAdapter extends RecyclerView.Adapter<MotorItemGridAdap
 //        holder.title.setText(usedCarAd.getTitle());
         String newPic = usedCarAd.getMainImage().replace("\\", "/");
         Glide.with(context).load(Urls.IMAGE_URL+newPic).into(holder.image);
+
+        holder.viewPager.setVisibility(View.VISIBLE);
+        holder.tabLayout.setupWithViewPager(holder.viewPager, true);
+        ImageViewPagerAdapter mAdapter = new ImageViewPagerAdapter(usedCarAd.getPictures(), subCategoryFragment.mainActivity);
+        mAdapter.notifyDataSetChanged();
+        holder.viewPager.setOffscreenPageLimit(3);
+        holder.viewPager.setAdapter(mAdapter);
+
+        Helpers.setSliderTimer(3000, holder.viewPager, mAdapter);
+
         if (AppDefs.language.equals("ar")){
             holder.location.setText(usedCarAd.getArLocation());
         }else {
@@ -79,7 +93,7 @@ public class MotorItemGridAdapter extends RecyclerView.Adapter<MotorItemGridAdap
                     holder.kilos.setText(usedCarAd.getEnLength());
                     holder.value.setText(usedCarAd.getEnAge());
                 }
-                Glide.with(context).load(R.drawable.age_1).into(holder.icon);
+                Glide.with(context).load(R.drawable.age_list).into(holder.icon);
                 Glide.with(context).load(R.drawable.lenght_img).into(holder.kiloIcon);
                 break;
             case "7":
@@ -92,7 +106,7 @@ public class MotorItemGridAdapter extends RecyclerView.Adapter<MotorItemGridAdap
                 }
                 holder.icon.setVisibility(View.GONE);
                 holder.value.setVisibility(View.GONE);
-                Glide.with(context).load(R.drawable.age_1).into(holder.kiloIcon);
+                Glide.with(context).load(R.drawable.age_list).into(holder.kiloIcon);
                 Glide.with(context).load(R.drawable.part_name).into(holder.yearIcon);
                 break;
         }
@@ -164,6 +178,9 @@ public class MotorItemGridAdapter extends RecyclerView.Adapter<MotorItemGridAdap
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView favourite, image, icon, kiloIcon, yearIcon;
         TextView title, location, kilos, year, price, postDate, value;
+        ViewPager viewPager;
+        TabLayout tabLayout;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             favourite = itemView.findViewById(R.id.favourite_motor);
@@ -178,6 +195,8 @@ public class MotorItemGridAdapter extends RecyclerView.Adapter<MotorItemGridAdap
             value = itemView.findViewById(R.id.value);
             kiloIcon = itemView.findViewById(R.id.kilos_icon);
             yearIcon = itemView.findViewById(R.id.motor_year_icon);
+            viewPager = itemView.findViewById(R.id.viewPager);
+            tabLayout = itemView.findViewById(R.id.tabDots);
         }
     }
 }

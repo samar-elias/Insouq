@@ -5,8 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -24,7 +28,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.ocpsoft.prettytime.PrettyTime;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
@@ -41,7 +48,7 @@ import okhttp3.RequestBody;
 
 public class MainActivity extends AppCompatActivity {
 
-    public String fragName = "";
+    public static String fragName = "";
     ProgressDialog pDialog;
     public RequestQueue queue ;
     public DecimalFormat formatter = new DecimalFormat("#0.00");
@@ -280,5 +287,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public String fileUriToBase64(Uri uri, ContentResolver resolver) {
+        String encodedBase64 = "";
+        try {
+            byte[] bytes = readBytes(uri, resolver);
+            encodedBase64 = Base64.encodeToString(bytes, 0);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return encodedBase64;
+    }
 
+    private static byte[] readBytes(Uri uri, ContentResolver resolver)
+            throws IOException {
+        // this dynamically extends to take the bytes you read
+        InputStream inputStream = resolver.openInputStream(uri);
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+
+        // this is storage overwritten on each iteration with bytes
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        // we need to know how may bytes were read to write them to the
+        // byteBuffer
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+
+        // and then we can return your byte array.
+        return byteBuffer.toByteArray();
+    }
 }

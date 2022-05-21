@@ -20,6 +20,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,12 +84,12 @@ public class PostClassifiedsGroup2AdFragment extends Fragment {
     MainActivity mainActivity;
     MaterialButton continueBtn;
     private static final int REQUEST_CODE = 101;
-    ImageView image1, image2, image3, image4, image5, image7, image6, image8, image9, image10, uploadImage, mainImage, adImage;
+    ImageView image1, image2, image3, image4, image5, image7, image6, image8, image9, image10, uploadImage, mainImage;
     ImageView closeImage1, closeImage2, closeImage3, closeImage4, closeImage5, closeImage7, closeImage6, closeImage8, closeImage9, closeImage10, closeMainImage;
     String image1Path = "", image2Path = "", image3Path = "", image4Path = "", image5Path = "", image7Path = "", image6Path = "", image8Path = "", image9Path = "", image10Path = "", mainPath = "", longitude = "", latitude = "", address = "";
     Bitmap image1Bitmap, image2Bitmap, image3Bitmap, image4Bitmap, image5Bitmap, image7Bitmap, image6Bitmap, image8Bitmap, image9Bitmap, image10Bitmap;
     EditText priceEdt, phoneNumberEdt, descriptionEdt;
-    TextView location, adTitle, adPrice, adLocation;
+    TextView location;
     Spinner agesSpinner, usagesSpinner, conditionsSpinner, locationsSpinner;
     ArrayList<String> ageArTitles, ageEnTitles, usageArTitles, usageEnTitles, conditionArTitle, conditionEnTitles, locationArTitles, locationEnTitles;
     String currentAge = "", currentUsage = "", currentCondition = "", currentLocation = "", adId = "";
@@ -97,6 +99,10 @@ public class PostClassifiedsGroup2AdFragment extends Fragment {
     ArrayList<PackageFS> packages = new ArrayList<>();
     public String packageId = "";
     public CheckBox freeCB;
+
+    //Ad sample
+    TextView adPrice, adCondition, adAge, adLocation, adTitle;
+    ImageView adImage;
 
     public PostClassifiedsGroup2AdFragment() {
         // Required empty public constructor
@@ -142,8 +148,8 @@ public class PostClassifiedsGroup2AdFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         adTitle = view.findViewById(R.id.electronics_title);
@@ -155,6 +161,8 @@ public class PostClassifiedsGroup2AdFragment extends Fragment {
         descriptionEdt = view.findViewById(R.id.ad_short_description);
         location = view.findViewById(R.id.location);
         agreementCheckBox = view.findViewById(R.id.agreement_checkbox);
+        adAge = view.findViewById(R.id.ad_age);
+        adCondition = view.findViewById(R.id.ad_condition);
 
         agesSpinner = view.findViewById(R.id.ages_spinner);
         usagesSpinner = view.findViewById(R.id.usages_spinner);
@@ -216,17 +224,22 @@ public class PostClassifiedsGroup2AdFragment extends Fragment {
             setData(price, description, phoneNumber);
         });
 
-        priceEdt.setOnEditorActionListener(((textView, i, keyEvent) -> {
-            switch (i) {
-                case EditorInfo.IME_ACTION_DONE:
-                case EditorInfo.IME_ACTION_NEXT:
-                case EditorInfo.IME_ACTION_PREVIOUS:
-                    adPrice.setText(priceEdt.getText() +" AED");
-                    mainActivity.hideKeyboard();
-                    return true;
+        priceEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
-            return false;
-        }));
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adPrice.setText("AED "+priceEdt.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         uploadImage.setOnClickListener(view -> {
             if (image1Path.isEmpty()){
@@ -321,51 +334,61 @@ public class PostClassifiedsGroup2AdFragment extends Fragment {
         });
 
         closeImage1.setOnClickListener(view -> {
+            clearMainPath(image1Path, image1);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image1);
             image1Path = "";
         });
 
         closeImage2.setOnClickListener(view -> {
+            clearMainPath(image2Path, image2);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image2);
             image2Path = "";
         });
 
         closeImage3.setOnClickListener(view -> {
+            clearMainPath(image3Path, image3);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image3);
             image3Path = "";
         });
 
         closeImage4.setOnClickListener(view -> {
+            clearMainPath(image4Path, image4);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image4);
             image4Path = "";
         });
 
         closeImage5.setOnClickListener(view -> {
+            clearMainPath(image5Path, image5);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image5);
             image5Path = "";
         });
 
         closeImage6.setOnClickListener(view -> {
+            clearMainPath(image6Path, image6);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image6);
             image6Path = "";
         });
 
         closeImage7.setOnClickListener(view -> {
+            clearMainPath(image7Path, image7);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image7);
             image7Path = "";
         });
 
         closeImage8.setOnClickListener(view -> {
+            clearMainPath(image8Path, image8);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image8);
             image8Path = "";
         });
 
         closeImage9.setOnClickListener(view -> {
+            clearMainPath(image9Path, image9);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image9);
             image9Path = "";
         });
 
         closeImage10.setOnClickListener(view -> {
+            clearMainPath(image10Path, image10);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image10);
             image10Path = "";
         });
@@ -390,8 +413,14 @@ public class PostClassifiedsGroup2AdFragment extends Fragment {
                 }
                 if (i==0){
                     currentAge = "-1";
+                    adAge.setText(mainActivity.getResources().getString(R.string.age));
                 }else {
                     currentAge = ageEnTitles.get(i)+"-"+ageArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adAge.setText(ageArTitles.get(i));
+                    }else {
+                        adAge.setText(ageEnTitles.get(i));
+                    }
                 }
             }
 
@@ -436,8 +465,14 @@ public class PostClassifiedsGroup2AdFragment extends Fragment {
                 }
                 if (i==0){
                     currentLocation = "-1";
+                    adLocation.setText(mainActivity.getResources().getString(R.string.location));
                 }else {
                     currentLocation = locationEnTitles.get(i)+"-"+locationArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adLocation.setText(locationArTitles.get(i));
+                    }else {
+                        adLocation.setText(locationEnTitles.get(i));
+                    }
                 }
             }
 
@@ -459,8 +494,14 @@ public class PostClassifiedsGroup2AdFragment extends Fragment {
                 }
                 if (i==0){
                     currentCondition = "-1";
+                    adCondition.setText(mainActivity.getResources().getString(R.string.condition));
                 }else {
                     currentCondition = conditionEnTitles.get(i)+"-"+conditionArTitle.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adCondition.setText(conditionArTitle.get(i));
+                    }else {
+                        adCondition.setText(conditionEnTitles.get(i));
+                    }
                 }
             }
 
@@ -700,6 +741,8 @@ public class PostClassifiedsGroup2AdFragment extends Fragment {
     private void setData(String price, String description, String phoneNumber){
         if (price.isEmpty() || phoneNumber.isEmpty()){
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.classifieds_ad), mainActivity.getResources().getString(R.string.fill_all_fields));
+        }else if(Integer.parseInt(price)>10000000){
+            mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.classifieds), mainActivity.getResources().getString(R.string.price_high));
         }else {
             price = mainActivity.formatter.format(Double.parseDouble(price));
             Send.addClassifiedAd.setPrice(price);
@@ -834,7 +877,7 @@ public class PostClassifiedsGroup2AdFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
@@ -917,6 +960,15 @@ public class PostClassifiedsGroup2AdFragment extends Fragment {
         PackagesAdapter2 businessPackagesAdapter = new PackagesAdapter2(this,packages, -1);
         recyclerView.setAdapter(businessPackagesAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
+    }
+
+    private void clearMainPath(String imagePath, ImageView image){
+        String subPath = imagePath.substring(imagePath.lastIndexOf("/")+1);
+        if (subPath.equals(mainPath)){
+            Glide.with(mainActivity).load(R.drawable.ic_classified).into(adImage);
+            image.setBackground(null);
+        }
+        mainPath = "";
     }
 
     @Override

@@ -25,6 +25,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     ArrayList<SubCategory> subCategories;
     Context context;
     int categoryId;
+    String title = "";
 
     public SubCategoryAdapter(SubCategoriesPostAdFragment subCategoriesPostAdFragment, ArrayList<SubCategory> subCategories, int categoryId) {
         this.subCategoriesPostAdFragment = subCategoriesPostAdFragment;
@@ -44,15 +45,23 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SubCategory subCategory = subCategories.get(position);
+
         if (AppDefs.language.equals("ar")){
             holder.subCategoryTitle.setText(subCategory.getNameAr());
+            title = subCategory.getNameAr();
         }else {
             holder.subCategoryTitle.setText(subCategory.getNameEn());
+            title = subCategory.getNameEn();
         }
         holder.numOfAds.setText(subCategory.getNumberOfAds()+ context.getString(R.string.ads));
         String newPic = subCategory.getIcon().replace("\\", "/");
         Glide.with(context).load(newPic).into(holder.subCategoryIcon);
         holder.item.setOnClickListener(view -> {
+            if (AppDefs.language.equals("ar")){
+                title = subCategory.getNameAr();
+            }else {
+                title = subCategory.getNameEn();
+            }
             switch (categoryId){
                 case 1:
                     holder.item.setBackgroundColor(context.getResources().getColor(R.color.foshia));
@@ -79,7 +88,7 @@ public class SubCategoryAdapter extends RecyclerView.Adapter<SubCategoryAdapter.
                     holder.item.setBackgroundColor(context.getResources().getColor(R.color.yellow));
                     break;
             }
-            subCategoriesPostAdFragment.navigateSell(subCategory.getId(), position);
+            subCategoriesPostAdFragment.navigateSell(subCategory.getId(), position, title);
         });
         if (categoryId == 5){
             Glide.with(context).load(subCategory.getIcon()).into(holder.subCategoryIcon);

@@ -55,12 +55,20 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
 
         holder.viewPager.setVisibility(View.VISIBLE);
         holder.tabLayout.setupWithViewPager(holder.viewPager, true);
-        ImageViewPagerAdapter mAdapter = new ImageViewPagerAdapter(motorAd.getPictures(), motorDetailsFragment.mainActivity);
+        MotorsImageViewPagerAdapter mAdapter = new MotorsImageViewPagerAdapter(motorAd.getPictures(), motorDetailsFragment.mainActivity, motorDetailsFragment, true);
         mAdapter.notifyDataSetChanged();
         holder.viewPager.setOffscreenPageLimit(3);
         holder.viewPager.setAdapter(mAdapter);
 
         Helpers.setSliderTimer(3000, holder.viewPager, mAdapter);
+
+        if (motorAd.getAgentId().equals("null")){
+            holder.chat.setEnabled(false);
+            holder.chat.setAlpha(0.3F);
+        }else {
+            holder.chat.setEnabled(true);
+            holder.chat.setAlpha(1);
+        }
 
         ArrayList<specificationModel> motorSpecifications = new ArrayList<>();
         if (!motorAd.getEnMaker().equals("null")){
@@ -198,9 +206,9 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
         }
         if (!motorAd.getEnAge().equals("null")){
             if (AppDefs.language.equals("ar")){
-                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.age), motorAd.getArAge(), R.drawable.age_1));
+                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.age), motorAd.getArAge(), R.drawable.age_list));
             }else {
-                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.age), motorAd.getEnAge(), R.drawable.age_1));
+                motorSpecifications.add(new specificationModel(context.getResources().getString(R.string.age), motorAd.getEnAge(), R.drawable.age_list));
             }
         }
         if (!motorAd.getEnUsage().equals("null")){
@@ -398,6 +406,7 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
             notifyDataSetChanged();
         });
         holder.directions.setOnClickListener(view -> motorDetailsFragment.openGoogleMaps(motorAd.getLatitude(), motorAd.getLongitude()));
+
     }
 
     @Override
@@ -407,7 +416,7 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         RecyclerView specificationsRV, similarCarsRV;
-        ConstraintLayout specificationLayout, descriptionLayout, locationLayout, directionsLayout, makeAnOffer, makeAnOffer2;
+        ConstraintLayout specificationLayout, descriptionLayout, locationLayout, directionsLayout, makeAnOffer, makeAnOffer2, slider, slider2;
         boolean showSpecification, showDescription, showLocation, fav = false, showProfile = false;
         ImageView showSpecificationArrow, showDescriptionArrow, showLocationArrow, favourite, directions, makeOfferImg;
         TextView description, descriptionLine, makeOfferTxt;
@@ -419,7 +428,7 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
         int count = 4, step = 1;
         ViewPager viewPager;
         TabLayout tabLayout;
-        LinearLayout call, sms;
+        LinearLayout call, sms, chat;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             viewPager = itemView.findViewById(R.id.viewPager);
@@ -433,6 +442,7 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
             call = itemView.findViewById(R.id.call);
             sms = itemView.findViewById(R.id.sms);
             share = itemView.findViewById(R.id.share);
+            chat = itemView.findViewById(R.id.chat);
 
             itemText = itemView.findViewById(R.id.motor_title);
             itemText2 = itemView.findViewById(R.id.motor_title_2);
@@ -492,6 +502,8 @@ public class MotorDetailsAdapter extends RecyclerView.Adapter<MotorDetailsAdapte
             previous = itemView.findViewById(R.id.previous);
 
             postDateTime = itemView.findViewById(R.id.post_date);
+
+            slider2 = itemView.findViewById(R.id.slider_images);
         }
     }
 }
