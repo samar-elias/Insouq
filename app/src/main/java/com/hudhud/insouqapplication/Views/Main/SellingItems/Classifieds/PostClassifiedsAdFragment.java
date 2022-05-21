@@ -51,8 +51,10 @@ public class PostClassifiedsAdFragment extends Fragment {
     ArrayList<String> categoriesArTitles, categoriesEnTitles, subCategoriesArTitles, subCategoriesEnTitles, subTypesArTitles, subTypesEnTitles;
     ArrayList<Integer> categoriesIds, subCategoriesIds, subTypesIds;
     String currentSubCategoryId = "", currentCategoryId = "", currentSubTypeId = "";
-    TextView adTitleTV;
     boolean spinner1 = false, spinner2 = false, spinner3 = false;
+
+    // Ad sample
+    TextView adTitleTV;
 
     public PostClassifiedsAdFragment() {
         // Required empty public constructor
@@ -96,8 +98,8 @@ public class PostClassifiedsAdFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         adTitleTV = view.findViewById(R.id.electronics_title);
         otherSubCategoryEdt = view.findViewById(R.id.other_sub_cat);
@@ -426,7 +428,7 @@ public class PostClassifiedsAdFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

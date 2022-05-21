@@ -29,13 +29,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:scaleType="centerCrop"
+                android:visibility="gone"
                 android:background="@drawable/white_radius_10"
                 android:src="@drawable/car"/>
+
+            <include
+                android:id="@+id/slider"
+                layout="@layout/include_slider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_90sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/image"
+                app:layout_constraintTop_toBottomOf="@id/slider"
                 android:padding="@dimen/_7sdp">
                 <TextView
                     android:id="@+id/title"
@@ -94,7 +104,7 @@
                     android:layout_height="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/loc_icon"
-                    android:src="@drawable/usage_list"
+                    android:src="@drawable/usage_1"
                     android:visibility="gone"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:alpha="0.5"/>
@@ -121,7 +131,7 @@
                     android:layout_height="@dimen/_10sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/usage_icon"
-                    android:src="@drawable/age_1"
+                    android:src="@drawable/age_list"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:alpha="0.5"/>
                 <TextView

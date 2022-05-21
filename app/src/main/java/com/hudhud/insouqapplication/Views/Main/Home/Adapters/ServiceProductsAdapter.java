@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
+import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Responses.NewAd;
 import com.hudhud.insouqapplication.AppUtils.Responses.ServiceAd;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
@@ -45,12 +46,22 @@ public class ServiceProductsAdapter extends RecyclerView.Adapter<ServiceProducts
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ServiceAd newAd = newAds.get(position);
 
-        if (newAd.getServiceTypeEnName().equals("null")){
+        if (!newAd.getServiceTypeEnName().equals("null")){
+            if (AppDefs.language.equals("ar")){
+                holder.title.setText(newAd.getServiceTypeArName());
+            }else {
+                holder.title.setText(newAd.getServiceTypeEnName());
+            }
+        } else if (!newAd.getOtherServiceType().equals("null")){
             holder.title.setText(newAd.getOtherServiceType());
         }else {
-            holder.title.setText(newAd.getServiceTypeEnName());
+            holder.title.setText(context.getResources().getString(R.string.other));
         }
-        holder.price.setText(newAd.getEnLocation());
+        if (AppDefs.language.equals("ar")){
+            holder.price.setText(newAd.getArLocation());
+        }else {
+            holder.price.setText(newAd.getEnLocation());
+        }
         Glide.with(context).load(R.drawable.job_logo).into(holder.image);
 
         holder.item.setOnClickListener(view -> homeFragment.navigateToServicesDetails(position));

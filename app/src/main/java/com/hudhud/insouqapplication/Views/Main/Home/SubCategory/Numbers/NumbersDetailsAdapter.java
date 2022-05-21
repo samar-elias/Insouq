@@ -262,6 +262,14 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
         holder.price.setText(newAd.getPrice());
         holder.postDate.setText(context.getResources().getString(R.string.posted_on)+" "+newAd.getPostDate());
 
+        if (newAd.getAgentId().equals("null")){
+            holder.chat.setEnabled(false);
+            holder.chat.setAlpha(0.3F);
+        }else {
+            holder.chat.setEnabled(true);
+            holder.chat.setAlpha(1);
+        }
+
         if (AppDefs.language.equals("ar")) {
             holder.location.setText(newAd.getArLocation());
             holder.location2.setText(newAd.getArLocation());
@@ -417,7 +425,7 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
         ImageView showSpecificationArrow, showDescriptionArrow, showLocationArrow, directions;
         TextView contactTitle;
         RecyclerView similarBusinessRV;
-        LinearLayout call, sms;
+        LinearLayout call, sms, chat;
         ImageView next, previous;
         RecyclerView specificationsRV;
         ImageView viewInCar;
@@ -443,6 +451,7 @@ public class NumbersDetailsAdapter extends RecyclerView.Adapter<NumbersDetailsAd
             direction = itemView.findViewById(R.id.directions);
             call = itemView.findViewById(R.id.call);
             sms = itemView.findViewById(R.id.sms);
+            chat = itemView.findViewById(R.id.chat);
             share = itemView.findViewById(R.id.share);
 
             viewInCar = itemView.findViewById(R.id.view_in_car);

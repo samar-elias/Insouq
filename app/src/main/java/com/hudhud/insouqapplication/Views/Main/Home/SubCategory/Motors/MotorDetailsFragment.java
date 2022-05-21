@@ -16,6 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,10 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.tabs.TabLayout;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
+import com.hudhud.insouqapplication.AppUtils.Responses.Picture;
+import com.hudhud.insouqapplication.AppUtils.Responses.UsedCarAd;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
 import com.hudhud.insouqapplication.R;
 import com.hudhud.insouqapplication.Views.Main.Home.Adapters.ProductsAdapter;
@@ -49,12 +53,15 @@ import java.util.Map;
 public class MotorDetailsFragment extends Fragment {
 
     RecyclerView motorItemsDetailsRV;
-    ImageView home, profile, chat, sellItem, notifications;
+    ImageView home, profile, chat, sellItem, notifications, close;
     NavController navController;
     public MainActivity mainActivity;
     int position;
     boolean isApplied = false;
     boolean isNew = false;
+    ConstraintLayout viewPagerLayout;
+    ViewPager viewPager;
+    TabLayout tabLayout;
 
     public MotorDetailsFragment() {
         // Required empty public constructor
@@ -104,6 +111,10 @@ public class MotorDetailsFragment extends Fragment {
         sellItem = view.findViewById(R.id.sell_item);
         profile = view.findViewById(R.id.profile);
         notifications = view.findViewById(R.id.notification);
+        viewPagerLayout = view.findViewById(R.id.view_pager_layout);
+        viewPager = view.findViewById(R.id.viewPager2);
+        tabLayout = view.findViewById(R.id.tabDots2);
+        close = view.findViewById(R.id.close);
 
         motorItemsDetailsRV = view.findViewById(R.id.motor_items_RV);
 
@@ -159,6 +170,7 @@ public class MotorDetailsFragment extends Fragment {
         profile.setOnClickListener(view -> startActivity("profile"));
         notifications.setOnClickListener(view -> startActivity("notifications"));
 
+        close.setOnClickListener(view -> viewPagerLayout.setVisibility(View.GONE));
 //        favourite.setOnClickListener(view -> {
 //            if (!fav){
 //                favourite.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.ic_baseline_favorite_red_24));
@@ -276,12 +288,9 @@ public class MotorDetailsFragment extends Fragment {
     }
 
     public void sendSMS(String phone){
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse("smsto:"));
-        i.setType("vnd.android-dir/mms-sms");
-        i.putExtra("address",phone);
-        startActivity(Intent.createChooser(i, "Send sms via:"));
-    }
+        Uri uri = Uri.parse("smsto:"+phone);
+        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+        startActivity(intent); }
 
     private void setSpecifications(){
 //        specificationModel motorSpecification1 = new specificationModel( getResources().getString(R.string.mileage),"47,000");
@@ -423,8 +432,18 @@ public class MotorDetailsFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
+    }
+
+    public void initSlider(ArrayList<Picture> pictures){
+        viewPagerLayout.setVisibility(View.VISIBLE);
+        viewPager.setVisibility(View.VISIBLE);
+        tabLayout.setupWithViewPager(viewPager, true);
+        MotorsImageViewPagerAdapter mAdapter = new MotorsImageViewPagerAdapter(pictures, mainActivity, this, false);
+        mAdapter.notifyDataSetChanged();
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.setAdapter(mAdapter);
     }
 }

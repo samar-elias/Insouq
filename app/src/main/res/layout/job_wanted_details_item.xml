@@ -614,6 +614,7 @@ The roof has fully tinted with \n \n"
         android:orientation="horizontal"
         android:weightSum="3">
         <LinearLayout
+            android:id="@+id/chat"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_10sdp"

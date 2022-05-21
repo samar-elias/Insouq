@@ -49,12 +49,16 @@ public class MotorProductsAdapter extends RecyclerView.Adapter<MotorProductsAdap
 //        holder.title.setText(newAd.getEnMaker()+", "+newAd.getEnModel());
         if (newAd.getKiloMeters().equals("null")){
             if(newAd.getYear().equals("0")){
-                holder.kiloYear.setText("Unknown");
+                holder.kiloYear.setText(context.getResources().getString(R.string.unknown));
             }else {
                 holder.kiloYear.setText(newAd.getYear());
             }
         }else {
-            holder.kiloYear.setText(newAd.getKiloMeters() + "KM");
+            if(newAd.getYear().equals("0")){
+                holder.kiloYear.setText(newAd.getKiloMeters() + "KM, "+context.getResources().getString(R.string.unknown));
+            }else {
+                holder.kiloYear.setText(newAd.getKiloMeters() + "KM, "+newAd.getYear());
+            }
         }
 //        holder.title.setText(newAd.getTitle());
         if (!newAd.getPrice().isEmpty()){

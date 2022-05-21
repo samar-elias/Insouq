@@ -107,8 +107,8 @@ public class MyFavouritesFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         favRV = view.findViewById(R.id.my_favs_RV);
         noAds = view.findViewById(R.id.no_ads);
@@ -346,6 +346,7 @@ public class MyFavouritesFragment extends Fragment {
                     JSONObject jobObj = jobsArray.getJSONObject(i);
                     JobAd jobAd = new JobAd();
                     jobAd.setId(jobObj.getString("id"));
+                    jobAd.setAgentId(jobObj.getString("agentId"));
                     jobAd.setTitle(jobObj.getString("title"));
                     jobAd.setDescription(jobObj.getString("description"));
                     jobAd.setEnLocation(jobObj.getString("en_Location"));
@@ -438,6 +439,7 @@ public class MyFavouritesFragment extends Fragment {
                     JSONObject serviceObj = serviceAdsArray.getJSONObject(i);
                     ServiceAd serviceAd = new ServiceAd();
                     serviceAd.setId(serviceObj.getString("id"));
+                    serviceAd.setAgentId(serviceObj.getString("agentId"));
                     serviceAd.setTitle(serviceObj.getString("title"));
                     serviceAd.setEnLocation(serviceObj.getString("en_Location"));
                     serviceAd.setArLocation(serviceObj.getString("ar_Location"));
@@ -504,6 +506,7 @@ public class MyFavouritesFragment extends Fragment {
                     JSONObject businessObj = businessArray.getJSONObject(i);
                     BusinessAd businessAd = new BusinessAd();
                     businessAd.setId(businessObj.getString("id"));
+                    businessAd.setAgentId(businessObj.getString("agentId"));
                     businessAd.setTitle(businessObj.getString("title"));
                     businessAd.setArLocation(businessObj.getString("ar_Location"));
                     businessAd.setEnLocation(businessObj.getString("en_Location"));
@@ -513,6 +516,7 @@ public class MyFavouritesFragment extends Fragment {
                     businessAd.setDescription(businessObj.getString("description"));
                     businessAd.setLat(businessObj.getString("lat"));
                     businessAd.setLng(businessObj.getString("lng"));
+                    businessAd.setCategoryId(businessObj.getString("categoryId"));
                     businessAd.setCategoryArName(businessObj.getString("categoryArName"));
                     businessAd.setCategoryEnName(businessObj.getString("categoryEnName"));
                     businessAd.setOtherCategoryNAme(businessObj.getString("otherCategoryName"));
@@ -578,6 +582,7 @@ public class MyFavouritesFragment extends Fragment {
                     JSONObject numberObj = numbersArray.getJSONObject(i);
                     NumberAd numberAd = new NumberAd();
                     numberAd.setId(numberObj.getString("id"));
+                    numberAd.setAgentId(numberObj.getString("agentId"));
                     numberAd.setTitle(numberObj.getString("title"));
                     if (numberObj.has("price")){
                         numberAd.setPrice(numberObj.getString("price"));
@@ -646,6 +651,7 @@ public class MyFavouritesFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("id"));
+                    electronicAd.setAgentId(electronicObj.getString("agentId"));
                     electronicAd.setTitle(electronicObj.getString("title"));
                     electronicAd.setArLocation(electronicObj.getString("ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("en_Location"));
@@ -667,6 +673,7 @@ public class MyFavouritesFragment extends Fragment {
                     electronicAd.setLat(electronicObj.getString("lat"));
                     electronicAd.setLng(electronicObj.getString("lng"));
                     electronicAd.setUserId(electronicObj.getString("userId"));
+                    electronicAd.setCategoryId(electronicObj.getString("categoryId"));
                     electronicAd.setSubCatArName(electronicObj.getString("subCategoryAr_Name"));
                     electronicAd.setSubCatEnName(electronicObj.getString("subCategoryEn_Name"));
                     electronicAd.setOtherSubCat(electronicObj.getString("otherSubCategory"));
@@ -694,7 +701,7 @@ public class MyFavouritesFragment extends Fragment {
                     electronicAds.add(electronicAd);
                 }
                 AppDefs.electronicAds = electronicAds;
-                setElectronicAdsAdapter(electronicAds);
+                setElectronicAdsAdapter(electronicAds, "8");
             } catch (JSONException e) {
                 e.printStackTrace();
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.favorite), mainActivity.getResources().getString(R.string.error_occured));
@@ -720,6 +727,7 @@ public class MyFavouritesFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("id"));
+                    electronicAd.setAgentId(electronicObj.getString("agentId"));
                     electronicAd.setTitle(electronicObj.getString("title"));
                     electronicAd.setArLocation(electronicObj.getString("ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("en_Location"));
@@ -763,7 +771,7 @@ public class MyFavouritesFragment extends Fragment {
                     classifiedsAds.add(electronicAd);
                 }
                 AppDefs.electronicAds = classifiedsAds;
-                setElectronicAdsAdapter(classifiedsAds);
+                setClassifiedsAdsAdapter(classifiedsAds);
             } catch (JSONException e) {
                 e.printStackTrace();
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.favorite), mainActivity.getResources().getString(R.string.error_occured));
@@ -780,8 +788,8 @@ public class MyFavouritesFragment extends Fragment {
         mainActivity.queue.add(electronicAdsRequest);
     }
 
-    private void setElectronicAdsAdapter(ArrayList<ElectronicAd> ads){
-        ElectronicsAdapter electronicsAdapter = new ElectronicsAdapter(this, ads);
+    private void setClassifiedsAdsAdapter(ArrayList<ElectronicAd> ads){
+        ClassifiedsAdapter electronicsAdapter = new ClassifiedsAdapter(this, ads);
 
         favRV.setAdapter(electronicsAdapter);
         favRV.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -793,7 +801,20 @@ public class MyFavouritesFragment extends Fragment {
         }
     }
 
-    public void addToFavourite(String adId){
+    private void setElectronicAdsAdapter(ArrayList<ElectronicAd> ads, String type){
+        ElectronicsAdapter electronicsAdapter = new ElectronicsAdapter(this, type, ads);
+
+        favRV.setAdapter(electronicsAdapter);
+        favRV.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        if (ads.size()>0){
+            noAds.setVisibility(View.GONE);
+        }else {
+            noAds.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void addToFavourite(String adId, String type){
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
         JSONObject favObj = new JSONObject();
         try {
@@ -819,18 +840,42 @@ public class MyFavouritesFragment extends Fragment {
         mainActivity.queue.add(favRequest);
     }
 
-    public void removeFromFavourite(String adId){
+    public void removeFromFavourite(String adId, String type){
         mainActivity.showProgressDialog(mainActivity.getResources().getString(R.string.loading));
         JSONObject favObj = new JSONObject();
         try {
             favObj.put("adId", adId);
+            favObj.put("userId", AppDefs.user.getId());
         } catch (JSONException e) {
             e.printStackTrace();
         }
         JsonObjectRequest favRequest = new JsonObjectRequest(Request.Method.POST, Urls.Ads_URL+"RemoveFromFavorite", favObj, response -> {
             mainActivity.hideProgressDialog();
             Toast.makeText(mainActivity, mainActivity.getResources().getString(R.string.fav_remove), Toast.LENGTH_SHORT).show();
-            getUsedCarsAds();
+            switch (type){
+                case "1":
+                    getUsedCarsAds();
+                    break;
+                case "3":
+                    getJobAds();
+                    break;
+                case "4":
+                    getServicesAds();
+                    break;
+                case "5":
+                    getBusinessAds();
+                    break;
+                case "6":
+                    getClassifiedsAds();
+                    break;
+                case "7":
+                    getNumbersAds();
+                    break;
+                case "8":
+                    getElectronicsAds();
+                    break;
+            }
+            getSavedSearchCount();
         }, error -> {
             mainActivity.hideProgressDialog();
             mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.favorite), mainActivity.getResources().getString(R.string.internet_connection_error));
@@ -848,7 +893,7 @@ public class MyFavouritesFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

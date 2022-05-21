@@ -223,15 +223,15 @@
         app:layout_constraintBottom_toTopOf="@id/motors_ad_layout"
         android:text="@string/here_s_how_your_ad_will_look"
         android:textColor="@color/purple_text"
-        android:visibility="gone"
+        android:visibility="visible"
         android:alpha="0.5"
         android:fontFamily="@font/objectivity_medium"/>
 
     <include
         android:id="@+id/motors_ad_layout"
-        layout="@layout/motor_item_layout"
+        layout="@layout/post_motor_item_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_90sdp"
+        android:layout_height="wrap_content"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

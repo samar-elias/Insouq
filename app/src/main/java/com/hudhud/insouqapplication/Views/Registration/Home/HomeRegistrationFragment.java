@@ -19,6 +19,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,7 +58,8 @@ import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
 import com.hudhud.insouqapplication.R;
 import com.hudhud.insouqapplication.Views.Main.MainActivity;
 import com.hudhud.insouqapplication.Views.Registration.RegistrationActivity;
-
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -83,6 +86,7 @@ public class HomeRegistrationFragment extends Fragment{
     LoginButton continueFacebook;
     TextView switchLanguage;
     String lang = "en";
+    CheckBox signUpCheckBox;
 
     public HomeRegistrationFragment() {
         // Required empty public constructor
@@ -126,6 +130,7 @@ public class HomeRegistrationFragment extends Fragment{
         continueGoogle = view.findViewById(R.id.continue_google);
         continueFacebook = view.findViewById(R.id.facebook_login);
         switchLanguage = view.findViewById(R.id.switch_to_arabic);
+        signUpCheckBox = view.findViewById(R.id.sign_up_check_box);
 
         lang = AppDefs.language;
 
@@ -141,25 +146,65 @@ public class HomeRegistrationFragment extends Fragment{
         register.setOnClickListener(view -> navController.navigate(HomeRegistrationFragmentDirections.actionHomeRegistrationFragmentToSignUpFragment()));
         signIn.setOnClickListener(view -> navController.navigate(HomeRegistrationFragmentDirections.actionHomeRegistrationFragmentToSignInFragment()));
         continueGoogle.setOnClickListener(view -> {
-            signUpGoogle();
+            if (signUpCheckBox.isChecked()){
+                signUpGoogle();
+            }else {
+                registrationActivity.showResponseMessage(registrationActivity.getResources().getString(R.string.sign_up), registrationActivity.getResources().getString(R.string.check_terms));
+            }
         });
-        continueFacebook.setReadPermissions("email", "public_profile");
-        continueFacebook.setFragment(this);
-        continueFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d("Token", String.valueOf(loginResult.getAccessToken().getToken()));
-                facebookSignIn(loginResult.getAccessToken().getToken());
-            }
 
+        signUpCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    continueFacebook.setEnabled(true);
+//                    continueFacebook.setBackgroundColor(getResources().getColor(R.color.white));
+                    continueGoogle.setEnabled(true);
+//                    continueGoogle.setBackground(registrationActivity.getResources().getDrawable(R.drawable.rounded_20_white));
+                }else {
+                    continueFacebook.setEnabled(false);
+//                    continueFacebook.setBackgroundColor(getResources().getColor(R.color.gray_3));
+                    continueGoogle.setEnabled(false);
+//                    continueGoogle.setBackground(registrationActivity.getResources().getDrawable(R.drawable.rounded_gray));
+                }
             }
+        });
 
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
+//        if (signUpCheckBox.isChecked()){
+//            continueFacebook.setEnabled(true);
+//            continueFacebook.setBackgroundColor(getResources().getColor(R.color.white));
+//            continueGoogle.setEnabled(true);
+//            continueGoogle.setBackground(registrationActivity.getResources().getDrawable(R.drawable.rounded_20_white));
+//        }else {
+//            continueFacebook.setEnabled(false);
+//            continueFacebook.setBackgroundColor(getResources().getColor(R.color.gray_3));
+//            continueGoogle.setEnabled(false);
+//            continueGoogle.setBackground(registrationActivity.getResources().getDrawable(R.drawable.rounded_gray));
+//        }
+
+        continueFacebook.setOnClickListener(view -> {
+            if (signUpCheckBox.isChecked()){
+                continueFacebook.setReadPermissions("email", "public_profile");
+                continueFacebook.setFragment(this);
+                continueFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        Log.d("Token", String.valueOf(loginResult.getAccessToken().getToken()));
+                        facebookSignIn(loginResult.getAccessToken().getToken());
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Log.d(TAG, "facebook:onCancel");
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        Log.d(TAG, "facebook:onError", error);
+                    }
+                });
+            }else {
+                registrationActivity.showResponseMessage(registrationActivity.getResources().getString(R.string.sign_up), registrationActivity.getResources().getString(R.string.check_terms));
             }
         });
 
@@ -188,47 +233,47 @@ public class HomeRegistrationFragment extends Fragment{
         Helpers.setSliderTimer(3000,viewPager, mAdapter);
     }
 
-    public void registrationPopUp(){
-        View registrationAlertView = LayoutInflater.from(getContext()).inflate(R.layout.registration_pop_up, null);
-        AlertDialog registrationAlertBuilder = new AlertDialog.Builder(getContext()).setView(registrationAlertView).show();
-        registrationAlertBuilder.show();
-
-        registrationAlertBuilder.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-
-        MaterialButton continueEmail = registrationAlertBuilder.findViewById(R.id.continue_email);
-        LinearLayout continueGoogle = registrationAlertBuilder.findViewById(R.id.continue_google);
-        LoginButton continueFacebook = registrationAlertBuilder.findViewById(R.id.facebook_login);
-
-        continueEmail.setOnClickListener(view -> {
-
-            registrationAlertBuilder.dismiss();
-        });
-
-        continueGoogle.setOnClickListener(view -> {
-            signUpGoogle();
-            registrationAlertBuilder.dismiss();
-        });
-
-        continueFacebook.setReadPermissions("email", "public_profile");
-        continueFacebook.setFragment(this);
-        continueFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d("Token", String.valueOf(loginResult.getAccessToken().getToken()));
-                facebookSignIn(loginResult.getAccessToken().getToken());
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-            }
-        });
-    }
+//    public void registrationPopUp(){
+//        View registrationAlertView = LayoutInflater.from(getContext()).inflate(R.layout.registration_pop_up, null);
+//        AlertDialog registrationAlertBuilder = new AlertDialog.Builder(getContext()).setView(registrationAlertView).show();
+//        registrationAlertBuilder.show();
+//
+//        registrationAlertBuilder.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+//
+//        MaterialButton continueEmail = registrationAlertBuilder.findViewById(R.id.continue_email);
+//        LinearLayout continueGoogle = registrationAlertBuilder.findViewById(R.id.continue_google);
+//        LoginButton continueFacebook = registrationAlertBuilder.findViewById(R.id.facebook_login);
+//
+//        continueEmail.setOnClickListener(view -> {
+//
+//            registrationAlertBuilder.dismiss();
+//        });
+//
+//        continueGoogle.setOnClickListener(view -> {
+//            signUpGoogle();
+//            registrationAlertBuilder.dismiss();
+//        });
+//
+//        continueFacebook.setReadPermissions("email", "public_profile");
+//        continueFacebook.setFragment(this);
+//        continueFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                Log.d("Token", String.valueOf(loginResult.getAccessToken().getToken()));
+//                facebookSignIn(loginResult.getAccessToken().getToken());
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                Log.d(TAG, "facebook:onCancel");
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//                Log.d(TAG, "facebook:onError", error);
+//            }
+//        });
+//    }
 
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
@@ -339,12 +384,13 @@ public class HomeRegistrationFragment extends Fragment{
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GOOGLE_CODE){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleGoogleSignInResult(task);
         }else {
             mCallbackManager.onActivityResult(requestCode, resultCode, data);
+
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 

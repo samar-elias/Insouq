@@ -18,6 +18,14 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <include
+                    android:id="@+id/slider"
+                    layout="@layout/include_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_160sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
                 <ImageView
                     android:id="@+id/motor_image"
                     android:layout_width="match_parent"
@@ -26,6 +34,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:scaleType="centerCrop"
+                    android:visibility="gone"
                     android:src="@drawable/ic_baseline_directions_car_24"/>
                 <ImageView
                     android:id="@+id/favourite_motor"

@@ -85,8 +85,8 @@ public class SubCategoriesPostAdFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
         subCategoryRV = view.findViewById(R.id.sub_categories_RV);
         categoryIcon = view.findViewById(R.id.sell_icon);
         categoryTitle = view.findViewById(R.id.category_title);
@@ -205,12 +205,12 @@ public class SubCategoriesPostAdFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
 
-    public void navigateSell(int subCatId, int position){
+    public void navigateSell(int subCatId, int position, String subCatTitle){
         new Handler(Looper.myLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -250,9 +250,9 @@ public class SubCategoriesPostAdFragment extends Fragment {
                         }
                     case 4:
                         if (subCatId == 31){
-                            navController.navigate(SubCategoriesPostAdFragmentDirections.actionSubCategoriesPostAdFragmentToPostServiceAdCarFragment(String.valueOf(subCatId)));
+                            navController.navigate(SubCategoriesPostAdFragmentDirections.actionSubCategoriesPostAdFragmentToPostServiceAdCarFragment(String.valueOf(subCatId), subCatTitle));
                         }else {
-                            navController.navigate(SubCategoriesPostAdFragmentDirections.actionSubCategoriesPostAdFragmentToPostServiceAdFragment(String.valueOf(subCatId)));
+                            navController.navigate(SubCategoriesPostAdFragmentDirections.actionSubCategoriesPostAdFragmentToPostServiceAdFragment(String.valueOf(subCatId), subCatTitle));
                         }
                         break;
                     case 5:

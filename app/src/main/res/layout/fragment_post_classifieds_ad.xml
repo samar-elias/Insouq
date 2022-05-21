@@ -66,136 +66,143 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/ad_title">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/_10sdp"
-        android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/let_s_start_with_the_title"
-        android:textColor="@color/purple_text"
-        android:fontFamily="@font/objectivity_medium"
-        android:textSize="@dimen/_12ssp"
-        android:layout_marginTop="@dimen/_15sdp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/try_to_have_an_informative_title_that_s_to_be_point_and_not_very_long"
-        android:textColor="@color/purple_text"
-        android:alpha="0.5"
-        android:fontFamily="@font/objectivity_medium"
-        android:textSize="@dimen/_12ssp"
-        android:layout_marginTop="@dimen/_10sdp"/>
-        <EditText
-            android:id="@+id/classifieds_ad_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/ad_title"
-            android:textAlignment="viewStart"
-            android:textAllCaps="true"
-            android:inputType="text"
-            android:background="@drawable/white_radius_3"
-            android:imeOptions="actionDone"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:padding="@dimen/_13sdp"
-            android:textColor="@color/purple_text"
-            android:textColorHint="@color/gray"
-            android:fontFamily="@font/objectivity_medium"
-            android:textSize="@dimen/_11ssp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/recommended_40_characters"
-        android:textColor="@color/purple_text"
-        android:alpha="0.5"
-        android:fontFamily="@font/objectivity_medium"
-        android:textSize="@dimen/_9ssp"
-        android:layout_marginTop="@dimen/_5sdp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/now_choose_the_right_category_for_your_ad"
-        android:textColor="@color/purple_text"
-        android:fontFamily="@font/objectivity_medium"
-        android:textSize="@dimen/_12ssp"
-        android:layout_marginTop="@dimen/_15sdp"/>
+            android:padding="@dimen/_10sdp"
+            android:orientation="vertical">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_radius_3"
-            android:layout_marginTop="@dimen/_12sdp">
-            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                android:id="@+id/categories_spinner"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                android:layout_height="wrap_content"
+                android:text="@string/let_s_start_with_the_title"
+                android:textColor="@color/purple_text"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_12ssp"
+                android:layout_marginTop="@dimen/_15sdp"/>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_radius_3"
-            android:layout_marginTop="@dimen/_12sdp">
-            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                android:id="@+id/sub_categories_spinner"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                android:layout_height="wrap_content"
+                android:text="@string/try_to_have_an_informative_title_that_s_to_be_point_and_not_very_long"
+                android:textColor="@color/purple_text"
+                android:alpha="0.5"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_12ssp"
+                android:layout_marginTop="@dimen/_10sdp"/>
 
-        <EditText
-            android:id="@+id/other_sub_cat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_radius_3"
-            android:visibility="gone"
-            android:inputType="text"
-            android:imeOptions="actionDone"
-            android:hint="@string/other_please_type_here"
-            android:fontFamily="@font/objectivity_medium"
-            android:textSize="@dimen/_10ssp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textColor="@color/purple_text"
-            android:padding="@dimen/_5sdp" />
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_radius_3"
-            android:layout_marginTop="@dimen/_12sdp">
-            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                android:id="@+id/item_names_spinner"
+            <EditText
+                android:id="@+id/classifieds_ad_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                android:layout_height="wrap_content"
+                android:hint="@string/ad_title"
+                android:textAlignment="viewStart"
+                android:textAllCaps="true"
+                android:inputType="text"
+                android:background="@drawable/white_radius_3"
+                android:imeOptions="actionDone"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:padding="@dimen/_13sdp"
+                android:textColor="@color/purple_text"
+                android:textColorHint="@color/gray"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_11ssp"/>
 
-        <EditText
-            android:id="@+id/other_sub_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_radius_3"
-            android:visibility="gone"
-            android:inputType="text"
-            android:imeOptions="actionDone"
-            android:hint="@string/other_please_type_here"
-            android:fontFamily="@font/objectivity_medium"
-            android:textSize="@dimen/_10ssp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textColor="@color/purple_text"
-            android:padding="@dimen/_5sdp" />
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/continue_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cornerRadius="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:backgroundTint="@color/base_orange"
-            android:text="@string/continue_btn"
-            android:textColor="@color/white"
-            android:fontFamily="@font/objectivity_medium"
-            android:textSize="@dimen/_10ssp" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recommended_40_characters"
+                android:textColor="@color/purple_text"
+                android:alpha="0.5"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_9ssp"
+                android:layout_marginTop="@dimen/_5sdp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/now_choose_the_right_category_for_your_ad"
+                android:textColor="@color/purple_text"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_12ssp"
+                android:layout_marginTop="@dimen/_15sdp"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_radius_3"
+                android:layout_marginTop="@dimen/_12sdp">
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/categories_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_radius_3"
+                android:layout_marginTop="@dimen/_12sdp">
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/sub_categories_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <EditText
+                android:id="@+id/other_sub_cat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_radius_3"
+                android:visibility="gone"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:hint="@string/other_please_type_here"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textColor="@color/purple_text"
+                android:padding="@dimen/_5sdp" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_radius_3"
+                android:layout_marginTop="@dimen/_12sdp">
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/item_names_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <EditText
+                android:id="@+id/other_sub_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_radius_3"
+                android:visibility="gone"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:hint="@string/other_please_type_here"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textColor="@color/purple_text"
+                android:padding="@dimen/_5sdp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/continue_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cornerRadius="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:backgroundTint="@color/base_orange"
+                android:text="@string/continue_btn"
+                android:textColor="@color/white"
+                android:fontFamily="@font/objectivity_medium"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
     </ScrollView>
 
     <TextView
@@ -216,9 +223,9 @@
 
     <include
         android:id="@+id/electronics_ad_layout"
-        layout="@layout/electronic_item_layout"
+        layout="@layout/post_classified_item_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_90sdp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/_10sdp"

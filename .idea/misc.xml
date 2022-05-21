@@ -312,13 +312,14 @@
         <entry key="..\:/Samar's files/Insouq Application/InsouqApplication/app/src/main/res/layout/umm_alqwain_private_layout3.xml" value="0.20416666666666666" />
         <entry key="..\:/Samar's files/Insouq Application/InsouqApplication/app/src/main/res/layout/verification_pop_up.xml" value="0.5" />
         <entry key="..\:/Samar's files/Insouq Application/InsouqApplication/app/src/main/res/layout/verify_mobile_pop_up.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/drawable/top_purple_layout.xml" value="0.214" />
-        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/activity_chat_detailes.xml" value="0.3664825046040516" />
-        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/chat_item_layout.xml" value="0.18425925925925926" />
-        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/fragment_chat.xml" value="0.1638888888888889" />
-        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/item_receive.xml" value="0.1" />
-        <entry key="..\:/Users/User/Documents/GitHub/insoq/app/src/main/res/layout/item_sent.xml" value="0.264" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/drawable/box_gray_back.xml" value="0.1" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/drawable/circular_gray_border.xml" value="0.1" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/drawable/dark_gray_border_raduis_5.xml" value="0.1" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/drawable/gray_border_raduis_5.xml" value="0.128" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/drawable/ic_baseline_directions_car_24.xml" value="0.12" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/drawable/ic_baseline_electronics_ad.xml" value="0.12" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/drawable/light_gray_border_raduis_10.xml" value="0.1" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/drawable/rounded_gray.xml" value="0.1" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/abu_dhabi_bike_layout.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/abu_dhabi_bike_layout2.xml" value="0.6" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/abu_dhabi_bike_layout3.xml" value="0.18385416666666668" />
@@ -330,7 +331,7 @@
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/abu_dhabi_private_layout.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/abu_dhabi_private_layout2.xml" value="0.6666666666666666" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/abu_dhabi_private_layout3.xml" value="0.18385416666666668" />
-        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/abu_dhabi_private_layout_long.xml" value="0.18385416666666668" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/abu_dhabi_private_layout_long.xml" value="0.5" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/abu_dhabi_private_layout_long2.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/activity_main.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/activity_maps.xml" value="0.18385416666666668" />
@@ -354,7 +355,7 @@
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/change_mobile_pop_up.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/change_password_pop_up.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/chat_item_layout.xml" value="0.18385416666666668" />
-        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/classified_grid_item_layout.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/classified_grid_item_layout.xml" value="0.22" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/classified_item_layout.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/countriesl_pop_up.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/delete_ad_pop_up.xml" value="0.18385416666666668" />
@@ -445,7 +446,7 @@
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/fragment_payment.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/fragment_plate_type.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/fragment_post_business_ad.xml" value="0.18385416666666668" />
-        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/fragment_post_classifieds2_ad.xml" value="0.18385416666666668" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/fragment_post_classifieds2_ad.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/fragment_post_classifieds_ad.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/fragment_post_classifieds_group1_ad.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/fragment_post_classifieds_group3_ad.xml" value="0.18385416666666668" />
@@ -461,6 +462,7 @@
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/fragment_privacy_policy.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/fragment_profile.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/fragment_question.xml" value="0.18385416666666668" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/fragment_search.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/fragment_sell2.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/fragment_sell3.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/fragment_sell_an_item.xml" value="0.18385416666666668" />
@@ -487,6 +489,7 @@
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/image_slider_item.xml" value="0.1" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/include_images_slider.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/include_slider.xml" value="0.1" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/include_slider2.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/item_explore.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/item_into_slider.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/job_details_spinner.xml" value="0.18385416666666668" />
@@ -506,7 +509,7 @@
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/location_check.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/locations_pop_up.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/mobile_numbers_item_layout.xml" value="0.18385416666666668" />
-        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/motor_details_item.xml" value="0.28769356153219233" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/motor_details_item.xml" value="0.1258741258741259" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/motor_item_layout.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/motor_specification_layout.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/motors_filter.xml" value="0.18385416666666668" />
@@ -534,6 +537,11 @@
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/numbers_item_layout.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/package_layout.xml" value="0.4466666666666667" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/packages_pop_up.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/post_business_item_layout.xml" value="0.18385416666666668" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/post_classified_item_layout.xml" value="0.18385416666666668" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/post_electronic_item_layout.xml" value="0.18385416666666668" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/post_motor_item_layout.xml" value="0.18385416666666668" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/post_numbers_item_layout.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/property_filter.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/property_grid_layout.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/question_layout.xml" value="0.5" />
@@ -547,6 +555,7 @@
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/ras_alkhaimah_private_layout_long2.xml" value="0.5" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/registration_pop_up.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/report_ad_pop_up.xml" value="0.18385416666666668" />
+        <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/search_item_layout.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/selected_location_item.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/sell2_spinner.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/hp/Documents/GitHub/Insouq/app/src/main/res/layout/sell3_spinner.xml" value="0.18385416666666668" />

@@ -58,6 +58,14 @@ public class JobDetailsAdapter extends RecyclerView.Adapter<JobDetailsAdapter.Vi
         holder.description.setText(jobAd.getDescription());
         holder.postDate.setText(context.getResources().getString(R.string.posted_on)+" "+jobAd.getPostedDate());
 
+        if (jobAd.getAgentId().equals("null")){
+            holder.chat.setEnabled(false);
+            holder.chat.setAlpha(0.3F);
+        }else {
+            holder.chat.setEnabled(true);
+            holder.chat.setAlpha(1);
+        }
+
 //        holder.member.setText(jobDetailsFragment.memberSince);
 //        holder.name.setText(jobDetailsFragment.profileName);
 //        String img = jobDetailsFragment.profileImg.replace("\\", "/");
@@ -265,7 +273,7 @@ public class JobDetailsAdapter extends RecyclerView.Adapter<JobDetailsAdapter.Vi
                 location2, employmentType, workExperience, postDate, name, member;
         Boolean showDescription, showLocation;
         RecyclerView similarJobsRV;
-        LinearLayout call, sms;
+        LinearLayout call, sms, chat;
         ImageView next, previous;
         RecyclerView specificationsRV;
         public ViewHolder(@NonNull View itemView) {
@@ -292,6 +300,7 @@ public class JobDetailsAdapter extends RecyclerView.Adapter<JobDetailsAdapter.Vi
 
             call = itemView.findViewById(R.id.call);
             sms = itemView.findViewById(R.id.sms);
+            chat = itemView.findViewById(R.id.chat);
 
             //description
             descriptionLayout = itemView.findViewById(R.id.description_layout);

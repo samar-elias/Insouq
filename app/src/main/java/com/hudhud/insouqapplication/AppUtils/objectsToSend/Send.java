@@ -14,4 +14,11 @@ public class Send {
     public static AddPartAd addPartAd = new AddPartAd();
     public static AddBikeAd addBikeAd = new AddBikeAd();
     public static AddMechinaryAd addMechinaryAd = new AddMechinaryAd();
+
+    public static String jobType = "";
+    public static String bikeTitle = "";
+    public static String bikeYear = "";
+    public static String exportTitle = "";
+    public static String machineryTitle = "";
+    public static String partSubCat = "";
 }

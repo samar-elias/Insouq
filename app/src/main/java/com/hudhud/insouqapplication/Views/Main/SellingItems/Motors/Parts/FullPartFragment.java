@@ -20,6 +20,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,6 +99,10 @@ public class FullPartFragment extends Fragment {
     public String packageId = "";
     public CheckBox freeCB;
 
+    //Ad sample
+    TextView adTitle, adYear, adSubCat, adLocation, adPrice;
+    ImageView subCatIcon;
+
     public FullPartFragment() {
         // Required empty public constructor
     }
@@ -137,8 +143,8 @@ public class FullPartFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         agreementCheckBox = view.findViewById(R.id.agreement_checkbox);
         location = view.findViewById(R.id.location);
@@ -150,6 +156,12 @@ public class FullPartFragment extends Fragment {
         ageSpinner = view.findViewById(R.id.age_spinner);
         conditionSpinner = view.findViewById(R.id.conditions_spinner);
         locationSpinner = view.findViewById(R.id.locations_spinner);
+        adTitle = view.findViewById(R.id.motor_title);
+        adYear = view.findViewById(R.id.motor_year);
+        adSubCat = view.findViewById(R.id.kilos_amount);
+        subCatIcon = view.findViewById(R.id.kilos_icon);
+        adLocation = view.findViewById(R.id.ad_location);
+        adPrice = view.findViewById(R.id.motor_price);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         image1 = view.findViewById(R.id.image1);
@@ -188,6 +200,26 @@ public class FullPartFragment extends Fragment {
         if (!AppDefs.user.getMobileNumber().equals("null")) {
             phoneNumberEdt.setText(AppDefs.user.getMobileNumber());
         }
+
+        adTitle.setText(Send.addPartAd.getTitle());
+        adYear.setText(Send.addPartAd.getYear());
+        adSubCat.setText(Send.partSubCat);
+        switch (Send.addPartAd.getSubCategoryId()){
+            case "84":
+                Glide.with(mainActivity).load(R.drawable.car_parts).into(subCatIcon);
+                break;
+            case "169":
+                Glide.with(mainActivity).load(R.drawable.boat_parts).into(subCatIcon);
+                break;
+            case "170":
+                Glide.with(mainActivity).load(R.drawable.machinery_parts).into(subCatIcon);
+                break;
+            case "171":
+                Glide.with(mainActivity).load(R.drawable.bike_parts).into(subCatIcon);
+                break;
+            default:
+                Glide.with(mainActivity).load(R.drawable.part_name).into(subCatIcon);
+        }
     }
 
     private void onClick(){
@@ -204,7 +236,10 @@ public class FullPartFragment extends Fragment {
             String partName = String.valueOf(nameOfPartEdt.getText());
             if (price.isEmpty() || phoneNumber.isEmpty()){
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.motors), mainActivity.getResources().getString(R.string.fill_all_fields));
+            }else if(Integer.parseInt(price)>10000000){
+                mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.motors), mainActivity.getResources().getString(R.string.price_high));
             }else {
+                pictures.clear();
                 if (!image1Path.isEmpty()){
                     pictures.add(image1Path);
                 }
@@ -277,6 +312,23 @@ public class FullPartFragment extends Fragment {
 
         location.setOnClickListener(view -> startMapsActivity());
 
+        priceEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adPrice.setText("AED "+priceEdt.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         image1.setOnClickListener(view -> {
             mainImage.setImageBitmap(image1Bitmap);
             mainPath = image1Path.substring(image1Path.lastIndexOf("/")+1);
@@ -344,51 +396,61 @@ public class FullPartFragment extends Fragment {
         });
 
         closeImage1.setOnClickListener(view -> {
+            clearMainPath(image1Path, image1);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image1);
             image1Path = "";
         });
 
         closeImage2.setOnClickListener(view -> {
+            clearMainPath(image2Path, image2);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image2);
             image2Path = "";
         });
 
         closeImage3.setOnClickListener(view -> {
+            clearMainPath(image3Path, image3);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image3);
             image3Path = "";
         });
 
         closeImage4.setOnClickListener(view -> {
+            clearMainPath(image4Path, image4);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image4);
             image4Path = "";
         });
 
         closeImage5.setOnClickListener(view -> {
+            clearMainPath(image5Path, image5);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image5);
             image5Path = "";
         });
 
         closeImage6.setOnClickListener(view -> {
+            clearMainPath(image6Path, image6);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image6);
             image6Path = "";
         });
 
         closeImage7.setOnClickListener(view -> {
+            clearMainPath(image7Path, image7);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image7);
             image7Path = "";
         });
 
         closeImage8.setOnClickListener(view -> {
+            clearMainPath(image8Path, image8);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image8);
             image8Path = "";
         });
 
         closeImage9.setOnClickListener(view -> {
+            clearMainPath(image9Path, image9);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image9);
             image9Path = "";
         });
 
         closeImage10.setOnClickListener(view -> {
+            clearMainPath(image10Path, image10);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image10);
             image10Path = "";
         });
@@ -459,8 +521,14 @@ public class FullPartFragment extends Fragment {
                 }
                 if (i==0){
                     currentLocation = "-1";
+                    adLocation.setText(mainActivity.getResources().getString(R.string.location));
                 }else {
                     currentLocation = locationEnTitles.get(i)+"-"+locationArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adLocation.setText(locationArTitles.get(i));
+                    }else {
+                        adLocation.setText(locationEnTitles.get(i));
+                    }
                 }
             }
 
@@ -684,7 +752,7 @@ public class FullPartFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
@@ -837,6 +905,15 @@ public class FullPartFragment extends Fragment {
         img8.setBackground(null);
         img9.setBackground(null);
         img10.setBackground(null);
+    }
+
+    private void clearMainPath(String imagePath, ImageView image){
+        String subPath = imagePath.substring(imagePath.lastIndexOf("/")+1);
+        if (subPath.equals(mainPath)){
+            Glide.with(mainActivity).load(R.drawable.ic_motors).into(adImage);
+            image.setBackground(null);
+        }
+        mainPath = "";
     }
 
     @Override

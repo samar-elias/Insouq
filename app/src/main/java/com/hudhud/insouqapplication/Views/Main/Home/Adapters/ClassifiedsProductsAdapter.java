@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
+import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Responses.BusinessAd;
 import com.hudhud.insouqapplication.AppUtils.Responses.ElectronicAd;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
@@ -44,10 +45,28 @@ public class ClassifiedsProductsAdapter extends RecyclerView.Adapter<Classifieds
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ElectronicAd newAd = newAds.get(position);
 
-        holder.title.setText(newAd.getEnBrand());
-        if (!newAd.getPrice().isEmpty()){
-            holder.price.setText(newAd.getPrice()+ " AED");
+        if (!newAd.getEnBrand().equals("null")){
+            if (AppDefs.language.equals("ar")){
+                holder.title.setText(newAd.getArBrand());
+            }else {
+                holder.title.setText(newAd.getEnBrand());
+            }
+        }else if (!newAd.getSubTypeEnName().equals("null")){
+            if (AppDefs.language.equals("ar")){
+                holder.title.setText(newAd.getSubTypeArName());
+            }else {
+                holder.title.setText(newAd.getSubTypeEnName());
+            }
+        }else {
+            holder.title.setText(newAd.getOtherSubType());
         }
+
+        if (!newAd.getPrice().isEmpty()){
+            holder.price.setText("AED "+newAd.getPrice());
+        }else {
+            holder.price.setText(context.getResources().getString(R.string.unknown));
+        }
+
         holder.loc.setText(newAd.getEnLocation());
         String pic = newAd.getMainImage().replace("\\", "/");
         Glide.with(context).load(Urls.IMAGE_URL+pic).into(holder.image);

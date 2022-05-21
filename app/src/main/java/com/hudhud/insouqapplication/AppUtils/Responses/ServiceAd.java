@@ -1,11 +1,12 @@
 package com.hudhud.insouqapplication.AppUtils.Responses;
 
 public class ServiceAd {
-    private String status, id, title, enLocation, arLocation, postedDate, categoryArName, categoryEnName, description, lat, lng, categoryId, userId, serviceTypeEnName, serviceTypeArName, otherServiceType, carLiftFrom, carLiftTo, phoneNumber, isFav;
+    private String status, id, agentId, title, enLocation, arLocation, postedDate, categoryArName, categoryEnName, description, lat, lng, categoryId, userId, serviceTypeEnName, serviceTypeArName, otherServiceType, carLiftFrom, carLiftTo, phoneNumber, isFav;
 
     public ServiceAd() {
         status = "";
         this.id = "";
+        this.agentId = "";
         this.title = "";
         this.enLocation = "";
         this.arLocation = "";
@@ -184,5 +185,13 @@ public class ServiceAd {
 
     public void setCategoryEnName(String categoryEnName) {
         this.categoryEnName = categoryEnName;
+    }
+
+    public String getAgentId() {
+        return agentId;
+    }
+
+    public void setAgentId(String agentId) {
+        this.agentId = agentId;
     }
 }

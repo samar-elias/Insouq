@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Responses.ServiceAd;
 import com.hudhud.insouqapplication.R;
@@ -25,6 +26,7 @@ public class ServicesGridAdapter extends RecyclerView.Adapter<ServicesGridAdapte
     Context context;
     boolean fav = false;
     ArrayList<ServiceAd> serviceAds;
+    int image = R.drawable.others_services;
 
     public ServicesGridAdapter(SubCategoryFragment subCategoryFragment, ArrayList<ServiceAd> serviceAds) {
         this.subCategoryFragment = subCategoryFragment;
@@ -54,6 +56,41 @@ public class ServicesGridAdapter extends RecyclerView.Adapter<ServicesGridAdapte
             holder.subCat.setText(serviceAd.getCategoryEnName());
             holder.location.setText(serviceAd.getEnLocation());
         }
+
+        switch (serviceAd.getCategoryId()){
+            case "21":
+                image = R.drawable.domestic;
+                break;
+            case "24":
+                image = R.drawable.others_services;
+                break;
+            case "25":
+                image = R.drawable.movers;
+                break;
+            case "26":
+                image = R.drawable.web_computers;
+                break;
+            case "27":
+                image = R.drawable.corporate;
+                break;
+            case "28":
+                image = R.drawable.home_maintenance;
+                break;
+            case "29":
+                image = R.drawable.events;
+                break;
+            case "30":
+                image = R.drawable.tutors;
+                break;
+            case "31":
+                image = R.drawable.others_services;
+                break;
+            case "32":
+                image = R.drawable.healthservices;
+                break;
+        }
+
+        Glide.with(context).load(image).into(holder.subIcon);
 
         if (serviceAd.getIsFav().equals("true")){
             holder.favourite.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_baseline_favorite_red_24));
@@ -93,7 +130,7 @@ public class ServicesGridAdapter extends RecyclerView.Adapter<ServicesGridAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView favourite;
+        ImageView favourite, subIcon;
         TextView type, location, date, subCat, subType;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -103,6 +140,7 @@ public class ServicesGridAdapter extends RecyclerView.Adapter<ServicesGridAdapte
             date = itemView.findViewById(R.id.posted_date);
             subCat = itemView.findViewById(R.id.sub_cat);
             subType = itemView.findViewById(R.id.sub_type);
+            subIcon = itemView.findViewById(R.id.sub_cat_icon);
         }
     }
 }

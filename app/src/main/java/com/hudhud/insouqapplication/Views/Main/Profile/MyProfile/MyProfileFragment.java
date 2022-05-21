@@ -173,8 +173,8 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
         changePassword = view.findViewById(R.id.change_password);
         changeEmail = view.findViewById(R.id.change_email);
         changePhone = view.findViewById(R.id.change_phone);
@@ -333,7 +333,7 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
@@ -1101,12 +1101,12 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
         RequestBody currentPosition = createRequestBody(position);
         RequestBody currentCompany = createRequestBody(company);
         RequestBody coverNote = createRequestBody(note);
-        RequestBody hideInfromation = createRequestBody(isPrivate);
-        MultipartBody.Part file = createMultipartBodyPart("CVFile", filePath);
-        MultipartBody.Part image = createMultipartBodyPart("profilePictureFile", profileImagePath);
-        MultipartBody.Part industry = createMultipartBodyPart("industryFile", industryPath);
+        RequestBody hideInformation = createRequestBody(isPrivate);
+        RequestBody file = createRequestBody(filePath);
+        RequestBody industry = createRequestBody(industryPath);
+        MultipartBody.Part image = createMultipartBodyPart("ProfilePictureFile", profileImagePath);
 
-        Call<UserFS> updateProfile = retrofit.create(RetrofitUrls.class).updateProfile(firstName, lastName, gender, DOB, nationality, defaultLocation, defaultLanguage, careerLevel, education, currentPosition, currentCompany, coverNote, hideInfromation, file, industry, image);
+        Call<UserFS> updateProfile = retrofit.create(RetrofitUrls.class).updateProfile(firstName, lastName, gender, DOB, nationality, defaultLocation, defaultLanguage, careerLevel, education, currentPosition, currentCompany, coverNote, hideInformation, file, industry, image);
         updateProfile.enqueue(new Callback<UserFS>() {
             @Override
             public void onResponse(Call<UserFS> call, Response<UserFS> response) {
@@ -1172,10 +1172,10 @@ public class MyProfileFragment extends Fragment implements DatePickerDialog.OnDa
         if (requestCode == REQUEST_CODE_FILE && resultCode == RESULT_OK){
             Uri uri = data.getData();
             if (isCV){
-                filePath = uri.getPath();
+                filePath = mainActivity.fileUriToBase64(uri, mainActivity.getContentResolver());
                 cvUploaded.setVisibility(View.VISIBLE);
             }else {
-                industryPath = uri.getPath();
+                industryPath = mainActivity.fileUriToBase64(uri, mainActivity.getContentResolver());
                 industryUploaded.setVisibility(View.VISIBLE);
             }
 

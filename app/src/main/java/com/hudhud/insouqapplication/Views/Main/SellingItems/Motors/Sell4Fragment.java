@@ -87,8 +87,8 @@ public class Sell4Fragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
         continueBtn = view.findViewById(R.id.continue_btn);
         specsSpinner = view.findViewById(R.id.specs_spinner);
         colorSpinner = view.findViewById(R.id.color_spinner);
@@ -189,7 +189,7 @@ public class Sell4Fragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

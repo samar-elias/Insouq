@@ -35,6 +35,7 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
     ArrayList<BusinessAd> businessAds;
     Context context;
     boolean fav = false;
+    int image = R.drawable.category_name_list;
 
     public BusinessDetailsAdapter(BusinessDetailsFragment businessDetailsFragment, ArrayList<BusinessAd> businessAds) {
         this.businessDetailsFragment = businessDetailsFragment;
@@ -59,6 +60,14 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
         holder.price.setText(businessAd.getPrice());
         holder.postDate.setText(context.getResources().getString(R.string.posted_on)+" "+businessAd.getPostedDate());
 
+        if (businessAd.getAgentId().equals("null")){
+            holder.chat.setEnabled(false);
+            holder.chat.setAlpha(0.3F);
+        }else {
+            holder.chat.setEnabled(true);
+            holder.chat.setAlpha(1);
+        }
+
         if (AppDefs.language.equals("ar")) {
             holder.location.setText(businessAd.getArLocation());
             holder.location2.setText(businessAd.getArLocation());
@@ -71,10 +80,34 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
 
         holder.viewPager.setVisibility(View.VISIBLE);
         holder.tabLayout.setupWithViewPager(holder.viewPager, true);
-        ImageViewPagerAdapter mAdapter = new ImageViewPagerAdapter(businessAd.getPictures(), businessDetailsFragment.mainActivity);
+        BusinessImageViewPagerAdapter mAdapter = new BusinessImageViewPagerAdapter(businessAd.getPictures(), businessDetailsFragment.mainActivity, businessDetailsFragment, true);
         mAdapter.notifyDataSetChanged();
         holder.viewPager.setOffscreenPageLimit(3);
         holder.viewPager.setAdapter(mAdapter);
+
+        switch (businessAd.getCategoryId()){
+            case "23":
+                image = R.drawable.business_for_sale;
+                break;
+            case "56":
+                image = R.drawable.trade_license_for_sale ;
+                break;
+            case "57":
+                image = R.drawable.building_materials ;
+                break;
+            case "58":
+                image = R.drawable.food_for_sale ;
+                break;
+            case "59":
+                image = R.drawable.general_items ;
+                break;
+            case "60":
+                image = R.drawable.shops_restaurants ;
+                break;
+            case "61":
+                image = R.drawable.scarp_materials ;
+                break;
+        }
 
         Helpers.setSliderTimer(3000, holder.viewPager, mAdapter);
 
@@ -82,13 +115,13 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
 
         if (!businessAd.getCategoryEnName().equals("null")){
             if (AppDefs.language.equals("ar")){
-                businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getCategoryArName(), R.drawable.category_name_list));
+                businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getCategoryArName(), image));
             }else {
-                businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getCategoryEnName(), R.drawable.category_name_list));
+                businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getCategoryEnName(),image));
             }
         }
         if (!businessAd.getOtherCategoryNAme().equals("null")){
-            businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getOtherCategoryNAme(), R.drawable.category_name_list));
+            businessSpecifications.add(new specificationModel(context.getResources().getString(R.string.category), businessAd.getOtherCategoryNAme(), image));
         }
 
         SpecificationAdapter specificationAdapter = new SpecificationAdapter(businessSpecifications);
@@ -190,7 +223,7 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
         ImageView showSpecificationArrow, showDescriptionArrow, showLocationArrow, directions;
         TextView contactTitle;
         RecyclerView similarBusinessRV;
-        LinearLayout call, sms;
+        LinearLayout call, sms, chat;
         ImageView next, previous;
         RecyclerView specificationsRV;
         ViewPager viewPager;
@@ -210,6 +243,7 @@ public class BusinessDetailsAdapter extends RecyclerView.Adapter<BusinessDetails
             direction = itemView.findViewById(R.id.directions);
             call = itemView.findViewById(R.id.call);
             sms = itemView.findViewById(R.id.sms);
+            chat = itemView.findViewById(R.id.chat);
             share = itemView.findViewById(R.id.share);
             postDate = itemView.findViewById(R.id.post_date);
 

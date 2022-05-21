@@ -42,15 +42,15 @@
     <string name="change_password">تغيير كلمة السر</string>
     <string name="search_hint">أنا أبحث عن...</string>
     <string name="choose_a_category">اختر فئة</string>
-    <string name="motors">المحركات</string>
+    <string name="motors">الموتورات</string>
     <string name="property">العقارات</string>
     <string name="jobs">الوظائف</string>
-    <string name="services">خدمات</string>
+    <string name="services">الخدمات</string>
     <string name="business">الأعمال</string>
     <string name="numbers">الأرقام</string>
     <string name="electronics">الإلكترونيات</string>
     <string name="explore">استكشف</string>
-    <string name="classifieds">المتفرقات</string>
+    <string name="classifieds">المبوب</string>
     <string name="ads_you_might_like">اعلانات يمكن أن تعجبك</string>
     <string name="view_all">عرض الكل</string>
     <string name="new_in_motors">الجديد في المحركات</string>
@@ -555,4 +555,6 @@
     <string name="soon">قريبا</string>
     <string name="coming_soon">قريبا!</string>
     <string name="on_insouq">على منصات انسوق</string>
+    <string name="posted_on">تم النشر في</string>
+    <string name="choose_location">من فضلك اختار موقع</string>
 </resources>

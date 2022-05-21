@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +51,9 @@ public class PostJobWantedAdFragment extends Fragment {
     ArrayList<String> jobTypeArTitles, jobTypeEnTitles;
     String currentJobType = "";
     boolean spinner1 = false;
+
+    //Ad sample
+    TextView adJobType;
 
     public PostJobWantedAdFragment() {
         // Required empty public constructor
@@ -91,8 +96,8 @@ public class PostJobWantedAdFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         titleEdt = view.findViewById(R.id.job_ad_title);
@@ -100,6 +105,7 @@ public class PostJobWantedAdFragment extends Fragment {
         otherJobTypeEdt = view.findViewById(R.id.other_job_type);
         jobTitleEdt = view.findViewById(R.id.job_title);
         jobTypesSpinner = view.findViewById(R.id.job_types_spinner);
+        adJobType = view.findViewById(R.id.job_position);
 
         jobTypeArTitles = new ArrayList<>();
         jobTypeEnTitles = new ArrayList<>();
@@ -126,11 +132,32 @@ public class PostJobWantedAdFragment extends Fragment {
             } else if (otherJobTypeEdt.getVisibility() == View.VISIBLE) {
                 if (otherJobType.isEmpty()) {
                     mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.jobs), mainActivity.getResources().getString(R.string.fill_all_fields));
-                } else {
+                } else if (currentJobType.equals("-1")){
+                    mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.jobs), mainActivity.getResources().getString(R.string.fill_all_fields));
+                }else {
                     setData(title, phoneNumber, jobTitle, otherJobType);
                 }
-            } else {
+            }  else if (currentJobType.equals("-1")){
+                mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.jobs), mainActivity.getResources().getString(R.string.fill_all_fields));
+            }else {
                 setData(title, phoneNumber, jobTitle, otherJobType);
+            }
+        });
+
+        otherJobTypeEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adJobType.setText(otherJobTypeEdt.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
     }
@@ -138,6 +165,7 @@ public class PostJobWantedAdFragment extends Fragment {
     private void setData(String title, String phoneNumber, String jobTitle, String otherJobType){
         Send.addJobWantedAd.setTitle(title);
         Send.addJobWantedAd.setJobType(currentJobType);
+        Send.jobType = String.valueOf(adJobType.getText());
         Send.addJobWantedAd.setJobTitle(jobTitle);
         Send.addJobWantedAd.setPhoneNumber(phoneNumber);
         Send.addJobWantedAd.setOtherJobType(otherJobType);
@@ -161,12 +189,23 @@ public class PostJobWantedAdFragment extends Fragment {
                     spinner1 = true;
                     ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.gray_3));
                 }
-                if (i == jobTypeEnTitles.size()-1){
-                    currentJobType = "";
-                    otherJobTypeEdt.setVisibility(View.VISIBLE);
-                }else {
-                    currentJobType = jobTypeEnTitles.get(i)+"-"+jobTypeArTitles.get(i);
+                if (i==0){
+                    currentJobType = "-1";
                     otherJobTypeEdt.setVisibility(View.GONE);
+                    adJobType.setText(mainActivity.getResources().getString(R.string.job_type));
+                }else {
+                    if (i == jobTypeEnTitles.size()-1){
+                        currentJobType = "";
+                        otherJobTypeEdt.setVisibility(View.VISIBLE);
+                    }else {
+                        currentJobType = jobTypeEnTitles.get(i)+"-"+jobTypeArTitles.get(i);
+                        otherJobTypeEdt.setVisibility(View.GONE);
+                        if (AppDefs.language.equals("ar")){
+                            adJobType.setText(jobTypeArTitles.get(i));
+                        }else {
+                            adJobType.setText(jobTypeEnTitles.get(i));
+                        }
+                    }
                 }
             }
 
@@ -213,7 +252,7 @@ public class PostJobWantedAdFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

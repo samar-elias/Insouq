@@ -51,12 +51,15 @@ public class Sell2Fragment extends Fragment {
     MainActivity mainActivity;
     MaterialButton continueBtn;
     EditText motorTitleEdt, otherBrandEdt, otherModelEdt, otherTrimEdt, yearEdt;
-    TextView motorsAdTitle, motorsAdYear;
     Spinner brandsSpinner, modelsSpinner, trimsSpinner;
     ArrayList<String> brandArTitles, brandEnTitles, brandIds = new ArrayList<>(), modelArTitles, modelEnTitles, trimArTitles, trimEnTitles, years;
-    String currentBrand = "", currentModel = "", currentTrim = "", currentYear = "";
+    String brandCurrent = "", currentBrand = "", currentModel = "", currentTrim = "", currentYear = "";
     int thisYear;
     boolean brandSpinner = false, modelSpinner = false, trimSpinner = false;
+
+    //Ad sample
+    TextView motorsAdTitle, motorsAdYear;
+    String brand = "", model = "";
 
     public Sell2Fragment() {
         // Required empty public constructor
@@ -98,8 +101,8 @@ public class Sell2Fragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         motorTitleEdt = view.findViewById(R.id.motor_title_edt);
@@ -155,7 +158,8 @@ public class Sell2Fragment extends Fragment {
             }
 
         });
-        motorTitleEdt.addTextChangedListener(new TextWatcher() {
+
+        yearEdt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -163,11 +167,49 @@ public class Sell2Fragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                motorsAdTitle.setText(String.valueOf(motorTitleEdt.getText()));
+                motorsAdYear.setText(yearEdt.getText());
+                motorsAdTitle.setText(brand+", "+model+", "+ yearEdt.getText());
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        otherBrandEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                brand = String.valueOf(otherBrandEdt.getText());
+                motorsAdTitle.setText(brand+", "+model+", "+ yearEdt.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        otherModelEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                model = String.valueOf(motorTitleEdt.getText());
+                motorsAdTitle.setText(brand+", "+model+", "+ yearEdt.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 
@@ -181,11 +223,11 @@ public class Sell2Fragment extends Fragment {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.purple_text));
                     ((TextView) adapterView.getChildAt(0)).setTypeface(Typeface.defaultFromStyle(BOLD));
                 }else {
-                    brandSpinner = true;
                     ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.gray_3));
                 }
                 if (i==0){
                     currentBrand = "-1";
+                    motorsAdTitle.setText(mainActivity.getResources().getString(R.string.ad_title));
                 }else {
                     if (brandEnTitles.size() == 1){
                         otherBrandEdt.setVisibility(View.VISIBLE);
@@ -196,7 +238,13 @@ public class Sell2Fragment extends Fragment {
                     }else {
                         otherBrandEdt.setVisibility(View.GONE);
                         currentBrand = brandIds.get(i);
-
+                        if (AppDefs.language.equals("ar")){
+                            brand = brandArTitles.get(i);
+                        }else {
+                            brand = brandEnTitles.get(i);
+                        }
+                        brandCurrent = brandEnTitles.get(i)+"-"+brandArTitles.get(i);
+                        motorsAdTitle.setText(brand+", "+model+", "+ yearEdt.getText());
                     }
                 }
                 getModels();
@@ -204,6 +252,7 @@ public class Sell2Fragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+
             }
         });
 
@@ -214,11 +263,11 @@ public class Sell2Fragment extends Fragment {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.purple_text));
                     ((TextView) adapterView.getChildAt(0)).setTypeface(Typeface.defaultFromStyle(BOLD));
                 }else {
-                    modelSpinner = true;
                     ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.gray_3));
                 }
                 if (i == 0){
                     currentModel = "-1";
+//                    motorsAdTitle.setText(mainActivity.getResources().getString(R.string.ad_title));
                 }else {
                     if (modelEnTitles.size() == 1){
                         otherModelEdt.setVisibility(View.VISIBLE);
@@ -229,7 +278,12 @@ public class Sell2Fragment extends Fragment {
                     }else {
                         otherModelEdt.setVisibility(View.GONE);
                         currentModel = modelEnTitles.get(i)+"-"+modelArTitles.get(i);
-
+                        if (AppDefs.language.equals("ar")){
+                            model = modelArTitles.get(i);
+                        }else {
+                            model = modelEnTitles.get(i);
+                        }
+                        motorsAdTitle.setText(brand+", "+model+", "+ yearEdt.getText());
                     }
                 }
                 getTrims();
@@ -248,7 +302,6 @@ public class Sell2Fragment extends Fragment {
                     ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.purple_text));
                     ((TextView) adapterView.getChildAt(0)).setTypeface(Typeface.defaultFromStyle(BOLD));
                 }else {
-                    trimSpinner = true;
                     ((TextView) adapterView.getChildAt(0)).setTextColor(mainActivity.getResources().getColor(R.color.gray_3));
                 }
                 if (i==0){
@@ -306,6 +359,7 @@ public class Sell2Fragment extends Fragment {
                     setSpinner(brandsSpinner, brandEnTitles);
                 }
                 currentBrand = brandIds.get(0);
+                brandCurrent = brandEnTitles.get(0)+" - "+brandArTitles.get(0);
 //                getModels();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -340,7 +394,7 @@ public class Sell2Fragment extends Fragment {
                 }else {
                     setSpinner(modelsSpinner, modelEnTitles);
                 }
-                currentModel = modelEnTitles.get(0)+"-"+modelArTitles.get(0);
+                currentModel = modelEnTitles.get(0)+" - "+modelArTitles.get(0);
 //                getTrims();
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -376,7 +430,7 @@ public class Sell2Fragment extends Fragment {
                 }else {
                     setSpinner(trimsSpinner, trimEnTitles);
                 }
-                currentTrim = trimEnTitles.get(0)+"-"+trimArTitles.get(0);
+                currentTrim = trimEnTitles.get(0)+" - "+trimArTitles.get(0);
             } catch (JSONException e) {
                 e.printStackTrace();
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.trim), mainActivity.getResources().getString(R.string.error_occured));
@@ -391,19 +445,20 @@ public class Sell2Fragment extends Fragment {
     private void setData(String title, String otherBrand, String otherModel, String otherTrim){
         Send.addUsedCarsAd.setTitle(title);
         Send.addUsedCarsAd.setCategoryId("2");
-        Send.addUsedCarsAd.setBrand(currentBrand);
+        Send.addUsedCarsAd.setBrand(brandCurrent);
         Send.addUsedCarsAd.setOtherBrand(otherBrand);
         Send.addUsedCarsAd.setModel(currentModel);
         Send.addUsedCarsAd.setOtherModel(otherModel);
         Send.addUsedCarsAd.setTrim(currentTrim);
         Send.addUsedCarsAd.setOtherTrim(otherTrim);
         Send.addUsedCarsAd.setYear(currentYear);
+        Send.exportTitle = String.valueOf(motorsAdTitle.getText());
         navController.navigate(Sell2FragmentDirections.actionSell2FragmentToSell3Fragment());
     }
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

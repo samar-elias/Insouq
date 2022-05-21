@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,7 +124,7 @@ public class Part1Fragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
@@ -168,6 +169,8 @@ public class Part1Fragment extends Fragment {
                     brand.setId(brandObj.getString("id"));
                     brand.setTitleAr(brandObj.getString("ar_Name"));
                     brand.setTitleEn(brandObj.getString("en_Name"));
+                    Log.d("part", brand.getId());
+
                     brands.add(brand);
                 }
                 setBrandsRV();

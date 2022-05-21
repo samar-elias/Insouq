@@ -18,17 +18,24 @@
             android:orientation="horizontal"
             android:weightSum="3">
 
+            <include
+                layout="@layout/include_slider"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.3"/>
+
             <ImageView
                 android:id="@+id/motor_image"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.3"
                 android:scaleType="centerCrop"
+                android:visibility="gone"
                 android:src="@drawable/ic_baseline_directions_car_24"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1.7"
                 android:padding="@dimen/_5sdp">
 

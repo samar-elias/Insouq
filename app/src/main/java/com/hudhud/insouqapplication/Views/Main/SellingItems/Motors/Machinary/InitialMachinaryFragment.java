@@ -49,12 +49,15 @@ public class InitialMachinaryFragment extends Fragment {
     MainActivity mainActivity;
     MaterialButton continueBtn;
     EditText motorTitleEdt, otherBrandEdt, otherModelEdt, yearEdt;
-    TextView motorsAdTitle, motorsAdYear;
     Spinner brandsSpinner, modelsSpinner;
     ArrayList<String> brandArTitles, brandEnTitles, brandIds, modelArTitles, modelEnTitles, modelIds, years;
     String currentBrand = "", currentModel = "", currentYear = "";
     int thisYear;
     boolean spinner1 = false, spinner2 = false;
+
+    //Ad sample
+    TextView motorsAdTitle, motorsAdYear;
+    String brand = "", year = "";
 
     public InitialMachinaryFragment() {
         // Required empty public constructor
@@ -96,8 +99,8 @@ public class InitialMachinaryFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         motorTitleEdt = view.findViewById(R.id.motor_title_edt);
@@ -144,11 +147,13 @@ public class InitialMachinaryFragment extends Fragment {
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.motors), mainActivity.getResources().getString(R.string.fill_all_fields));
             }else {
                 currentYear = year;
+                Send.machineryTitle = String.valueOf(motorsAdTitle.getText());
                 setData(motorTitle, otherBrand, otherModel);
             }
 
         });
-        motorTitleEdt.addTextChangedListener(new TextWatcher() {
+
+        yearEdt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -156,13 +161,50 @@ public class InitialMachinaryFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                motorsAdTitle.setText(String.valueOf(motorTitleEdt.getText()));
+                motorsAdYear.setText(yearEdt.getText());
+                year = String.valueOf(yearEdt.getText());
+                motorsAdTitle.setText(brand+", "+year);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+
             }
         });
+
+        otherBrandEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                brand = String.valueOf(otherBrandEdt.getText());
+                motorsAdTitle.setText(brand+", "+year);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+//        motorTitleEdt.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                motorsAdTitle.setText(String.valueOf(motorTitleEdt.getText()));
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//            }
+//        });
 
     }
 
@@ -179,6 +221,8 @@ public class InitialMachinaryFragment extends Fragment {
                 }
                 if (i==0){
                     currentBrand = "-1";
+                    motorsAdTitle.setText(mainActivity.getResources().getString(R.string.ad_title));
+                    brand = "";
                 }else {
                     if (brandEnTitles.size() == 1){
                         otherBrandEdt.setVisibility(View.VISIBLE);
@@ -186,11 +230,17 @@ public class InitialMachinaryFragment extends Fragment {
                     }else if (i == brandEnTitles.size()-1){
                         otherBrandEdt.setVisibility(View.VISIBLE);
                         currentBrand = "";
+                        brand = "";
                     }else {
                         otherBrandEdt.setVisibility(View.GONE);
                         currentBrand = brandIds.get(i-1);
-
+                        if (AppDefs.language.equals("ar")){
+                            brand = brandArTitles.get(i);
+                        }else {
+                            brand = brandEnTitles.get(i);
+                        }
                     }
+                    motorsAdTitle.setText(brand+", "+year);
                 }
                 getModels();
             }
@@ -285,7 +335,7 @@ public class InitialMachinaryFragment extends Fragment {
         modelArTitles.clear();
         modelEnTitles.clear();
         modelArTitles.add(mainActivity.getResources().getString(R.string.what_type_is_your_machine_sub_category));
-        modelEnTitles.add(mainActivity.getResources().getString(R.string.what_model_is_it));
+        modelEnTitles.add(mainActivity.getResources().getString(R.string.what_type_is_your_machine_sub_category));
         StringRequest modelsRequest = new StringRequest(Request.Method.GET, Urls.SubType_URL+"GetBySubCategoryId?subCategoryId="+currentBrand, response -> {
             mainActivity.hideProgressDialog();
             try {
@@ -334,7 +384,7 @@ public class InitialMachinaryFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

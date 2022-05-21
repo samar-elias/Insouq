@@ -617,9 +617,10 @@ public class ApplyForJobFragment extends Fragment {
         RequestBody visaStatus = createRequestBody(currentVisaStatus);
         RequestBody careerLevel = createRequestBody(currentCareerLevel);
         RequestBody phoneNumber = createRequestBody(phoneNum);
-        MultipartBody.Part file = createMultipartBodyPart("CvFile", filePath);
+        RequestBody file = createRequestBody(filePath);
+        RequestBody id = createRequestBody(AppDefs.user.getId());
 
-        Call<AddAdsResponse> applyForJob = retrofit.create(RetrofitUrls.class).applyForJob(adId, defaultLanguage, DOB, coverNote, gender, currentCompany, nationality, educationLevel, currentPosition, workExperience, commitment, noticePeriod, visaStatus, careerLevel, phoneNumber, file);
+        Call<AddAdsResponse> applyForJob = retrofit.create(RetrofitUrls.class).applyForJob(adId, defaultLanguage, DOB, coverNote, gender, currentCompany, nationality, educationLevel, currentPosition, workExperience, commitment, noticePeriod, visaStatus, careerLevel, phoneNumber, file, id);
         applyForJob.enqueue(new Callback<AddAdsResponse>() {
             @Override
             public void onResponse(Call<AddAdsResponse> call, Response<AddAdsResponse> response) {
@@ -655,14 +656,14 @@ public class ApplyForJobFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_FILE && resultCode == RESULT_OK){
             Uri uri = data.getData();
-            filePath = uri.getPath();
+            filePath = mainActivity.fileUriToBase64(uri, mainActivity.getContentResolver());
             Toast.makeText(mainActivity, mainActivity.getResources().getString(R.string.file_uploaded), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
