@@ -665,6 +665,9 @@
         <action
             android:id="@+id/action_postServiceAdFragment_to_paymentFragment"
             app:destination="@id/paymentFragment" />
+        <argument
+            android:name="categoryTitle"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/postPropertyAdFragment"
@@ -736,6 +739,9 @@
         <action
             android:id="@+id/action_postServiceAdCarFragment_to_paymentFragment"
             app:destination="@id/paymentFragment" />
+        <argument
+            android:name="categoryTitle"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/postFullJobWantedAdFragment"

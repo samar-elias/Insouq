@@ -50,12 +50,15 @@ public class InitialBikeFragment extends Fragment {
     MainActivity mainActivity;
     MaterialButton continueBtn;
     EditText titleEdt, otherSubCategoryEdt, otherSubTypeEdt, yearsEdt;
-    TextView adTitle, adYear;
     Spinner subCategorySpinner, subTypeSpinner;
     ArrayList<String> subCategoryArTitles, subCategoryEnTitles, subCategoryIds, subTypeArTitles, subTypeEnTitles, subTypeIds, years;
-    String currentSubCat = "", currentSubType = "", currentYear = "";
+    String currentSubCat = "", currentSubType = "", currentYear = "", brand = "", year = "";
     int thisYear;
     boolean spinner1 = false, spinner2 = false;
+
+    //Ad sample
+    TextView adTitle, adYear;
+
 
     public InitialBikeFragment() {
         // Required empty public constructor
@@ -97,8 +100,8 @@ public class InitialBikeFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         titleEdt = view.findViewById(R.id.motor_title_edt);
@@ -143,13 +146,15 @@ public class InitialBikeFragment extends Fragment {
             }else if (currentSubCat.equals("-1") ||currentSubType.equals("-1") || currentYear.equals("-1")){
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.motors), mainActivity.getResources().getString(R.string.fill_all_fields));
             }else {
+                Send.bikeTitle = String.valueOf(adTitle.getText());
+                Send.bikeYear = String.valueOf(adYear.getText());
                 currentYear = year;
                 setData(motorTitle, otherSubCat, otherSubType);
             }
 
         });
 
-        titleEdt.addTextChangedListener(new TextWatcher() {
+        otherSubCategoryEdt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -157,7 +162,12 @@ public class InitialBikeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                adTitle.setText(titleEdt.getText());
+                brand = String.valueOf(otherSubCategoryEdt.getText());
+                if (!String.valueOf(yearsEdt.getText()).isEmpty()){
+                    adTitle.setText(brand+", "+year);
+                }else {
+                    adTitle.setText(brand);
+                }
             }
 
             @Override
@@ -165,6 +175,44 @@ public class InitialBikeFragment extends Fragment {
 
             }
         });
+
+        yearsEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                year = String.valueOf(yearsEdt.getText());
+                if (!String.valueOf(yearsEdt.getText()).isEmpty()){
+                    adTitle.setText(brand+", "+year);
+                }else {
+                    adTitle.setText(brand);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+//        titleEdt.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                adTitle.setText(titleEdt.getText());
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
 
     }
 
@@ -181,6 +229,7 @@ public class InitialBikeFragment extends Fragment {
                 }
                 if (i==0){
                     currentSubCat = "-1";
+                    brand = mainActivity.getResources().getString(R.string.brand);
                     getSubTypes();
                 }else {
                     if (subCategoryEnTitles.size() == 1){
@@ -192,7 +241,17 @@ public class InitialBikeFragment extends Fragment {
                     }else {
                         otherSubCategoryEdt.setVisibility(View.GONE);
                         currentSubCat = subCategoryIds.get(i-1);
+                        if (AppDefs.language.equals("ar")){
+                            brand = subCategoryArTitles.get(i);
+                        }else {
+                            brand = subCategoryEnTitles.get(i);
+                        }
                         getSubTypes();
+                    }
+                    if (!String.valueOf(yearsEdt.getText()).isEmpty()){
+                        adTitle.setText(brand+", "+year);
+                    }else {
+                        adTitle.setText(brand);
                     }
                 }
             }
@@ -334,7 +393,7 @@ public class InitialBikeFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

@@ -83,13 +83,13 @@ public class Sell3Fragment extends Fragment {
     MainActivity mainActivity;
     MaterialButton continueBtn;
     private static final int REQUEST_CODE = 101;
-    ImageView image1, image2, image3, image4, image5, image7, image6, image8, image9, image10, uploadImage, mainImage, adImage;
+    ImageView image1, image2, image3, image4, image5, image7, image6, image8, image9, image10, uploadImage, mainImage;
     ImageView closeImage1, closeImage2, closeImage3, closeImage4, closeImage5, closeImage7, closeImage6, closeImage8, closeImage9, closeImage10, closeMainImage;
     String image1Path = "", image2Path = "", image3Path = "", image4Path = "", image5Path = "", image7Path = "", image6Path = "", image8Path = "", image9Path = "",
             image10Path = "", mainPath = "", longitude = "", latitude = "", address = "";
     Bitmap image1Bitmap, image2Bitmap, image3Bitmap, image4Bitmap, image5Bitmap, image7Bitmap, image6Bitmap, image8Bitmap, image9Bitmap, image10Bitmap;
     EditText priceEdt, phoneNumberEdt, descriptionEdt, mileageEdt;
-    TextView location, adTitle, adPrice, adLocation, adKilo, adYear;
+    TextView location;
     ArrayList<String> pictures, specsArTitles, specsEnTitles, colorArTitles, colorEnTitles, doorArTitles, doorEnTitles, warrantyTitles,
             transmissionArTitles, transmissionEnTitles, bodyTypeArTitles, bodyTypeEnTitles, fuelTypeArTitles, fuelTypeEnTitles, cylinderArTitles,
             cylinderEnTitles, steeringArTitles, steeringEnTitles, horsepowerArTitles, horsepowerEnTitles, locationArTitles, locationEnTitles;
@@ -102,6 +102,10 @@ public class Sell3Fragment extends Fragment {
     ArrayList<PackageFS> packages = new ArrayList<>();
     public String packageId = "";
     public CheckBox freeCB;
+
+    //Ad sample
+    TextView adTitle, adPrice, adLocation, adKilo, adYear;
+    ImageView adImage;
 
     public Sell3Fragment() {
         // Required empty public constructor
@@ -144,8 +148,8 @@ public class Sell3Fragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         adTitle = view.findViewById(R.id.motor_title);
@@ -224,7 +228,7 @@ public class Sell3Fragment extends Fragment {
         if (!AppDefs.user.getMobileNumber().equals("null")) {
             phoneNumberEdt.setText(AppDefs.user.getMobileNumber());
         }
-        adTitle.setText(Send.addUsedCarsAd.getTitle());
+        adTitle.setText(Send.exportTitle);
         adYear.setText(Send.addUsedCarsAd.getYear());
     }
 
@@ -242,7 +246,10 @@ public class Sell3Fragment extends Fragment {
             String mileage = String.valueOf(mileageEdt.getText());
             if (price.isEmpty() || phoneNumber.isEmpty() || mileage.isEmpty()){
                 mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.motors), mainActivity.getResources().getString(R.string.fill_all_fields));
+            }else if(Integer.parseInt(price)>10000000){
+                mainActivity.showResponseMessage(mainActivity.getResources().getString(R.string.motors), mainActivity.getResources().getString(R.string.price_high));
             }else {
+                pictures.clear();
                 if (!image1Path.isEmpty()){
                     pictures.add(image1Path);
                 }
@@ -290,6 +297,7 @@ public class Sell3Fragment extends Fragment {
                     }
             }
         });
+
         priceEdt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -306,6 +314,7 @@ public class Sell3Fragment extends Fragment {
 
             }
         });
+
         mileageEdt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -416,51 +425,61 @@ public class Sell3Fragment extends Fragment {
         });
 
         closeImage1.setOnClickListener(view -> {
+            clearMainPath(image1Path, image1);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image1);
             image1Path = "";
         });
 
         closeImage2.setOnClickListener(view -> {
+            clearMainPath(image2Path, image2);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image2);
             image2Path = "";
         });
 
         closeImage3.setOnClickListener(view -> {
+            clearMainPath(image3Path, image3);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image3);
             image3Path = "";
         });
 
         closeImage4.setOnClickListener(view -> {
+            clearMainPath(image4Path, image4);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image4);
             image4Path = "";
         });
 
         closeImage5.setOnClickListener(view -> {
+            clearMainPath(image5Path, image5);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image5);
             image5Path = "";
         });
 
         closeImage6.setOnClickListener(view -> {
+            clearMainPath(image6Path, image6);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image6);
             image6Path = "";
         });
 
         closeImage7.setOnClickListener(view -> {
+            clearMainPath(image7Path, image7);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image7);
             image7Path = "";
         });
 
         closeImage8.setOnClickListener(view -> {
+            clearMainPath(image8Path, image8);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image8);
             image8Path = "";
         });
 
         closeImage9.setOnClickListener(view -> {
+            clearMainPath(image9Path, image9);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image9);
             image9Path = "";
         });
 
         closeImage10.setOnClickListener(view -> {
+            clearMainPath(image10Path, image10);
             Glide.with(mainActivity).load(R.drawable.gray_image).into(image10);
             image10Path = "";
         });
@@ -721,8 +740,14 @@ public class Sell3Fragment extends Fragment {
                 }
                 if (i==0){
                     currentLocation = "-1";
+                    adLocation.setText(mainActivity.getResources().getString(R.string.location));
                 }else {
                     currentLocation = locationEnTitles.get(i)+"-"+locationArTitles.get(i);
+                    if (AppDefs.language.equals("ar")){
+                        adLocation.setText(locationArTitles.get(i));
+                    }else {
+                        adLocation.setText(locationEnTitles.get(i));
+                    }
                 }
             }
 
@@ -1276,7 +1301,7 @@ public class Sell3Fragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
@@ -1360,6 +1385,15 @@ public class Sell3Fragment extends Fragment {
         img8.setBackground(null);
         img9.setBackground(null);
         img10.setBackground(null);
+    }
+
+    private void clearMainPath(String imagePath, ImageView image){
+        String subPath = imagePath.substring(imagePath.lastIndexOf("/")+1);
+        if (subPath.equals(mainPath)){
+            Glide.with(mainActivity).load(R.drawable.ic_motors).into(adImage);
+            image.setBackground(null);
+        }
+        mainPath = "";
     }
 
     @Override

@@ -88,8 +88,8 @@ public class MoreViewsFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
         packagesRV = view.findViewById(R.id.packages_RV);
         freeCB = view.findViewById(R.id.free_CB);
         freeLayout = view.findViewById(R.id.free_layout);
@@ -117,7 +117,7 @@ public class MoreViewsFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

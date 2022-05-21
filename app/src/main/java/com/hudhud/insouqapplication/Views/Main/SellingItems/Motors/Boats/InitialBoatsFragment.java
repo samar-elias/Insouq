@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
@@ -49,12 +50,15 @@ public class InitialBoatsFragment extends Fragment {
     MainActivity mainActivity;
     MaterialButton continueBtn;
     EditText motorTitleEdt, otherBrandEdt, otherModelEdt, yearEdt;
-    TextView motorsAdTitle, motorsAdYear;
     Spinner brandsSpinner, modelsSpinner;
     ArrayList<String> brandArTitles, brandEnTitles, brandIds, modelArTitles, modelEnTitles, modelIds, years;
     String currentBrand = "", currentModel = "", currentYear = "";
     int thisYear;
     boolean spinner1 = false, spinner2 = false;
+
+    //Ad sample
+    TextView motorsAdTitle, motorsAdYear, length;
+    ImageView lengthIcon;
 
     public InitialBoatsFragment() {
         // Required empty public constructor
@@ -96,8 +100,8 @@ public class InitialBoatsFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         motorTitleEdt = view.findViewById(R.id.motor_title_edt);
@@ -105,6 +109,8 @@ public class InitialBoatsFragment extends Fragment {
         otherModelEdt = view.findViewById(R.id.other_model_edt);
         motorsAdTitle = view.findViewById(R.id.motor_title);
         motorsAdYear = view.findViewById(R.id.motor_year);
+        length = view.findViewById(R.id.kilos_amount);
+        lengthIcon = view.findViewById(R.id.kilos_icon);
         brandsSpinner = view.findViewById(R.id.brand_spinner);
         modelsSpinner = view.findViewById(R.id.model_spinner);
         yearEdt = view.findViewById(R.id.years_edt);
@@ -118,6 +124,9 @@ public class InitialBoatsFragment extends Fragment {
         years = new ArrayList<>();
 
         thisYear = Calendar.getInstance().get(Calendar.YEAR);
+        motorsAdTitle.setText(mainActivity.getResources().getString(R.string.boats));
+        Glide.with(mainActivity).load(R.drawable.lenght_img).into(lengthIcon);
+        length.setText(mainActivity.getResources().getString(R.string.length));
     }
 
     private void onClick(){
@@ -146,9 +155,9 @@ public class InitialBoatsFragment extends Fragment {
                 currentYear = year;
                 setData(motorTitle, otherBrand, otherModel);
             }
-
         });
-        motorTitleEdt.addTextChangedListener(new TextWatcher() {
+
+        yearEdt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -156,13 +165,30 @@ public class InitialBoatsFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                motorsAdTitle.setText(String.valueOf(motorTitleEdt.getText()));
+                motorsAdTitle.setText(mainActivity.getResources().getString(R.string.boats)+", "+ yearEdt.getText());
+                motorsAdYear.setText(yearEdt.getText()+"");
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+
             }
         });
+//        motorTitleEdt.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+////                motorsAdTitle.setText(String.valueOf(motorTitleEdt.getText()));
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//            }
+//        });
 
     }
 
@@ -333,7 +359,7 @@ public class InitialBoatsFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

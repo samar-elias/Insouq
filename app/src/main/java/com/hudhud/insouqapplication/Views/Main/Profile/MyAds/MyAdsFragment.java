@@ -118,8 +118,8 @@ public class MyAdsFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         motors = view.findViewById(R.id.motors);
         jobs = view.findViewById(R.id.jobs);
@@ -222,7 +222,7 @@ public class MyAdsFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
@@ -469,6 +469,7 @@ public class MyAdsFragment extends Fragment {
                     JSONObject jobObj = jobsArray.getJSONObject(i);
                     JobAd jobAd = new JobAd();
                     jobAd.setId(jobObj.getString("id"));
+                    jobAd.setAgentId(jobObj.getString("AgentId"));
                     jobAd.setTitle(jobObj.getString("title"));
                     jobAd.setDescription(jobObj.getString("description"));
                     jobAd.setEnLocation(jobObj.getString("en_Location"));
@@ -560,6 +561,7 @@ public class MyAdsFragment extends Fragment {
                     JSONObject serviceObj = serviceAdsArray.getJSONObject(i);
                     ServiceAd serviceAd = new ServiceAd();
                     serviceAd.setId(serviceObj.getString("id"));
+                    serviceAd.setAgentId(serviceObj.getString("AgentId"));
                     serviceAd.setTitle(serviceObj.getString("title"));
                     serviceAd.setEnLocation(serviceObj.getString("en_Location"));
                     serviceAd.setArLocation(serviceObj.getString("ar_Location"));
@@ -626,6 +628,7 @@ public class MyAdsFragment extends Fragment {
                     JSONObject businessObj = businessArray.getJSONObject(i);
                     BusinessAd businessAd = new BusinessAd();
                     businessAd.setId(businessObj.getString("id"));
+                    businessAd.setAgentId(businessObj.getString("AgentId"));
                     businessAd.setTitle(businessObj.getString("title"));
                     businessAd.setArLocation(businessObj.getString("ar_Location"));
                     businessAd.setEnLocation(businessObj.getString("en_Location"));
@@ -705,6 +708,7 @@ public class MyAdsFragment extends Fragment {
                     JSONObject numberObj = numbersArray.getJSONObject(i);
                     NumberAd numberAd = new NumberAd();
                     numberAd.setId(numberObj.getString("id"));
+                    numberAd.setAgentId(numberObj.getString("AgentId"));
                     numberAd.setTitle(numberObj.getString("title"));
                     if (numberObj.has("price")){
                         numberAd.setPrice(numberObj.getString("price"));
@@ -773,6 +777,7 @@ public class MyAdsFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("id"));
+                    electronicAd.setAgentId(electronicObj.getString("AgentId"));
                     electronicAd.setTitle(electronicObj.getString("title"));
                     electronicAd.setArLocation(electronicObj.getString("ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("en_Location"));
@@ -848,6 +853,7 @@ public class MyAdsFragment extends Fragment {
                     JSONObject electronicObj = electronicsArray.getJSONObject(i);
                     ElectronicAd electronicAd = new ElectronicAd();
                     electronicAd.setId(electronicObj.getString("id"));
+                    electronicAd.setAgentId(electronicObj.getString("AgentId"));
                     electronicAd.setTitle(electronicObj.getString("title"));
                     electronicAd.setArLocation(electronicObj.getString("ar_Location"));
                     electronicAd.setEnLocation(electronicObj.getString("en_Location"));

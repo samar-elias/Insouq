@@ -333,10 +333,10 @@
 
     <include
         android:id="@+id/jobs_opening_ad_layout"
-        layout="@layout/jobs_opening_item_layout"
+        layout="@layout/job_item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/_10sdp"

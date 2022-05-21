@@ -4,12 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class BusinessAd implements Serializable {
-    private String status, id, mainImage, title, enLocation, arLocation, price, postedDate, description, lat, lng, categoryId, categoryArName, categoryEnName, otherCategoryNAme, subCategoryId, subCategoryArName, subCategoryEnName, otherSubCategoryNAme, userId, phoneNumber, isFav;
+    private String status, id, agentId, mainImage, title, enLocation, arLocation, price, postedDate, description, lat, lng, categoryId, categoryArName, categoryEnName, otherCategoryNAme, subCategoryId, subCategoryArName, subCategoryEnName, otherSubCategoryNAme, userId, phoneNumber, isFav;
     private ArrayList<Picture> pictures;;
 
     public BusinessAd() {
         status = "";
         this.id = "";
+        this.agentId = "";
         this.mainImage = "";
         this.title = "";
         this.enLocation = "";
@@ -216,5 +217,13 @@ public class BusinessAd implements Serializable {
 
     public void setOtherSubCategoryNAme(String otherSubCategoryNAme) {
         this.otherSubCategoryNAme = otherSubCategoryNAme;
+    }
+
+    public String getAgentId() {
+        return agentId;
+    }
+
+    public void setAgentId(String agentId) {
+        this.agentId = agentId;
     }
 }

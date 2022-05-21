@@ -49,12 +49,15 @@ public class InitialExportCarFragment extends Fragment {
     MainActivity mainActivity;
     MaterialButton continueBtn;
     EditText motorTitleEdt, otherBrandEdt, otherModelEdt, otherTrimEdt, yearEdt;
-    TextView motorsAdTitle, motorsAdYear;
     Spinner brandsSpinner, modelsSpinner, trimsSpinner;
     ArrayList<String> brandArTitles, brandEnTitles, brandIds = new ArrayList<>(), modelArTitles, modelEnTitles, trimArTitles, trimEnTitles, years;
-    String currentBrand = "", currentModel = "", currentTrim = "", currentYear = "";
+    String brandCurrent = "", currentBrand = "", currentModel = "", currentTrim = "", currentYear = "";
     int thisYear;
     boolean spinner1 = false, spinner2 = false, spinner3 = false;
+
+    //Ad sample
+    TextView motorsAdTitle, motorsAdYear;
+    String brand = "", model = "";
 
     public InitialExportCarFragment() {
         // Required empty public constructor
@@ -96,8 +99,8 @@ public class InitialExportCarFragment extends Fragment {
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
         sellItem = view.findViewById(R.id.sell_item);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
 
         continueBtn = view.findViewById(R.id.continue_btn);
         motorTitleEdt = view.findViewById(R.id.motor_title_edt);
@@ -153,7 +156,8 @@ public class InitialExportCarFragment extends Fragment {
             }
 
         });
-        motorTitleEdt.addTextChangedListener(new TextWatcher() {
+
+        yearEdt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -161,13 +165,67 @@ public class InitialExportCarFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                motorsAdTitle.setText(String.valueOf(motorTitleEdt.getText()));
+                motorsAdYear.setText(yearEdt.getText());
+                motorsAdTitle.setText(brand+", "+model+", "+ yearEdt.getText());
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+
             }
         });
+
+        otherBrandEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                brand = String.valueOf(otherBrandEdt.getText());
+                motorsAdTitle.setText(brand+", "+model+", "+ yearEdt.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        otherModelEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                model = String.valueOf(motorTitleEdt.getText());
+                motorsAdTitle.setText(brand+", "+model+", "+ yearEdt.getText());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+//        motorTitleEdt.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                motorsAdTitle.setText(String.valueOf(motorTitleEdt.getText()));
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//            }
+//        });
 
     }
 
@@ -184,6 +242,7 @@ public class InitialExportCarFragment extends Fragment {
                 }
                 if (i==0){
                     currentBrand = "-1";
+                    motorsAdTitle.setText(mainActivity.getResources().getString(R.string.ad_title));
                 }else {
                     if (brandEnTitles.size() == 1){
                         otherBrandEdt.setVisibility(View.VISIBLE);
@@ -194,7 +253,13 @@ public class InitialExportCarFragment extends Fragment {
                     }else {
                         otherBrandEdt.setVisibility(View.GONE);
                         currentBrand = brandIds.get(i);
-
+                        if (AppDefs.language.equals("ar")){
+                            brand = brandArTitles.get(i);
+                        }else {
+                            brand = brandEnTitles.get(i);
+                        }
+                        brandCurrent = brandEnTitles.get(i)+"-"+brandArTitles.get(i);
+                        motorsAdTitle.setText(brand+", "+model+", "+ yearEdt.getText());
                     }
                 }
                 getModels();
@@ -218,6 +283,7 @@ public class InitialExportCarFragment extends Fragment {
                 }
                 if (i == 0){
                     currentModel = "-1";
+//                    motorsAdTitle.setText(mainActivity.getResources().getString(R.string.ad_title));
                 }else {
                     if (modelEnTitles.size() == 1){
                         otherModelEdt.setVisibility(View.VISIBLE);
@@ -228,7 +294,12 @@ public class InitialExportCarFragment extends Fragment {
                     }else {
                         otherModelEdt.setVisibility(View.GONE);
                         currentModel = modelEnTitles.get(i)+"-"+modelArTitles.get(i);
-
+                        if (AppDefs.language.equals("ar")){
+                            model = modelArTitles.get(i);
+                        }else {
+                            model = modelEnTitles.get(i);
+                        }
+                        motorsAdTitle.setText(brand+", "+model+", "+ yearEdt.getText());
                     }
                 }
                 getTrims();
@@ -390,19 +461,20 @@ public class InitialExportCarFragment extends Fragment {
     private void setData(String title, String otherBrand, String otherModel, String otherTrim){
         Send.addUsedCarsAd.setTitle(title);
         Send.addUsedCarsAd.setCategoryId("8");
-        Send.addUsedCarsAd.setBrand(currentBrand);
+        Send.addUsedCarsAd.setBrand(brandCurrent);
         Send.addUsedCarsAd.setOtherBrand(otherBrand);
         Send.addUsedCarsAd.setModel(currentModel);
         Send.addUsedCarsAd.setOtherModel(otherModel);
         Send.addUsedCarsAd.setTrim(currentTrim);
         Send.addUsedCarsAd.setOtherTrim(otherTrim);
         Send.addUsedCarsAd.setYear(currentYear);
+        Send.exportTitle = String.valueOf(motorsAdTitle.getText());
         navController.navigate(InitialExportCarFragmentDirections.actionInitialExportCarFragmentToFullExportCarFragment());
     }
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

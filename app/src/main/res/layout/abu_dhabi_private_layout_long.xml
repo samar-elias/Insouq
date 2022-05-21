@@ -41,7 +41,7 @@
         android:fontFamily="@font/ginummernschild"
         android:gravity="center"
         android:maxLength="5"
-        android:text="00000"
+        android:text="0000000"
         android:textColor="@color/black"
         android:textSize="@dimen/_40ssp"
         app:layout_constraintBottom_toBottomOf="@id/plate_image"

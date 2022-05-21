@@ -3,11 +3,12 @@ package com.hudhud.insouqapplication.AppUtils.Responses;
 import java.io.Serializable;
 
 public class NumberAd implements Serializable {
-    private String status, id, enMobilePlan, arMobilePlan, userId, description, arOperator, title, lat, lng, enLocation, arLocation, postDate, price, arEmirate, arPlateType, emirate, plateType, plateCode, category, number, operator, code, phoneNumber, isFav;
+    private String status, id, agentId, enMobilePlan, arMobilePlan, userId, description, arOperator, title, lat, lng, enLocation, arLocation, postDate, price, arEmirate, arPlateType, emirate, plateType, plateCode, category, number, operator, code, phoneNumber, isFav;
 
     public NumberAd() {
         status = "";
         this.id = "";
+        this.agentId = "";
         this.title = "";
         this.enLocation = "";
         this.arLocation = "";
@@ -231,5 +232,13 @@ public class NumberAd implements Serializable {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getAgentId() {
+        return agentId;
+    }
+
+    public void setAgentId(String agentId) {
+        this.agentId = agentId;
     }
 }

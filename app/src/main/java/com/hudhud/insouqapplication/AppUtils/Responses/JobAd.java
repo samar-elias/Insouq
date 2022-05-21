@@ -1,7 +1,7 @@
 package com.hudhud.insouqapplication.AppUtils.Responses;
 
 public class JobAd {
-    private String status, id, title, description, enLocation, arLocation, lat, lng, postedDate, categoryId, categoryArName, categoryEnName, userId, arJobType, enJobType, otherJobType,
+    private String status, id, agentId, title, description, enLocation, arLocation, lat, lng, postedDate, categoryId, categoryArName, categoryEnName, userId, arJobType, enJobType, otherJobType,
             phoneNumber, cv, enGender, arGender, enNationality, arNationality, enCurrentLocation, arCurrentLocation, enEducationalLevel, arEducationalLevel, currentPosition,
             enWorkExperience, arWorkExperience, enCommitment, arCommitment, enNoticePeriod, arNoticePeriod, arVisaStatus, enVisaStatus, enCareerLevel, arCareerLevel, expectedSalary,
             arEmploymentType, enEmploymentType, enMinWorkExperience, arMinWorkExperience, enMinEducationalLevel, arMinEducationalLevel, companyName, userImage, jobTitle, isFav;
@@ -10,6 +10,7 @@ public class JobAd {
     public JobAd() {
         status = "";
         this.id = "";
+        this.agentId = "";
         this.title = "";
         this.description = "";
         this.enLocation = "";
@@ -72,6 +73,14 @@ public class JobAd {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getAgentId() {
+        return agentId;
+    }
+
+    public void setAgentId(String agentId) {
+        this.agentId = agentId;
     }
 
     public String getTitle() {

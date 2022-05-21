@@ -68,8 +68,8 @@ public class HowItWorksFragment extends Fragment {
         navController = Navigation.findNavController(view);
         home = view.findViewById(R.id.home);
         chat = view.findViewById(R.id.chat);
-        profile = view.findViewById(R.id.notification);
-        list = view.findViewById(R.id.profile);
+        profile = view.findViewById(R.id.profile);
+        list = view.findViewById(R.id.notification);
         sellItem = view.findViewById(R.id.sell_item);
         backToPrevious = view.findViewById(R.id.back_arrow);
 //        videoBG = view.findViewById(R.id.video);
@@ -103,7 +103,7 @@ public class HowItWorksFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }

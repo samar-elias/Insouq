@@ -21,8 +21,10 @@ import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.button.MaterialButton;
 import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Responses.Notification;
@@ -50,7 +52,7 @@ public class NotificationsFragment extends Fragment {
     RecyclerView notificationsRV;
     ImageView home, profile, chat, sellItem, notifications;
     ArrayList<Notification> notificationsArray;
-
+    RequestQueue queue ;
 
     public NotificationsFragment() {
         // Required empty public constructor
@@ -86,6 +88,7 @@ public class NotificationsFragment extends Fragment {
 
     private void initViews(View view){
         navController = Navigation.findNavController(view);
+        queue =  Volley.newRequestQueue(mainActivity);
         backToPrevious = view.findViewById(R.id.back_arrow);
         filterNotifications = view.findViewById(R.id.filter_notifications);
         filterNotificationLayout = view.findViewById(R.id.notification_filter_layout);
@@ -136,7 +139,7 @@ public class NotificationsFragment extends Fragment {
 
     private void startActivity(String fragName){
         Intent intent = new Intent(mainActivity, MainActivity.class);
-        intent.putExtra("fragName", fragName);
+        MainActivity.fragName = fragName;
         startActivity(intent);
         mainActivity.finish();
     }
@@ -175,7 +178,7 @@ public class NotificationsFragment extends Fragment {
                 return params;
             }
         };
-        mainActivity.queue.add(notificationsRequest);
+        queue.add(notificationsRequest);
     }
 
     public void deleteNotification(String adId){

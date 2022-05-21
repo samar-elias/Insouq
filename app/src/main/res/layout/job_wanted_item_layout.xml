@@ -28,7 +28,7 @@
             android:id="@+id/job_position"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Job position"
+            android:text="@string/job_type"
             android:textAlignment="viewStart"
             android:ellipsize="end"
             android:maxLines="1"
@@ -91,7 +91,7 @@
         android:maxLines="1"
         android:textColor="@color/purple_text"
         android:fontFamily="@font/objectivity_medium"
-        android:textSize="@dimen/_11ssp"/>
+        android:textSize="@dimen/_10ssp"/>
 
     <ImageView
         android:id="@+id/salary_icon"
@@ -106,8 +106,9 @@
 
     <TextView
         android:id="@+id/job_experience"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/salary_icon"
         app:layout_constraintStart_toEndOf="@id/salary_icon"
         app:layout_constraintBottom_toBottomOf="@id/salary_icon"
@@ -118,7 +119,7 @@
         android:maxLines="1"
         android:textColor="@color/purple_text"
         android:fontFamily="@font/objectivity_medium"
-        android:textSize="@dimen/_11ssp"/>
+        android:textSize="@dimen/_10ssp"/>
 
     <ImageView
         android:id="@+id/icon"
@@ -144,7 +145,7 @@
         android:maxLines="1"
         android:textColor="@color/purple_text"
         android:fontFamily="@font/objectivity_medium"
-        android:textSize="@dimen/_11ssp"/>
+        android:textSize="@dimen/_10ssp"/>
 
     <TextView
         android:id="@+id/posted_date"

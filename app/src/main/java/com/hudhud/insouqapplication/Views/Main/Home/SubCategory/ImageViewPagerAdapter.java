@@ -23,6 +23,7 @@ public class ImageViewPagerAdapter extends PagerAdapter {
     private final ArrayList<Picture> contents;
     private final MainActivity mainActivity;
 
+
     public ImageViewPagerAdapter(ArrayList<Picture> pictures, MainActivity mainActivity) {
         this.contents = pictures;
         this.mainActivity = mainActivity;
@@ -53,8 +54,12 @@ public class ImageViewPagerAdapter extends PagerAdapter {
         Picture pic = contents.get(position);
 
         ImageView image = view.findViewById(R.id.slider_image);
+        ImageView shadow = view.findViewById(R.id.shadow);
 
         String newPic = pic.getImageURL().replace("\\", "/");
+
+        image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        shadow.setVisibility(View.GONE);
 
         Glide.with(mainActivity).load(Urls.IMAGE_URL+newPic).into(image);
 

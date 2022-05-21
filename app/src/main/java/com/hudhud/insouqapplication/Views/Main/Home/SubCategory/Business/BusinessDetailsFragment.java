@@ -10,11 +10,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +36,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,9 +47,11 @@ import com.hudhud.insouqapplication.AppUtils.Helpers.FirebaseManger;
 import com.hudhud.insouqapplication.AppUtils.Responses.Chats;
 import com.hudhud.insouqapplication.AppUtils.Responses.Message;
 import com.hudhud.insouqapplication.AppUtils.Responses.New;
+import com.hudhud.insouqapplication.AppUtils.Responses.Picture;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
 import com.hudhud.insouqapplication.R;
 import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.MakeOfferBottomSheetDialogFragment;
+import com.hudhud.insouqapplication.Views.Main.Home.SubCategory.Motors.MotorsImageViewPagerAdapter;
 import com.hudhud.insouqapplication.Views.Main.MainActivity;
 
 import org.json.JSONArray;
@@ -63,7 +68,7 @@ import java.util.Map;
 public class BusinessDetailsFragment extends Fragment {
 
     RecyclerView businessRV;
-    ImageView home, profile, chat, sellItem, notifications;
+    ImageView home, profile, chat, sellItem, notifications, close;
     NavController navController;
     public MainActivity mainActivity;
     int position;
@@ -73,6 +78,9 @@ public class BusinessDetailsFragment extends Fragment {
     String key;
     String chatId = "";
     public RequestQueue queue;
+    ConstraintLayout viewPagerLayout;
+    ViewPager viewPager;
+    TabLayout tabLayout;
 
     public BusinessDetailsFragment() {
         // Required empty public constructor
@@ -130,6 +138,10 @@ public class BusinessDetailsFragment extends Fragment {
         sellItem = view.findViewById(R.id.sell_item);
         profile = view.findViewById(R.id.profile);
         notifications = view.findViewById(R.id.notification);
+        viewPagerLayout = view.findViewById(R.id.view_pager_layout);
+        viewPager = view.findViewById(R.id.viewPager2);
+        tabLayout = view.findViewById(R.id.tabDots2);
+        close = view.findViewById(R.id.close);
 
         businessRV = view.findViewById(R.id.business_RV);
 
@@ -183,6 +195,7 @@ public class BusinessDetailsFragment extends Fragment {
         sellItem.setOnClickListener(view -> startActivity("sellItem"));
         profile.setOnClickListener(view -> startActivity("profile"));
         notifications.setOnClickListener(view -> startActivity("notifications"));
+        close.setOnClickListener(view -> viewPagerLayout.setVisibility(View.GONE));
 
 //        favourite.setOnClickListener(view -> {
 //            if (!fav){
@@ -328,11 +341,9 @@ public class BusinessDetailsFragment extends Fragment {
     }
 
     public void sendSMS(String phone) {
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse("smsto:"));
-        i.setType("vnd.android-dir/mms-sms");
-        i.putExtra("address", phone);
-        startActivity(Intent.createChooser(i, "Send sms via:"));
+        Uri uri = Uri.parse("smsto:"+phone);
+        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+        startActivity(intent);
     }
 
     private void setSpecifications() {
@@ -652,5 +663,13 @@ public class BusinessDetailsFragment extends Fragment {
 
     }
 
-
+    public void initSlider(ArrayList<Picture> pictures){
+        viewPagerLayout.setVisibility(View.VISIBLE);
+        viewPager.setVisibility(View.VISIBLE);
+        tabLayout.setupWithViewPager(viewPager, true);
+        BusinessImageViewPagerAdapter mAdapter = new BusinessImageViewPagerAdapter(pictures, mainActivity, this, false);
+        mAdapter.notifyDataSetChanged();
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.setAdapter(mAdapter);
+    }
 }

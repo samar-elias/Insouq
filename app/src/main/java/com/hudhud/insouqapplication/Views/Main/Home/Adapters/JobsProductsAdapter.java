@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.card.MaterialCardView;
+import com.hudhud.insouqapplication.AppUtils.AppDefs.AppDefs;
 import com.hudhud.insouqapplication.AppUtils.Responses.JobAd;
 import com.hudhud.insouqapplication.AppUtils.Responses.NewAd;
 import com.hudhud.insouqapplication.AppUtils.Urls.Urls;
@@ -48,14 +49,30 @@ public class JobsProductsAdapter extends RecyclerView.Adapter<JobsProductsAdapte
         if (newAd.getEnJobType().equals("null")){
             holder.title.setText(newAd.getOtherJobType());
         }else {
-            holder.title.setText(newAd.getEnJobType());
+            if (AppDefs.language.equals("ar")){
+                holder.title.setText(newAd.getArJobType());
+            }else {
+                holder.title.setText(newAd.getEnJobType());
+            }
         }
         Glide.with(context).load(R.drawable.job_logo).into(holder.image);
-        holder.loc.setText(newAd.getEnLocation());
-        if (newAd.getEnWorkExperience().equals("null")){
-            holder.price.setText(newAd.getEnMinWorkExperience());
+        if (AppDefs.language.equals("ar")){
+            holder.loc.setText(newAd.getArLocation());
         }else {
-            holder.price.setText(newAd.getEnWorkExperience());
+            holder.loc.setText(newAd.getEnLocation());
+        }
+        if (newAd.getEnWorkExperience().equals("null")){
+            if (AppDefs.language.equals("ar")){
+                holder.price.setText(newAd.getArMinWorkExperience());
+            }else {
+                holder.price.setText(newAd.getEnMinWorkExperience());
+            }
+        }else {
+            if (AppDefs.language.equals("ar")){
+                holder.price.setText(newAd.getArWorkExperience());
+            }else {
+                holder.price.setText(newAd.getEnWorkExperience());
+            }
         }
 
         holder.item.setOnClickListener(view -> {
