@@ -525,7 +525,7 @@ public class BusinessDetailsFragment extends Fragment {
                 JSONObject userObject = new JSONObject(response);
                 firstName = userObject.getString("firstName");
                 lastName = userObject.getString("lastName");
-                //hideInfo=userObject.getBoolean("");
+                hideInfo=userObject.getBoolean("hideInformation");
 
                 String newPic = "https://insouq.com" + userObject.getString("profilePicture").replace("\\", "/");
 
@@ -539,7 +539,7 @@ public class BusinessDetailsFragment extends Fragment {
                 }
                 Message message = new Message(anew);
                 Chats chats1 = new Chats(adId, 0, 0, Integer.valueOf(AppDefs.user.getId()), message,
-                        "", true, "", key, userId, true, image, 1, "5", description, title, price, imageProfile, firstName, lastName,String.valueOf(AppDefs.user.getFirstName()+" "+AppDefs.user.getLastName()));
+                        "", true, "", key, userId, true, image, 1, "5", description, title, price, imageProfile, firstName, lastName,String.valueOf(AppDefs.user.getFirstName()+" "+AppDefs.user.getLastName()),hideInfo);
 
 
                 firebaseManger.getDatabaseReference().child(Constant.Chats).child(key).setValue(chats1);
@@ -565,7 +565,7 @@ public class BusinessDetailsFragment extends Fragment {
     }
 
     public void checkAds(Integer adId, Integer userId, String image, String description, String title, String price, String type) {
-        StringRequest getUser = new StringRequest(Request.Method.GET, Urls.GetChatsByAdId + "?AdId=" + Integer.valueOf(adId), response -> {
+        StringRequest getUser = new StringRequest(Request.Method.GET, Urls.GetChatsByAdId + "?AdId=" + Integer.valueOf(AppDefs.user.getId()), response -> {
             try {
                 JSONObject userObject = new JSONObject(response);
                 JSONArray x = userObject.getJSONArray("results");
@@ -606,7 +606,7 @@ public class BusinessDetailsFragment extends Fragment {
 
                 Log.d("myadd", userObject.toString());
 
-                //navToChat();
+               navToChat();
 
 
             } catch (JSONException e) {

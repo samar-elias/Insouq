@@ -81,10 +81,25 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
             holder.checked.setVisibility(View.GONE);
         }
         if(chat.getOwnerUserId().equals(Integer.valueOf(AppDefs.user.getId()))) {
-            holder.dec.setText(chat.getCasomerUserName());
+            if (chat.getHideInformation() ==  true){
+                String str=chat.getCasomerUserName();
+                char first = str.charAt(0);
+                holder.dec.setText(first+"***");
+
+            }else {
+                holder.dec.setText(chat.getCasomerUserName());
+            }
+
 
         }else {
-            holder.dec.setText(chat.getFirstName()+" "+chat.getLastName());
+            if (chat.getHideInformation() ==  true){
+                String str=chat.getFirstName()+" "+chat.getLastName();
+                char first = str.charAt(0);
+                holder.dec.setText(first+"***");
+
+            }else {
+                holder.dec.setText(chat.getFirstName()+" "+chat.getLastName());
+            }
         }
 
 
@@ -106,12 +121,13 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
         Date date = null;
         try {
             date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(originalString);
+            String newstr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+            String timeAgo=covertTimeToText(newstr);
+            holder.time.setText(String.valueOf(timeAgo));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String newstr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
-        String timeAgo=covertTimeToText(newstr);
-        holder.time.setText(String.valueOf(timeAgo));
+
 
         String newPic = chat.getAdMainImage().replace("\\", "/");
         Glide.with(context).load(Urls.IMAGE_URL+newPic).into(holder.image);
@@ -139,22 +155,15 @@ public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ViewHo
                 intent.putExtra("chatId", chat.getChatId());
                 intent.putExtra("adsId",String.valueOf(chat.getAdId()));
                 intent.putExtra("type",String.valueOf(chat.getType()));
-
-
-
                 //intent.putParcelableArrayListExtra("Message",  user.getMessage());
-                 intent.putExtra("image", chat.getAdMainImage());
+                intent.putExtra("image", chat.getAdMainImage());
                 intent.putExtra("firstName",chat.getFirstName()+" "+chat.getLastName());
                 intent.putExtra("userImage",chat.getUserImage());
                 intent.putExtra("castomer_name",chat.getCasomerUserName());
-
-
                 intent.putExtra("description",chat.getDescription());
                 intent.putExtra("title",chat.getTitle());
                 intent.putExtra("price",chat.getPrice());
-
               //  intent.putExtra("OwnerUserId", user.getOwnerUserId());
-
                 context.startActivity(intent);
 
 
