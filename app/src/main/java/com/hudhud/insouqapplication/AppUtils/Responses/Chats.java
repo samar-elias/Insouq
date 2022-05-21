@@ -23,12 +23,13 @@ public class Chats {
     private String firstName;
     private String lastName;
     private String casomerUserName;
+    private Boolean hideInformation;
 
     public Chats() {
     }
 
     public Chats(Integer AdId, Integer WhoArchive, Integer WhoBlock, Integer CustumerUserId, Message message, String LastUpdate, Boolean isLiveForCustamer, String lastMessage, String chatId, Integer OwnerUserId, Boolean isLiveForOwner, String AdMainImage,
-                 Integer status, String type, String description, String title, String price, String userImage, String firstName, String lastName, String casomerUserName) {
+                 Integer status, String type, String description, String title, String price, String userImage, String firstName, String lastName, String casomerUserName,Boolean hideInformation) {
         this.AdId = AdId;
         this.WhoArchive = WhoArchive;
         this.WhoBlock = WhoBlock;
@@ -50,6 +51,7 @@ public class Chats {
         this.firstName=firstName;
         this.lastName=lastName;
         this.casomerUserName=casomerUserName;
+        this.hideInformation=hideInformation;
 
 
     }
@@ -221,5 +223,13 @@ public class Chats {
 
     public void setCasomerUserName(String casomerUserName) {
         this.casomerUserName = casomerUserName;
+    }
+
+    public Boolean getHideInformation() {
+        return hideInformation;
+    }
+
+    public void setHideInformation(Boolean hideInformation) {
+        this.hideInformation = hideInformation;
     }
 }
